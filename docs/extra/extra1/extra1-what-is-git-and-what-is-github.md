@@ -1,74 +1,74 @@
-# 扩展知识 1 - 什么是 Git 和 GitHub
+# Extra 1 - What is Git and GitHub
 
-在之前的课程中，我们学习了如何使用基于 Web 的 vibe coding 工具编写代码。每次对话都会创建一个新版本的代码。但是，让我们思考一个问题：如果我们想恢复到之前的修改，有没有方便的方法？有没有一种工具可以记录我们在不同阶段的代码，使我们能够随时在不同版本之间切换和修改？
+In previous lessons, we learned how to write code using web-based vibe coding tools. Every conversation creates a new version of the code. But let's think about a question: If we want to revert to a previous modification, is there a convenient way? Is there a tool that can record our code at different stages, allowing us to switch and modify between different versions at any time?
 
-为了满足这一需求，版本控制软件应运而生。在这篇文章中，我们将介绍最著名的版本控制程序——Git——以及最好的代码托管平台——GitHub。我们将学习如何使用 Git 进行代码管理，如何从 GitHub 获取他人的代码，如何上传我们自己的代码，以及如何与他人合作进行大型项目。
+To meet this need, version control software was born. In this article, we will introduce the most famous version control program—Git—and the best code hosting platform—GitHub. We will learn how to use Git for code management, how to get others' code from GitHub, how to upload our own code, and how to collaborate with others on large projects.
 
-无论是个人项目的版本跟踪，团队协作中的代码同步，还是为开源社区做贡献，Git 和 GitHub 都是现代开发者的必备工具。通过掌握它们，你将能够更高效地管理代码，根据需要创建检查点，在代码的不同阶段之间自由切换，并轻松处理从单个文件更改到开发大型项目的所有事务——使每一次代码迭代都可控且可追溯。
+Whether it's version tracking for personal projects, code synchronization in team collaboration, or contributing to the open-source community, Git and GitHub are essential tools for modern developers. By mastering them, you will be able to manage code more efficiently, create checkpoints as needed, switch freely between different stages of code, and easily handle everything from single file changes to developing large projects—making every code iteration controllable and traceable.
 
-# 什么是 Git
+# What is Git
 
-Git 是由 Linux 内核开发者 Linus Torvalds 于 2005 年创建的分布式版本控制系统。其核心功能是跟踪文件的修改历史，允许开发者随时查看和回滚到以前的版本，并在与他人协作时高效地合并更改。
+Git is a distributed version control system created in 2005 by Linux kernel developer Linus Torvalds. Its core function is to track the modification history of files, allowing developers to view and roll back to previous versions at any time, and efficiently merge changes when collaborating with others.
 
 ![](images/image1.png)
 
-与早期的集中式版本控制系统相比，Git 的“分布式”特性允许每个开发者的本地设备存储代码仓库的完整历史记录。大多数操作（如提交、回滚和分支管理）都可以在不依赖中央服务器的情况下执行，这使得 Git 更灵活，更适合大规模协作和离线工作。
+Compared to early centralized version control systems, Git's "distributed" nature allows each developer's local device to store the full history of the code repository. Most operations (such as commits, rollbacks, and branch management) can be performed without depending on a central server, making Git more flexible and suitable for large-scale collaboration and offline work.
 
-> 💡 在操作 Git 之前，让我们先了解一下什么是终端。
+> 💡 Before operating Git, let's first understand what a terminal is.
 >
-> ## 什么是终端？
+> ## What is a Terminal?
 >
-> 终端本质上是一个基于文本的“计算机接入点”。在早期，图形界面（没有图标，没有鼠标点击）出现之前，用户只能通过键入文本命令与计算机交互。这种方法代代相传，成为了我们要介绍的今天的终端。
+> A terminal is essentially a text-based "computer access point." In the early days, before graphical interfaces (no icons, no mouse clicks) appeared, users could only interact with computers by typing text commands. This method has been passed down through generations and has become the terminal we are introducing today.
 >
-> 它不依赖花哨的界面，纯粹通过“命令 + 反馈”工作。这使其成为人机交互最基本和直接的方法之一。
+> It doesn't rely on fancy interfaces and works purely through "command + feedback." This makes it one of the most basic and direct methods of human-computer interaction.
 >
-> 不同系统的终端有所不同。在 Windows 上，常见的是“命令提示符 (cmd)”和“PowerShell”。你可以通过在计算机的运行/搜索框中输入“cmd”或“powershell”来启动这些命令行程序。
+> Terminals vary across different systems. On Windows, common ones are "Command Prompt (cmd)" and "PowerShell." You can launch these command-line programs by typing "cmd" or "powershell" in your computer's run/search box.
 >
 > ![](images/image2.png)
 >
 > ![](images/image3.png)
 >
-> 前者是一个较旧的工具，仅支持基本命令，如查看文件和复制，适合简单任务。后者是一个更高级的版本，可以处理复杂的操作，如进程管理和远程控制，并且还兼容 cmd 命令——使其在开发或系统管理场景中更常用。macOS 和 Linux 都默认带有“终端”，它们的命令逻辑相似，源自 Unix（贝尔实验室工程师在 20 世纪 60 年代末开发的经典计算机系统）。
+> The former is an older tool that only supports basic commands like viewing files and copying, suitable for simple tasks. The latter is a more advanced version that can handle complex operations like process management and remote control, and is also compatible with cmd commands—making it more commonly used in development or system administration scenarios. macOS and Linux both come with "Terminal" by default, and their command logic is similar, originating from Unix (a classic computer system developed by Bell Labs engineers in the late 1960s).
 >
-> 终端在今天仍然至关重要，因为它的效率和广泛的兼容性。例如，一条命令可以批量重命名文件，比用鼠标重复点击快得多。此外，本地服务器、云服务器和专业开发环境通常没有图形界面，因此终端操作是必要的。许多任务，如安装各种程序（如 Git、Python、系统工具或开发依赖项）、运行代码、管理计算机进程和配置系统参数，也需要终端命令。
+> Terminals remain crucial today because of their efficiency and wide compatibility. For example, a single command can batch rename files, which is much faster than repeatedly clicking with a mouse. Additionally, local servers, cloud servers, and professional development environments often don't have graphical interfaces, making terminal operation necessary. Many tasks, such as installing various programs (like Git, Python, system tools, or development dependencies), running code, managing computer processes, and configuring system parameters, also require terminal commands.
 >
-> 你可能会想，如果记不住所有那些终端命令该怎么办。事实上，随着大语言模型的快速发展，不再需要像以前那样死记硬背了。现在，你只需要在需要时询问模型（例如“如何用 Git 获取远程代码？”或“如何通过命令行删除文件夹或批量创建文件夹？”），然后从回复中复制有用的命令即可。
+> You might wonder what to do if you can't remember all those terminal commands. In fact, with the rapid development of large language models, there's no longer a need for rote memorization as before. Now, you just need to ask the model when needed (e.g., "How to use Git to get remote code?" or "How to delete a folder or batch create folders via command line?"), and then copy the useful commands from the reply.
 >
 > ![](images/image4.png)
 
-## 如何安装 Git
+## How to Install Git
 
-我们将演示在不同计算机操作系统上安装 Git 的三种方法。请根据你的系统版本按照说明进行操作：
+We will demonstrate three methods for installing Git on different computer operating systems. Please follow the instructions based on your system version:
 
 ### Windows
 
-1. 前往 [Git 官方下载页面](https://git-scm.com/download/win) 并下载适合你系统的安装程序：[安装包](https://github.com/git-for-windows/git/releases/download/v2.51.0.windows.1/Git-2.51.0-64-bit.exe)。默认情况下，推荐使用 x64 安装程序。
-2. 双击安装程序并按照安装向导说明进行操作：
+1. Go to the [Git official download page](https://git-scm.com/download/win) and download the installer suitable for your system: [Installation Package](https://github.com/git-for-windows/git/releases/download/v2.51.0.windows.1/Git-2.51.0-64-bit.exe). By default, the x64 installer is recommended.
+2. Double-click the installer and follow the installation wizard instructions:
   ![](images/image5.png)
 
-   1. 建议保持默认选项。如果你需要自定义，请注意以下几点：（在大多数情况下，你可以一直点击“Next”）
-      * 选择 Git 使用的默认编辑器：选择你喜欢的编辑器（如 VS Code）。你可以默认选择第一个选项，即 Vim（一个文本编辑器），或选择“Visual Studio Code as Git's default editor”选项（需要预先安装 VS Code）。你可以保持默认选择并点击“Next”继续。
+   1. It is recommended to keep the default options. If you need to customize, please note the following points: (In most cases, you can just click "Next" all the way)
+      * Select the default editor used by Git: Choose your preferred editor (such as VS Code). You can default to the first option, Vim (a text editor), or select the "Visual Studio Code as Git's default editor" option (requires VS Code to be pre-installed). You can keep the default selection and click "Next" to continue.
        ![](images/image6.png)
-      * 选择如何使用 Git：这三个选项控制 Git 在系统中的可访问性。建议选择选项 2（“from command line and 3rd-party software”）——它将基本的 Git 工具添加到 PATH 中，让你可以在 Git Bash、命令提示符、PowerShell 和 IDE 中使用 Git，而不会使系统混乱。
+      * Choose how to use Git: These three options control Git's accessibility in the system. It's recommended to choose option 2 ("from command line and 3rd-party software")—it adds basic Git tools to the PATH, allowing you to use Git in Git Bash, Command Prompt, PowerShell, and IDEs without cluttering your system.
        ![](images/image7.png)
-3. 安装后，在桌面上右键单击。如果在菜单中看到“Git Bash Here”，则安装成功。
+3. After installation, right-click on the desktop. If you see "Git Bash Here" in the menu, the installation was successful.
 
 ![](images/image8.png)
 
 ### MacOS
 
-对于 macOS，你可以首先在终端中输入 `git --version` 来检查是否已经安装了 Git。如果没有，系统会提示你安装——只需按照说明完成安装即可。
+For macOS, you can first check if Git is already installed by typing `git --version` in the terminal. If not, the system will prompt you to install it—just follow the instructions to complete the installation.
 
-1. 方法 1：通过 Homebrew 安装
-   如果你安装了 [Homebrew](https://brew.sh/)（Mac 包管理器），请打开终端并输入
+1. Method 1: Install via Homebrew
+   If you have [Homebrew](https://brew.sh/) (a Mac package manager) installed, open the terminal and type:
    ```Bash
    brew install git
    ```
-2. 方法 2：（推荐）通过 Xcode 安装： https://developer.apple.com/xcode/ ，Xcode 内置了 Git。安装后，只需按照说明继续操作。
+2. Method 2: (Recommended) Install via Xcode: https://developer.apple.com/xcode/, which has Git built-in. After installation, just follow the instructions to proceed.
 
 ### Linux
 
-大多数 Linux 发行版可以通过其包管理器安装 Git：
+Most Linux distributions can install Git through their package managers:
 
 * Ubuntu/Debian:
 
@@ -83,197 +83,196 @@ sudo apt install git
 sudo yum install git
 ```
 
-* 验证安装：在终端中输入 git --version。如果显示版本号，则安装成功。
+* Verify Installation: Type `git --version` in the terminal. If a version number is displayed, the installation was successful.
 
-## Git 初始化
+## Git Initialization
 
-安装 Git 后，你首先需要配置你的用户信息——这是使用 Git 进行版本控制的基本步骤。在终端中执行以下命令（将括号中的内容替换为你自己的信息）：
+After installing Git, you first need to configure your user information—this is a basic step for version control using Git. Execute the following commands in the terminal (replace the content in brackets with your own information):
 
 ```Bash
-# 设置全局用户名（将显示在提交记录中）
+# Set global username (will be displayed in commit records)
 git config --global user.name "Your Name"
 
-# 设置全局邮箱（建议使用在 GitHub/GitLab 等平台上注册的邮箱）
+# Set global email (recommended to use the email registered on platforms like GitHub/GitLab)
 git config --global user.email "your.email@example.com"
 ```
 
-Git 会将此信息嵌入到每个提交记录中，作为每次修改的“作者信息”。查看版本历史记录（例如，使用 git log）时，你可以清楚地看到谁修改了每一行代码，便于追溯责任和沟通。在协作项目中，统一的身份信息使团队成员能够快速识别谁做了哪些更改，从而提高协作效率（例如通过提交记录找到相关开发人员讨论问题）。
+Git will embed this information into every commit record as the "author information" for each modification. When viewing version history (e.g., using `git log`), you can clearly see who modified each line of code, making it easy to trace responsibility and communicate. In collaborative projects, unified identity information allows team members to quickly identify who made which changes, thereby improving collaboration efficiency (e.g., finding the relevant developer via commit records to discuss issues).
 
-你可以通过在命令行中输入 `git config --list` 来查看当前的 Git 配置信息，以确认设置成功。
+You can check the current Git configuration information by typing `git config --list` in the command line to confirm the settings were successful.
 
-# 什么是 GitHub
+# What is GitHub
 
-GitHub 是一个基于 Git 的代码托管平台。它不仅为 Git 仓库提供远程存储，还包括协作工具（如 Issues、Pull Requests、Projects），使开发者更容易分享代码和协作。简而言之，Git 是一个本地版本控制工具，而 GitHub 是一个远程“代码仓库云盘 + 协作社区”。
+GitHub is a code hosting platform based on Git. It not only provides remote storage for Git repositories but also includes collaboration tools (such as Issues, Pull Requests, Projects), making it easier for developers to share code and collaborate. In short, Git is a local version control tool, while GitHub is a remote "code repository cloud drive + collaboration community."
 
-GitHub 不仅是世界上最大的代码托管平台，也是全球最活跃、最具影响力的开源社区。这里“开源”的核心思想是任何人都可以下载并运行软件的源代码。这种模式允许世界各地的人们检查彼此的代码并进行修改，或基于此创建新项目。例如，你可以在 GitHub 上找到各种学习教程以及用于训练 GPT 模型的框架（如 PyTorch）的完整源代码。每天，无数人在全球范围内协作审查和改进代码。
+GitHub is not only the world's largest code hosting platform but also the most active and influential open-source community globally. The core idea of "open source" here is that anyone can download and run the software's source code. This model allows people from all over the world to check each other's code and make modifications, or create new projects based on it. For example, you can find various learning tutorials and the full source code for frameworks used to train GPT models (such as PyTorch) on GitHub. Every day, countless people collaborate globally to review and improve code.
 
 ![](images/image9.png)
 
-许多大公司在 GitHub 上开源他们的程序或教程，以获得行业竞争优势——这也可以看作是一种广告形式。在 GitHub 社区中，项目获得的“星标 (stars)”数量是衡量其价值的主要指标；项目或组织拥有的星标越多，其可信度和影响力就越大。
+Many large companies open-source their programs or tutorials on GitHub to gain an industry competitive advantage—this can also be seen as a form of advertising. In the GitHub community, the number of "stars" a project receives is a primary measure of its value; the more stars a project or organization has, the greater its credibility and influence.
 
 ![](images/image10.png)
 
-在我们的课程中，支持资源和作业也将上传到专用的 GitHub 仓库。通过上传作业的过程，你将逐渐熟悉并掌握 GitHub 的使用，为未来应用程序开发中的版本控制打下坚实的基础。
+In our course, support resources and assignments will also be uploaded to a dedicated GitHub repository. Through the process of uploading assignments, you will gradually become familiar with and master the use of GitHub, laying a solid foundation for version control in future application development.
 
-## 注册 GitHub 账号
+## Registering a GitHub Account
 
-1. 访问 [GitHub 官网](https://github.com/) 并点击右上角的“Sign up”。
+1. Visit the [GitHub official website](https://github.com/) and click "Sign up" in the top right corner.
   ![](images/image11.png)
-2. 输入你的电子邮件地址（建议使用常用邮箱，因为验证和通知将发送到那里），设置密码（必须包含字母、数字和特殊字符）。
-3. 完成人工验证，按照提示验证邮箱，你的账号就创建好了。
+2. Enter your email address (recommended to use a commonly used one, as verification and notifications will be sent there), and set a password (must contain letters, numbers, and special characters).
+3. Complete the human verification, follow the prompts to verify your email, and your account will be created.
 
-## 在 GitHub 上创建你的第一个仓库
+## Creating Your First Repository on GitHub
 
-接下来，我们将创建第一个存储文件夹，也称为仓库或“repo”。
+Next, we will create the first storage folder, also known as a repository or "repo."
 
 ![](images/image12.png)![](images/image13.png)
 
 ![](images/image14.png)
 
-1. Repository name：向他人显示的仓库名称。
-2. Description：仓库的详细描述。
-3. Choose visibility：对于个人仓库，如果设置为 private，只有你和特别邀请的人可以看到。如果设置为 public，所有人都可以看到。
-   对于组织内的仓库，如果是 Private，只有组织内的人可以看到。
-   如果是 Public，组织外的人也可以看到。
-4. README：通常的惯例是每个仓库都应该有一个 README 文件。你可以把它看作是仓库的完整介绍，包括使用说明、文件列表和操作方法。
-5. Add .gitignore and license：
-   1. .gitignore 文件告诉 Git 在上传到 GitHub 时忽略某些文件夹或文件，因此它们不会被跟踪或添加到暂存区。这对于临时测试文件、依赖包或大文件很有用。一旦指定，这些文件将不再被跟踪。
-   2. license 指的是你选择的开源许可证类型。不同的许可证详细规定了他人是否可以将你的代码用于商业目的，并包含其他条款和条件。
+1. **Repository name:** The name of the repository displayed to others.
+2. **Description:** A detailed description of the repository.
+3. **Choose visibility:** For personal repositories, if set to **private**, only you and specifically invited people can see it. If set to **public**, everyone can see it.
+   For repositories within an organization, if **Private**, only people within the organization can see it. If **Public**, people outside the organization can also see it.
+4. **README:** It's common practice for every repository to have a README file. You can think of it as a complete introduction to the repository, including usage instructions, file lists, and operation methods.
+5. **Add .gitignore and license:**
+   1. **.gitignore** file tells Git to ignore certain folders or files when uploading to GitHub, so they won't be tracked or added to the staging area. This is useful for temporary test files, dependency packages, or large files. Once specified, these files will no longer be tracked.
+   2. **license** refers to the type of open-source license you choose. Different licenses detail whether others can use your code for commercial purposes and include other terms and conditions.
 
-建议勾选“Add README”，将仓库可见性设置为“Private”，并根据自己的喜好填写仓库名称和描述，然后点击“Create repository”完成创建第一个远程仓库。
+It's recommended to check "Add a README file," set the repository visibility to "Private," fill in the repository name and description according to your preference, and then click "Create repository" to finish creating your first remote repository.
 
 ![](images/image15.png)
 
-之后，你将拥有一个没有任何额外文件的干净仓库。接下来你可以开始上传文件了。
+After that, you will have a clean repository without any extra files. You can then start uploading files.
 
 ![](images/image16.png)
 
-获取仓库的命令是 `git clone`，但它需要仓库地址。你可以通过点击绿色的“Code”按钮找到仓库地址，你会看到 HTTPS 和 SSH 选项。通常，你可以使用这两种方法中的任何一种将仓库下载到本地机器（只有这样你才能修改和上传文件）。
+The command to get the repository is `git clone`, but it requires the repository address. You can find the repository address by clicking the green "Code" button, where you will see HTTPS and SSH options. Usually, you can use either of these two methods to download the repository to your local machine (only then can you modify and upload files).
 
 ![](images/image17.png)
 
-一般来说，通过 HTTP 克隆的仓库适合临时下载和测试他人的仓库，但不建议用于自己的开发。为了更好的学习体验，你应该先设置 SSH 认证。
+In general, repositories cloned via HTTPS are suitable for temporary downloading and testing others' repositories, but not recommended for your own development. For a better learning experience, you should set up SSH authentication first.
 
-## 绑定本地 SSH
+## Binding Local SSH
 
-在 GitHub 中，“SSH 协议绑定”本质上意味着将你本地设备的 SSH 公钥与你的 GitHub 账号关联，允许 GitHub 通过 SSH 协议识别你的设备。这使你能够安全地操作远程仓库，而无需密码（如 clone、push 或 pull 代码）。
+In GitHub, "SSH protocol binding" essentially means associating your local device's SSH public key with your GitHub account, allowing GitHub to identify your device via the SSH protocol. This enables you to safely operate remote repositories without a password (such as clone, push, or pull code).
 
-简单来说：这就像给你的设备一张“GitHub 专属门禁卡”。绑定后，当你的设备通过 SSH 协议访问 GitHub 仓库时，GitHub 会验证这张“门禁卡”（你的 SSH 公钥）。一旦确认为你的授权设备，你就可以直接操作——不需要每次都输入账号密码。
+Simply put: it's like giving your device a "GitHub-exclusive access card." Once bound, when your device accesses a GitHub repository via the SSH protocol, GitHub will verify this "access card" (your SSH public key). Once confirmed as your authorized device, you can operate directly—no need to enter your username and password every time.
 
-> 💡 什么是 SSH
+> 💡 What is SSH?
+>
+> ### Why is SSH protocol binding needed?
+>
+> GitHub supports two main protocols for repository operations: HTTPS protocol and SSH protocol:
+>
+> * **HTTPS protocol:** Every operation (such as `push`) requires entering your GitHub username and password (or Personal Access Token PAT). The verification process is tedious, and there's a risk of password leakage.
+> * **SSH protocol:** Authentication is done via "key pairs," so there's no need to repeatedly enter passwords, and encrypted transmission is more secure.
+>
+> "SSH protocol binding" is a prerequisite step for enabling GitHub SSH authentication—only after "binding" the local SSH public key to your GitHub account can GitHub recognize your device and allow SSH operations on repositories.
+>
+> ### The Core Logic of "Binding": The Role of SSH Key Pairs
+>
+> SSH authentication relies on key pairs (public key + private key), which are matching encrypted files. Once generated, you need to provide the "public key" to GitHub ("binding"), while the "private key" stays on your local device:
+>
+> 1. **Private Key:** Stored in a designated directory on your local device (e.g., computer) (usually `~/.ssh/`), acting as "your exclusive key" that must never be shared with anyone.
+> 2. **Public Key:** This is a "lock" that can be shared publicly—you need to copy it into the "SSH keys list" of your GitHub account ("binding" operation).
+>
+> When you operate on a GitHub repository via SSH (e.g., `git push git@github.com:xxx/xxx.git`):
+>
+> * Your local device uses the private key to encrypt the "operation request" and sends it to GitHub;
+> * Upon receiving the request, GitHub tries to decrypt it using the public key you previously bound;
+> * If decryption is successful, your device is confirmed as authorized, and the operation is allowed; otherwise, access is denied.
+>
+> ### Specific Steps for "Binding" (Core Workflow)
+>
+> Once you understand the principle, the actual operation is simple—the core is "Generate key pair → Upload public key to GitHub":
+>
+> 1. **Generate SSH Key Pair Locally**
+>    1. **Use Trae to get the public key (Recommended)**
+>       Prompt: `Help me create the SSH key needed for GitHub login. My email is your_email@gmail.com. Please return the public key for me to copy.`
+>
+>      ![](images/image18.png)
+>
+>       After entering the prompt, you also need to press Enter in the terminal on the left; otherwise, the command will wait indefinitely. Since Trae cannot perform any conditional judgments for you, we just need to keep pressing Enter.
+>
+>       Finally, you will see the public key read by Trae returned on the right. Just copy it and get ready to paste it in the next step.
+>
+>      ![](images/image19.png)
+>    2. **Manually get the public key**
+>       Open your local terminal (Git Bash or PowerShell on Windows; Terminal on macOS/Linux), and type the following command (replace `your_email@example.com` with the email you used when registering your GitHub account):
+>
+>       ```Bash
+>       ssh-keygen -t ed25519 -C "your_email@example.com"
+>       ```
+>
+>       1. Press Enter to accept the default values (default file path, no passphrase, or set a passphrase if needed). This will generate two files in the `~/.ssh/` directory:
+>          * `id_ed25519`: Private key (saved locally, **never shared**);
+>          * `id_ed25519.pub`: Public key (needs to be uploaded to GitHub).
+> 2. **"Bind" the Public Key to Your GitHub Account**
+>
+> This is the core binding step—adding the local public key to the "SSH keys list" of your GitHub account:
+>
+> 1. **Copy the public key content:**
+>    1. **Trae:** (If you used the Trae method above)
+>    2. **Windows:** Open `C:\Users\<your_username>\.ssh\id_ed25519.pub` with Notepad and copy all its content;
+>    3. **macOS/Linux:** Run `cat ~/.ssh/id_ed25519.pub` in the terminal and copy all the output (from the beginning `ssh-ed25519` to the end email).
+> 2. **Log in to GitHub and go to the "SSH Key Management" page:**
+>    1. Click on your avatar in the top right corner → **Settings** → Left menu **SSH and GPG keys** → Click **New SSH key**.
+>      ![](images/image20.png)![](images/image21.png)
+>    2. Enter any title (e.g., "Your Local Computer's SSH"), then paste the SSH public key you just obtained here.
+>
+> ![](images/image22.png)
+>
+> ![](images/image23.png)
+>
+> 3. **Verify if the binding was successful**
+>
+> Type the following command in the terminal (**Trae can also do this**) to test if GitHub can recognize your device:
+>
+> ```Bash
+> ssh -T git@github.com
+> ```
+>
+> * If you see something like `Hi [your GitHub username]! You've successfully authenticated...`, it means you have successfully bound the key;
+> * If you encounter an error, it's usually because the public key was not copied completely, the private key permissions are too high (your local `~/.ssh/` directory should only be readable/writable by you), etc. Check these issues as needed.
+>
+> ### Important Notes
+>
+> If you have multiple devices (e.g., a laptop and a desktop), you need to generate a separate SSH key pair for each device and bind each public key to the same GitHub account—each device has its own "access card."
+>
+> Never share your private key (don't upload it to GitHub or share it with others), otherwise, someone could impersonate you and operate your repositories. If the private key is leaked, immediately delete the corresponding public key from GitHub and generate a new key pair.
+>
+> After binding SSH, use the SSH-formatted repository address (e.g., `git@github.com:username/repository.git`) for operations, instead of the HTTPS format (e.g., `https://github.com/username/repository.git`). If you previously cloned a repository using HTTPS, you can switch protocols with `git remote set-url origin <new_ssh_url>`.
 
-### 为什么需要 SSH 协议绑定？
+# GitHub Operations Using Trae
 
-GitHub 支持两种主要的仓库操作协议：HTTPS 协议和 SSH 协议：
+We've explained what Git is, what GitHub is, what SSH is, and how to configure it. Now you can freely use Trae to perform Git operations. First, let's learn how to clone a remote repository to your local machine.
 
-* HTTPS 协议：每次操作（如 push）都需要输入 GitHub 账号密码（或个人访问令牌 PAT）。验证过程繁琐，且存在密码泄露风险。
-* SSH 协议：身份验证通过“密钥对”完成，因此不需要重复输入密码，且加密传输更加安全。
+## Git Clone: Download an Existing Repository
 
-“SSH 协议绑定”是启用 GitHub SSH 认证的前提步骤——只有将本地 SSH 公钥“绑定”到 GitHub 账号后，GitHub 才能识别你的设备并允许对仓库进行 SSH 操作。
-
-### “绑定”的核心逻辑：SSH 密钥对的作用
-
-SSH 认证依赖于密钥对（公钥 + 私钥），它们是匹配的加密文件。生成后，你需要将“公钥”提供给 GitHub（“绑定”），而“私钥”留在本地设备上：
-
-1. 私钥：存储在本地设备（如电脑）的指定目录中（通常是 ~/.ssh/），充当“你的专属钥匙”，绝不能与任何人分享。
-2. 公钥：这是一把可以公开分享的“锁”——你需要将其复制到 GitHub 账号的“SSH keys list”中（“绑定”操作）。
-
-当你通过 SSH 操作 GitHub 仓库时（例如 git push git@github.com:xxx/xxx.git）：
-
-* 你的本地设备使用私钥加密“操作请求”并发送给 GitHub；
-* 收到请求后，GitHub 尝试使用你之前绑定的公钥进行解密；
-* 如果解密成功，你的设备被确认为已授权，操作被允许；否则，访问被拒绝。
-
-### “绑定”的具体步骤（核心流程）
-
-一旦你理解了原理，实际操作就很简单——核心是“生成密钥对 → 上传公钥到 GitHub”：
-
-1. 本地生成 SSH 密钥对
-   1. 使用 Trae 获取公钥（推荐）
-      提示词：`Help me create the SSH key needed for GitHub login. My email is your_email@gmail.com , Please return the public key for me to copy`
-
-     ![](images/image18.png)
-
-      输入提示词后，你还需要在左侧终端按 Enter 键，否则命令会一直等待而不执行。由于 Trae 无法帮你执行任何条件判断，我们只需要一直按 Enter 即可。
-
-      最后，你会看到右侧的 Trae 返回了它读取的公钥。你只需复制它并准备在下一步中粘贴。
-
-     ![](images/image19.png)
-   2. 手动获取公钥
-      打开你的本地终端（在 Windows 上使用 Git Bash 或 PowerShell；在 macOS/Linux 上使用终端），输入以下命令（将 your_email@example.com 替换为你注册 GitHub 账号时使用的邮箱）：
-
-      ```Bash
-      ssh-keygen -t ed25519 -C "your_email@example.com"
-      ```
-
-      1. 按 Enter 接受默认值（默认文件路径，无密码，或根据需要设置密码）。这将在 ~/.ssh/ 目录中生成两个文件：
-         * id_ed25519：私钥（本地保存，**绝不分享**）；
-         * id_ed25519.pub：公钥（需要上传到 GitHub）。
-2. 将公钥“绑定”到你的 GitHub 账号
-
-这是核心绑定步骤——将本地公钥添加到 GitHub 账号的“SSH keys list”中：
-
-1. 复制公钥内容：
-   1. Trae：
-   2. Windows：用记事本打开 C:\Users\<your>\.ssh\id_ed25519.pub 并复制其所有内容；
-   3. macOS/Linux：在终端运行 cat ~/.ssh/id_ed25519.pub 并复制所有输出（从开头的 SSH-ed25519 到结尾的邮箱）。
-2. 登录 GitHub 并进入“SSH Key Management”页面：
-   1. 点击右上角头像 → Settings → 左侧菜单 SSH and GPG keys → 点击 New SSH key。
-     ![](images/image20.png)![](images/image21.png)
-   2. 输入任何标题（例如，your local computer's SSH），然后将你刚刚获取的 SSH 公钥粘贴到这里。
-
-![](images/image22.png)
-
-![](images/image23.png)
-
-3. 验证绑定是否成功
-
-在终端中输入以下命令（**Trae 也可以做以下操作**）来测试 GitHub 是否能识别你的设备：
-
-```Bash
-ssh -T git@github.com
-```
-
-* 如果你看到类似 Hi [your GitHub username]! You've successfully authenticated... 的内容，说明你已成功绑定密钥；
-* 如果遇到错误，通常是因为公钥复制不完整、私钥权限过高（你的本地 ~/.ssh/ 目录应仅由你读写）等。根据需要检查这些问题。
-
-### 重要注意事项
-
-如果你有多个设备（如笔记本电脑和台式机），你需要为每个设备生成单独的 SSH 密钥对，并将每个公钥绑定到同一个 GitHub 账号——每个设备都有自己的“门禁卡”。
-
-切勿分享你的私钥（不要上传到 GitHub 或与他人分享），否则有人可能会冒充你操作你的仓库。如果私钥泄露，请立即从 GitHub 删除相应的公钥并生成新的密钥对。
-
-绑定 SSH 后，使用 SSH 格式的仓库地址（例如 git@github.com:username/repository.git）进行操作，而不是 HTTPS 格式（例如 https://github.com/username/repository.git）。如果你之前用 HTTPS 克隆了仓库，可以用 git remote set-url origin `<new>` 切换协议。
-
-# 使用 Trae 进行 GitHub 操作
-
-我们已经解释了什么是 Git，什么是 GitHub，什么是 SSH，以及如何配置它。现在你可以自由使用 Trae 执行 Git 操作。首先，让我们学习如何将远程仓库克隆到本地机器。
-
-## Git clone : 下载现有仓库
-
-你可以直接告诉它你想克隆的仓库地址
+You can directly tell it the address of the repository you want to clone.
 
 ![](images/image24.png)
 
-## Git pull : 从远程仓库获取更新
+## Git Pull: Get Updates from a Remote Repository
 
-每次更新仓库之前，由于它可能由多人维护，你需要先拉取最新的更改。之后，你可以修改并推送文件。
+Before each update to the repository, as it might be maintained by multiple people, you need to pull the latest changes first. After that, you can modify and push files.
 
-**记得包含文件夹名称及其相对或绝对路径，以避免推送到错误的仓库。**
+**Remember to include the folder name and its relative or absolute path to avoid pushing to the wrong repository.**
 
-prompt:`Help me pull this repository AIID-TEST in ./AIID-TEST.`
+Prompt: `Help me pull this repository AIID-TEST in ./AIID-TEST.`
 
-## Git commit & Git push : 暂存更新并推送到 GitHub
+## Git Commit & Git Push: Stage Updates and Push to GitHub
 
-一切准备就绪后，你可以尝试修改本地文件，在文件夹中添加或删除项目。然后，让 Trae 检测更改并帮你推送到 GitHub。
+Once everything is ready, you can try modifying local files, or adding or deleting items in the folder. Then, let Trae detect the changes and help you push them to GitHub.
 
-prompt:`I finished. Commit and push to the repository AIID-TEST in ./AIID-TEST.`
+Prompt: `I'm finished. Commit and push to the repository AIID-TEST in ./AIID-TEST.`
 
 ![](images/image25.png)
 
-推送成功。现在你可以在 GitHub 上看到更新的内容了。
+Push successful. Now you can see the updated content on GitHub.
 
-# 参考资料
+# References
 
-* Pro Git book https://git-scm.com/book/en/v2
-* GitHub Docs https://docs.github.com/en
+* Pro Git book: https://git-scm.com/book/en/v2
+* GitHub Docs: https://docs.github.com/en

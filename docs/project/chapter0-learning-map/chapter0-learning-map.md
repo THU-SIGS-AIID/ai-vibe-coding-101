@@ -1,57 +1,57 @@
-# 从创意到 AI 产品
+# From Ideas to AI Products
 
-我们目前正经历着由大语言模型（LLMs）驱动的 AI 技术应用的爆炸式浪潮。与过去 AI 开发严重依赖算法研究不同，现在行业的重点已转移到有效利用现有的强大 AI 模型来创建有价值的应用程序。这一转变显着降低了 AI 开发的门槛，将重心从“从头构建模型”转移到了“将 AI 能力封装成现实世界的解决方案”。
+We are currently experiencing an explosive wave of AI technology applications driven by Large Language Models (LLMs). Unlike in the past, where AI development relied heavily on algorithmic research, the industry's focus has now shifted to effectively leveraging existing powerful AI models to create valuable applications. This shift has significantly lowered the barrier to AI development, moving the focus from "building models from scratch" to "encapsulating AI capabilities into real-world solutions."
 
-对于大多数初学者和开发者来说，今天最大的机会不在于发明新算法，而在于学习如何有效地调用、编排和工程化 AI 功能，以满足特定的市场和用户需求。
+For most beginners and developers, the greatest opportunity today lies not in inventing new algorithms, but in learning how to effectively call, orchestrate, and engineer AI functions to meet specific market and user needs.
 
-尽管有了这种转变，许多学习者发现，掌握与 AI 交互或生成内容的技能只是一个起点。一个普遍存在的挑战仍然存在：如何实现从“AI 用户”到“AI 应用创造者”的跨越。关键问题包括：如何将分散的 AI 功能集成到自动化工作流中？如何为 AI 应用程序构建健壮可靠的前端和后端，并将它们在线部署？如何跨越从开发到实际运营的关键“最后一公里”？
+Despite this shift, many learners find that mastering the skills to interact with AI or generate content is just a starting point. A pervasive challenge remains: how to bridge the gap from "AI user" to "AI application creator." Key questions include: How to integrate scattered AI functions into automated workflows? How to build robust and reliable front-ends and back-ends for AI applications and deploy them online? How to cross the critical "last mile" from development to actual operation?
 
-本课程正是为了解决这些关键障碍而设计的。它不拘泥于抽象理论，而是致力于 AI 原生应用开发的端到端实践培训。
+This course is designed to address these critical obstacles. It does not dwell on abstract theories but is dedicated to end-to-end practical training in AI-native application development.
 
-# 为什么要学这个？它将如何帮助我的未来？
+# Why Learn This? How Will It Help My Future?
 
-本课程侧重于 AI 原生应用的实际开发和创新思维的培养，专为初级水平的学生量身定制。通过理论指导和动手实践相结合，学生将逐步掌握 AI 应用开发必不可少的核心方法和创新途径：
+This course focuses on the practical development of AI-native applications and the cultivation of innovative thinking, tailored specifically for beginner-level students. Through a combination of theoretical guidance and hands-on practice, students will gradually master the essential core methods and innovative approaches for AI application development:
 
-* **基本掌握多模态 AI 模型的应用方法和适用场景：**
-  * 能够使用 vibe coding 工具调用主流多模态理解和生成模型 API（涵盖文本、图像、视频、音频等）。
-  * 能够分析不同模型的能力边界，并根据特定应用场景适当地选择模型。
-* **能够利用和分析前沿 AI 产品：**
-  * 能够研究和分析行业内各种最先进的 AI 产品（基于文本、图像、视频），学习分析产品构建背后的技术原理，并了解竞争对手使用的常见实现方法。
-* **基本理解和实践不同的 AI 应用框架和核心工作流：**
-  * **知识库与 AI 工作流：** 了解知识库构建的基础知识，并开发使用它们的基础和中级技能，以及设计、实施和优化 AI 工作流的能力。
-  * **智能体 (Agent)：** 了解智能体的原理，并获得智能体开发和应用的初步实践经验。
-  * **图像生成和编辑：** 掌握图像生成和编辑工作流中的入门级和高级技术。
-* **AI 原生应用开发和运营的实践经验：**
-  * 学习使用先进的 AI 编码工具；了解前端和后端数据库的作用；并能够独立开发和部署 AI 应用程序（APP / Web 应用程序）。
-  * 了解用户管理和支付等核心功能模块的实现方法。
-  * 获得用户研究、产品推广和应用分享的基本技能；同时，通过与企业合作或独立运营，开始探索 AI 应用的价值创造闭环。
+* **Master the basic application methods and applicable scenarios of multi-modal AI models:**
+  * Be able to use vibe coding tools to call mainstream multi-modal understanding and generation model APIs (covering text, image, video, audio, etc.).
+  * Be able to analyze the capability boundaries of different models and appropriately select models based on specific application scenarios.
+* **Be able to utilize and analyze cutting-edge AI products:**
+  * Be able to research and analyze various state-of-the-art AI products in the industry (based on text, image, video), learn to analyze the technical principles behind product construction, and understand common implementation methods used by competitors.
+* **Basic understanding and practice of different AI application frameworks and core workflows:**
+  * **Knowledge Base & AI Workflow:** Understand the basics of knowledge base construction and develop basic and intermediate skills in using them, as well as the ability to design, implement, and optimize AI workflows.
+  * **Agents:** Understand the principles of agents and gain initial practical experience in agent development and application.
+  * **Image Generation and Editing:** Master introductory and advanced techniques in image generation and editing workflows.
+* **Practical experience in AI-native application development and operation:**
+  * Learn to use advanced AI coding tools; understand the roles of front-end and back-end databases; and be able to independently develop and deploy AI applications (APP / Web applications).
+  * Understand the implementation methods of core functional modules such as user management and payment.
+  * Gain basic skills in user research, product promotion, and application sharing; at the same time, start exploring the value creation closed loop of AI applications through cooperation with enterprises or independent operation.
 
-# 为什么要用项目制来训练？
+# Why Use Project-Based Training?
 
-原因其实很简单：按照大多数同学现在的状态，直接走入职场，很可能会在真实项目和老板 / 客户的“社会毒打”下寸步难行。现实世界更常见的场景是：
+The reason is simple: given the current state of most students, entering the workplace directly would likely lead to difficulties under the pressure of real projects and bosses/clients. A more common scenario in the real world is:
 
-> 你的导师 / 老板：我们要做一个 xxx，目标是达到 yyy 的效果。
+> Your mentor / boss: We need to build xxx, aiming for the effect of yyy.
 >
-> 文档？现成框架？详细的需求说明？很多时候都不存在。
+> Documentation? Ready-made frameworks? Detailed requirement specifications? Many times, they don't exist.
 
-真实工作中的许多任务，本质上就是在高度不确定的环境下解决从未见过的问题：需求是模糊的，边界是变化的，没人告诉你标准答案，你需要自己查资料、做实验、搭原型、不断迭代，最后给出一个“能跑、能用、能上线”的解决方案。
+Many tasks in real work are essentially solving never-before-seen problems in highly uncertain environments: requirements are vague, boundaries are changing, no one tells you the standard answer, and you need to look up information, do experiments, build prototypes, iterate continuously, and finally provide a "runnable, usable, and deployable" solution.
 
-这门课想做的，就是在一个相对安全的环境里，提前给你一次“模拟社会毒打”：
+What this course aims to do is to give you a "simulated real-world experience" in a relatively safe environment:
 
-- 通过看似有一定难度的项目任务，迫使你练习拆解问题、设计方案、自己寻找资料
-- 通过不那么“傻瓜化”的脚手架和代码，让你学会阅读、理解和改造一份中大型代码库
-- 通过从创意到上线的完整闭环，让你体验真实产品从 0 到 1 的完整过程
+- Through seemingly challenging project tasks, force you to practice decomposing problems, designing solutions, and finding information on your own.
+- Through not-so-"dummy-proof" scaffolding and code, let you learn to read, understand, and transform a medium-to-large codebase.
+- Through a complete closed loop from idea to launch, let you experience the full 0 to 1 process of a real product.
 
-短期来看，这种训练确实比较折磨人；但从长期来看，它会极大提高你在求职和职业发展中的竞争力：你会更能扛事儿，更能在不确定环境中找到突破口，也更有能力把 AI 变成真正落地的产品，而不是停留在“玩玩 Demo”阶段。
+In the short term, this training is indeed quite demanding; but in the long term, it will greatly enhance your competitiveness in job seeking and career development: you will be more capable of handling tasks, more able to find breakthroughs in uncertain environments, and more capable of turning AI into truly landed products rather than staying at the "playing with demos" stage.
 
-# 坚持了好久还是搞不定，我想放弃了
+# I've Been Persistent for a Long Time but Still Can't Get It Done, I Want to Give Up
 
-也许是你坚持的方法不对。不要一个人在黑暗中硬撑，可以来跟作者和助教们聊聊：把你已经尝试过的方法、遇到的具体卡点、和你目前的心理状态，坦诚地说出来。很多时候，只要稍微调整一下方向、补上一个关键知识点，你就能继续往前走。
+Maybe the method you're sticking to is wrong. Don't struggle alone in the dark; come and talk to the authors and teaching assistants: honestly state the methods you've tried, the specific sticking points you've encountered, and your current mental state. Many times, just a slight adjustment in direction or filling in a key knowledge point can help you move forward.
 
-# 我觉得教程有的设计不合理
+# I Think Some Designs of the Tutorial are Unreasonable
 
-欢迎随时联系作者、提交 issue，或者在群里 / 课堂上直接反馈。我们非常希望和你一起把这套教程打磨得越来越好：哪里不清晰、哪里体验不好、哪里让你白费力气，都可以坦诚指出来。越真实、越具体的反馈，越能帮助后来者少踩坑。
+Feel free to contact the author, submit an issue, or provide feedback directly in the group or in class. We very much hope to work with you to polish this tutorial and make it better and better: let us know honestly where it's unclear, where the experience is not good, or where it's making you waste effort. The more real and specific the feedback, the more it helps newcomers avoid pitfalls.
 
 # Reference
 
-- [南京大学 计算机科学与技术系 计算机系统基础 课程实验](https://nju-projectn.github.io/ics-pa-gitbook/ics2025/)
+- [Nanjing University Department of Computer Science and Technology Computer System Fundamentals Course Experiments](https://nju-projectn.github.io/ics-pa-gitbook/ics2025/)

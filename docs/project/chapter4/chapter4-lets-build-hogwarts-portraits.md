@@ -1,59 +1,59 @@
-# Project 4: 一起做霍格沃茨画像
+# Project 4: Let's Build Hogwarts Portraits
 
-在之前的课程中，我们已经学会如何基于 prompt engineering 和 API 调用从而实现更复杂的 AI 交互。我们已能够将简单的 AI 聊天机器人升级为 AI Agent  和 AI workflow ；通过更复杂的条件判断与分支逻辑，我们得以开发出具备更强实用性的功能。
+In the previous lessons, we learned how to achieve complex AI interactions based on prompt engineering and API calls. We have been able to upgrade simple AI chatbots to AI Agents and AI workflows; through more complex conditional judgments and branch logic, we have developed functions with stronger practicality.
 
-为了让这些复杂的 AI 逻辑能更好地运行在不同的程序和实际应用场景中，我们从最简单的 z.ai 在线环境，逐步过渡到更现代的本地 AI IDE，把原本在浏览器里的编程环境搬到了你的电脑上。随之而来，你开始真正面对各种环境安装与配置问题，但在与 Trae Agent 的对话过程中，这些看似困难的挑战也变得可以解决。
+To allow these complex AI logics to run better in different programs and actual application scenarios, we have gradually transitioned from the simplest z.ai online environment to more modern local AI IDEs, moving the programming environment from the browser to your computer. Along with this, you have begun to truly face various environment installation and configuration problems, but in the conversation with the Trae Agent, these seemingly difficult challenges have also become solvable.
 
-在该项目中，我们将在应用的实用性上更进一步，不仅优化 AI 功能本身，还将开始打磨产品的“外在”。你将尝试让自己的界面更加美观易用，并根据实际需求，亲自定制程序界面的布局与风格。
+In this project, we will go a step further in the practicality of the application, not only optimizing the AI function itself but also starting to polish the "exterior" of the product. You will try to make your interface more beautiful and easy to use, and personally customize the layout and style of the program interface according to actual needs.
 
-正式开始之前，先用几道小测验帮你快速回顾上一节课的内容：
+Before officially starting, use a few small tests to help you quickly review the content of the last lesson:
 
-1. 什么是 Dify？它是做什么的？为什么我们需要它？
-2. 如何调用 Dify 的 API ？
-3. 什么是 RAG？如何使用 Dify 构建一个 RAG Agent 或 RAG 工作流？Dify 常见节点的使用方式
-4. 什么是 AI IDE？什么是 Trae？它和 z.ai 有什么区别？
+1. What is Dify? What does it do? Why do we need it?
+2. How to call Dify's API?
+3. What is RAG? How to use Dify to build a RAG Agent or RAG workflow? Common node usage in Dify.
+4. What is an AI IDE? What is Trae? How is it different from z.ai?
 
-如果对以上任何一个问题还有疑惑，可以先回顾上一节课的文档，或者直接在微信群里提问交流。
+If you still have doubts about any of the above questions, you can review the documentation of the last lesson first, or directly ask and exchange in the WeChat group.
 
-本节课的项目主题是  **Hogwarts Portraits** 。顾名思义，它的灵感来自霍格沃茨魔法学校里那些会“活过来”的画像。我们希望用 AI 打造一组“能互动”的魔法画像体验——和画像对话就像在和“本人”对话一样，既保留对话的记忆，又具备角色的背景与历史。通过这个项目，你将把之前学到的智能体与工作流真正融入到一个具体的产品界面中。
+The project theme of this lesson is **Hogwarts Portraits**. As the name suggests, its inspiration comes from those portraits that "come to life" in Hogwarts School of Witchcraft and Wizardry. We hope to use AI to create a group of "interactive" magic portrait experiences—talking to the portrait is like talking to the "person" themselves, retaining both conversation memory and the character's background and history. Through this project, you will truly integrate the agents and workflows you learned before into a specific product interface.
 
 ![](images/image1.png)
 
-为了真正打造出 Hogwarts Portraits，我们需要亲手搭建出符合魔法画像的前端界面。为此，你将开始接触现代前端设计工具，学习如何把界面设计和代码结合起来，把纸上或画布上的界面草图，变成真正可以操作的网页。
+To truly create Hogwarts Portraits, we need to manually build a front-end interface that fits the magic portraits. To this end, you will begin to come into contact with modern front-end design tools, learn how to combine interface design and code, and turn interface sketches on paper or canvas into truly operable web pages.
 
-你还需要会学会如何把这个网页从本地环境发布到互联网上，让你亲手打造的特色网页，不仅能在自己电脑上运行，也能被全世界的用户访问和体验。
+You also need to learn how to publish this web page from the local environment to the Internet, so that the characteristic web page you created yourself can not only run on your own computer but also be accessed and experienced by users all over the world.
 
-本节课的参考项目地址为：[Project4-Hogwarts-Portraits](https://github.com/THU-SIGS-AIID/Project4-Hogwarts-Portraits)
+The reference project address for this lesson is: [Project4-Hogwarts-Portraits](https://github.com/THU-SIGS-AIID/Project4-Hogwarts-Portraits)
 
-# 你将学到
+# What You Will Learn
 
-1. 了解什么是前端设计工具、它们解决什么问题，以及目前常见的前端设计工具有哪些。
-2. 认识 Figma 和 MasterGo，掌握它们的基础操作，并学会使用前端代码导出插件。
-3. 利用 Figma AI 和 MasterGo AI 生成网页设计，并导出可用的页面代码。
-4. 理解什么是 GitHub，学会配置 SSH 连接、创建代码仓库并完成代码推送。
-5. 弄清“部署”这一概念，学习如何使用 Zeabur，将代码从 GitHub 或本地环境部署到互联网上。
+1. Understand what front-end design tools are, what problems they solve, and what common front-end design tools are currently available.
+2. Get to know Figma and MasterGo, master their basic operations, and learn to use front-end code export plugins.
+3. Use Figma AI and MasterGo AI to generate web designs and export usable page code.
+4. Understand what GitHub is, learn to configure SSH connections, create code repositories, and complete code pushes.
+5. Clarify the concept of "deployment" and learn how to use Zeabur to deploy code from GitHub or a local environment to the Internet.
 
-属于自己的 Hogwarts Portraits，一个用于展示 **某位明星、历史人物或动画人物** 的网页界面。
+Your own Hogwarts Portraits, a web interface used to display **a certain celebrity, historical figure, or animated character**.
 
 # 1. Hogwarts Portraits
 
-我们到底想做一个什么样的“魔法画像”？简单来说，我们希望尽可能还原《哈利·波特》中的场景，画像不再只是挂在墙上的一张静态图片，而是一个可以和你对话、会根据谈话内容改变表情和“心情”的拟人化角色。
+What kind of "magic portrait" do we actually want to make? To put it simply, we hope to restore the scenes in "Harry Potter" as much as possible. The portrait is no longer just a static picture hanging on the wall, but an anthropomorphic character that can talk to you and change its expression and "mood" according to the content of the conversation.
 
 ![](images/image2.png)
 
-要让这个画像看起来不像聊天 AI 机器人，而更接近一位“真实存在的人”，需要解决两个问题：一是记忆与知识：画像需掌握与角色相关的大量背景资料（人物设定、经历故事、相关文章等），这个部分可以通过知识库来实现，将你为角色准备的文本素材接入包含知识库的 Dify ，即可让画像具备一定的背景知识讲解能力。
+To make this portrait look not like a chat AI robot but closer to a "real person," two problems need to be solved: one is memory and knowledge: the portrait needs to master a large amount of background information related to the character (character settings, experience stories, related articles, etc.). This part can be realized through a knowledge base, connecting the text materials you prepared for the character to Dify containing the knowledge base, so that the portrait has a certain background knowledge explanation ability.
 
-其二是表达风格的问题。仅有知识还不够，我们还希望它在说话方式上尽可能贴近“本人”，包括语气、用词习惯、思考方式，甚至偶尔的脾气和幽默感。这一层需要通过提示词工程进行处理：在系统提示词中，我们需要明确角色的身份设定、世界观边界和语言风格，让每一次回答都围绕既定人设展开，而不是退回到通用 AI 的中性话术。
+The second is the problem of expression style. Knowledge alone is not enough; we also hope that it is as close as possible to the "person" in terms of speaking style, including tone, word habits, thinking methods, and even occasional temper and humor. This layer needs to be processed through prompt engineering: in the system prompt, we need to clarify the character's identity setting, worldview boundary, and language style, so that every answer revolves around the established persona, rather than falling back to the neutral discourse of general AI.
 
-除了对话功能外，我们还希望让情绪能够真正被看见。为此我们可以构建一个情绪值指标，我们可以设定 Dify 的输出内容，让模型在生成回答文本的同时，额外输出一个“心情值”或情绪标签。当前端拿到情绪的指标后，就可以根据心情值或者标签渲染对应的画像图片。当心情值高，画像看起来很开心，当心情值低落时或者生气时，画像看起来很伤心或者愤怒。通过这种方式，用户看到的不再是一张永远不变的图，而是一个会随内容起伏不断“变化表情”真正的“魔法画像”。
+In addition to the dialogue function, we also hope to let the emotion truly be seen. To this end, we can build an emotion value index. We can set the output content of Dify so that the model outputs an additional "mood value" or emotion tag while generating the answer text. After the front-end gets the emotion index, it can render the corresponding portrait picture according to the mood value or tag. When the mood value is high, the portrait looks very happy; when the mood value is low or angry, the portrait looks very sad or angry. In this way, what users see is no longer a picture that never changes, but a true "magic portrait" that constantly "changes its expression" with the ups and downs of the content.
 
 ![](images/image3.png)
 
-此外，对于这个画像的内容，它可以是现实中的明星、历史人物，也可以是动漫 IP，甚至是你从零构建的原创角色。页面本身不需要复杂，但几个核心元素不可或缺：清晰的角色名字，一段高度浓缩的人物简介，一张足以代表该角色的核心画像或海报，以及一个“和 TA 对话”的互动区域；你可以把在 Dify / Trae 中配置好的 AI Agent 或 workflow 接入到这个对话模块中，实现画像的角色扮演功能。
+In addition, for the content of this portrait, it can be a real-life star, a historical figure, or an animation IP, or even an original character you built from scratch. The page itself does not need to be complex, but several core elements are indispensable: a clear character name, a highly condensed character introduction, a core portrait or poster enough to represent the character, and an interactive area for "talking with TA"; you can connect the AI Agent or workflow configured in Dify / Trae to this dialogue module to realize the role-playing function of the portrait.
 
-## 1.2 收集角色信息
+## 1.2 Collect Character Information
 
-以 Elon musk 为例，我们需要收集他的公开发言用于模仿说话方式，注入提示词。这些素材可以来自于演讲、访谈、社交媒体发言，你只需要把这些内容变成文字，在对话期间作为 few shot 的参考，让大模型用与 Elon musk 同样随意、自嘲的方式进行回复即可，例如：
+Taking Elon Musk as an example, we need to collect his public speeches for imitating the way of speaking and inject them into the prompts. These materials can come from speeches, interviews, and social media posts. You only need to turn these contents into text and use them as a few-shot reference during the conversation, so that the large model can reply in the same casual and self-deprecating way as Elon Musk, for example:
 
 ```Plain
 You must fully embody Elon Musk: take "disruptive innovator" and "advocate for human multi-planetary survival" as your core identities, speak directly and concisely, frequently use terms like "first principles", "iteration" and "cost curve", and prefer analogies to explain complex technologies; when thinking, you tend to connect cross-domain logics (e.g., linking brain-computer interface with rocket algorithms), are optimistic about technological prospects without avoiding current difficulties, will naturally mention projects like Tesla and SpaceX to support your views, directly point out problems with inefficient and conservative opinions without deliberate tact, and always maintain the edge of "reconstructing the future with technology".
@@ -70,340 +70,336 @@ Earth is ~4.5B years old with an expanding sun that may make Earth uninhabitable
 It’s just a model, which is a big file of numbers. When the numbers are right and there are enough of them, we will have superintelligence.
 ```
 
-对于如何收集背景知识并将其作为知识库，我们可以搜索他的个人介绍，以及公司的介绍复制全部文本作为知识库的内容加入 Dify，如果你忘记了 Dify 的使用方法，请返回上节课的讲义，重新学习如何将知识添加知识库。
+For how to collect background knowledge and use it as a knowledge base, we can search for his personal introduction and the company's introduction, copy all the text as the content of the knowledge base, and add it to Dify. If you forget how to use Dify, please return to the handouts of the last lesson and re-learn how to add knowledge to the knowledge base.
 
-此外，考虑到画像设计，使用对应人物公开的图片也许并非那么吸引人，并且可能存在一定风险。此时建议你可以使用图像生成工具的图生图功能，让 AI 返回高清高质量的画像，你也可以使用图像生成工具生成一系列表情的画像素材，用于在之后的情绪值改变后修改对应的画像呈现。
+In addition, considering the portrait design, using public pictures of the corresponding character may not be so attractive and may have certain risks. At this time, it is recommended that you can use the image-to-image function of the image generation tool to let the AI return high-definition and high-quality portraits. You can also use the image generation tool to generate a series of portrait materials with different expressions for modifying the corresponding portrait presentation after the emotion value changes later.
 
-本教程中使用的是 [Lovart](https://www.lovart.ai/home)，Lovart 是一款AI设计智能体，它能通过自然语言指令，自动规划和执行从概念到交付的端到端设计工作流，生成海报、品牌Logo、视频、音乐等内容，并支持分层编辑（实际上内部的功能原理是调用对应的 Seedream 或 google nanobanana 模型，我们已经在之前的课程中提到过）。通过 Lovart ，我们能够获得一系列的表情素材，你可以提前获得你喜爱角色的图片信息，将其保存待后续使用。
+The one used in this tutorial is [Lovart](https://www.lovart.ai/home). Lovart is an AI design agent that can automatically plan and execute end-to-end design workflows from concept to delivery through natural language instructions, generating posters, brand logos, videos, music, and other content, and supporting layered editing (in fact, the internal functional principle is to call the corresponding Seedream or google nanobanana model, which we have already mentioned in previous lessons). Through Lovart, we can obtain a series of expression materials. You can get the picture information of your favorite characters in advance and save them for later use.
 
 ![](images/image4.png)
 
-一切准备就绪后，我们能够开始着手于整体页面的设计，我们希望这个页面的风格与该人物是高度绑定的。
+After everything is ready, we can start working on the design of the overall page. We hope that the style of this page is highly bound to the character.
 
-## 1.3 页面原型设计
+## 1.3 Page Prototype Design
 
-我们还可以先构思一下页面的原型，如上述所说，我们希望有一个对话页面和画像，以及一个有趣的个人介绍，在本篇例子中，我们实现了一个类似 X 上的对话界面替代个人介绍，你也可以想到其他符合“该人物特点”的方式，选取新的元素替换个人介绍栏目。
+We can also conceive the prototype of the page first. As mentioned above, we hope to have a dialogue page and a portrait, as well as an interesting personal introduction. In this example, we have implemented a dialogue interface similar to the one on X to replace the personal introduction. You can also think of other ways that fit the "characteristics of the character" and select new elements to replace the personal introduction column.
 
 ![](images/image5.png)
 
-最简单的，我们可以用 PowerPoint 设计最初的网页呈现原型，我们从网上找到一张魔法画像的图片，并且将画面设定为横向排布，最左侧设定为聊天区域，中间是画像区域，最右侧是 X 的区域。
+In the simplest case, we can use PowerPoint to design the initial web page presentation prototype. We find a magic portrait picture from the Internet and set the screen as a horizontal layout. The leftmost part is set as the chat area, the middle is the portrait area, and the rightmost is the X area.
 
 ![](images/image6.png)
 
-基于上述简单原型，我们能够让大模型生成真正的前端页面设计以及对应的代码结果。
+Based on the above simple prototype, we can let the large model generate a real front-end page design and the corresponding code results.
 
 ![](images/image7.png)
 
-不过，一般而言在实际中我们并不会用 PowerPoint 进行前端页面的设计。我们会用更好的原型工具，又或者说是前端设计工具来实现这一点，我们将进一步详细理解如何使用现代工具设计前端原型。
+However, generally speaking, we do not use PowerPoint for front-end page design in practice. We will use better prototype tools, or rather front-end design tools, to achieve this. We will further understand in detail how to use modern tools to design front-end prototypes.
 
-# 2. 前端设计工具
+# 2. Front-end Design Tools
 
-在开始之前，我们需要理解一个问题：为什么需要学“前端设计工具”？反正直接写 HTML / CSS 代码也能把页面搭出来，多学一个软件和技术，真的有必要吗？
+Before starting, we need to understand a question: why do we need to learn "front-end design tools"? Anyway, directly writing HTML / CSS code can also build the page. Is it really necessary to learn an extra piece of software and technology?
 
-实际上，把页面运行起来，和把产品设计好根本是两个概念。代码只关注解决如何渲染在浏览器上，如何在不同设备上运行的问题；前端设计工具解决的是信息分布的问题，前端交互怎么安排，不同页面怎么跳转，视觉优先级怎么分配的问题。只需要在设计工具里搭一块画布，就能把版式、信息层级、交互方式在一块屏幕上对比确定，选择最适当的呈现效果。
+In fact, getting the page running and designing the product well are two completely different concepts. Code only focuses on solving how to render on the browser and how to run on different devices; front-end design tools solve the problem of information distribution, how to arrange front-end interactions, how different pages jump, and how visual priorities are assigned. You only need to set up a canvas in the design tool to confirm the layout, information hierarchy, and interaction method on one screen and choose the most appropriate presentation effect.
 
-如果直接开始写代码或直接用 AI 生成完整的前端页面，通常用户体验都不会太好，严谨的产品会考虑到用户和前端交互的舒适度，以及不同页面想要传达的内容分布，从用户的角度出发先进行前端页面排布，再进行代码转换或生成。
+If you start writing code directly or use AI to generate a complete front-end page directly, the user experience is usually not very good. Rigorous products will consider the comfort of user and front-end interaction, as well as the content distribution that different pages want to convey, starting from the user's perspective to arrange the front-end page first, and then perform code conversion or generation.
 
-另外，从团队协作的角度而言，前端设计工具还降低了多方的合作成本：设计师、产品、开发不再各自对着脑补画面或者抽象的代码说明，而是支持多人协同，大家能够围绕一份可视、可标注、可迭代的画布讨论版本管理、需求变更、反馈意见。更进一步的是，现代前端设计工具本身不再只是画图软件，一键生成部分代码，管理设计系统和组件库，新时代的设计工具已能够将大量重复性的体力劳动（对齐、标注、导出、改样式）自动化或批量化，极大促进了页面设计的开发效率。
+In addition, from the perspective of team collaboration, front-end design tools also reduce the cost of cooperation among multiple parties: designers, products, and development no longer face their own imagined pictures or abstract code descriptions, but support multi-person collaboration. Everyone can discuss version management, demand changes, and feedback opinions around a visible, annotatable, and iterative canvas. Further, modern front-end design tools themselves are no longer just drawing software. One-click generation of partial code, management of design systems and component libraries—new-age design tools are already able to automate or batch-process a large amount of repetitive manual labor (alignment, annotation, export, style changes), greatly promoting the development efficiency of page design.
 
 ![](images/image8.png)
 
-在时间的长河中，所谓前端设计工具其实是一条持续演化的技术。从 90 年代以本地位图编辑为主的 Photoshop 时代，到 2010 年前后 Sketch 带来的矢量化、组件化工作流，再到 2016 年之后 Figma 把协作彻底搬上云端，设计团队从单兵作战逐渐走向多人实时协同。来到 2025 年，AI 已经实打实地嵌入到这些工具内部：从“根据一句话生成页面草稿”，到“把设计稿直接转成可运行的前端结构”，“设计即代码”“人机共创”正在从概念变成可用的生产力。
+In the long river of time, so-called front-end design tools are actually a continuously evolving technology. From the Photoshop era in the 90s mainly based on local bitmap editing, to the vectorized and modularized workflow brought by Sketch around 2010, to Figma moving collaboration completely to the cloud after 2016, design teams have gradually moved from solo operations to multi-person real-time collaboration. By 2025, AI has been practically embedded into these tools: from "generating a page draft based on one sentence" to "directly converting the design draft into a runnable front-end structure," "design is code" and "human-machine co-creation" are changing from concepts into usable productivity.
 
-本节中，我们会选取最具代表的两种现代前端设计工具进行介绍，Figma 和 MasterGo。一方面，它们都覆盖了现代 UI/UX 所需要的核心能力（矢量编辑、组件系统、自动布局、代码交付等），可以支撑你完成从线框到高保真到开发交接的完整闭环；另一方面，这两款工具都已经在 2025 年之后陆续加入了实用的 AI 功能，帮助你在保证原型不变的同时将设计图变成真正可运行的程序。
+In this section, we will select the two most representative modern front-end design tools for introduction: Figma and MasterGo. On the one hand, they both cover the core capabilities required for modern UI/UX (vector editing, component system, automatic layout, code delivery, etc.), which can support you in completing the complete closed loop from wireframe to high fidelity to development handoff; on the other hand, both tools have gradually added practical AI functions after 2025 to help you turn design drawings into truly runnable programs while ensuring the prototype remains unchanged.
 
-## 2.1 诞生之旅
+## 2.1 The Journey of Birth
 
 ![](images/image9.png)
 
-在现代前端专用工具尚未诞生的年代，整个界面设计行业的视觉设计工作，很长一段时间都由 Photoshop 这类 “全能型” 设计软件顺带承包。设计师会在本地通过一层层叠加的图层，细致完成页面整体视觉效果的设计，最终将体积不小的 .psd 源文件交付给前端工程师 —— 而前端要精准还原设计图，还必须手动完成三项繁琐且关键的工作：
+In the era when modern front-end dedicated tools had not yet been born, the visual design work of the entire interface design industry was taken over by "all-rounder" design software like Photoshop for a long time. Designers would meticulously complete the overall visual effect design of the page locally through layers stacked one by one, and finally deliver the not-so-small .psd source file to the front-end engineer—and to accurately restore the design drawing, the front-end had to manually complete three tedious and key tasks:
 
-一是 “切图”：需要从 .psd 文件的多层结构里，把按钮、图标、Logo、背景模块等独立视觉元素逐一拆分提取，再导出为 PNG、JPG 等网页能直接加载的图片格式（毕竟网页无法直接识别 PSD 的图层信息，只能依赖这些拆分后的图片呈现细节）；
+First is "Slicing": It is necessary to separate and extract independent visual elements such as buttons, icons, logos, and background modules one by one from the multi-layer structure of the .psd file, and then export them as PNG, JPG, and other image formats that the web page can directly load (after all, the web page cannot directly recognize the layer information of PSD and can only rely on these separated images to present details);
 
 ![](images/image10.png)
 
-二是 “量尺寸”：得用软件自带的测量工具，逐一确认每个元素的宽高、不同模块间的间距（margin/padding）等数据，确保所有尺寸都精准到像素；
+Second is "Measuring dimensions": You have to use the measuring tool that comes with the software to confirm the width and height of each element, the spacing between different modules (margin/padding), and other data one by one to ensure that all dimensions are accurate to the pixel;
 
 ![](images/image11.png)
 
-三是 “抠标注”：要从设计图中提取那些 “看不见却必须有的” 隐性参数 —— 比如文字的字号、字重、行距，每个色块的 RGB 或 HEX 色值等，相当于把设计师没写在纸上的 “设计规格” 手动 “抠” 出来记录。
+Third is "Extracting annotations": Implicit parameters that are "invisible but must be there" need to be extracted from the design drawing—such as font size, font weight, line spacing of text, RGB or HEX color values of each color block, etc., which is equivalent to manually "extracting" and recording the "design specifications" that the designer did not write on paper.
 
 ![](images/image12.png)
 
-在此之后，前端的实现阶段才真正展开。无论使用的是原生 HTML/CSS/JS，还是基于 Vue、React 等框架，本质过程是一致的。前端会以 “容器为核心载体”，根据设计中各模块的层级与语义重建页面结构。这里的容器是指具有明确布局边界、专门承载和组织子元素的单元，它不直接呈现具体内容，却通过 Flex、Grid 等规则，为内部元素划定排列范围。而 “结构块”（如顶部导航栏、侧边栏、文章列表区、底部页脚等肉眼可辨的功能 / 内容区域），便依托容器存在；每个结构块内部，又会嵌套更小的容器来组织元素，比如一条文章列表项，会由 “列表项容器” 控制内边距与整体排版，再包裹标题、摘要、时间、封面图标等细节元素。
+After this, the implementation phase of the front-end truly unfolds. Whether using native HTML/CSS/JS or based on frameworks such as Vue and React, the essential process is consistent. The front-end will take "container as the core carrier" and reconstruct the page structure according to the hierarchy and semantics of each module in the design. The container here refers to a unit with a clear layout boundary, specially designed to carry and organize sub-elements. It does not directly present specific content, but defines the arrangement range for internal elements through rules such as Flex and Grid. And "structural blocks" (such as top navigation bar, side bar, article list area, bottom footer, and other identifiable functional/content areas) exist relying on the container; inside each structural block, smaller containers are nested to organize elements. For example, an article list item will be controlled by a "list item container" for padding and overall layout, and then wrap details such as titles, summaries, time, and cover icons.
 
 ![](images/image13.png)
 
-在现代前端框架里，这些 “结构块（及关联的容器与元素）” 通常会被实现为 “组件”。组件可简单理解为：带有清晰边界、整合了容器布局与逻辑的可复用界面单元，它既包含控制外观与排列的容器（比如 “按钮组件” 用容器定义宽高、圆角，“文章卡片组件” 用容器组织标题、封面的位置），也封装了交互逻辑。设计稿中重复出现、形态一致的部分（如统一风格的按钮、反复使用的文章卡片），在代码中会被抽象成组件：既能在不同页面 / 场景复用，减少重复开发，也能通过组件内容器的统一规则，确保所有复用处的布局与风格高度一致
+In modern front-end frameworks, these "structural blocks (and associated containers and elements)" are usually implemented as "components." A component can be simply understood as a reusable interface unit with clear boundaries that integrates container layout and logic. It both contains a container that controls appearance and arrangement (for example, a "button component" uses a container to define width, height, and corner radius, and an "article card component" uses a container to organize the positions of titles and covers) and encapsulates interaction logic. Parts that repeatedly appear in the design draft and have a consistent form (such as buttons of a unified style and repeatedly used article cards) will be abstracted into components in the code: they can not only be reused in different pages/scenes to reduce repetitive development but also ensure that the layout and style of all reused places are highly consistent through the unified rules of the container in the component.
 
-随后，前端会使用样式系统还原视觉和布局。切图阶段导出的 PNG/JPG 等资源，会作为组件或结构块内部的 `<img>`、背景图片，或者按照各框架推荐的静态资源方式引入；量尺寸阶段得到的宽高、间距、行高等具体数值，会被转写为 `width`、`height`、`margin`、`padding`、`line-height` 等样式属性，应用到对应的组件或结构块上；抠标注阶段整理出的颜色、字体、阴影、圆角以及 hover/active 等状态，则会落实到 CSS、CSS Modules、CSS-in-JS、Tailwind 等具体方案中的 `color`、`font-family`、`font-size`、`box-shadow`、`border-radius` 以及伪类或状态类名上。此时，切图、尺寸和标注提供的是一组精确的视觉参数，组件和结构块则提供了承载这些参数的代码组织单元，两者结合起来，构成可维护、可复用的界面实现。
+Subsequently, the front-end will use the style system to restore visuals and layout. Resources such as PNG/JPG exported during the slicing stage will be introduced as `<img>`, background images inside components or structural blocks, or in the static resource manner recommended by each framework; specific values such as width, height, spacing, and line height obtained during the dimension measurement stage will be transcribed as style attributes such as `width`, `height`, `margin`, `padding`, and `line-height`, and applied to corresponding components or structural blocks; colors, fonts, shadows, corner radii, and states such as hover/active organized during the annotation extraction stage will be implemented as `color`, `font-family`, `font-size`, `box-shadow`, `border-radius`, and pseudo-classes or state class names in specific solutions such as CSS, CSS Modules, CSS-in-JS, and Tailwind. At this time, slicing, dimensions, and annotations provide a set of precise visual parameters, and components and structural blocks provide code organization units that carry these parameters. The combination of the two constitutes a maintainable and reusable interface implementation.
 
 ![](images/image14.png)
 
-但是，以本地文件为中心的模式天然是低效率的。版本通过邮件和网盘传输，新旧稿件容易混淆，设计和开发之间大量依赖上述的复杂交互方法，协作成本和出错概率都不低。
+However, the local file-centric model is naturally inefficient. Versions are transmitted via email and cloud disks, old and new manuscripts are easily confused, and there is a high degree of dependence on the complex interaction methods mentioned above between design and development. Collaboration costs and error probabilities are not low.
 
-移动互联网兴起后界面复杂度和迭代速度需求快速上升，Photoshop 的“大而全”逐渐显得笨重。这个阶段，出现了 Sketch。Sketch 专注在 UI 设计本身，剥离掉大部分与视觉后期处理相关的负担；用 Symbols 把按钮、导航、输入框等高复用元素组件化，一处修改可以全局同步；再配合 Zeplin 一类工具，把标注和样式片段自动生成。Sketch 把“组件思维”引入了设计工作流。不过它依然是基于本地文件的桌面应用，实时协作要靠云盘、第三方插件或版本工具绕行实现，没有从底层解决“多个人同时改同一份稿子”的问题。
+With the rise of the mobile Internet, the demand for interface complexity and iteration speed increased rapidly, and Photoshop's "all-roundness" gradually became clumsy. At this stage, Sketch appeared. Sketch focuses on UI design itself, stripping away most of the burden related to visual post-processing; uses Symbols to modularize highly reused elements such as buttons, navigation, and input boxes, and one change can be synchronized globally; then works with tools like Zeplin to automatically generate annotations and style snippets. Sketch introduced "component thinking" into the design workflow. However, it is still a desktop application based on local files. Real-time collaboration relies on cloud disks, third-party plug-ins, or version tools to achieve, and does not solve the underlying problem of "multiple people modifying the same manuscript at the same time."
 
 ![](images/image15.png)
 
-真正改变游戏规则的是 Figma。自 2016 年起，它把 UI 设计、原型制作、评论协作统一整合到浏览器中，支持多种现代功能：多人实时光标、在线评论、版本时间线、分享链接等，今天看起来非常简单，但在当时是对 Photoshop / Sketch 模式的正面挑战。
+What truly changed the game was Figma. Since 2016, it has unified UI design, prototyping, and comment collaboration into the browser, supporting multiple modern functions: multi-person real-time cursors, online comments, version timelines, sharing links, etc. These seem very simple today, but at that time they were a direct challenge to the Photoshop / Sketch model.
 
 ![](images/image16.png)
 
-至此，界面设计不再是散落在各自电脑里的文件，而是集中在一份在线、实时更新的云端画布上。围绕这块画布，我们可以想象更进一步，用自动化或 AI 的方式模糊设计和前端代码的边界。
+So far, interface design is no longer files scattered in their respective computers, but concentrated on an online, real-time updated cloud canvas. Around this canvas, we can imagine going a step further and blurring the boundary between design and front-end code through automation or AI.
 
-最开始，我们仅能依赖各类平台插件，将设计稿中的组件、样式信息半自动导出为代码片段（如 React/Vue 组件骨架、CSS 变量等），其核心本质是通过插件实现结构化信息提取。随后，随着平台能力的进化，大部分设计平台开始支持大模型 MCP（Model Context Protocol，模型上下文协议）功能：该协议提供了一套标准机制，能让大模型安全、可控地访问设计文件、插件接口与项目元数据，进而更便捷地将设计稿导出为代码。
+At the beginning, we could only rely on various platform plug-ins to semi-automatically export component and style information in the design draft into code snippets (such as React/Vue component skeletons, CSS variables, etc.). Its core essence is to achieve structured information extraction through plug-ins. Subsequently, with the evolution of platform capabilities, most design platforms began to support the large model MCP (Model Context Protocol) function: the protocol provides a set of standard mechanisms that allow the large model to access design files, plug-in interfaces, and project metadata in a secure and controllable way, and then more conveniently export the design draft as code.
 
-再往后，在插件与 MCP 的基础上，前端代码自动化进一步迈入到原生支持从设计稿直接推导代码结构的阶段。我们可在设计工具内一键生成前端项目骨架、组件层次、样式体系及对应的代码结果。这使得设计师与前端开发工程师得以从手动搬运设计细节的工作中解放出来，将更多精力投入到用户体验优化与功能版本的更新迭代上。
+Furthermore, on the basis of plug-ins and MCP, front-end code automation has further stepped into the stage of natively supporting direct derivation of code structure from the design draft. We can generate front-end project skeletons, component levels, style systems, and corresponding code results with one click in the design tool. This allows designers and front-end development engineers to be freed from the work of manually moving design details and invest more energy in user experience optimization and functional version updates and iterations.
 
 ## 2.2 Figma
 
-接下来我们从抽象的概念部分来到实际的操作环节。由于时间关系，我们只会学习 Figma 的基本操作逻辑，确保即便你完全没用过设计工具，也能跟着完成练习。如果你想进行完整的 Figma 功能学习，请你参考 Figma 提供的详细官方教程进行学习：https://help.figma.com/hc/en-us/sections/30880632542743-Figma-Design-for-beginners
+Next, we move from abstract concepts to practical operations. Due to time constraints, we will only learn the basic operation logic of Figma to ensure that even if you have never used a design tool, you can complete the exercises. If you want to perform a complete study of Figma functions, please refer to the detailed official tutorial provided by Figma: https://help.figma.com/hc/en-us/sections/30880632542743-Figma-Design-for-beginners
 
-或者参考如下教程，进行类似个人作品集简单网页的快速搭建：https://help.figma.com/hc/en-us/sections/35895585621655-Figma-Sites-collection
+Or refer to the following tutorial to quickly build a simple web page like a personal portfolio: https://help.figma.com/hc/en-us/sections/35895585621655-Figma-Sites-collection
 
 ![](images/image17.png)
 
-左侧是项目的新建和资源管理入口，右上角的几个按钮是 Figma 的常见功能。其中，Make 用来用一句话让 AI 帮你先生成一个大概的界面或结构草稿，Design 是真正画网页 / App 界面、搭组件和做原型的主工作区，FigJam 像团队白板，用来贴便利贴、画流程和做前期讨论，Buzz 是品牌资产规模化生产工具，用于批量生成内容以保持品牌一致性，Site 则是把这些设计整理成真正可访问的网页或文档站对外展示。
+On the left are the entry points for project creation and resource management. The buttons in the upper right corner are common functions of Figma. Among them, Make is used to let AI help you generate a general interface or structure draft based on one sentence; Design is the main workspace for truly drawing web/App interfaces, building components, and making prototypes; FigJam is like a team whiteboard, used for sticking post-it notes, drawing processes, and conducting early discussions; Buzz is a brand asset scale production tool used to batch generate content to maintain brand consistency; Site is used to organize these designs into truly accessible web pages or document stations for external display.
 
-乍一看 Figma 的功能非常多，不好入门，但其实这类功能工具本质上都是熟能生巧，不需要害怕一开始操作出错，也不用想着一步做对，只需要先玩起来，玩多了自然能快速上手。
+At first glance, Figma has many functions and is not easy to get started with, but in fact, such functional tools are essentially about practice making perfect. You don't need to be afraid of making mistakes at the beginning, and you don't have to think about doing it right in one step. You just need to play with it first, and you will be able to get started quickly after playing more.
 
-本篇教程中，为了快速入门，我们会对 Design 功能做简单讲解。
+In this tutorial, for quick start, we will give a simple explanation of the Design function.
 
-### 2.2.1 新建 Design 文件
+### 2.2.1 Create a New Design File
 
-在首页或者右上角的入口里，选择  **Design** ，新建一个文件，你会进入一个空白的设计画布。
-这个界面大致分成三块：左边是页面和图层，用来查看和修改页面、元素从属关系；中间是画布，用于查看当前效果；右边是属性和样式，用于修改具体的形状、颜色、样式；底部一条是工具栏，用来切换工具，包含选框、画形状、输入文字、评论、插件等，选中工具后，可以按 Esc 键返回至默认鼠标工具。
+In the home page or the entry in the upper right corner, select **Design** to create a new file, and you will enter a blank design canvas.
+This interface is roughly divided into three parts: on the left are pages and layers, used to view and modify page and element subordinate relationships; in the middle is the canvas, used to view the current effect; on the right are attributes and styles, used to modify specific shapes, colors, and styles; at the bottom is a toolbar, used to switch tools, including selection boxes, drawing shapes, entering text, comments, plug-ins, etc. After selecting a tool, you can press the Esc key to return to the default mouse tool.
 
 ![](images/image18.png)
 
-### 2.2.2 创建你的第一个 Frame（画板）
+### 2.2.2 Create Your First Frame
 
-在正式放置元素之前，需要先为页面确定一个清晰的边界，这个边界由 Frame 来承担。你可以在底部工具栏中选择 Frame 工具，或者直接按键盘 F，然后在画布上拖出一个矩形区域。
+Before officially placing elements, you need to determine a clear boundary for the page first. This boundary is borne by the Frame. You can select the Frame tool in the bottom toolbar, or press the keyboard F directly, and then drag out a rectangular area on the canvas.
 
-1. 使用底部工具栏里的 Frame 工具，或者直接按键盘 `F`。
-2. 在画布中拖出一个矩形区域，右侧属性栏里把宽度改成比如 `1440`，高度改成 `900`。
-3. 在左侧图层栏，把这个 Frame 重命名，比如叫 `Hogwarts Portraits` 或者你项目的名字。
+1. Use the Frame tool in the bottom toolbar, or press the keyboard `F` directly.
+2. Drag out a rectangular area in the canvas, and change the width to, for example, `1440` and the height to `900` in the right attribute column.
+3. In the left layer column, rename this Frame, for example, `Hogwarts Portraits` or your project name.
 
-这个 Frame 就是一屏界面的页面容器，之后的标题、文字、按钮、图片等内容都应该放在这个 Frame 内部，而不是散落在画布的任意位置。以 Frame 为边界来组织内容，有助于在后续进行滚动设置、适配不同设备尺寸、导出画面及制作原型时，保持结构可控。
+This Frame is the page container for a single screen interface. Subsequent titles, text, buttons, pictures, and other content should be placed inside this Frame instead of scattered anywhere on the canvas. Organizing content with Frame as the boundary helps to keep the structure controllable in subsequent rolling settings, adaptation to different device sizes, screen export, and prototyping.
 
 ![](images/image19.png)
 
-### 2.2.3 在 Frame 里放文字和简单元素
+### 2.2.3 Place Text and Simple Elements in the Frame
 
-有了容器，接下来我们来学习如何防止最基本的组件，例如：标题、副标题、按钮、占位图块。
+With the container, next we learn how to place the most basic components, such as: titles, subtitles, buttons, and placeholder image blocks.
 
-1. 选择文字工具（底部工具栏中的 `T`），在 Frame 里点击一下，输入页面标题，比如：`Hogwarts Portraits`。
-   在右侧属性里，把字体大小调大一点（例如 96），字重调粗一点。
-2. 在标题下面，再用文字工具输入一行简单说明，比如一两句描述这个页面要做什么。
-   字号可以小一些，行高略放大一点，读起来不那么挤。
-3. 画一个按钮雏形：
-   用矩形工具在标题下面画一个大概 `200 × 48` 的矩形，右侧给它一个比较明显的填充颜色，再适当加一点圆角。
+1. Select the text tool (`T` in the bottom toolbar), click in the Frame, and enter the page title, for example: `Hogwarts Portraits`.
+   In the right attribute, make the font size larger (e.g., 96) and the font weight thicker.
+2. Below the title, use the text tool to enter a simple description, for example, one or two sentences describing what this page does.
+   The font size can be smaller, and the line height can be slightly larger, so it doesn't look so crowded.
+3. Draw a button prototype:
+   Use the rectangle tool to draw a rectangle of about `200 × 48` below the title, give it a relatively obvious fill color on the right, and add a little corner radius appropriately.
    ![](images/image20.png)
-4. 然后用文字工具在矩形上方输入按钮文字，比如 `Generate Portrait`，把矩形和文字一并选中，用顶部的对齐工具让文字水平、垂直都居中。
-5. 在按钮一侧或下方，再画一个较大的浅灰色矩形作为“图片占位区”，后面可以用来放生成的人物画像。
+4. Then use the text tool to enter the button text above the rectangle, for example, `Generate Portrait`. Select the rectangle and the text together, and use the alignment tool at the top to center the text both horizontally and vertically.
+5. On one side or below the button, draw a larger light gray rectangle as a "picture placeholder area," which can be used to place the generated character portrait later.
 
-做到这里，其实你已经有了一个非常简陋但结构完整的“首页草稿”：一个标题、一段话、一个按钮、一个主要展示区域。
+By this point, you already have a very crude but structurally complete "home page draft": a title, a piece of text, a button, and a main display area.
 
 ![](images/image21.png)
 
-### 2.2.4 善用 Auto Layout 整合元素
+### 2.2.4 Make Good Use of Auto Layout to Integrate Elements
 
-如果所有元素只是随手拖拽，页面很快会乱。Figma 里一个很重要的概念就是  **Auto Layout** ，它可以把一组元素变成一个带规则的容器。
+If all elements are just dragged casually, the page will quickly become messy. A very important concept in Figma is **Auto Layout**, which can turn a group of elements into a container with rules.
 
 ![](images/image22.png)
 
-你可以选中“主标题 + 副标题 + 按钮”这三样，在右侧属性栏里点击  **Add Auto layout** 。
+You can select the three items "Main Title + Subtitle + Button" and click **Add Auto layout** in the right attribute column.
 
-这时这三样会被包在一个容器里，你可以在右侧调整参数，其中的元素布局会根据参数自动适应调整：
+At this time, these three items will be wrapped in a container. You can adjust parameters on the right, and the element layout among them will automatically adapt and adjust according to the parameters:
 
-* 它们是竖着排还是横着排。
-* 元素之间的间距是多少。
-* 整个这一块离容器边缘有多少内边距（padding）。
+* Whether they are arranged vertically or horizontally.
+* What is the spacing between elements.
+* How much inner padding (padding) is there from the container edge.
 
 ![](images/image23.png)
 
-同样，按钮内部也可以用 Auto Layout，我们能够实现这样的一个效果：当我调整了文字，按钮的长度也会自动调整。
+Similarly, Auto Layout can also be used inside buttons. We can achieve such an effect: when I adjust the text, the length of the button will also adjust automatically.
 
-先把按钮背景的矩形和按钮文字选中，添加 Auto Layout，让这两个东西变成一个“按钮容器”。接着选中这个按钮容器，把宽高都设置成  **Hug contents** 。这样一来，文字会一直保持在按钮正中间，文字多一点、少一点，按钮的宽度都会自动跟着变化。
+Select the rectangle of the button background and the button text first, add Auto Layout, and let these two things become a "button container." Then select this button container and set both width and height to **Hug contents**. In this way, the text will always stay in the middle of the button, and the width of the button will automatically follow the changes as there is more or less text.
 
 ![](images/image24.png)
 
-### 2.2.5 将按钮变为可复用组件
+### 2.2.5 Turn Buttons into Reusable Components
 
-现在我们要学习一个新的概念，组件。组件的意思就是可以被反复利用的元素，比如按钮这种元素，只要你预感之后还会反复用到，就可以考虑把它做成组件。我们在刚才已经加好 Auto Layout 的按钮基础操作：
+Now we want to learn a new concept: component. A component means an element that can be reused repeatedly. For an element like a button, as long as you feel it will be used repeatedly later, you can consider making it a component. Based on the basic operation of the button where we have just added Auto Layout:
 
-1. 选中整个按钮容器。
-2. 右键选择 Create component（创建组件）。
+1. Select the entire button container.
+2. Right-click and select Create component.
    ![](images/image25.png)
 
-这样，这个按钮就从一组普通图层，变成了一个组件母版。之后如果你在其他页面或 Frame 里需要同样风格的按钮，可以直接从左侧的 Assets 面板里拖出来使用。
+In this way, this button has changed from a group of ordinary layers to a component master. Later, if you need the same style of button in other pages or Frames, you can drag it directly from the Assets panel on the left to use.
 
 ![](images/image26.png)
 
-此时所有用到的按钮，都是这个母版的同步拷贝。当你修改母版的颜色、圆角或间距时，所有实例都会自动保持同步更新。
+At this time, all the buttons used are synchronous copies of this master. When you modify the color, corner radius, or spacing of the master, all instances will be automatically updated synchronously.
 
 ![](images/image27.png)
 
-至此，你已经初步掌握了 Figma 的简单用法。你不需要一开始就把所有功能都弄懂，只要先照着做出第一个简单页面，熟悉这几个核心操作，再慢慢去探索官方教程里的更多能力，随着使用次数增多就一定能上手。
+So far, you have initially mastered the simple usage of Figma. You don't need to understand all the functions at the beginning. Just follow it to make the first simple page, get familiar with these core operations, and then slowly explore more capabilities in the official tutorial. You will definitely be able to get started as the number of uses increases.
 
 ## 2.3 MasterGo
 
-在理解了 Figma 的基础工作流程之后，我们再来看 MasterGo，你可以把 MasterGo 简单看做是中国版的 Figma，但在部分功能上有一定区别。整体上，它延续了与 Figma 相似的界面布局和操作理念：同样有画布、图层树和属性面板，同样支持组件、样式、自动布局和多人协作。更详细的内容可参考 MasterGO 的官方教程：https://mastergo.com/tutorials/12?%E5%85%A8%E7%A8%8B%E9%AB%98%E8%83%BD%EF%BC%8CMasterGo%20%E6%9C%80%E5%AE%8C%E6%95%B4%E5%AE%9E%E7%94%A8%E6%95%99%E7%A8%8B%EF%BC%8C%E8%AE%A9%E4%BD%A0%E4%BB%8E%E9%9B%B6%E5%88%B0%E7%B2%BE%E9%80%9A%EF%BC%81
+After understanding the basic workflow of Figma, let's look at MasterGo. You can simply see MasterGo as the Chinese version of Figma, but there are certain differences in some functions. Overall, it continues the interface layout and operation concepts similar to Figma: it also has a canvas, layer tree, and attribute panel, and also supports components, styles, automatic layout, and multi-person collaboration. More detailed content can be found in MasterGO's official tutorial: https://mastergo.com/tutorials/12
 
-### 2.3.1 新建设计文件
+### 2.3.1 Create a New Design File
 
-1. **进入 MasterGo 后台**
-
-   1. 打开 MasterGo 官网并登录账号。
-   2. 进入后，你会看到类似「文件列表 / 项目列表」的首页区域，用来管理你的设计文件。
+1. **Enter MasterGo Background**
+   1. Open the MasterGo official website and log in to your account.
+   2. After entering, you will see a home page area similar to the "File List / Project List," which is used to manage your design files.
       ![](images/image28.png)
-2. **创建新文件**
-
-   1. 在右上角看到 + 设计文件的按钮选项进行点击，或者选择导入 Figma 等文件。
-   2. 点击后，你会进入一个空白画布，这就是 MasterGo 的设计工作区。
-3. **认识基本界面区块**
-   当你学会使用 Figma 后，MasterGo 的使用方式大同小异，主要分为几个区域：
-
+2. **Create a New File**
+   1. Click the + Design File button option in the upper right corner, or choose to import files such as Figma.
+   2. After clicking, you will enter a blank canvas, which is MasterGo's design workspace.
+3. **Recognize Basic Interface Blocks**
+   When you learn to use Figma, the way MasterGo is used is much the same, mainly divided into several areas:
    ![](images/image29.png)
+   1. Top toolbar: Located at the top of the canvas, the left is the file location and file name, the middle is a row of common tool buttons (selection, area/artboard, shape, text, annotation, comment, plug-in selection, and AI tools, etc.), and the right is the entry for current online members, sharing entry, and canvas zoom and preview control functions.
+   2. Left panel: Mainly divided into layers and resources. Currently staying on the layers tab, you can see the page list and the structure and hierarchy of all layers under the page.
+   3. Middle canvas area: The specific drawing and typesetting workspace, where all Frames, components, and graphics will be displayed.
+   4. Right attribute panel: Used to view and edit the attributes of the selected object, such as size, position, alignment, background fill, stroke, corner radius, etc. If no object is selected, canvas-related settings will be displayed, such as canvas background color, labels, and export options.
 
-   1. 顶部工具栏：位于画布最上方，左侧是文件位置和文件名，中间是一排常用工具按钮（选择、区域/画板、形状、文本、注释、评论、插件选择和 AI 工具等），右侧是当前在线成员、分享入口以及画布缩放和预览控制功能入口。
-   2. 左侧面板：主要分为图层和资源，当前停留在图层标签，可看到页面列表，以及该页面下所有图层的结构和层级。
-   3. 中间画布区：具体绘制和排版的工作区，所有 Frame、组件和图形都会展示在这里。
-   4. 右侧属性面板：用于查看和编辑选中对象的属性，例如大小、位置、对齐方式、背景填充、描边、圆角等。如果没有选中任何对象，会显示画布相关设置，如画布背景色、标签和导出选项。
+### 2.3.2 Create Your First Frame
 
-### 2.3.2 创建你的第一个 Frame
+Before officially putting things, we need a page container to determine the boundaries and dimensions of the interface. This container is usually called Frame in MasterGo.
 
-在正式放东西之前，我们需要一个页面容器用来确定界面的边界和尺寸。这个容器在 MasterGo 里，通常叫 Frame。
+**Steps:**
 
-**步骤：**
-
-1. **选择 Frame 工具**
-   1. 在工具栏中找到 Frame / 画板工具，点击后可使用预设参数直接将内容创建到画板。
-   2. 或者使用快捷键（通常是 `F`，如果有差异以实际界面为准）。
-2. **在画布中拖出一个矩形区域**
-   1. 拖出后，你会看到一个带选中框的区域。
-   2. 右侧属性面板里，可以看到这个 Frame 的宽度和高度。
-   3. 把宽度改成比如 `1440`，高度改成 `900`（一屏网页常用尺寸之一）。
-3. **重命名 Frame**
-   1. 在左侧图层面板里找到这个 Frame。
-   2. 双击名称，把它改成你项目的名字，比如：`Hogwarts Portraits`，或者你自己随便起的页面名。
+1. **Select Frame Tool**
+   1. Find the Frame / Artboard tool in the toolbar, click it, and use preset parameters to directly create content to the artboard.
+   2. Or use shortcuts (usually `F`, if there is a difference, refer to the actual interface).
+2. **Drag Out a Rectangular Area in the Canvas**
+   1. After dragging out, you will see an area with a selection box.
+   2. In the right attribute panel, you can see the width and height of this Frame.
+   3. Change the width to, for example, `1440` and the height to `900` (one of the common sizes for single-screen web pages).
+3. **Rename Frame**
+   1. Find this Frame in the left layer panel.
+   2. Double-click the name and change it to your project name, for example: `Hogwarts Portraits`, or any page name you pick.
 
 ![](images/image30.png)
 
-### 2.3.3 创建画板内容
+### 2.3.3 Create Artboard Content
 
-有了容器，使用与 Figma 中我们已教过的类似方式，很容易可以得到相似的展示页面。（你可以尝试复制 Figma 画板中的文字元素，能够支持文本组件的直接粘贴导入）
+With the container, using a similar way as we have taught in Figma, it is easy to get a similar display page. (You can try to copy the text elements in the Figma artboard, which can support direct paste and import of text components)
 
 ![](images/image31.png)
 
-值得注意的是 Auto Layout 功能行为稍微的不一致性，在 MasterGo 中，如果你想实现和 Figma 相似的按钮长度随着文字的长度变化，你需要先在对应矩形元素的基础上创建一个容器或组件，如图所示：
+It is worth noting the slight inconsistency in the behavior of the Auto Layout function. In MasterGo, if you want to achieve a button length that changes with the length of the text similar to Figma, you need to create a container or component based on the corresponding rectangular element first, as shown in the figure:
 
 ![](images/image32.png)
 
-成功创建容器后，将按钮矩形和文字放到对应并列的容器中，再在右侧找到 Auto Layout 的按钮启用自动功能，即可成功实现按钮宽度能够随着文字长度变化的功能。
+After successfully creating the container, put the button rectangle and text into the corresponding parallel containers, and then find the Auto Layout button on the right to enable the automatic function to successfully achieve the function that the button width can change with the text length.
 
 ![](images/image33.png)
 
 ![](images/image34.png)
 
-### 2.3.4 AI 生成页面
+### 2.3.4 AI Generation Page
 
 ![](images/image35.png)
 
-在 MasterGo 中，一个值得注意的有趣功能是 AI 生成页面。你可以用一句话或携带参考图，生成对应的 MasterGo 可编辑版组件，并得到可直接使用的代码。你可以使用中文或者英文直接输入需求，页面会根据需求返回结构清晰的页面排布文档，效果如下：
+In MasterGo, a noteworthy and interesting function is AI generation page. You can generate corresponding MasterGo editable components with one sentence or a reference picture and get directly usable code. You can input requirements directly in Chinese or English, and the page will return a page layout document with a clear structure according to the requirements. The effect is as follows:
 
 ![](images/image36.png)
 
 ![](images/image37.png)
 
-设计文档生成结束后，点击开始生成，稍作等待便能获取对应的实际网页效果：
+After the design document generation is over, click to start generation and wait a moment to get the corresponding actual web page effect:
 
 ![](images/image38.png)
 
-此时你有两种操作选择：一是点击蓝色按钮将生成结果直接插入画布，二是点击代码预览功能，直接获取当前完整页面的代码，具体操作界面如下：
+At this time, you have two operation options: one is to click the blue button to directly insert the generated results into the canvas, and the other is to click the code preview function to directly get the code of the current complete page. The specific operation interface is as follows:
 
 ![](images/image39.png)
 
 ![](images/image40.png)
 
-将结果插入画布后，你还能对网页的整体布局、元素细节（如字体、颜色、间距等）进行更精细的调整，直至最终效果完全符合你的预期。
+After inserting the result into the canvas, you can also make finer adjustments to the overall layout and element details (such as font, color, spacing, etc.) of the web page until the final effect fully meets your expectations.
 
 ![](images/image41.png)
 
-# 3. 从原型到代码
+# 3. From Prototype to Code
 
-在前面的内容中，我们已经亲身体验了 Figma、MasterGo 现代前端设计工具。但一个很实际的问题自然会浮现：这些看起来结构完整的设计稿，要怎么转化成真正能在浏览器里运行的前端代码？我们如何能够将自己的设置的 Hogwarts Portraits 原型变成代码？
+In the previous content, we have personally experienced Figma and MasterGo modern front-end design tools. But a very practical question naturally arises: how to turn these seemingly structurally complete design drafts into real front-end code that can run in the browser? How can we turn our own set Hogwarts Portraits prototype into code?
 
-一般而言，从原型到代码的落地，本质上有三种典型路径：
+Generally speaking, the landing from prototype to code essentially has three typical paths:
 
-* 根据图片，使用多模态大模型直接还原出代码。
-* 通过平台自身能力或插件导出可用代码。
-* 平台结合 MCP 能力导出可用代码。
+* According to the picture, use a multi-modal large model to restore the code directly.
+* Export usable code through the platform's own capabilities or plug-ins.
+* Export usable code by combining platform and MCP capabilities.
 
-考虑到实现难度，本节只会介绍如何从图片原型到代码，以及通过平台自身 AI 能力从原型转换到代码。至于如何从前端设计工具插件到代码，从前端设计工具 MCP 转换到代码，我们将在之后的课程详细讲解。
+Considering the difficulty of implementation, this section will only introduce how to convert from image prototype to code and from prototype to code through the platform's own AI capabilities. As for how to convert from front-end design tool plug-ins to code and from front-end design tool MCP to code, we will explain in detail in subsequent courses.
 
-## 3.1 直接用 AI 生成前端代码
+## 3.1 Directly Generate Front-end Code with AI
 
-拥有视觉能力的大模型天生具备将图片转为代码的能力， 我们只需要将图片直接导入对话框，随后让大模型生成完整的结果代码。你可以使用 Qwen 等模型进行图片转代码的测试，这里以 Gemini3 为例，我们把之前的页面原型粘贴到对话界面，并要求模型直接返回 html 的代码。（html 返回后只有单个文件，方便保存到本地进行修改操作，你可以在保存到本地后让大模型将其修改为 React 的架构）
+Large models with visual capabilities are naturally capable of converting images into code. We only need to import the images directly into the dialogue box and then let the large model generate the complete result code. You can use models like Qwen for image-to-code testing. Here, taking Gemini3 as an example, we paste the previous page prototype into the dialogue interface and require the model to return the html code directly. (After html is returned, there is only a single file, which is convenient to save to the local for modification operations. You can let the large model modify it to the React architecture after saving to the local)
 
 ![](images/image42.png)
 
-生成页面并非是简单的任务，在具体过程中你可能会遇到很多问题：譬如界面排布不均，界面显示不全，画面不能一比一还原等问题。在目前情况下，你只能在与大模型的反复对话中进行修改，接近想达成的最终效果。随着大模型能力的逐渐提高，未来需要反复修改的次数会越来越少。（推荐你选择生成图片对应的 html 代码，获取后再使用本地 IDE 将其转换为 React 框架使用，可获得多个单个 html 代码，统一进行转换）
+Generating a page is not a simple task. In the specific process, you may encounter many problems: for example, the interface layout is uneven, the interface display is incomplete, and the screen cannot be restored one-to-one. In the current situation, you can only make modifications in repeated dialogues with the large model to approach the final effect you want to achieve. As the capability of large models gradually improves, the number of repeated modifications needed in the future will become fewer and fewer. (It is recommended that you choose to generate the html code corresponding to the image, and use the local IDE to convert it to the React framework for use after getting it, so you can get multiple single html codes for unified conversion)
 
-## 3.2 Figma Make 生成代码
+## 3.2 Figma Make Generates Code
 
-FIgma Make 是 Figma 官方推出的 AI 设计工具，能够根据用户输入的提示词或者参考图，高精度的还原网页原型 UI 界面，并且能够支持将还原后的网页转换成可编辑的 Figma Design 文件（需要 Pro 用户，学生教育认证后可免费获得 Pro 权限）。
+Figma Make is an AI design tool officially launched by Figma, which can highly restore the web prototype UI interface according to the prompt words or reference pictures input by the user, and can support converting the restored web page into an editable Figma Design file (Pro user required, student education certification can get Pro permission for free).
 
 ![](images/image43.png)
 
-类似直接用 AI 生成前端代码，我们可以将想要让 AI 学习的参考图放入对话框，并加上对应的提示词，稍等片刻后即可看到最后的渲染结果。我们能够在右上角找到播放键，点击后可进行全屏查看。
+Similar to directly generating front-end code with AI, we can put the reference picture we want AI to learn into the dialogue box and add the corresponding prompt words. After a while, we can see the final rendering result. We can find the play button in the upper right corner and click it to view in full screen.
 
 ![](images/image44.png)
 
-Figma make 的效果相比原生 AI 生成代码效果更佳，即便有问题也能快速调整。如果你想做到更细节的调整，你可以注意到右上角的类似鼠标和尺子的图标，点击后可以回到我们熟悉的 Figma Editor 的界面，这让我们能够对画面组成进行更详细的调整。
+The effect of Figma make is better than that of native AI generated code, and even if there is a problem, it can be quickly adjusted. If you want to make more detailed adjustments, you can notice the icons similar to the mouse and ruler in the upper right corner. Clicking them can return to the familiar Figma Editor interface, which allows us to make more detailed adjustments to the composition of the screen.
 
 ![](images/image45.png)
 
-除此外，你还能够选择将 Figma Make 连接到 Github 上，帮助你快速将代码同步到 Github 保存。
+In addition, you can also choose to connect Figma Make to Github to help you quickly synchronize code to Github for storage.
 
 ![](images/image46.png)
 
-## 3.3 MasterGO AI 生成页面
+## 3.3 MasterGO AI Generates Page
 
-类似 Figma Make 的 AI 页面生成功能，MasterGo 也有同样的 AI 页面生成方法，我们容易在编辑界面的上方工具栏中找到：
+Similar to Figma Make's AI page generation function, MasterGo also has the same AI page generation method, which we can easily find in the toolbar above the editing interface:
 
 ![](images/image47.png)
 
-使用相同参考图方式得到生成结果：
+Get generation results using the same reference picture method:
 
 ![](images/image48.png)
 
 ![](images/image49.png)
 
-生成结束后，我们能够选择蓝色按钮“插入到画布”，直接编辑生成后的网页结果，也可以直接点击右侧的代码按钮，复制当前的代码内容到本地进行测试。
+After the generation is over, we can choose the blue button "Insert into canvas" to directly edit the generated web results, or click the code button on the right to copy the current code content to the local for testing.
 
 ![](images/image50.png)
 
-# 4. 运行 Hogwarts Portraits
+# 4. Running Hogwarts Portraits
 
-## 4.1 导出测试代码
+## 4.1 Export Test Code
 
-通过在从原型到代码中的实践，相信你已经得到 Html 或者 React 格式的原型代码，我们只需要将其复制到本地，在 IDE 中说明“请你帮我运行这个代码并且支持里面的必要的功能”，即可运行初版测试；但值得注意的是，这一步往往会出现不少报错，你需要保持耐心，将所有基础交互与功能调通。
+Through the practice in from prototype to code, I believe you have obtained prototype code in Html or React format. We only need to copy it to the local and state in the IDE "Please help me run this code and support the necessary functions in it" to run the initial version test; but it is worth noting that this step often results in many errors. You need to remain patient and debug all basic interactions and functions.
 
 ![](images/image51.png)
 
-值得注意的是，由于我们的密钥都需要放在环境变量，而不是写入代码中。我们需要特别强调之后的 DIfy API 相关的内容都需要放入环境变量。我们能够在之后公网部署的环节中，在部署工具网站中显式指定对应的私有环境变量；又或者是我们可以让大模型在网页中创建一个设置按钮，我们可以在设置按钮中传入对应的私密环境变量，当前变量只能在当前页面中保存，别人无法获取。
+It is worth noting that since our keys need to be placed in environment variables instead of written in code, we need to emphasize specifically that subsequent Dify API related content needs to be placed in environment variables. We can explicitly specify corresponding private environment variables in the deployment tool website in the subsequent public network deployment step; or we can let the large model create a settings button in the web page, where we can pass in corresponding private environment variables. The current variable can only be saved in the current page, and others cannot get it.
 
 ![](images/image52.png)
 
-## 4.2 Dify 工作流设计与 API 对接
+## 4.2 Dify Workflow Design and API Interconnection
 
-在上面的部分中，我们仅完成了前端界面的可视化呈现，尚未打通核心的拟人化角色对话交互流程。这一步是让原型从静态展示转变为魔法画像的关键，我们可以参考示范项目的 DIfy 工作流进行人物回答和情绪系统的设计：
+In the above part, we only completed the visual presentation of the front-end interface and have not yet opened up the core anthropomorphic character dialogue interaction process. This step is the key to transforming the prototype from a static display into a magic portrait. We can refer to the Dify workflow of the demonstration project to design the character response and emotion system:
 
 ![](images/image53.png)
 
-你可以把任务的信息都加入知识库的节点，并在 RESPONSE 节点设置大模型对应的回复逻辑，我们可以参考一个简单的默认回复逻辑提示词：
+You can add the task information to the nodes of the knowledge base and set the corresponding response logic of the large model in the RESPONSE node. We can refer to a simple default response logic prompt:
 
 ```Plain
 <instruction>
@@ -427,9 +423,10 @@ Output: Because Earth isn’t the backup plan—Mars is. We need to become a mul
 <example>
 Input: Why do Tesla cars have no radar anymore?
 Output: Cameras are the future. Human eyes don’t use radar—we see with vision, and AI can too. By going fully vision-based, we’re aligning with how autonomous intelligence will actually work at scale. It forces us to solve real-world problems with neural nets, not crutches.
+</example>
 ```
 
-以及情绪系统对应的提示词：
+And the prompts corresponding to the emotion system:
 
 ```Plain
 <instruction>
@@ -440,9 +437,10 @@ You are an assistant specifically designed to evaluate emotional responses in co
 - 1 point means you would feel extremely angry;
 - 0 points means you would feel sad;
 - 5 means you are calm and neutral, with no significant emotional fluctuation.
+</instruction>
 ```
 
-其中最后输出结果的拼接，在右上角的 RESULT 节点中支持运行：
+The splicing of the final output results is supported to run in the RESULT node in the upper right corner:
 
 ```Python
 def main(elon_chat: str, elon_x: str, elon_score: int) -> dict:
@@ -455,9 +453,9 @@ def main(elon_chat: str, elon_x: str, elon_score: int) -> dict:
     }
 ```
 
-其中 chat 和 x 表示两种不同的说话方式；score表示对应的情绪分数，每次对话都会传到应用端进行判断，根据不同的分数显示不同的魔法画像表情图片。
+Among them, chat and x represent two different speaking ways; score represents the corresponding emotion score. Every conversation will be sent to the application end for judgment, and different magic portrait expression pictures will be displayed according to different scores.
 
-对于如何将这个 API 进行对接的工作，我们能够与 AI IDE 对话实现这一点。请你参考之前 Dify 课程中我们介绍的集成方式，记得提前替换其中的 Dify 地址与 Key。（如果你忘了怎么根据文档集成 API，请复习之前的 DIfy 课程内容）
+For how to carry out the interconnection of this API, we can achieve this by talking with the AI IDE. Please refer to the integration method we introduced in the previous Dify course, and remember to replace the Dify address and Key in it in advance. (If you forget how to integrate the API according to the documentation, please review the previous Dify course content)
 
 ```JSON
 Dify URI: Replace this with your Dify address.
@@ -524,34 +522,34 @@ curl -X POST 'http://xxxxxxxx/v1/chat-messages' \
 }
 ```
 
-同时建议补充需求：“代码还需要添加基础错误处理逻辑，比如网络中断时显示‘连接失败，请重试’、API 调用超时自动重试 1 次、密钥错误提示权限验证失败等等详细报错，确保对话稳定性并能让开发人员快速发现 API 问题所在。”
+At the same time, it is recommended to supplement the requirements: "The code also needs to add basic error handling logic, such as displaying 'Connection failed, please try again' when the network is interrupted, automatically retrying the API call once after timeout, prompted by key error permission verification failure, and other detailed errors to ensure conversation stability and allow developers to quickly find out where the API problem is."
 
-## 4.3 Github 与公网部署
+## 4.3 Github and Public Network Deployment
 
-终于，恭喜你顺利完成了 Hogwarts Portraits 页面的开发实现！接下来我们需要将它上传到 GitHub 平台，并将其部署到公共环境让所有人都能访问。
+Finally, congratulations on successfully completing the development and implementation of the Hogwarts Portraits page! Next, we need to upload it to the GitHub platform and deploy it to a public environment for everyone to access.
 
-你需要参考该教程，对如何使用 Github 进行研究，将自己的项目上传至 Github：[Extra Knowledge 1 - What is Git and What is GitHub](https://ecn00p15ubf1.feishu.cn/wiki/LuVxwo5jui6NYVkrjIachvHznag)
+You need to refer to this tutorial to study how to use Github and upload your project to Github: [Extra Knowledge 1 - What is Git and What is GitHub](https://ecn00p15ubf1.feishu.cn/wiki/LuVxwo5jui6NYVkrjIachvHznag)
 
-此外，你还需要学会如何使用 Zeabur，将其连接到 Github，并成功部署你的项目：[Extra Knowledge 6 - Zeabur: What Is It and How to Deploy Web Applications](https://ecn00p15ubf1.feishu.cn/wiki/HJ8RwRqPMifDIgkfm44cucvKnMh)
+In addition, you also need to learn how to use Zeabur, connect it to Github, and successfully deploy your project: [Extra Knowledge 6 - Zeabur: What Is It and How to Deploy Web Applications](https://ecn00p15ubf1.feishu.cn/wiki/HJ8RwRqPMifDIgkfm44cucvKnMh)
 
-如果你觉得自己开发一套 Hogwarts Portraits 项目很困难，你可以先从参考别的项目开始进行修改，本节课的官方代码地址为：https://github.com/THU-SIGS-AIID/Project4-Hogwarts-Portraits
+If you feel it is very difficult to develop a set of Hogwarts Portraits projects by yourself, you can start by modifying other projects first. The official code address for this lesson is: https://github.com/THU-SIGS-AIID/Project4-Hogwarts-Portraits
 
 ![](images/image54.png)
 
-# 5. 尝试不同设计风格
+# 5. Try Different Design Styles
 
-完成第一版设计后，我们不必局限于此，鼓励大家快速探索更多元的视觉风格。你可以在原型部分进行大胆的修改，又或者是基于最后的项目进行全新提示词的修改，从而生成多套风格差异显著的页面。 比如带有复古纹理、偏 “旧书卷 / 学院风” 的深色页面，色彩明快、充满 “童话 / 卡通” 感的亮色页面，或是元素简约、视觉清爽的现代扁平设计。例如下图是一个转换为中国古风诗人设计风格的案例，画像图片未更换，只修改了其他部分：
+After completing the first version of the design, we don't have to be limited to this. We encourage everyone to quickly explore more diverse visual styles. You can make bold modifications in the prototype part, or make new prompt modifications based on the final project to generate multiple sets of pages with significant style differences. For example, dark pages with retro textures and a bias towards "old book scrolls / academy style," bright pages with bright colors and full of "fairy tale / cartoon" sense, or modern flat designs with simple elements and fresh visuals. For example, the following picture is a case of converting to a Chinese classical poet design style. The portrait picture has not been replaced, only other parts have been modified:
 
 ![](images/image55.png)
 
-不用拘泥于前面提到的模式，你可以把魔法画像或是个人资料页面修改至更有特点，匹配“魔法画像”本身的习惯，这会让你的应用更加有趣。期待你的魔法画像成果！
+Don't be stuck in the mode mentioned above. You can modify the magic portrait or the profile page to be more characteristic to match the habits of the "magic portrait" itself, which will make your application more interesting. Looking forward to your magic portrait results!
 
 # 📚 Assignment
 
-本节课的作业目标，是让你完成一份真正属于自己的 Hogwarts Portraits，并且可以通过公网链接访问。
+The goal of the assignment for this lesson is to let you complete a set of Hogwarts Portraits that truly belongs to you and can be accessed through a public link.
 
-你需要在作业提交中提供两样东西：
+You need to provide two things in the assignment submission:
 
-1. **你的 GitHub 仓库链接；**
-   1. **在 README.md 中写入一两句话的小说明：你选择了谁作为画像主角，为什么选 TA。**
-2. **你的 Hogwarts Portraits 线上访问链接；**
+1. **Your GitHub repository link;**
+   1. **Write a sentence or two in README.md: Who you chose as the portrait protagonist and why you chose TA.**
+2. **Your Hogwarts Portraits online access link;**

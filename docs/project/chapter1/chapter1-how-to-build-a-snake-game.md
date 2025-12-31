@@ -1,84 +1,84 @@
-# Project 1: 如何构建贪吃蛇游戏
+# Project 1: How to Build a Snake Game
 
-这是一个**基于项目的学习**教程。我们鼓励你跟随步骤一步步操作，并尝试复现结果。不要担心犯错或修改内容——**最重要的是：** 🎉 **完成比完美更重要**
+This is a **project-based learning** tutorial. We encourage you to follow the steps one by one and try to reproduce the results. Don't worry about making mistakes or modifying things—**the most important thing is:** 🎉 **Completion is more important than perfection.**
 
-在软件工程中，**迭代是正常且有价值的**。你不需要一次性创造出一个完整的产品——**从小处着手，边做边改。**
+In software engineering, **iteration is normal and valuable**. You don't need to create a complete product all at once—**start small and change as you go.**
 
-在本教程中，我们将学习如何使用 **vibe coding** 技巧来创建一个现代版的贪吃蛇游戏。我们将从贪吃蛇游戏的基本机制开始，然后对其进行修改，让蛇吃掉字符而不是点。最后，游戏将根据这些字符生成一首诗，并绘制一幅受这首诗启发的图画。
+In this tutorial, we will learn how to use **vibe coding** techniques to create a modern version of the Snake game. We'll start with the basic mechanics of the Snake game, then modify it so the snake eats characters instead of dots. Finally, the game will generate a poem based on these characters and draw a picture inspired by that poem.
 
-> 💡 什么是 Vibe Coding？计算机科学家 [Andrej Karpathy](https://karpathy.ai/)（OpenAI 的联合创始人之一，特斯拉前 AI 负责人）于 2025 年 2 月提出了 **vibe coding** 一词。这个概念指的是一种依赖于 LLM 的编码方法，允许程序员通过提供自然语言描述而不是手动编写代码来生成可工作的代码。
+> 💡 What is Vibe Coding? Computer scientist [Andrej Karpathy](https://karpathy.ai/) (one of the co-founders of OpenAI and former head of AI at Tesla) coined the term **vibe coding** in February 2025. This concept refers to a coding method that relies on LLMs, allowing programmers to generate working code by providing natural language descriptions instead of manually writing code.
 >
 > ![](images/image1.png)
 >
-> 点击这里查看更多关于 vibe coding 的细节：
+> Click here for more details on vibe coding:
 >
 > [https://www.ibm.com/think/topics/vibe-coding](https://www.ibm.com/think/topics/vibe-coding)
 
-# 你将学到
+# What You Will Learn
 
-* 使用提示词（prompts）构建一个简单的游戏。
-* 如果你看到错误，告诉 AI 并让它帮你修复。
-* 为你的游戏添加文本和图像生成功能，使其更有趣。
+* Build a simple game using prompts.
+* If you see an error, tell the AI and let it help you fix it.
+* Add text and image generation features to your game to make it more interesting.
 
-# 1. 准备工作
+# 1. Preparation
 
-## 1.1 我们应该使用哪些工具？
+## 1.1 Which tools should we use?
 
-我们将使用一个非常简单的工具来构建一个最小化的游戏。你不需要知道如何调用大语言模型或图像生成模型。
+We will use a very simple tool to build a minimal game. You don't need to know how to call large language models or image generation models.
 
-这个工具叫做 [z.ai](https://chat.z.ai/)，由智谱 AI（中国领先的 LLM 公司之一）开发。它支持多种功能，如 AI 驱动的幻灯片生成、海报设计和全栈开发。在本教程中，我们将重点关注其全栈开发模块。
+This tool is called [z.ai](https://chat.z.ai/), developed by Zhipu AI (one of China's leading LLM companies). It supports various features like AI-driven slide generation, poster design, and full-stack development. In this tutorial, we will focus on its full-stack development module.
 
 ![](images/image2.png)
 
-[z.ai](https://chat.z.ai/) 中的全栈开发模块支持网页的实时编辑和预览。
+The full-stack development module in [z.ai](https://chat.z.ai/) supports real-time editing and previewing of web pages.
 
 ![](images/image3.png)
 
-通过点击全栈开发示例，你可以看到网页创建的整个过程。
+By clicking on the full-stack development example, you can see the entire process of web page creation.
 
 ![](images/image4.png)
 
-等你的咖啡泡好了，你的结果也就出来了！
+By the time your coffee is ready, your results will be out!
 
 ![](images/image5.png)
 
-你可以上下滚动浏览此网页，或点击顶部的 🧭 按钮以全屏模式查看页面。
+You can scroll up and down to browse this web page, or click the 🧭 button at the top to view the page in full-screen mode.
 
 ![](images/image6.png)
 
-如果你想查看此网页的源代码，可以点击右上角的图标。
+If you want to view the source code of this web page, you can click the icon in the upper right corner.
 
 ![](images/image7.png)
 
-你将能够看到所有代码。
+You will be able to see all the code.
 
 ![](images/image8.png)
 
-## 1.2 我们需要前端开发知识吗？
+## 1.2 Do we need front-end development knowledge?
 
-我们在开始时不需要掌握前端甚至后端开发技能。我们只需要学习如何与大语言模型聊天，如何根据当前的运行结果向 LLM 提出新需求，以及当代码运行失败时如何向 LLM 提供准确的错误信息。
+We don't need to master front-end or even back-end development skills at the beginning. We only need to learn how to chat with large language models, how to propose new requirements to the LLM based on current running results, and how to provide accurate error information to the LLM when the code fails to run.
 
-但我们建议你学习一些前端和后端开发的基础知识，因为这将帮助你让 LLM 创建更好的程序。
+However, we recommend that you learn some basics of front-end and back-end development, as this will help you let the LLM create better programs.
 
-别担心，你只需要在学习过程中逐渐掌握这些知识，不需要一开始就是专家。
+Don't worry, you only need to gradually master this knowledge during the learning process; you don't need to be an expert from the start.
 
-> 💡 更多关于前端开发的信息
+> 💡 More about front-end development
 >
-> 前端开发通常意味着使用 **HTML**、**CSS** 和 **JavaScript** 来创建网站或应用程序的用户界面。然而，在本教程中，我们将跳过前端编码的复杂性，因为我们使用的工具会自动为我们生成并运行界面。
+> Front-end development usually means using **HTML**, **CSS**, and **JavaScript** to create the user interface of a website or application. However, in this tutorial, we will skip the complexities of front-end coding because the tool we use will automatically generate and run the interface for us.
 >
-> 但了解幕后发生的事情是有帮助的。传统上，构建 Web 界面涉及编写用于结构的 **HTML**、用于样式的 **CSS** 和用于交互性的 **JavaScript**。
+> But it's helpful to understand what's happening behind the scenes. Traditionally, building a web interface involves writing **HTML** for structure, **CSS** for styling, and **JavaScript** for interactivity.
 >
-> 例如，这是一个非常简单的网页，但它结合了三种不同类型的代码：
+> For example, this is a very simple web page, but it combines three different types of code:
 >
 > ![](images/image9.png)
 >
-> * 一个简单的 HTML 按钮：
+> * A simple HTML button:
 >
 > ```HTML
 > <button>Click Me</button>
 > ```
 >
-> * 基本的 CSS 让按钮变蓝：
+> * Basic CSS to make the button blue:
 >
 > ```CSS
 > button {
@@ -90,7 +90,7 @@
 > }
 > ```
 >
-> * 一点 JavaScript 来在点击按钮时显示提示：
+> * A bit of JavaScript to show an alert when the button is clicked:
 >
 > ```JavaScript
 > document.querySelector('button').onclick = function() {
@@ -98,216 +98,216 @@
 > }
 > ```
 >
-> 当你尝试点击这个按钮时，你会在浏览器中看到一个提示信息：
+> When you try to click this button, you will see an alert message in your browser:
 >
 > ![](images/image10.png)
 >
-> 此外，我们可以尝试理解这三种代码的深层含义：
+> In addition, we can try to understand the deeper meaning of these three types of code:
 >
-> **什么是 HTML？**
+> **What is HTML?**
 >
-> HTML，全称 **超文本标记语言 (HyperText Markup Language)**，是网页的骨架。它的工作是定义页面的结构和内容，如标题、段落、图像、链接，以及示例中看到的按钮本身。
+> HTML, which stands for **HyperText Markup Language**, is the skeleton of a web page. Its job is to define the structure and content of a page, such as headings, paragraphs, images, links, and the button itself as seen in the example.
 >
-> * **HTML 决定页面上有什么**：它告诉浏览器，“这是一个按钮”，“这是一段文本”，或者“在这里显示一张图片”。
-> * **它使用“标签”来组织内容**：`<button>Click Me</button>` 是一个 HTML 标签，定义了一个按钮，并在其中包含了“Click Me”这个文本。
+> * **HTML decides what is on the page**: It tells the browser, "This is a button," "This is a paragraph of text," or "Display an image here."
+> * **It uses "tags" to organize content**: `<button>Click Me</button>` is an HTML tag that defines a button and includes the text "Click Me" inside it.
 >
-> **什么是 CSS？**
+> **What is CSS?**
 >
-> CSS，或层叠样式表 (Cascading Style Sheets)，负责网页的“外观和感觉”。它用于设计和美化 HTML 元素，控制颜色、字体、布局和间距等。
+> CSS, or Cascading Style Sheets, is responsible for the "look and feel" of a web page. It's used to design and beautify HTML elements, controlling things like color, font, layout, and spacing.
 >
-> * **CSS 决定页面看起来怎么样**：在我们的示例中，CSS 代码将标准 HTML 按钮变成了一个带有蓝色背景、白色文本、圆角和一些内边距的按钮。
-> * **它将内容与表现分离**：这是一个关键概念。你可以有一个用于内容的 HTML 文件，并使用一个单独的 CSS 文件来设置它的样式。这使得维护和更新整个网站的设计变得更加容易。
+> * **CSS decides how the page looks**: In our example, the CSS code turns a standard HTML button into a button with a blue background, white text, rounded corners, and some padding.
+> * **It separates content from presentation**: This is a key concept. You can have an HTML file for content and use a separate CSS file to style it. This makes it much easier to maintain and update the design of an entire website.
 >
-> **什么是 JavaScript？**
+> **What is JavaScript?**
 >
-> JavaScript 是一种编程语言，它为网页添加交互性和动态行为。如果说 HTML 是骨架，CSS 是皮肤，那么 JavaScript 就是大脑和肌肉，让页面“活起来”。
+> JavaScript is a programming language that adds interactivity and dynamic behavior to web pages. If HTML is the skeleton and CSS is the skin, then JavaScript is the brain and muscles that make the page "come alive."
 >
-> * **JavaScript 决定页面的行为**：在示例中，JavaScript 代码使得点击按钮时弹出提示框。它定义了响应用户输入时应该发生的操作。
-> * **它可以创建复杂的功能**：除了简单的提示，JavaScript 还用于处理表单提交、创建动画、在不重新加载页面的情况下加载新数据、构建像游戏这样的复杂应用程序等等。
+> * **JavaScript decides how the page behaves**: In the example, the JavaScript code makes an alert box pop up when the button is clicked. It defines the actions that should happen in response to user input.
+> * **It can create complex features**: Beyond simple alerts, JavaScript is used to handle form submissions, create animations, load new data without reloading the page, build complex applications like games, and much more.
 >
-> 随着项目变得越来越大，交互性越来越强，仅使用纯 HTML、CSS 和 JavaScript 管理代码会变得复杂且难以维护。这就是现代前端库如 **React** 发挥作用的地方。
+> As projects get bigger and more interactive, managing code with just plain HTML, CSS, and JavaScript can become complex and hard to maintain. This is where modern front-end libraries like **React** come in.
 >
 > ![](images/image11.png)
 >
-> **[React](https://react.dev/)** 是一个用于构建用户界面的流行 JavaScript 库。它帮助开发者将代码组织成可重用的组件，使得构建和维护复杂的应用程序变得更加容易。
+> **[React](https://react.dev/)** is a popular JavaScript library for building user interfaces. It helps developers organize code into reusable components, making it easier to build and maintain complex applications.
 >
-> React 允许你编写管理自己逻辑和外观的组件，然后将它们组合起来构建更大的界面。
+> React allows you to write components that manage their own logic and appearance, and then combine them to build larger interfaces.
 >
-> 随着我们的深入，我们将探索更多关于 React 如何工作以及它如何适应我们的工作流程的内容。现在，只需要知道，虽然前端开发通常意味着编写像这样的代码，但我们的工具会自动处理大部分工作——我们只需要知道如何向大语言模型清楚地表达我们的需求！
+> As we go deeper, we'll explore more about how React works and how it fits into our workflow. For now, just know that while front-end development usually means writing code like this, our tools will handle most of the work automatically—we just need to know how to express our needs clearly to the large language model!
 
-# 2. 构建你的第一个游戏
+# 2. Building Your First Game
 
-## 2.1 与 LLM 对话时给出清晰的指令
+## 2.1 Give Clear Instructions When Talking to the LLM
 
-在一开始，我们可以用最简单的方式与大模型对话，这将帮助我们快速获得产品原型。我们可以直接在聊天框中输入：
+In the beginning, we can talk to the large model in the simplest way, which will help us quickly get a product prototype. We can directly enter in the chat box:
 
-> **💡 示例提示词：** 帮我做一个贪吃蛇游戏
+> **💡 Example Prompt:** Help me make a Snake game
 >
 > ![](images/image12.png)
 
-> **💡 示例提示词：** 帮我做一个贪吃蛇游戏，它应该支持
+> **💡 Example Prompt:** Help me make a Snake game that supports:
 >
-> 1. 我可以吃不同的单词，它们会被收集在一个盒子里
+> 1. I can eat different words, and they will be collected in a box
 >    ![](images/image13.png)
 
-> **💡 示例提示词：** 帮我做一个贪吃蛇游戏，它应该支持：
+> **💡 Example Prompt:** Help me make a Snake game that should support:
 >
-> 1. 我可以吃不同的单词，它们会被收集在一个盒子里
-> 2. 当蛇吃了8个单词时，llm 应该根据这些单词创作一首诗，我们可以根据需要重新混合这首诗。
-> 3. 当诗完成后，下一步将自动根据这首诗创建一幅图像。
+> 1. I can eat different words, and they will be collected in a box.
+> 2. When the snake eats 8 words, the LLM should create a poem based on these words, and we can remix the poem as needed.
+> 3. When the poem is completed, the next step will automatically create an image based on this poem.
 >
 > ![](images/image14.png)
 
-## 2.2 尝试修复过程中出现的错误
+## 2.2 Try to Fix Errors Occurring During the Process
 
-在开发过程中，我们可能会遇到不尽如人意的问题，例如点击按钮没有任何反应、使用功能时报错、功能未按预期工作，或者前端页面与预期设计不符。
+During the development process, we might encounter unsatisfactory issues, such as clicking a button having no response, getting an error when using a feature, a feature not working as expected, or the front-end page not matching the expected design.
 
-在这种情况下，我们需要进一步向模型提问，以帮助修复这些意外问题。
+In this case, we need to further ask the model questions to help fix these unexpected problems.
 
 ![](images/image15.png)
 
-## 2.3 如何假装自己是 Vibe Coding 大师
+## 2.3 How to Pretend to Be a Vibe Coding Master
 
-实际上，在真正的 vibe coding 过程中，我们通常不会使用很多复杂的提示词。也许我们在开始时需要为整个程序提供一个具体且适度复杂的提示词，但在那之后的每一步，你可能只需要以下类型的提示词：
+Actually, in a real vibe coding process, we usually don't use many complex prompts. We might need a specific and moderately complex prompt for the whole program at the beginning, but for every step after that, you might only need prompts of the following types:
 
 ```JSON
-"代码里有个 bug，请修复它。"
-"我不要部分代码，给我完整的修改后的代码。"
-"你的代码还是有问题。"
-"请再次修改并给我完整的修正后的代码。"
-"刚才还能运行，为什么现在不能运行了？"
-"你没理解我的意思吗？不要改我原来的代码。"
-"不要添加任何调试功能。"
-"不要做我没让你做的事。"
-"我让你实现的功能在哪里？"
-"你听不懂我说的话吗？"
-"我只要一个函数。"
-"我告诉过你参考我之前的代码。"
-"请不要添加不必要的注释。"
-"请不要修改我原始代码的基本逻辑。"
-"帮我修改代码。"
-"基于我的代码修改..."
-"不要改我的变量名！！！"
-"不要改原来的函数名！"
-"不要乱动我的变量。"
-"不要添加额外的功能。"
-"不要只生成框架，生成完整的代码。"
+"There is a bug in the code, please fix it."
+"I don't want partial code, give me the full modified code."
+"Your code still has problems."
+"Please modify again and give me the full corrected code."
+"It was working just now, why isn't it working now?"
+"Don't you understand what I mean? Don't change my original code."
+"Don't add any debugging features."
+"Don't do things I didn't ask you to do."
+"Where is the feature I asked you to implement?"
+"Can't you understand what I'm saying?"
+"I only want one function."
+"I told you to refer to my previous code."
+"Please don't add unnecessary comments."
+"Please don't modify the basic logic of my original code."
+"Help me modify the code."
+"Modify based on my code..."
+"DON'T CHANGE MY VARIABLE NAMES!!!"
+"Don't change the original function names!"
+"Don't mess with my variables."
+"Don't add extra features."
+"Don't just generate the framework, generate the full code."
 ```
 
-这听起来可能有点夸张，但实际上，这些就是我们在日常工作中可能使用的提示词。由于大语言模型的上下文长度限制，或者有时因为它们的指令遵循能力不是很强，模型可能会忘记对话早些时候讨论的内容。
+This might sound a bit exaggerated, but in reality, these are the prompts we might use in our daily work. Due to the context length limits of large language models, or sometimes because their instruction-following ability is not very strong, models might forget content discussed earlier in the conversation.
 
-或者，由于训练数据集的风格，大模型倾向于以其训练数据的风格回答。例如，有些人说话很严肃，有些人喜欢添加很多修饰，而有些大模型喜欢在代码中添加很多注释或不必要的模块。
+Or, due to the style of the training data set, large models tend to answer in the style of their training data. For example, some people speak very seriously, some like to add many modifiers, and some large models like to add many comments or unnecessary modules in the code.
 
-这就是为什么我们需要在开始时明确设定界限，例如：不要添加新模块，不要包含太多注释。每个大模型都有自己的风格，我们只能通过实际使用找到我们最喜欢的那个。
+That's why we need to set clear boundaries at the beginning, for example: don't add new modules, don't include too many comments. Each large model has its own style, and we can only find our favorite one through actual use.
 
-> 💡 什么是模型上下文？
+> 💡 What is Model Context?
 >
-> 模型上下文就像 AI 的 **短期记忆**。它是 AI 记住的当前对话中的所有文本。这使你能够提出后续问题并进行自然的对话，因为 AI “记得”你刚才在谈论什么。没有上下文，你问的每个问题都将是一个全新的、独立的对话。
+> Model context is like the AI's **short-term memory**. It's all the text in the current conversation that the AI remembers. This allows you to ask follow-up questions and have a natural conversation because the AI "remembers" what you were just talking about. Without context, every question you ask would be a brand-new, standalone conversation.
 >
-> 每个模型都有不同的有效上下文长度，通常从 **32k 到 128k** tokens 不等。如果你想让大语言模型一次性阅读一篇很长的文章，或者有许多材料和对话希望 LLM 参考，你可能会发现 LLM 经常忘记长文本中的一些重要内容，或者你可能会注意到对话过程中主题逐渐偏移，这是由上下文限制引起的现象。
+> Each model has a different effective context length, usually ranging from **32k to 128k** tokens. If you want a large language model to read a very long article all at once, or if you have many materials and conversations you hope the LLM will refer to, you might find that the LLM often forgets some important content from long texts, or you might notice the topic gradually drifting during the conversation, which is a phenomenon caused by context limits.
 >
-> 因此，对于模型，我们也关注上下文。然而，值得注意的是，上下文越长，资源消耗越大，收取的费用也越高。在行业中，有许多压缩上下文的方法，我们将在随后的学习中一一介绍。
+> Therefore, for models, we also focus on context. However, it is worth noting that the longer the context, the greater the resource consumption and the higher the fees charged. In the industry, there are many methods for compressing context, which we will introduce one by one in subsequent studies.
 
-> 💡 什么是指令遵循能力？
+> 💡 What is Instruction Following Ability?
 >
-> 指令遵循能力指的是 **AI 理解并准确执行你提供的命令的能力**。它不仅仅是回答问题，而是根据你的具体要求完成任务，例如“将这篇文章总结为三个要点”、“用正式的语气写回复”或“翻译这个词并在句子中使用它”。
+> Instruction following ability refers to the **AI's ability to understand and accurately execute the commands you provide**. It's not just about answering questions, but completing tasks according to your specific requirements, such as "summarize this article into three key points," "write a reply in a formal tone," or "translate this word and use it in a sentence."
 >
-> 具有强指令遵循能力的模型将完全按照你的指示完成这些操作，而不会执行任何不必要的额外操作。
+> A model with strong instruction following ability will do exactly as you instructed without performing any unnecessary extra actions.
 >
-> 例如，当我们希望 LLM 将一篇文章总结为三个关键点时，我们不希望它给我们五个；当我们希望它从文章中提取某些关键要素（如作者、时间及发生的事件）时，我们不希望它遗漏任何要素。
+> For example, when we want the LLM to summarize an article into three key points, we don't want it to give us five; when we want it to extract certain key elements (such as the author, time, and events that occurred) from the article, we don't want it to miss any elements.
 >
-> 因此，我们希望 LLM 拥有足够强的指令遵循能力，因为这带来了稳定性及 **可复现性**，使它们成为工业应用中的重要组成部分。
+> Therefore, we hope that the LLM has strong enough instruction following ability, as this brings stability and **reproducibility**, making them an important part of industrial applications.
 
-# 3. **使用 API：调用 LLM 和图像生成器**
+# 3. **Using APIs: Calling LLMs and Image Generators**
 
-## 3.1 什么是 API
+## 3.1 What is an API
 
-首先，**你需要知道什么是 API** `Extra Knowledge 2 - What is API`
+First, **you need to know what an API is** `Extra Knowledge 2 - What is API`
 
-我们将尝试集成两个 API：一个是调用 DeepSeek LLM，另一个是调用 Seedream (即梦) 模型。这两个模型都很棒，性能出色。
+We will try to integrate two APIs: one for calling the DeepSeek LLM and another for calling the Seedream (Jimeng) model. Both models are great and have excellent performance.
 
-在使用 API 的过程中，只有两个最重要的元素：
+In the process of using an API, there are only two most important elements:
 
-1. API key (密钥)
-2. 官方文档示例
+1. API key
+2. Official documentation example
 
-只要你能找到这两个，你就可以让 LLM 帮你修改并实现所有类型的 API 调用。
+As long as you can find these two, you can let the LLM help you modify and implement all types of API calls.
 
-## 3.2 将 DeepSeek API 集成到 z.ai 中
+## 3.2 Integrating DeepSeek API into z.ai
 
-### 什么是 DeepSeek
+### What is DeepSeek
 
 ![](images/image16.png)
 
-> 📚 信息引用自 [DeepSeek Wiki](https://en.wikipedia.org/wiki/DeepSeek)
+> 📚 Information cited from [DeepSeek Wiki](https://en.wikipedia.org/wiki/DeepSeek)
 >
-> **杭州深度求索人工智能基础技术研究有限公司**（**Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd.**），以 **DeepSeek** 为商号，是一家开发大语言模型（LLMs）的中国人工智能（AI）公司。DeepSeek 总部位于浙江杭州，由中国对冲基金幻方量化（High-Flyer）拥有并资助。DeepSeek 由幻方量化的联合创始人梁文锋于 2023 年 7 月创立，他也同时担任这两家公司的 CEO。该公司于 2025 年 1 月推出了同名聊天机器人及其 DeepSeek-R1 模型。
+> **Hangzhou DeepSeek Artificial Intelligence Basic Technology Research Co., Ltd.**, doing business as **DeepSeek**, is a Chinese artificial intelligence (AI) company that develops large language models (LLMs). Headquartered in Hangzhou, Zhejiang, DeepSeek is owned and funded by the Chinese hedge fund High-Flyer. DeepSeek was founded in July 2023 by Liang Wenfeng, a co-founder of High-Flyer, who also serves as CEO of both companies. The company launched its eponymous chatbot and its DeepSeek-R1 model in January 2025.
 >
-> 让我们看看 DeepSeek 在 GPQA 基准排名中与其他顶级模型的表现对比。值得注意的是，DeepSeek 是一个开源（每个人都可以从互联网下载模型）模型，而其他常见模型如 Grok、Google Gemini 和 ChatGPT 都是闭源的。正如我们所见，DeepSeek 已经很大程度上接近了第一梯队的模型。
+> Let's look at how DeepSeek performs compared to other top models in the GPQA benchmark rankings. It's worth noting that DeepSeek is an open-source (everyone can download the model from the internet) model, while other common models like Grok, Google Gemini, and ChatGPT are all closed-source. As we can see, DeepSeek has already approached the first-tier models to a large extent.
 >
 > ![](images/image17.png)
 >
-> GPQA 是“研究生级 Google-Proof 问答基准”的缩写，这是一个用于科学问答任务的研究生级基准。以下是详细介绍。
+> GPQA is short for "Graduate-Level Google-Proof Q&A Benchmark," which is a graduate-level benchmark for scientific Q&A tasks. Here is a detailed introduction.
 >
-> GPQA 包含 448 个多项选择题，涵盖生物学、物理学和化学的子领域，如量子力学、有机化学、分子生物学等。这些问题由 61 位持有博士学位或正在攻读博士学位的专家编写，并经过了严格的验证过程。
+> GPQA contains 448 multiple-choice questions covering subfields of biology, physics, and chemistry, such as quantum mechanics, organic chemistry, molecular biology, and more. These questions were written by 61 experts holding PhDs or pursuing PhDs and have undergone a rigorous validation process.
 
-### 如何获取 deepseek API
+### How to Get DeepSeek API
 
-我们将尝试根据我们已有的信息，让 z.ai 直接将 DeepSeek API 集成到项目中。
+We will try to let z.ai directly integrate the DeepSeek API into the project based on the information we have.
 
-首先，我们需要在 DeepSeek 开放平台注册一个账户。
+First, we need to register an account on the DeepSeek open platform.
 
 https://platform.deepseek.com/sign_up
 
-然后，你会看到像这样的网页界面：
+Then, you will see a web interface like this:
 
 ![](images/image18.png)
 
-要使用 API，我们需要先充值 token。10 元人民币足够使用一段时间了！
+To use the API, we need to top up tokens first. 10 RMB is enough for a while!
 
 ![](images/image19.png)
 
-点击“API KEYS”并在屏幕下方找到“create new API key”。你最终会得到一个像 `sk-8573341c39fc44315aadc071c53rh7d2` 这样的 API key。
+Click on "API KEYS" and find "create new API key" at the bottom of the screen. You will eventually get an API key like `sk-8573341c39fc44315aadc071c53rh7d2`.
 
 ![](images/image20.png)
 
-一旦你获得了密钥，你就拥有了调用模型的权限。
+Once you have the key, you have the permission to call the model.
 
-此时，你可以直接阅读 [API 文档](https://api-docs.deepseek.com/)，它通常提供 curl 或 Python 的调用示例。
+At this point, you can directly read the [API documentation](https://api-docs.deepseek.com/), which usually provides call examples in curl or Python.
 
 ![](images/image21.png)
 
-找到示例后，你可以将文档中与密钥相关的所有内容复制到 z.ai，并要求它尝试帮你集成 LLM。
+After finding the example, you can copy everything from the documentation related to the key to z.ai and ask it to try to help you integrate the LLM.
 
 ![](images/image22.png)
 
 ![](images/image23.png)
 
-自动集成可以在很短的时间内完成。我们可以询问它的操作员确认 DeepSeek API 是否已经在使用中。
+Automatic integration can be completed in a very short time. We can ask its operator to confirm if the DeepSeek API is already in use.
 
 ![](images/image24.png)
 
-或者，我们可以要求 z.ai 帮我们定位项目中调用 LLM 的部分。
+Or, we can ask z.ai to help us locate the parts of the project that call the LLM.
 
-然后我们可以独立确认是否正在使用 DeepSeek。具体来说，我们可以直接请求：`"告诉我项目中所有需要调用 LLM 的代码位置，我需要检查是否是 DeepSeek。"`，z.ai 将返回所有 API 调用的详细地址。
+Then we can independently confirm whether DeepSeek is being used. Specifically, we can directly request: `"Tell me the location of all the code in the project that needs to call the LLM, I need to check if it's DeepSeek."`, and z.ai will return the detailed addresses of all API calls.
 
 ![](images/image25.png)
 
-接下来，我们将简要介绍目前可用的三种最先进的图像生成模型。你可以根据自己的喜好选择一种集成到 z.ai 中。
+Next, we will briefly introduce three of the most advanced image generation models currently available. You can choose one to integrate into z.ai according to your preference.
 
-## 3.3 将 SiliconFlow QwenImage API 集成到 z.ai 中
+## 3.3 Integrating SiliconFlow QwenImage API into z.ai
 
-### 什么是 SiliconFlow
+### What is SiliconFlow
 
-> [Silicon Flow (硅基流动)](https://cloud.siliconflow.com/me/models) 成立于 2023 年 8 月，是一家世界领先的 AI 能力提供商。它提供 SiliconCloud（具有自研推理加速的大模型云平台）和 BizyAir（用于 AI 图像生成的 ComfyUI 插件）等核心产品，为客户提供 AI 基础设施能力，拥有战略合作伙伴关系，并持有顶级行业认证。
+> [Silicon Flow](https://cloud.siliconflow.com/me/models) was founded in August 2023 and is a world-leading AI capability provider. It offers core products such as SiliconCloud (a large model cloud platform with self-developed inference acceleration) and BizyAir (a ComfyUI plugin for AI image generation), providing AI infrastructure capabilities for customers, possessing strategic partnerships, and holding top industry certifications.
 >
 > ![](images/image26.png)
 
-### 什么是 QwenImage
+### What is QwenImage
 
-> Qwen-Image 是一个强大的图像生成基础模型，能够进行复杂的文本渲染和精确的图像编辑。这是一个 20B MMDiT 图像基础模型，在复杂的文本渲染和精确的图像编辑方面取得了重大进展。实验表明，它在图像生成和编辑方面都具有很强的通用能力，在文本渲染方面表现尤为出色，尤其是中文。
+> Qwen-Image is a powerful image generation base model capable of complex text rendering and precise image editing. It is a 20B MMDiT image base model that has made significant progress in complex text rendering and precise image editing. Experiments show that it has strong general capabilities in both image generation and editing, performing particularly well in text rendering, especially in Chinese.
 >
-> 从中文到英文，QwenImage 可以像 GPT-4o 或 Seedream 模型一样生成高质量的文本。
+> From Chinese to English, QwenImage can generate high-quality text just like GPT-4o or the Seedream model.
 >
 > ![](images/image27.png)
 >
@@ -317,27 +317,27 @@ https://platform.deepseek.com/sign_up
 >
 > ![](images/image30.png)
 
-### 如何获取 SiliconFlow QwenImage API
+### How to Get SiliconFlow QwenImage API
 
 https://cloud.siliconflow.com/me/models
 
-查看 SiliconFlow 的官网。左侧有一个“Playground”部分，你可以在不进行 API 调用的情况下试用不同的模型。在网页顶部有一个“Filters”按钮；点击它可以筛选右侧的模型列表。
+Check SiliconFlow's official website. There is a "Playground" section on the left where you can try out different models without making API calls. There is a "Filters" button at the top of the page; click it to filter the list of models on the right.
 
-如果你选择“Image”，你将只看到当前支持的所有文生图模型。在这种情况下，我们将使用 Qwen/Qwen-Image。
+If you select "Image," you will only see all currently supported text-to-image models. In this case, we will use Qwen/Qwen-Image.
 
 ![](images/image31.png)
 
-要调用 API，首先我们需要点击左侧设置中的“API Keys”，然后点击“Create API Key”按钮生成一个 API key。记得保存这个 API key。
+To call the API, first we need to click "API Keys" in the settings on the left, then click the "Create API Key" button to generate an API key. Remember to save this API key.
 
 ![](images/image32.png)
 
-要查看可用余额，我们需要打开左侧设置中的“Payments”。在这里，你可以看到 1 美元的赠金。但是，如果你想使用 FLUX 文生图模型，你需要先充值账户。
+To check the available balance, we need to open "Payments" in the settings on the left. Here, you can see a 1 USD gift credit. However, if you want to use the FLUX text-to-image model, you need to top up your account first.
 
 https://cloud.siliconflow.com/me/account/ak
 
 ![](images/image33.png)
 
-一切设置好后，我们需要参考相应的图像生成 API 文档。你可以在官方文档页面找到任何标记为“API Reference”的部分。点击它，然后导航到图像生成的 API 端点部分并找到相关的请求示例。
+After everything is set up, we need to refer to the corresponding image generation API documentation. You can find any section marked "API Reference" on the official documentation page. Click it, then navigate to the image generation API endpoint section and find the relevant request example.
 
 https://docs.siliconflow.com/en/userguide/introduction
 
@@ -354,7 +354,7 @@ curl --request POST \
 }'
 ```
 
-记得将你打算使用的模型和 API key 填入相应的字段。之后，你可以在计算机的命令行中使用该命令运行直接请求测试。
+Remember to fill in the model and API key you intend to use into the corresponding fields. After that, you can use the command in your computer's command line to run a direct request test.
 
 ```Bash
 curl --request POST \
@@ -369,15 +369,15 @@ curl --request POST \
 
 ![](images/image35.png)
 
-你可以将下面修改后的代码行发送给 z.ai，并要求它帮你创建一个前端测试演示。很快，你就能实现 SiliconFlow 的基本 API 调用。
+You can send the modified code lines below to z.ai and ask it to help you create a front-end test demo. Soon, you'll be able to implement the basic API call for SiliconFlow.
 
 ![](images/image36.png)
 
-## 3.4 将 Recraft API 集成到 z.ai 中
+## 3.4 Integrating Recraft API into z.ai
 
-### 什么是 Recraft
+### What is Recraft
 
-> Recraft 是一款面向设计师、插画师和营销人员的 AI 工具——于 2022 年在美国成立，总部位于伦敦。它帮助生成/迭代视觉效果（图像、矢量艺术、3D 图形），具有高质量输出（任何文本大小/长度）、精确元素定位和品牌一致性设计等优势。受到 200 个国家/地区 300 多万用户（包括奥美、Netflix）的信任，并已创建了 3.5 亿多张图像，其团队旨在使其成为必备的设计师工具，确保创作者能够控制他们的 AI 辅助工作流程。
+> Recraft is an AI tool for designers, illustrators, and marketers—founded in the US in 2022 and headquartered in London. It helps generate/iterate visuals (images, vector art, 3D graphics) with benefits like high-quality output (any text size/length), precise element positioning, and brand-consistent design. Trusted by over 3 million users (including Ogilvy, Netflix) across 200 countries and having created 350+ million images, the team aims for it to be the must-have designer tool, ensuring creators have control over their AI-assisted workflows.
 >
 > ![](images/image37.png)
 >
@@ -385,15 +385,15 @@ curl --request POST \
 >
 > ![](images/image39.png)
 
-### 如何获取 Recraft API
+### How to Get Recraft API
 
-首先，我们仍然需要找到重要的 API 入口以获取我们的 API key。 https://www.recraft.ai/profile/api
+First, we still need to find the important API entry point to get our API key. https://www.recraft.ai/profile/api
 
-由于这里没有提供免费额度，我们需要自己充值 1,000 积分。这个网站支持支付宝和微信支付，所以很容易获得 1,000 积分（注意：不要充值超过必要的金额）。
+Since no free credit is provided here, we need to top up 1,000 points ourselves. This website supports Alipay and WeChat Pay, so it's easy to get 1,000 points (note: don't top up more than necessary).
 
 ![](images/image40.png)
 
-之后，我们仍然遵循通常的方法：去官方文档找到相应的请求示例。
+After that, we still follow the usual method: go to the official documentation to find the corresponding request example.
 
 https://www.recraft.ai/docs/api-reference/getting-started
 
@@ -401,25 +401,25 @@ https://www.recraft.ai/docs/api-reference/usage
 
 https://www.recraft.ai/docs/api-reference/guides
 
-在这里，我们可以直接复制整个内容并粘贴到 z.ai。
+Here, we can directly copy the entire content and paste it into z.ai.
 
 ![](images/image41.png)
 
-注意，在聊天窗口中，输入你的 API key 和文档内容就足够了；z.ai 会自动为你构建前端。
+Note that in the chat window, entering your API key and documentation content is enough; z.ai will automatically build the front-end for you.
 
-如果过程中出现错误，你可以直接将错误信息粘贴到聊天窗口，让 z.ai 帮你自动解决。
+If an error occurs during the process, you can directly paste the error message into the chat window and let z.ai help you solve it automatically.
 
 ![](images/image42.png)
 
-## 3.5 将 Seedream API 集成到 z.ai 中（针对中国用户）
+## 3.5 Integrating Seedream API into z.ai (For Chinese Users)
 
-### 什么是 Seedream 4.0
+### What is Seedream 4.0
 
 https://seed.bytedance.com/en/seedream4_0
 
 ![](images/image43.png)
 
-> 也许你已经知道 Nano Banana（Google 开发），但你最好不要错过 Seedream。Seedream 4.0 是字节跳动打造的新一代图像创作模型。它将图像生成和图像编辑能力集成到一个统一的架构中。这使得它能够灵活处理复杂的多模态任务，如基于知识的生成、复杂推理和参考一致性。此外，它的推理速度比前代产品快得多，并且可以生成分辨率高达 4K 的令人惊叹的高清图像。
+> You might already know Nano Banana (developed by Google), but you'd better not miss Seedream. Seedream 4.0 is a new generation image creation model built by ByteDance. It integrates image generation and image editing capabilities into a unified architecture. This allows it to flexibly handle complex multi-modal tasks such as knowledge-based generation, complex reasoning, and reference consistency. Additionally, its inference speed is much faster than its predecessors, and it can generate stunning high-definition images with resolutions up to 4K.
 >
 > ![](images/image44.png)
 >
@@ -427,225 +427,225 @@ https://seed.bytedance.com/en/seedream4_0
 >
 > ![](images/image46.png)
 
-### 如何获取 Seedream API - 火山引擎 (Volcengine)（针对中国用户）
+### How to Get Seedream API - Volcengine (For Chinese Users)
 
-我们将逐步演示如何将 Seedream API 集成到 z.ai 示例中。
+We will demonstrate step-by-step how to integrate the Seedream API into the z.ai example.
 
 https://www.volcengine.com/experience/ark?launch=seedream
 
-访问页面后，点击登录。
+After visiting the page, click to log in.
 
 ![](images/image47.png)
 
-登录后，找到页面右上角的充值选项。
+After logging in, find the top-up option in the upper right corner of the page.
 
 ![](images/image48.png)
 
-进行充值需要实名认证。
+Real-name authentication is required for top-up.
 
 ![](images/image49.png)
 
-认证成功后，你可以充值 1 元用于测试。
+After successful authentication, you can top up 1 RMB for testing.
 
 https://console.volcengine.com/finance/fund/recharge
 
 ![](images/image50.png)
 
-返回初始界面并点击 API 访问。
+Return to the initial interface and click API Access.
 
 ![](images/image51.png)
 
-首先，创建一个 API key，然后点击选择选项。
+First, create an API key, then click the select option.
 
 ![](images/image52.png)
 
-这将带你进入第 2 步。在这里，你需要确认调用的服务是 Seedream 4.0，并复制提供的调用示例。
+This will take you to Step 2. Here, you need to confirm that the service called is Seedream 4.0 and copy the provided call example.
 
 ![](images/image53.png)
 
-准备好 API key 和调用示例后，你可以直接将它们粘贴到 z.ai 中以生成前端交互演示。
+After preparing the API key and call example, you can directly paste them into z.ai to generate a front-end interactive demo.
 
-重要提示：这里的默认示例相对复杂。记得禁用“添加水印”选项和“流式响应”选项，以确保不生成水印且不会发生请求失败。
+Important Note: The default example here is relatively complex. Remember to disable the "Add Watermark" option and the "Streaming Response" option to ensure no watermark is generated and no request failures occur.
 
 ![](images/image54.png)
 
-输入提示词后，你将收到生成的结果。享受它吧！
+After entering the prompt, you will receive the generated result. Enjoy it!
 
 ![](images/image55.png)
 
-# 让它更有趣
+# Make It More Interesting
 
-完成基本功能后，我们可以尝试给我们的程序添加一些新花样！如果你觉得蛇吃单词或字符的过程有点枯燥，你可以让蛇吃不同颜色的单词，并相应地改变蛇的颜色。
+After completing the basic features, we can try adding some new tricks to our program! If you find the process of the snake eating words or characters a bit boring, you can let the snake eat words of different colors and change the snake's color accordingly.
 
-你还可以为“吃”的过程添加特效，或者引入触发特效的魔法单词——比如增加蛇的速度或大小。另一个想法是每当蛇吃一个单词时就让模型生成一首诗和一幅图，而不是等到它吃掉八个单词。
+You can also add special effects to the "eating" process, or introduce magic words that trigger special effects—like increasing the snake's speed or size. Another idea is to let the model generate a poem and a picture every time the snake eats a word, rather than waiting until it eats eight words.
 
-如果觉得这些有挑战性，你可以直接向语言模型求助！它可以提供创意建议，让你的游戏更有趣。试一试吧！
+If these feel challenging, you can directly ask the language model for help! It can provide creative suggestions to make your game more fun. Give it a try!
 
 ```JavaScript
-1. "单词解锁世界" 机制
-每当蛇吃掉一个单词，LLM 会对该单词进行诗意联想（例如，“树”→“森林”、“绿荫”），图像模型会即时为该单词生成一个小艺术品。这些图像逐渐拼凑成一个独特的、玩家创造的全景图，所以玩家每次游玩都在“作画和写诗”。
+1. "Words Unlock the World" Mechanism
+Every time the snake eats a word, the LLM makes a poetic association for that word (e.g., "tree" → "forest", "green shade"), and the image model instantly generates a small artwork for that word. These images are gradually pieced together into a unique, player-created panorama, so the player is "painting and writing poetry" with every play.
 
-2. "诗歌拼图" 玩法
-蛇吃掉的每个单词都会触发 LLM 生成简短的诗句，图像模型生成插图。这些诗句和图像像拼图一样组合在一起，在回合结束时形成一首 AI 协作的诗和画。
+2. "Poetry Puzzle" Gameplay
+Each word eaten by the snake triggers the LLM to generate a short verse and the image model to generate an illustration. These verses and images are combined like a puzzle, forming an AI-collaborated poem and painting at the end of the round.
 
-3. "魔法单词" & "故事分支"
-特殊的“魔法单词”（例如，“风”、“夜”、“梦”）不仅触发 LLM 生成诗歌，还会改变场景的情绪或主题——将生成图像的风格转变为夜晚、暴风雨或梦幻般的氛围。
-分支故事：LLM 在开始时给出一个主题或谜语（例如，“秋天的回忆”）。玩家的单词选择直接影响故事和诗歌的演变，图像模型实时更新背景和视觉效果。
+3. "Magic Words" & "Story Branches"
+Special "magic words" (e.g., "wind", "night", "dream") not only trigger the LLM to generate poetry but also change the mood or theme of the scene—shifting the style of the generated images to night, storm, or a dreamlike atmosphere.
+Branching stories: The LLM gives a theme or riddle at the start (e.g., "Memories of Autumn"). The player's word choices directly influence the evolution of the story and poetry, with the image model updating backgrounds and visuals in real-time.
 
-4. "实时互动生成"
-每个单词之后，LLM 生成一行对话或描述，游戏中的 NPC 可以对玩家“说话”，或者环境可以相应地改变。
-蛇的外观或游戏中的障碍物可以根据吃掉的单词在视觉上发生变化，这要归功于图像模型。
+4. "Real-time Interactive Generation"
+After each word, the LLM generates a line of dialogue or description, and an NPC in the game can "speak" to the player, or the environment can change accordingly.
+The snake's appearance or obstacles in the game can change visually based on the words eaten, thanks to the image model.
 
-5. "创作 & 分享"
-玩家可以在会话结束时保存并分享他们 AI 创作的诗歌和图像，炫耀他们独特的“AI 协作”。
-“最美诗歌+艺术”、“最有创意单词组合”等排行榜，鼓励重玩和创造力。
+5. "Creation & Sharing"
+Players can save and share their AI-created poems and images at the end of the session, showing off their unique "AI collaboration."
+Leaderboards for "Most Beautiful Poem + Art," "Most Creative Word Combination," etc., to encourage replayability and creativity.
 
-6. "按句贪吃蛇" 挑战
-反向模式：LLM 给出一句诗或一个谜语，玩家必须引导蛇按顺序吃掉单词来重构句子。吃错单词会通过图像生成模型触发有趣或艺术性的后果。
+6. "Sentence Snake" Challenge
+Reverse Mode: The LLM gives a line of poetry or a riddle, and the player must guide the snake to eat words in order to reconstruct the sentence. Eating the wrong word triggers funny or artistic consequences via the image generation model.
 
-7. "主题关卡" & "风格选择"
-游戏开始时，玩家选择一个主题（例如，“童话”、“科幻”、“唐诗”），LLM 和图像模型都会调整单词选择、诗歌风格和视觉效果以匹配，使每次运行都感觉新鲜。
+7. "Themed Levels" & "Style Selection"
+At the start of the game, players choose a theme (e.g., "Fairytale", "Sci-Fi", "Tang Poetry"), and both the LLM and image models adjust word choices, poetic style, and visuals to match, making every run feel fresh.
 
-8. "现场共创"
-当吃掉一个特殊单词时，LLM 可以提示玩家输入短语或选择风格，然后 AI 生成相应的诗句和插图，使其成为真正的人类-AI 共创。
+8. "Live Co-creation"
+When a special word is eaten, the LLM can prompt the player for a phrase or a style choice, and then the AI generates the corresponding verse and illustration, making it a true human-AI co-creation.
 
-9. "AI 彩蛋 & 成就"
-某些单词组合被 LLM 识别为特殊主题或内部笑话（例如，“月亮”、“桂花”、“河岸”），触发稀有的诗句和插图，奖励探索。
+9. "AI Easter Eggs & Achievements"
+Certain word combinations are recognized by the LLM as special themes or inside jokes (e.g., "moon", "osmanthus", "riverbank"), triggering rare verses and illustrations that reward exploration.
 
-10. "成长的故事"
-随着蛇的成长，LLM 生成一个连续的故事诗，图像模型创建一个无缝的长卷或全景图，所以玩家同时在“写作、绘画和玩耍”。
+10. "Story of Growth"
+As the snake grows, the LLM generates a continuous story-poem and the image model creates a seamless long scroll or panorama, so the player is "writing, painting, and playing" all at once.
 ```
 
-此外，我们还可以要求 LLM 帮你直接生成项目级的提示词。在上一节中，我们只自己写了贪吃蛇游戏的提示词。现在让我们尝试让大模型生成一个带有整体框架和实现路径的提示词（你可以直接用 z.ai 生成）：
+In addition, we can ask the LLM to help you generate project-level prompts directly. In the previous section, we only wrote the prompt for the Snake game ourselves. Now let's try to let the large model generate a prompt with an overall framework and implementation path (you can generate it directly with z.ai):
 
-> 我想让 AI 生成一个网页贪吃蛇游戏，需要一个更完整的提示词，让生成结果更令人印象深刻和有趣。请生成相应的提示词。当前目标是：生成一个贪吃蛇游戏，需要实现吃不同单词生成诗歌的功能，并且应该包含图像生成模块。
+> I want the AI to generate a web-based Snake game and need a more complete prompt to make the generated result more impressive and interesting. Please generate the corresponding prompt. The current goal is: generate a Snake game that implements the feature of eating different words to generate poetry and should include an image generation module.
 
-z.ai 的回复将会是这样的：
+z.ai's reply will look like this:
 
 ![](images/image56.png)
 
-我们可以使用这个提示词在全栈开发模式下重新生成项目：
+We can use this prompt to re-generate the project in full-stack development mode:
 
 ![](images/image57.png)
 
 ![](images/image58.png)
 
-# 更多参考案例
+# More Reference Cases
 
-除了贪吃蛇（游戏），我们可以让想象力尽情驰骋。
+Beyond Snake (games), we can let our imagination run wild.
 
-创造任何我们想创造的东西，甚至尝试搞砸一切！然后重头再来！
+Create whatever we want to create, or even try to mess everything up! Then start over!
 
 ```YAML
-1. AI 艺术画廊平台
-   描述：一个展示 AI 生成艺术作品的在线画廊，用户可以上传、分享和评论 AI 艺术作品。
-   功能：用户账户系统、艺术作品上传和展示、评分系统、分类浏览、AI 生成工具集成。
-   技术亮点：React/Vue 前端、Node.js 后端、MongoDB 数据库、AI API 集成。
+1. AI Art Gallery Platform
+   Description: An online gallery showcasing AI-generated artwork where users can upload, share, and comment on AI art.
+   Features: User account system, artwork upload and display, rating system, categorized browsing, AI generation tool integration.
+   Technical Highlights: React/Vue frontend, Node.js backend, MongoDB database, AI API integration.
 
-2. 复古游戏档案馆
-   描述：一个致敬经典游戏的网站，包含游戏历史、玩法指南和在线可玩复古游戏。
-   功能：游戏数据库、时间轴展示、在线模拟器、用户评论、游戏收藏功能。
-   技术亮点：响应式设计、WebGL/Canvas 游戏实现、RESTful API、用户认证系统。
+2. Retro Game Archive
+   Description: A website paying tribute to classic games, featuring game history, gameplay guides, and online playable retro games.
+   Features: Game database, timeline display, online emulator, user reviews, game collection feature.
+   Technical Highlights: Responsive design, WebGL/Canvas game implementation, RESTful API, user authentication system.
 
-3. 可持续生活追踪器
-   描述：一个帮助用户通过环保提示和社区挑战来追踪和减少碳足迹的网站。
-   功能：个人碳足迹计算器、目标设定、进度追踪、社区挑战、环保知识库。
-   技术亮点：数据可视化、移动端优化、社交功能、推送通知。
+3. Sustainable Living Tracker
+   Description: A website helping users track and reduce their carbon footprint through eco-friendly tips and community challenges.
+   Features: Personal carbon footprint calculator, goal setting, progress tracking, community challenges, eco-knowledge base.
+   Technical Highlights: Data visualization, mobile optimization, social features, push notifications.
 
-4. 虚拟厨房助手
-   描述：一个基于 AI 的烹饪指导平台，提供个性化食谱推荐和分步烹饪说明。
-   功能：食谱数据库、食材识别、个性化推荐、烹饪计时器、营养分析。
-   技术亮点：图像识别 API、机器学习推荐系统、语音控制、实时视频指导。
+4. Virtual Kitchen Assistant
+   Description: An AI-based cooking guidance platform providing personalized recipe recommendations and step-by-step cooking instructions.
+   Features: Recipe database, ingredient recognition, personalized recommendations, cooking timer, nutritional analysis.
+   Technical Highlights: Image recognition API, machine learning recommendation system, voice control, real-time video guidance.
 
-5. 地下音乐发现平台
-   描述：一个专注于独立和新兴艺术家的音乐流媒体平台，提供独特的发现体验。
-   功能：音乐流媒体、艺术家资料、个性化推荐、播放列表创建、社区评论。
-   技术亮点：音频流处理、推荐算法、社交功能、音乐可视化。
+5. Underground Music Discovery Platform
+   Description: A music streaming platform focused on independent and emerging artists, offering a unique discovery experience.
+   Features: Music streaming, artist profiles, personalized recommendations, playlist creation, community reviews.
+   Technical Highlights: Audio stream processing, recommendation algorithms, social features, music visualization.
 
-6. 极简任务管理系统
-   描述：一个具有禅意美学的任务管理工具，专注于简单和高效的任务组织。
-   功能：任务创建和分类、优先级设置、进度追踪、团队协作、数据分析。
-   技术亮点：极简 UI 设计、拖放功能、实时同步、跨平台兼容性。
+6. Minimalist Task Management System
+   Description: A task management tool with a Zen aesthetic, focusing on simplicity and efficient task organization.
+   Features: Task creation and categorization, priority setting, progress tracking, team collaboration, data analysis.
+   Technical Highlights: Minimalist UI design, drag-and-drop functionality, real-time synchronization, cross-platform compatibility.
 
-7. 科幻写作工坊
-   描述：一个为科幻作家提供创意工具和灵感的平台，包括世界观构建辅助和角色开发工具。
-   功能：故事结构工具、角色资料、世界观构建模板、写作统计、社区反馈。
-   技术亮点：富文本编辑器、数据可视化、协作编辑、AI 辅助创作。
+7. Sci-Fi Writing Workshop
+   Description: A platform providing creative tools and inspiration for sci-fi writers, including world-building assistance and character development tools.
+   Features: Story structure tools, character profiles, world-building templates, writing statistics, community feedback.
+   Technical Highlights: Rich text editor, data visualization, collaborative editing, AI-assisted creation.
 
-8. 个人知识图谱
-   描述：一个帮助用户构建个人知识网络，可视化并连接各种想法和信息的工具。
-   功能：节点创建和连接、标签系统、搜索功能、导入/导出工具、可视化图表。
-   技术亮点：图数据库、数据可视化算法、Markdown 支持、跨设备同步。
+8. Personal Knowledge Graph
+   Description: A tool helping users build a personal knowledge network, visualizing and connecting various ideas and information.
+   Features: Node creation and connection, tagging system, search functionality, import/export tools, visual diagrams.
+   Technical Highlights: Graph database, data visualization algorithms, Markdown support, cross-device synchronization.
 
-9. 虚拟植物园
-   描述：一个互动植物百科全书，用户可以探索植物世界并创建虚拟花园。
-   功能：植物数据库、3D 植物模型、生长模拟、园艺指南、社区展示。
-   技术亮点：3D 渲染、季节变化模拟、AR 集成、植物识别 API。
+9. Virtual Botanical Garden
+   Description: An interactive plant encyclopedia where users can explore the plant world and create virtual gardens.
+   Features: Plant database, 3D plant models, growth simulation, gardening guides, community showcases.
+   Technical Highlights: 3D rendering, seasonal change simulation, AR integration, plant identification API.
 
-10. 编程挑战竞技场
-    描述：一个面向程序员的在线竞赛平台，具有各种难度级别的编程挑战。
-    功能：挑战问题、代码编辑器、自动评估、排行榜、学习路径。
-    技术亮点：代码沙箱环境、实时评估系统、算法可视化、社交学习功能。
+10. Coding Challenge Arena
+    Description: An online competition platform for programmers with various difficulty levels of coding challenges.
+    Features: Challenge problems, code editor, automatic evaluation, leaderboards, learning paths.
+    Technical Highlights: Code sandbox environment, real-time evaluation system, algorithm visualization, social learning features.
 ```
 
-还有... 如果你喜欢玩游戏，让我们一起尝试创造游戏吧！
+And... if you like playing games, let's try to create games together!
 
 ```SQL
-1. 3D 开放世界 RPG
-   描述：一个具有广阔开放世界、任务和角色成长的奇幻 RPG。
-   功能：昼夜循环、动态天气、技能树、多人合作、制作系统。
-   技术亮点：Three.js 或 Babylon.js 用于 3D 渲染、服务器端游戏逻辑、角色自定义、存档系统。
+1. 3D Open World RPG
+   Description: A fantasy RPG with a vast open world, quests, and character growth.
+   Features: Day/night cycle, dynamic weather, skill trees, multiplayer co-op, crafting system.
+   Technical Highlights: Three.js or Babylon.js for 3D rendering, server-side game logic, character customization, save system.
 
-2. 第一人称射击 (FPS) 竞技场
-   描述：一个快节奏的多人 FPS，具有各种游戏模式和地图。
-   功能：团队死斗、夺旗、武器自定义、排位赛。
-   技术亮点：WebGL/Three.js 用于 3D 图形、多人网络代码、命中检测、语音聊天。
+2. First-Person Shooter (FPS) Arena
+   Description: A fast-paced multiplayer FPS with various game modes and maps.
+   Features: Team deathmatch, capture the flag, weapon customization, ranked matches.
+   Technical Highlights: WebGL/Three.js for 3D graphics, multiplayer networking code, hit detection, voice chat.
 
-3. AI 国际象棋和多人游戏
-   描述：一个功能齐全的国际象棋平台，具有 AI 对手和在线对战功能。
-   功能：AI 难度级别、残局挑战、锦标赛模式、回放分析。
-   技术亮点：国际象棋逻辑库、WebSocket 用于实时对战、ELO 排名系统、反作弊。
+3. AI Chess and Multiplayer
+   Description: A full-featured chess platform with AI opponents and online play.
+   Features: AI difficulty levels, endgame challenges, tournament mode, replay analysis.
+   Technical Highlights: Chess logic library, WebSockets for real-time play, ELO rating system, anti-cheat.
 
-4. 麻将在线多人游戏
-   描述：一个具有在线多人游戏和计分功能的传统麻将游戏。
-   功能：多种规则集、私人房间、排名系统、回放功能。
-   技术亮点：牌匹配逻辑、实时多人游戏、大厅系统、分数追踪。
+4. Mahjong Online Multiplayer
+   Description: A traditional Mahjong game with online multiplayer and scoring.
+   Features: Multiple rule sets, private rooms, ranking system, replay function.
+   Technical Highlights: Tile matching logic, real-time multiplayer, lobby system, score tracking.
 
-5. 回合制策略游戏
-   描述：一个具有网格战斗和单位管理的战术策略游戏。
-   功能：战役模式、遭遇战、单位升级、战争迷雾、多人对战。
-   技术亮点：网格移动系统、AI 决策、回合同步、存档/读档系统。
+5. Turn-Based Strategy Game
+   Description: A tactical strategy game with grid-based combat and unit management.
+   Features: Campaign mode, skirmishes, unit upgrades, fog of war, multiplayer battles.
+   Technical Highlights: Grid movement system, AI decision-making, turn synchronization, save/load system.
 
-6. 计时赛赛车游戏
-   描述：一个专注于计时赛和赛道记录的 3D 赛车游戏。
-   功能：多条赛道、汽车自定义、幽灵回放、排行榜。
-   技术亮点：3D 汽车物理、赛道编辑器、回放系统、在线排行榜。
+6. Time Trial Racing Game
+   Description: A 3D racing game focused on time trials and track records.
+   Features: Multiple tracks, car customization, ghost replays, leaderboards.
+   Technical Highlights: 3D car physics, track editor, replay system, online leaderboards.
 
-7. 卡牌对战游戏 (卡组构建)
-   描述：一个策略卡牌游戏，玩家构建卡组并与对手战斗。
-   功能：卡牌收集、卡组构建、排位赛、赛季活动。
-   技术亮点：卡牌游戏逻辑、匹配系统、AI 对手、卡牌动画。
+7. Card Battle Game (Deck Building)
+   Description: A strategic card game where players build decks and battle opponents.
+   Features: Card collection, deck building, ranked matches, seasonal events.
+   Technical Highlights: Card game logic, matchmaking system, AI opponents, card animations.
 
-8. 大逃杀 (俯视 2D)
-   描述：一个俯视 2D 大逃杀游戏，具有缩小的游戏区域和战利品机制。
-   功能：单人和小队模式、武器多样性、局内事件、排行榜。
-   技术亮点：实时多人游戏、区域缩小逻辑、战利品生成系统、匹配。
+8. Battle Royale (Top-Down 2D)
+   Description: A top-down 2D battle royale with a shrinking play area and loot mechanics.
+   Features: Solo and squad modes, weapon variety, in-game events, leaderboards.
+   Technical Highlights: Real-time multiplayer, zone shrinking logic, loot generation system, matchmaking.
 
-9. 恐怖生存游戏 (第一人称)
-   描述：一个具有资源管理和逃生机制的第一人称恐怖游戏。
-   功能：氛围环境、解谜、敌人 AI、多重结局。
-   技术亮点：动态照明、声音设计、敌人寻路、存档系统。
+9. Survival Horror Game (First-Person)
+   Description: A first-person horror game with resource management and escape mechanics.
+   Features: Atmospheric environments, puzzles, enemy AI, multiple endings.
+   Technical Highlights: Dynamic lighting, sound design, enemy pathfinding, save system.
 
-10. 音乐节奏游戏 (3D)
-    描述：一个 3D 节奏游戏，玩家随着音乐节拍击打音符。
-    功能：多种难度级别、赛道编辑器、自定义歌曲支持、排行榜。
-    技术亮点：音频分析、节拍同步、3D 音符轨道、输入时机检测。
+10. Music Rhythm Game (3D)
+    Description: A 3D rhythm game where players hit notes to the beat of the music.
+    Features: Multiple difficulty levels, track editor, custom song support, leaderboards.
+    Technical Highlights: Audio analysis, beat synchronization, 3D note tracks, input timing detection.
 ```
 
-# 总结
+# Summary
 
-这就是完整的教程！你可能需要 **4 小时** 才能完成所有内容并构建你自己的贪吃蛇游戏。不要着急——探索、实验并享受这个过程。
+That's the complete tutorial! It might take you **4 hours** to complete everything and build your own Snake game. Don't rush—explore, experiment, and enjoy the process.
 
-如果你有不同的游戏想法，那也很好。最重要的是开始构建。
+If you have a different game idea, that's great too. The most important thing is to start building.
 
-祝你好运，欢迎来到 AI 原生创造力的世界 :)
+Good luck, and welcome to the world of AI-native creativity :)
