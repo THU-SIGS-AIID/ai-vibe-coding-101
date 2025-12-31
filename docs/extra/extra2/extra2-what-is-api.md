@@ -1,77 +1,77 @@
-# 扩展知识 2 - 什么是 API
+# Extra 2 - What is an API
 
-在本教程中，我们将学习什么是 API，它是如何工作的，并了解它是如何驱动我们每天使用的数字体验的。
+In this tutorial, we will learn what an API is, how it works, and see how it powers the digital experiences we use every day.
 
-# 你将学到
+# What You Will Learn
 
-* 使用简单、真实的类比来理解什么是 API。
-* API 请求和响应循环的基本步骤。
-* 如何识别你日常使用的应用中的 API，如天气、地图和社交媒体。
-* 为什么 API 对于现代技术的创新、安全和效率至关重要。
+* Use a simple, real-world analogy to understand what an API is.
+* The basic steps of the API request and response cycle.
+* How to identify APIs in the apps you use daily, such as weather, maps, and social media.
+* Why APIs are essential for innovation, security, and efficiency in modern technology.
 
-# **什么是 API？ - 自动售货机类比**
+# **What is an API? - The Vending Machine Analogy**
 
-想象一下你想从自动售货机买一罐汽水。
+Imagine you want to buy a can of soda from a vending machine.
 
-1. **你不需要知道它内部是如何工作的：** 你不关心冷却系统、机械臂，或者它是如何验证你的钱的。对你来说，它是一个“黑盒子”。
-2. **它有清晰的操作按钮：** 机器上有一排排按钮，每个按钮都清楚地标明了它提供的饮料。这是你与它交流的唯一方式。你必须按下“汽水”按钮。
-3. **简单的“请求”和“响应”：**
-   1. 你投入硬币并按下“汽水”按钮。这是你的 **“请求”**。
-   2. 机器发出嗡嗡声，一罐汽水掉了下来供你拿取。这是它的 **“响应”**。
+1.  **You don't need to know how it works internally:** You don't care about the cooling system, the mechanical arm, or how it verifies your money. To you, it's a "black box."
+2.  **It has clear operation buttons:** There are rows of buttons on the machine, each clearly labeled with the drink it provides. This is the only way you communicate with it. You must press the "Soda" button.
+3.  **Simple "Request" and "Response":**
+    1.  You insert coins and press the "Soda" button. This is your **"Request"**.
+    2.  The machine whirs, and a can of soda drops down for you to take. This is its **"Response"**.
 
-在这个例子中：
+In this example:
 
-* 你是你的程序（比如一个移动应用）。
-* 自动售货机是另一个程序或服务（比如天气服务或地图服务）。
-* 机器上的按钮就是 API。
+*   You are your program (like a mobile app).
+*   The vending machine is another program or service (like a weather service or map service).
+*   The buttons on the machine are the API.
 
-API，全称 Application Programming Interface（应用程序编程接口），就是那组“按钮”。它是不同软件组件之间进行通信的一种预定义的、直接的方式，允许一个程序轻松地从另一个程序获取它需要的东西（数据或功能），而无需了解其内部的复杂性。
+API stands for Application Programming Interface. It is that set of "buttons." It's a predefined, straightforward way for different software components to communicate, allowing one program to easily get what it needs (data or functionality) from another without needing to understand its internal complexity.
 
-API 连接了各种软件系统，为开发者和用户带来了巨大的好处。
+APIs connect various software systems, bringing immense benefits to developers and users alike.
 
-* **创新：** 公共 API 允许任何开发者使用强大的功能（如支付处理或地图）来创建新的数字体验，而无需从头开始构建它们。
-* **自动化：** API 可以自动化重复性工作，如发送电子邮件或在系统之间共享数据，提高生产力，让人类可以专注于更有创造性的任务。
-* **安全性：** API 充当安全的守门人。它们可以要求对任何请求进行身份验证，增加一层保护，防止未经授权访问敏感数据。
-* **成本效率：** 企业可以使用第三方 API 来访问有用的工具和基础设施，帮助他们避免构建复杂内部系统的巨额费用。
+*   **Innovation:** Public APIs allow any developer to use powerful features (like payment processing or maps) to create new digital experiences without building them from scratch.
+*   **Automation:** APIs can automate repetitive tasks, like sending emails or sharing data between systems, increasing productivity and letting humans focus on more creative tasks.
+*   **Security:** APIs act as secure gatekeepers. They can require authentication for any request, adding a layer of protection against unauthorized access to sensitive data.
+*   **Cost Efficiency:** Businesses can use third-party APIs to access useful tools and infrastructure, helping them avoid the massive expense of building complex internal systems.
 
-API 是现代数字世界的基石。通过理解请求和响应这个简单的概念，你已经迈出了进入更广阔、互联的软件开发世界的第一步。
+APIs are the cornerstones of the modern digital world. By understanding the simple concept of request and response, you've taken the first step into the wider, interconnected world of software development.
 
-# API 是如何工作的？
+# How Does an API Work?
 
-API 通过 **请求和响应** 循环在应用程序之间共享数据。让我们把它想象成在餐厅点餐。
+APIs share data between applications through a **request and response** cycle. Let's think of it like ordering food at a restaurant.
 
-在这个比喻中，你是 **API 客户端**（发出请求的应用程序），服务员是 **API**，厨房是 **API 服务器**（拥有数据或功能的系统）。
+In this analogy, you are the **API Client** (the application making the request), the waiter is the **API**, and the kitchen is the **API Server** (the system that holds the data or functionality).
 
-## **API 请求（你的订单）**
+## **API Request (Your Order)**
 
-客户端通过向服务器发送请求来开始对话。这就像告诉服务员你想要什么。一个典型的 API 请求包括：
+The client starts the conversation by sending a request to the server. This is like telling the waiter what you want. A typical API request includes:
 
-* **Endpoint（端点）：** 指向资源的特定 URL。这就像菜单上的特定项目。对于天气应用，端点可能是 `/current-weather`。
-* **Method（方法）：** 你想执行的操作。最常见的是 `GET`，意味着你想获取数据。其他的包括 `POST`（创建新数据）、`PUT`（更新数据）和 `DELETE`（删除数据）。
-* **Parameters（参数）：** 指定请求的额外细节。如果你询问天气，你需要提供位置。例如：`city=London`。
-* **Request Body（请求体）：** 创建或更新资源所需的实际数据。如果你要向社交媒体应用发布新照片，照片本身就在请求体中。
+*   **Endpoint:** A specific URL pointing to a resource. This is like a specific item on the menu. For a weather app, the endpoint might be `/current-weather`.
+*   **Method:** The action you want to perform. The most common is `GET`, meaning you want to retrieve data. Others include `POST` (create new data), `PUT` (update data), and `DELETE` (delete data).
+*   **Parameters:** Extra details to specify the request. If you're asking for the weather, you need to provide a location. For example: `city=London`.
+*   **Request Body:** The actual data needed to create or update a resource. If you're posting a new photo to a social media app, the photo itself is in the request body.
 
-## **API 响应（你的食物到了）**
+## **API Response (Your Food Arrives)**
 
-在厨房（服务器）准备好你的订单后，服务员（API）将其带回给你。响应包括：
+After the kitchen (server) prepares your order, the waiter (API) brings it back to you. The response includes:
 
-* **Status Code（状态码）：** 一个三位数的代码，指示结果。`200 OK` 表示请求成功。`404 Not Found` 表示找不到请求的资源。
-* **Response Body（响应体）：** 你请求的实际数据或内容。对于天气请求，这将是包含温度、状况和湿度的结构化数据。
+*   **Status Code:** A three-digit code indicating the result. `200 OK` means the request was successful. `404 Not Found` means the requested resource couldn't be found.
+*   **Response Body:** The actual data or content you requested. For a weather request, this would be structured data containing the temperature, conditions, and humidity.
 
-# 现实世界的例子：我们周围的 API
+# Real-World Examples: APIs All Around Us
 
-API 无处不在，在后台默默工作。让我们看几个常见的“自动售货机”。
+APIs are everywhere, working silently in the background. Let's look at a few common "vending machines."
 
-### **天气预报 API**
+### **Weather Forecast API**
 
-这个 API 就像一个只卖天气信息的自动售货机。
+This API is like a vending machine that only sells weather information.
 
-* **它提供什么：** 当前天气、未来几天的预报、空气质量等。
-* **一个简单的‘请求’示例：**
-  * **Endpoint:** `/current-weather`
-  * **Parameters:** `city=London` & `apiKey=your_access_key`（证明你有权限）
+*   **What it provides:** Current weather, forecasts for the next few days, air quality, etc.
+*   **A simple "request" example:**
+    *   **Endpoint:** `/current-weather`
+    *   **Parameters:** `city=London` & `apiKey=your_access_key` (proving you have permission)
 
-‘响应’（它返回的数据）：
+The "response" (the data it returns):
 
 ```JSON
 {
@@ -82,16 +82,16 @@ API 无处不在，在后台默默工作。让我们看几个常见的“自动�
 }
 ```
 
-* 你的天气应用获取这些数据并以用户友好的格式显示。
+*   Your weather app takes this data and displays it in a user-friendly format.
 
-### **地图服务 API（如 Google Maps）**
+### **Map Service API (e.g., Google Maps)**
 
-这个自动售货机专门提供地理信息。
+This vending machine specializes in geographic information.
 
-* **它提供什么：** 行车路线、从地址查找坐标、搜索附近地点。
-* **一个简单的‘请求’示例：**
-  * **Endpoint:** `/directions`
-  * **Parameters:** `origin=Eiffel Tower` & `destination=Louvre Museum` & `mode=driving`
+*   **What it provides:** Driving directions, finding coordinates from an address, searching for nearby places.
+*   **A simple "request" example:**
+    *   **Endpoint:** `/directions`
+    *   **Parameters:** `origin=Eiffel Tower` & `destination=Louvre Museum` & `mode=driving`
 
 ```JSON
 {
@@ -105,60 +105,58 @@ API 无处不在，在后台默默工作。让我们看几个常见的“自动�
 }
 ```
 
-* 拼车或送货应用使用这些数据在地图上绘制路线并提供逐向导航指令。
+*   Ride-sharing or delivery apps use this data to plot routes on a map and provide turn-by-turn navigation instructions.
 
-### **社交媒体登录 API（如“使用 Google 登录”）**
+### **Social Media Login API (e.g., "Login with Google")**
 
-这是一个特殊的自动售货机，不卖产品；它帮助“验证你的身份”。
+This is a special vending machine that doesn't sell a product; it helps "verify who you are."
 
-* **它提供什么：**
+*   **What it provides:**
+    Confirms a user's identity and safely provides basic information (like name and profile picture) to another app.
+*   **How it works:**
+    *   You click "Login with Google" on a new shopping app.
+    *   The shopping app sends a request to Google's API: "Hey, a user wants to log in. Can you confirm who they are?"
+    *   Google asks for your approval.
+    *   Once you approve, Google's API sends a response to the shopping app: "Identity confirmed. The user is 'John Doe'."
+    This way, the shopping app knows who you are without ever seeing your password, which is both convenient and secure.
 
-确认用户身份并安全地向另一个应用提供基本信息（如姓名和头像）。
+### **Large Language Model API (e.g., OpenAI or DeepSeek)**
 
-* **它是如何工作的：**
-  * 你在新的购物应用上点击“使用 Google 登录”。
-  * 购物应用向 Google 的 API 发出请求：“嘿，有个用户想登录。你能确认他是谁吗？”
-  * Google 请求你的批准。
-  * 一旦你批准，Google 的 API 向购物应用发送响应：“身份已确认。用户是‘John Doe’。”
-    这样，购物应用就知道你是谁，而无需看到你的密码，既方便又安全。
+This is a **"Super Brain" vending machine**. You give it a plain text command or question, and it gives you a detailed, human-like text response.
 
-### **大语言模型 API（如 OpenAI 或 DeepSeek）**
+*   **What it provides:** Generates original text for almost any task, such as answering questions, writing emails, summarizing articles, or creating computer code.
+*   **How it works:**
+    *   Imagine you are using a new "AI Writing Assistant" app. You type a command: "Write a short, professional email to my team about the new project deadline."
+    *   The writing app sends a request to OpenAI's API: "Hey, a user wants to write an email. Can you generate text for a professional message about a new project deadline?"
+    *   The OpenAI API processes this command, understanding the context and tone, and generates the text.
+    *   The API sends a response to the writing app: "Request completed. Here is the email text: 'Hi Team, This is a quick update to let you know that the deadline for Project X has been moved to this Friday...'"
 
-这是一个 **“超级大脑”自动售货机**。你给它一个纯文本的命令或问题，它给你一个详细的、类似人类的文本回复。
+In this way, the writing app can instantly provide powerful AI capabilities to its users without having to build its own large language model from scratch.
 
-* **它提供什么：** 为几乎任何任务生成原创文本，如回答问题、写邮件、总结文章或创建计算机代码。
-* **它是如何工作的：**
-  * 想象你正在使用一个新的“AI 写作助手”应用程序。你输入一个命令：“给我的团队写一封简短、专业的邮件，关于新项目的截止日期。”
-  * 写作应用向 OpenAI 的 API 发出请求：“嘿，有个用户想写封邮件。你能生成关于新项目截止日期的专业信息的文本吗？”
-  * OpenAI API 处理此命令，理解上下文和语气，并生成文本。
-  * API 向写作应用发送响应：“请求完成。这是邮件文本：‘Hi Team, This is a quick update to let you know that the deadline for Project X has been moved to this Friday...’”
+# Checking Out LLM APIs on Z.ai
 
-通过这种方式，写作应用可以即时为用户提供强大的 AI 功能，而无需从头开始构建自己的大型语言模型。
+Next, we will learn the basic methods for calling Large Language Model APIs. We can simply refer to the previous API usage example from the Snake game.
 
-# 在 Z.ai 上查看 LLM API
-
-接下来，我们将学习调用大语言模型 API 的基本方法。我们可以简单参考之前贪吃蛇游戏的 API 使用示例。
-
-我们不需要自己搜索。我们需要做的就是向语言模型提出后续问题，例如：“在代码中，哪几行调用了语言模型和图像生成模型？”，“如果用 Python 代码写会是什么样？”通过问这些问题，你将能直接得到完整的答案。
+We don't need to search for it ourselves. All we need to do is ask follow-up questions to the language model, such as: "In the code, which lines call the language model and image generation model?", "What would it look like if written in Python code?" By asking these questions, you will be able to get complete answers directly.
 
 ![](images/image1.png)
 
-这些 API 是使用官方智谱 SDK（SDK 代表 **软件开发工具包**）调用的。接下来，让我们看看如何调用 OpenAI 的官方 API。
+These APIs are called using the official Zhipu SDK (SDK stands for **Software Development Kit**). Next, let's look at how to call OpenAI's official API.
 
-你稍后可能会遇到很多名词。不需要一下子掌握所有名词——**你只需要在这里大致了解它们的样子**。
+You might encounter many terms later. There's no need to master them all at once—**you just need to get a general idea of what they look like here**.
 
 ### Python API
 
-要在 Python 中调用 OpenAI 的文本生成 API，可以使用官方的 openai 库。
+To call OpenAI's text generation API in Python, you can use the official `openai` library.
 
-**`base_url`** 参数指定 API 的端点。默认情况下，它指向 OpenAI 的服务器（例如 `https://api.openai.com/v1/`）。如果你使用代理、自托管服务器或兼容的提供商，你可能需要将此参数更改为相应的地址。
+The **`base_url`** parameter specifies the API's endpoint. By default, it points to OpenAI's servers (e.g., `https://api.openai.com/v1/`). If you are using a proxy, a self-hosted server, or a compatible provider, you may need to change this parameter to the corresponding address.
 
 ```Python
 import openai
 
 openai.api_key = "YOUR_OPENAI_API_KEY"
-# 如果你使用自定义 base URL（例如 Azure、代理或其他提供商）
-# openai.base_url = "<https://your-custom-base-url/v1/>"
+# If you are using a custom base URL (e.g., Azure, proxy, or other providers)
+# openai.base_url = "https://your-custom-base-url/v1/"
 
 response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
@@ -171,24 +169,24 @@ response = openai.ChatCompletion.create(
 print(response.choices[0].message["content"])
 ```
 
-**注意：**
+**Note:**
 
-* `openai.api_key` 是你的秘密 API 密钥。
-* `openai.base_url` 是可选的，仅当你未使默认 OpenAI 端点时才需要。
-* `model` 参数指定你想使用的语言模型。
+*   `openai.api_key` is your secret API key.
+*   `openai.base_url` is optional and only needed if you are not using the default OpenAI endpoint.
+*   The `model` parameter specifies the language model you want to use.
 
-许多其他流行的大语言模型都兼容 OpenAI API 调用格式。例如，如果你需要使用 [DeepSeek](https://platform.deepseek.com/sign_in)（中国最好的大语言模型之一），你可以通过更改 API 端点和模型名称以非常相似的方式进行操作。
+Many other popular Large Language Models are compatible with the OpenAI API call format. For example, if you need to use [DeepSeek](https://platform.deepseek.com/sign_in) (one of the best large language models in China), you can do so in a very similar way by changing the API endpoint and the model name.
 
-以下是典型示例：
+Here is a typical example:
 
-```JavaScript
+```python
 import openai
 
 openai.api_key = "YOUR_DEEPSEEK_API_KEY"
-openai.base_url = "<https://api.deepseek.com/v1/>"  # DeepSeek 的端点
+openai.base_url = "https://api.deepseek.com/v1/"  # DeepSeek's endpoint
 
 response = openai.ChatCompletion.create(
-    model="deepseek-chat",  # 更改为 DeepSeek 的模型名称
+    model="deepseek-chat",  # Change to DeepSeek's model name
     messages=[
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Tell me about DeepSeek."}
@@ -198,14 +196,14 @@ response = openai.ChatCompletion.create(
 print(response.choices[0].message["content"])
 ```
 
-### 前端 API
+### Frontend API
 
-如果你想从 React 前端调用 OpenAI API，绝不应该直接在浏览器中暴露你的 API 密钥。
+If you want to call the OpenAI API from a React frontend, you should never expose your API key directly in the browser.
 
-相反，使用 **后端代理**（例如 Express.js），或从服务器函数安全地调用 API。
+Instead, use a **backend proxy** (e.g., Express.js), or call the API safely from server functions.
 
 ```JavaScript
-// 安装命令：npm install express axios dotenv
+// Installation command: npm install express axios dotenv
 const express = require("express");
 const axios = require("axios");
 require("dotenv").config();
@@ -218,7 +216,7 @@ app.post("/api/chat", async (req, res) => {
     const userMessage = req.body.message;
 
     const response = await axios.post(
-      "<https://api.openai.com/v1/chat/completions>",
+      "https://api.openai.com/v1/chat/completions",
       {
         model: "gpt-3.5-turbo",
         messages: [
@@ -242,17 +240,17 @@ app.post("/api/chat", async (req, res) => {
 
 app.listen(3001, () => {
   console.log("Server listening on port 3001");
-});`
+});
 ```
 
-要测试这个 Node.js 程序，首先使用 npm install express axios dotenv 安装所需的包，并将你的 OpenAI API 密钥保存在 .env 文件中，格式为 `OPENAI_API_KEY=your_key_here`。然后，使用 node server.js 运行服务器。一旦运行起来，你可以通过使用工具如 curl 或 Postman 发送带有 JSON 体（如 `{"message": "Hello"}`）的 POST 请求到 [http://localhost:3001/api/chat](http://localhost:3001/api/chat) 来测试 /api/chat 端点，你应该会收到来自 OpenAI API 的回复。
+To test this Node.js program, first install the required packages using `npm install express axios dotenv`, and save your OpenAI API key in a `.env` file in the format `OPENAI_API_KEY=your_key_here`. Then, run the server using `node server.js`. Once it's running, you can test the `/api/chat` endpoint by sending a POST request with a JSON body (e.g., `{"message": "Hello"}`) to [http://localhost:3001/api/chat](http://localhost:3001/api/chat) using a tool like `curl` or Postman, and you should receive a reply from the OpenAI API.
 
-```JavaScript
-curl -X POST <http://localhost:3001/api/chat> \\
-  -H "Content-Type: application/json" \\
+```bash
+curl -X POST http://localhost:3001/api/chat \
+  -H "Content-Type: application/json" \
   -d '{"message":"Hello, who are you?"}'
 ```
 
-# 参考资料
+# References
 
 * https://www.postman.com/what-is-an-api/

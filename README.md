@@ -11,7 +11,7 @@
 
 <div align="center">
 
-[Chinese](./README.md) | [English](https://github.com/THU-SIGS-AIID/ai-vibe-coding-101/blob/main/README.md)
+[Chinese](https://github.com/datawhalechina/easy-vibe/blob/main/README.md) | [English](https://github.com/THU-SIGS-AIID/ai-vibe-coding-101/blob/main/README.md)
 
 </div>
 
@@ -19,6 +19,9 @@
   <h3>📚 AI Vibe Coding 101 Tutorial</h3>
   <p>From zero to one, master Vibe Coding and AI skills through project-based learning, and build your first AI-native product.</p>
 </div>
+
+Please note that the English version of this tutorial is still being updated and does not represent the final version.
+
 
 ## Project Introduction
 
