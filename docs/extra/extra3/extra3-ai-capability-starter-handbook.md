@@ -1,3267 +1,3261 @@
-# AI 能力手册：主流模型、产品形态与应用场景一览
+# AI Capability Handbook: An Overview of Mainstream Models, Product Forms, and Application Scenarios
 
-随着生成式 AI 技术在各类产品和业务场景中的广泛落地，一个越来越现实的问题摆在每个我们面前： **到底有哪些 AI 能力可以用？** 在具体的需求里，又 **该选择哪一种能力、哪一类模型或哪一个产品来承载？**
+As generative AI technology is widely implemented in various products and business scenarios, an increasingly real issue is presented to each of us: ** What exactly are the available AI capabilities? ** In specific requirements, ** which capabilities, models, or products should be selected to implement them? **
 
-面对这种困惑，最直观的做法或许是 “临时抱佛脚”：**遇到需求再搜索市面上云服务厂商的产品 API，或者是对应模型，搜索市面上的商业级解决方案对照文档与 Demo进行处理** 。看到图片需求就想到图像生成，碰到文本任务就找来大模型，涉及语音交互就想起 ASR 和 TTS，再在海量 API 与服务中货比三家。然而，把零散的产品堆在一起，与在企业级场景中系统性地规划、选型和组合 AI 能力，是两件截然不同的事情。仅靠临时查资料与经验判断，会带来能力认知碎片化、方案设计随意、能力复用困难等一系列严峻挑战。
+In the face of such confusion, the most intuitive approach may be to "cram at the last minute":  ** search for the product APIs of cloud service providers on the market or the corresponding models when a requirement arises, or refer to the documentation and demos of commercial solutions on the market for handling ** . When faced with image requirements, think of image generation; when dealing with text tasks, find large models; when it comes to voice interaction, think of ASR and TTS, and then compare among a vast number of APIs and services. However, simply piling up scattered products together is completely different from systematically planning, selecting, and combining AI capabilities in enterprise-level scenarios. Relying solely on ad-hoc information retrieval and experience-based judgment will bring about a series of serious challenges, such as fragmented understanding of capabilities, arbitrary solution design, and difficulty in reusing capabilities.
 
-为了解决这些痛点，本文以“AI 能力全景图”为核心的整理思路应运而生。在这本手册里，我们想做的不是堆名词，而是帮你快速搞清楚三件事：**"这件事可以用什么 AI 能力做？大概该选哪一类模型或产品？接下来用哪些关键词去找 API、项目或服务来试？"** 通过从模态（文字、图像、音频、视频、3D、多模态）到架构层（模型、检索、Agent、平台工程）的系统梳理， **我们可以为每一类典型需求和场景找到对应的 AI 能力、代表性模型/产品，以及在真实业务中的常见用途** ，帮助团队以更低试错成本、更高决策效率和更强可复用性来建设 AI 体系。
+To address these pain points, the organizing idea centered around the "AI Capability Panorama" emerged. In this handbook, what we aim to do is not to pile up jargon but to help you quickly figure out three things: ** "What AI capabilities can be used for this task? Which type of model or product should be selected? What keywords should be used next to search for APIs, projects, or services to try?" ** Through systematic sorting from modalities (text, image, audio, video, 3D, MultiModal Machine Learning) to architectural layers (model, retrieval, Agent, platform engineering),  ** we can find the corresponding AI capabilities, representative models/products, and common uses in real-world business for each type of typical requirement and scenario ** , helping teams build an AI system with lower trial-and-error costs, higher decision-making efficiency, and stronger reusability.
 
-在本篇手册中，我们将系统介绍当下主流的 AI 能力版图，从单一模态到多模态融合、从单点模型到平台与工程的整体框架，结合常见产品形态与应用场景，给出面向实践的能力选型参考。
+In this manual, we will systematically introduce the current mainstream AI capabilities landscape, from single-modal to MultiModal Machine Learning, from single-point models to the overall framework of platforms and engineering, and provide practical-oriented reference for capability selection by combining common Product Forms and application scenarios.
 
-> 由于 **内容较多** ，你可以在实践过程中遇到场景不知道如何选型的问题再查阅手册寻找参考；推荐你**根据具体应用方向，让 AI 参考该手册，给出可参考的模型选型建议、方案 API 调用建议即可。**
+> Due to  **the large amount of content** , you can refer to the manual for reference when you encounter scenarios during practice and don't know how to select the appropriate option; it is recommended that you**let the AI refer to this manual based on the specific application direction and provide reference suggestions for model selection and API call suggestions for the solution.**
 
-如果你只想了解对应的类别，不想看具体内容，只需要看每个大章节的初始段内容即可，例如 1.1 、1.2 的内容，但不需要看 1.1.1 或者 1.1.2 的内容。
+If you only want to know the corresponding category and don't want to read the specific content, you only need to read the initial paragraph of each major chapter, such as the content of 1.1 and 1.2, but not the content of 1.1.1 or 1.1.2.
 
-**推荐本手册只在需要时查阅对应部分或只浏览一级目录部分，若有兴趣再浏览全文。**
+**It is recommended that this manual be consulted only for the corresponding sections when needed or only the first-level table of contents be browsed, and if interested, the full text can be browsed.**
 
-**之后更新会在每个章节部分，推荐可尝试使用的模型 API 服务地址。**
+**Subsequent updates will include recommended and available model API service addresses in each chapter section.**
 
-# 本节课你将学到
+# You will learn in this lesson
 
-* AI 能力全景：从文本、图像、音频、视频、3D 到多模态、Agent、RAG、安全与平台工程的整体能力划分思路
-* 各能力对应的模型与产品：了解 Embedding、OCR、ASR、TTS、VLM、RAG 等关键能力背后的代表性模型与服务
-* 能力到场景的映射方法：掌握如何将“能力清单”转化为产品内容、搜索问答、智能客服、自动化运营等具体应用
+* AI Capability Landscape: Overall Capability Classification Approach from Text, Image, Audio, Video, 3D to MultiModal Machine Learning, Agent, RAG, Security, and Platform Engineering
+* Models and products corresponding to each capability: Understand the representative models and services behind key capabilities such as Embedding, OCR, ASR, TTS, VLM, and RAG
+* Mapping method from capabilities to scenarios: Master how to transform the "capability inventory" into specific applications such as product content, search Q&A, intelligent customer service, and automated operations
 
-完成本手册的学习后，你将对主流 AI 能力建立起入门级的系统化认知，不仅知道“市面上有哪些能力、常配哪些产品”，更能理解它们在整体架构中的位置和相互关系。知道在面对具体业务需求时，如何快速定位所需能力、做出有依据的选型，为构建 AI 能力体系打下坚实基础。
+After completing the study of this manual, you will establish an entry-level systematic understanding of mainstream AI capabilities. You will not only know "what capabilities are available in the market and which products they are commonly paired with", but also understand their positions and interrelationships within the overall architecture. You will know how to quickly identify the required capabilities and make informed selections when faced with specific business requirements, laying a solid foundation for building an AI capabilities system.
 
-## 手册中涉及的模型参数
+## Model parameters involved in the manual
 
-在进入具体能力地图之前，先澄清一个经常被提到、但又有点抽象的概念：到底什么算大模型？什么算小模型？
+Before delving into the specific capability map, let's first clarify a frequently mentioned yet somewhat abstract concept: What exactly counts as a large model? What counts as a small model?
 
- **从学术上看** ，大模型通常指参数量在几十亿、上百亿乃至万亿级别的通用模型，小模型则是针对特定任务或场景、参数量更小（几千万到几亿级）的专用模型。
+ **Academically speaking ** , large models generally refer to general models with parameters in the tens of billions, hundreds of billions, or even trillions, while small models are specialized models tailored to specific tasks or scenarios with fewer parameters (tens of millions to billions).
 
- **从价格上看** ，如果一个模型的 API 调用非常便宜，比如按调用计费几厘钱、几分钱，或者只按每千 tokens 几厘到几分，而且没有特别强调通用大模型，那通常要么是典型的小模型（例如专门做 OCR、ASR、图片分类、内容审核的模型），要么是参数量较小的轻量版大模型（专门为了高并发、低成本做了压缩或蒸馏）。  如果单次调用价格明显偏高，比如一次调用就要几角甚至 1 元起步，那么大概率是大模型。
+ **From a price perspective** , if the API calls of a model are very inexpensive, such as costing just a few cents or fractions of a cent per call, or only a few cents to fractions of a cent per thousand tokens, and there is no particular emphasis on general large models, then it is usually either a typical small model (e.g., models specifically designed for OCR, ASR, image classification, content moderation) or a lightweight large model with a relatively small number of parameters (compressed or distilled specifically for high concurrency and low cost). If the price per call is significantly higher, such as starting at a few dimes or even 1 yuan per call, then it is most likely a large model.
 
-此外，如果产品文案里面会明确强调使用了大语言模型 LLM、通用大模型、多模态大模型，或提到端到端地完成从输入到输出的复杂任务（比如端到端对话机器人、端到端检索问答、端到端视频生成），那通常就可以把它视作是大模型。
+Additionally, if the product copy explicitly emphasizes the use of large language models (LLMs), general large models, or MultiModal Machine Learning large models, or mentions end-to-end completion of complex tasks from input to output (such as end-to-end dialogue robots, end-to-end retrieval Q&A, end-to-end video generation), it can usually be regarded as a large model.
 
-相反，如果宣传重点在于某一个垂直能力，比如银行卡识别、发票识别、车牌识别、广告点击率预测、语音转写、内容安全审核，说明这个产品底层更可能是一个或一组小模型。
+Conversely, if the promotional focus is on a specific vertical capability, such as bank card recognition, invoice recognition, license plate recognition, Click-Through Rate Prediction, speech transcription, or content moderation, it indicates that the underlying technology of this product is more likely to be a single or a set of small models.
 
-因此，在本文接下来的叙述中可以做个务实的约定：
+Therefore, in the following narrative of this article, a practical convention can be made:
 
-* 大模型更多指那类通用、可对话、可编程、往往价格略高的模型（包括它们的多模态版本，比如 GPT-4o、Gemini 1.5 Pro、Claude 3.5 Sonnet 等），它们能覆盖大部分通用文本、代码以及图像、音频、视频等多模态任务；
-* 小模型则指那些为某个特定任务精调或定制的模型，通常价格更便宜、性能更稳定可控，但适用范围更窄，需要你在系统里主动组合与编排。
+* Large models more often refer to those general-purpose, conversational, programmable models (including their MultiModal Machine Learning versions, such as GPT-4o, Gemini 1.5 Pro, Claude 3.5 Sonnet, etc.) that can cover most general text, code, and multimodal tasks such as images, audio, and video;
+* Small models refer to those models fine-tuned or customized for a specific task, which are usually cheaper, have more stable and controllable performance, but have a narrower scope of application and require you to actively combine and orchestrate them in the system.
 
-这里不妨补充一个关键的行业变化：手册中提到的很多模型能力，在 2021 年之前其实都是由 “小模型” 来承接的。针对特定场景、特定数据训练专属模型，以此满足精准需求。而**如今，绝大多数通用场景和任务已经可以直接调用大模型来解决** 。
+Here, it might be appropriate to add a key industry change: many of the model capabilities mentioned in the manual were actually handled by "small models" before 2021. Specialized models were trained for specific scenarios and specific data to meet precise requirements. And ** today, the vast majority of general scenarios and tasks can already be directly addressed by calling large models** .
 
-从**精度与成本**的极致追求来看，小模型的训练与应用依然有其不可替代的价值；但**对于入门者而言，我们完全可以从学会找到并调用大模型 API 开始** ，再逐步深入高阶玩法。你只需要在成本、精度和延迟之间做权衡，再决定哪里要用通用大模型，哪里继续保留或引入专用小模型。
+From the perspective of the ultimate pursuit of**precision a****nd ****c** **ost** , the training and application of small models still have their irreplaceable value; however, **for beginners, we can definitely start by learning to find and call large model APIs** , and then gradually delve into advanced gameplay. You only need to make trade-offs among cost, precision, and latency, and then decide where to use general large models and where to continue to retain or introduce dedicated small models.
 
-> **从一些常见产品认识**常用的文本和多模态通用大模型：
->
-> * OpenAI 系列：GPT-4、GPT-4.1、GPT-4o、GPT-5.1 等
-> * Google 系列：Gemini 1.5 Pro、Gemini 1.5 Flash 等
-> * Anthropic 系列：Claude 3.5 Sonnet、Claude 3.5 Haiku 等
-> * 国内模型：通义千问 Qwen 系列、文心一言 ERNIE Bot 系列、GLM/智谱清言、百度的文心大模型家族、腾讯混元、讯飞星火、月之暗面的 Kimi 背后的大模型等
->
-> 更偏视觉和视频方向的大模型和服务，包括：
->
-> * 图像生成：DALL·E、Midjourney、Stable Diffusion、SDXL、Flux 等
-> * 多模态视觉理解：GPT-4o、GPT-4.1 with Vision、Gemini 1.5（图文多模态）、Claude 3.5 Sonnet Vision、LLaVA 等
-> * 视频生成：Sora、Kling、Runway Gen-2、Pika、Luma、Veo 等
->
-> 语音和音频方向的大模型，包括：
->
-> * 语音识别 ASR：Whisper 系列（Whisper、Whisper-large-v3 等）、Deepgram、各家云厂商的端到端 ASR 大模型（如讯飞、百度、火山、阿里等）
-> * 语音多模态与语音对话：GPT-4o（端到端语音对话）、OpenAI Realtime、Gemini 1.5 的音频理解能力等
-> * TTS / 音频与音乐生成：OpenAI TTS、ElevenLabs、Suno、Udio、MusicGen 等
->
-> 3D / 空间方向的生成与理解模型，包括：
->
-> * 文生 3D 和图生 3D：DreamFusion、Shap-E、GET3D、Zero-1-to-3、TripoSR 等
-> * NeRF / 神经渲染家族：Instant-NGP、NeRF 系列、Gaussian Splatting 相关模型等
+> **Recognize from some ****com****mon products** commonly used text and MultiModal Machine Learning general large models:
 
-# 1. 文本任务 (Text / NLP / LLM)
+* OpenAI Series: GPT-4, GPT-4.1, GPT-4o, GPT-5.1, etc.
+* Google 系列：Gemini 1.5 Pro、Gemini 1.5 Flash 等
+* Anthropic 系列：Claude 3.5 Sonnet、Claude 3.5 Haiku 等
+* Domestic models: Tongyi Qianwen Qwen series, Wenxin Yiyan ERNIE Bot series, GLM/Zhipu Qingyan, Baidu's Wenxin Big Model family, Tencent Hunyuan, iFlytek Xinghuo, the large model behind Kimi of Yuezhianmian, etc.
 
-在 AI 能力中，文字任务是最基础的功能。无论我们最终想做的是内容审核、搜索推荐、知识问答，还是写作助手、代码 Copilot，本质上都绕不开一个问题：机器如何真正看懂文字。
+> Large models and services that are more focused on visual and video directions, including:
 
-## 1.1 基础语言建模与表示
+* Image Generation: DALL·E, Midjourney, Stable Diffusion, SDXL, Flux, etc.
+* MultiModal Machine Learning Vision Understanding: GPT-4o, GPT-4.1 with Vision, Gemini 1.5 (Image-Text MultiModal), Claude 3.5 Sonnet Vision, LLaVA, etc.
+* Video Generation: Sora, Kling, Runway Gen-2, Pika, Luma, Veo, etc.
 
-让我们从最底层的基础语言建模与表示讲起。它的作用是让机器先在统计意义上熟悉语言，并在此基础上为词、句子、文档找到一个稳定的向量矩阵表示，以便于后面的分类、匹配、抽取、生成等任务。不管未来要做什么文本相关任务，都或多或少需要先回答同一个问题：我怎么用一串数字，把这一段话表示出来？
+> Large models in the field of speech and audio, including:
 
-我们可以简单从场景、原理、模型三个角度来看这个问题的相关内容：
+* Automatic Speech Recognition (ASR): Whisper series (Whisper, Whisper-large-v3, etc.), Deepgram, end-to-end ASR large models from various cloud providers (such as iFlytek, Baidu, Volcano, Alibaba, etc.)
+* Speech MultiModal Machine Learning and Speech Dialogue: GPT-4o (End-to-End Speech Dialogue), OpenAI Realtime, Audio Understanding Capabilities of Gemini 1.5, etc.
+* TTS / Audio and Music Generation: OpenAI TTS, ElevenLabs, Suno, Udio, MusicGen, etc.
 
-* **场景**
-  * **检索搜索相关**
-    * 通用搜索引擎：用户随便输入一句话，得到含义相关的文档，而不是只做关键词精确匹配。
-    * 站内搜索 / 电商搜索：用户用口语化的描述（比如“适合夏天通勤的白衬衫”），找到含义对应的商品。
-    * 文档库 / 知识库检索：在技术文档、政策法规、企业知识库里，直接输入一句话获得相关条目。
-  * **推荐排序相关**
-    * 信息流 / 内容推荐：根据用户最近看过、点过的内容，自动找出内容相近的其他内容继续推荐，而不是只靠人工规则或标签。
-    * 电商 / 商品推荐：根据用户看过、买过、收藏过的商品描述，找到风格或用途相近的商品，做个性化推荐。
-    * 用户兴趣建模：根据用户看过的标题、搜索过的词等，总结出几个主要兴趣方向，用来提升推荐和排序效果。
-  * **问答助手相关**
-    * FAQ 问答：用户用不同说法问同一个问题（“怎么开发票？” vs “发票在哪里开？”），系统能跳到同一个答案。
-    * 知识库问答 / 企业助手：用户用自然语言提问，系统到内部文档里按含义去匹配，找出最相关的段落回答。
-  * **文本理解分析相关**
-    * 评论舆情分析：把大量评论、帖子按“在说什么 / 情绪怎样”大致分成几类。
-    * 文本去重 / 相似检测：用于发现改写稿、伪原创文章。
-    * 文档聚类 / 分组：把很多文章、报告按照内容相近分成几组，方便做导航、推荐或抽样检查。
-  * **作为下游任务通用特征 （下游任务指的是用模型的基础能力，去实现更具体的文字处理任务）**
-    * 文本分类：情感分类、意图识别、垃圾内容识别等下游模型直接复用这一层的表示。
-    * 信息抽取：实体识别、关系抽取在词 / 句子表示的基础上进行微调，而不是从头训练。
-    * 文本生成：为摘要、改写、续写等生成任务提供语义表征输入，提升生成质量与可控性。
-* **原理**
-  学习词、句子、文档的表示，为后续更复杂的任务作为基底。
-  * 语言建模
-    * 自回归语言模型：预测下一个 token（GPT 系列、LLaMA、Qwen 等）
-    * 掩码语言模型 (Masked LM)：预测被遮盖 token（BERT、RoBERTa、ERNIE）
-  * 词 / 句子 / 段落表示
-    * 静态词向量：Word2Vec、GloVe、FastText
-    * 上下文表征：BERT embedding、Sentence‑BERT 等
-    * 文档级向量：用于语义检索、相似度匹配
-* **模型**
-  BERT / RoBERTa / ERNIE、GPT 家族、LLaMA / Qwen / Yi 等 LLM；各类 Embedding 模型（OpenAI text‑embedding‑3 系列、bge、E5、SimCSE 等）。
+> 3D / Spatial Direction Generation and Understanding Model, including:
 
-### **1.1.1 语言建模：通过“猜下一个词”学会语言**
+* 文生 3D 和图生 3D：DreamFusion、Shap-E、GET3D、Zero-1-to-3、TripoSR 等
+* NeRF / Neural Rendering Family: Instant-NGP, NeRF Series, Gaussian Splatting-related models, etc.
 
-这一层的第一步，是先让模型在大量文本里 **熟悉语言规律** 。做法可以简单理解为：给模型出无数道“猜词题”，在看到一段话的上下文后，让它填上最合理的词（token）。练习题足够多、语料足够广，模型就会逐渐学会：一句自然的句子长什么样，哪些词经常一起出现，什么表达读起来别扭。这个过程叫“语言建模”，本质就是一套统一的 **猜词训练机制** 。
+# 1. Text Tasks (Text / NLP / LLM)
 
-常见有两种出题方式，每种用一句话举个简单例子：
+Among AI capabilities, text tasks are the most fundamental function. Whether what we ultimately want to do is content moderation, search recommendation, knowledge Q&A, writing assistant, or code Copilot, essentially we cannot avoid a question: how can machines truly understand text?
 
-1. **往后接（自回归）** ：只给前面的内容，让模型猜“后面会怎么说”。
-2. 输入前缀：`今天下雨了，所以我`
-3. 模型任务：猜下一个词，比如“ **带** （伞）”“ **没** （出去）”“ **打算** （在家）”等，然后再继续往后接。
-   这种方式主要锻炼模型对**续写、连贯性、常见表达**的把握。
-4. **挖空填词（掩码）** ：把中间挖个洞，让模型利用前后文一起填空。
-5. 原句：`今天下雨了，所以我带了雨伞`
-6. 训练句：`今天 [MASK] 了，所以我带了雨伞`
-7. 模型任务：把 `[MASK]` 补成“ **下雨** ”这类合理的词。
-   这里模型必须同时看左边的“今天”“了”和右边的“所以我带了雨伞”，才能决定该填什么，更有利于学习 **整句语义** 。
+## 1.1 Basic Language Modeling and Representation
 
-通过在海量语料上反复做这两类“猜词题”，模型会逐渐积累起对语言的 **语感和统计常识** 。在此基础上，下一步我们再把这种能力显式地变成 **词、句子和文档的向量表示** ，为后续的检索、推荐和问答等任务打底。
+Let's start with the most fundamental language modeling and representation at the bottom level. Its role is to enable machines to first become familiar with language in a statistical sense, and on this basis, find a stable vector matrix representation for words, sentences, and documents, so as to facilitate subsequent tasks such as classification, matching, extraction, and generation. Regardless of what text-related tasks we may undertake in the future, we all need to answer the same question to some extent: How can I represent this passage with a sequence of numbers?
 
-### 1.1.2 词、句子与文档表示：把离散符号映射到语义空间
+We can simply examine the relevant content of this issue from three perspectives: scenario, principle, and model.
 
-构建文本向量最早一代的方法是**静态词向量** ：为每个词分配一份固定向量，训练好后不随上下文变化，直观、简单，但 **无法区分多义词在不同语境下的含义。** 为了解决这个问题，后来出现了基于上下文的动态表示方法：同一个词在不同句子中会生成不同的向量，完全由它所在的上下文决定。比如“苹果”在“苹果发布了新手机”中会更靠近“科技公司”的语义方向，而在“苹果富含维生素”中则更接近“水果”概念。
+* **Scenario**
+  * **Retrieval and Search Related**
+    * General search engine: Users can simply input a sentence and obtain relevant documents, rather than just performing exact keyword matching.
+    * In-app Search / E-commerce Search: Users use colloquial descriptions (such as "white shirts suitable for summer commuting") to find products with corresponding meanings.
+    * Document Library / Knowledge Base Search: Directly input a sentence in technical documents, policies and regulations, and enterprise knowledge bases to obtain relevant entries.
+  * **Related to recommendation ranking**
+    * Information Stream / Content Recommendation: Automatically identify other content with similar themes based on the content the user has recently viewed or clicked, rather than relying solely on manual rules or tags.
+    * E-commerce / Product Recommendation: Based on the descriptions of products that users have viewed, purchased, or bookmarked, find products with similar styles or uses to provide customized recommendations.
+    * User Interest Modeling: Based on the titles users have viewed, the terms they have searched for, etc., summarize several main interest directions to improve the effectiveness of recommendation and ranking.
+  * **Related to Q&A Assistant**
+    * FAQ Q&A: When users ask the same question in different ways ("How do I get an invoice?" vs "Where can I get an invoice?"), the system can jump to the same answer.
+    * Knowledge Base Q&A / Enterprise Assistant: Users ask questions in natural language, and the system searches internal documents for meaning-based matching to find the most relevant paragraphs to answer.
+  * **Related to text understanding and analysis**
+    * Comment sentiment analysis: Roughly classify a large number of comments and posts into several categories based on "what is being said / how the sentiment is".
+    * Text deduplication / similarity detection: Used to identify rewritten manuscripts and pseudo-original articles.
+    * Document Clustering / Grouping: Group many articles and reports into several groups based on similar content to facilitate navigation, recommendation, or sampling inspection.
+  * **As a general feature for downstream tasks (downstream tasks refer to using the model's basic capabilities to achieve more specific text processing tasks) **
+    * Text Classification: Downstream models such as sentiment classification, intent recognition, and spam content recognition directly reuse the representation of this layer.
+    * Information extraction: Entity recognition and relation extraction are fine-tuned based on word/sentence representations, rather than trained from scratch.
+    * Text Generation: Provides semantic representation input for generation tasks such as summarization, rewriting, and continuation, enhancing generation quality and controllability.
+* **Principle**
+  Learn the representations of words, sentences, and documents to serve as a foundation for subsequent more complex tasks.
+  * Language Modeling
+    * Autoregressive language model: predicts the next token (GPT series, LLaMA, Qwen, etc.)
+    * Masked Language Model (Masked LM): Predict masked tokens (BERT, RoBERTa, ERNIE)
+  * Word / Sentence / Paragraph Representation
+    * Static word vectors: Word2Vec, GloVe, FastText
+    * Contextual Representation: BERT embedding, Sentence-BERT, etc.
+    * Document-level vectors: used for semantic retrieval and similarity matching
+* **Models**
+  LLMs such as BERT / RoBERTa / ERNIE, GPT family, LLaMA / Qwen / Yi, etc.; various Embedding models (OpenAI text‑embedding‑3 series, bge, E5, SimCSE, etc.).
 
-这种机制不仅提升了词层面的表达能力，也为句子和文档的向量化铺平了道路。对于句子，可以生成句向量；对于文档，可以整篇输入编码（如果长度允许），或分段编码后再通过注意力机制、层次化池化、对比学习等方式聚合出一个全局向量。近年来的专用 embedding 模型（如 bge、E5、text-embedding 系列）正是围绕“让语义相近的文本在向量空间中更近”这一目标持续优化，尤其在语义检索、相似匹配等任务上表现突出。
+### **1.1.1 Language Modeling: Learning Language through "Guessing the Next Word"**
 
-这套从上下文建模到句/文档向量生成的流程，已经成为搜索、推荐、问答等系统背后的核心基础设施，让我们回到前面提到的各类场景：
+The first step in this layer is to let the model ** familiarize itself with language patterns ** in a large amount of text. This can be simply understood as: giving the model countless "word guessing questions", and after seeing the context of a passage, asking it to fill in the most reasonable word (token). With enough practice questions and a wide enough corpus, the model will gradually learn: what a natural sentence looks like, which words often appear together, and what expressions sound awkward. This process is called "language modeling", which in essence is a unified  ** word guessing training mechanism ** .
 
-* 检索搜索场景（通用搜索、电商搜索、知识库检索）都需要把用户输入和候选文档都编码成向量，然后在向量空间里做相似度匹配，找出语义最接近的结果，而不是只靠关键词精确匹配。
-* 推荐排序场景（信息流推荐、商品推荐、用户兴趣建模）需要把用户历史行为对应的内容转成向量，然后找到向量相近的新内容推荐给用户，实现"看过 A 推荐 B"的个性化效果。
-* 问答助手场景（FAQ 问答、知识库问答）需要把用户的提问和知识库里的问题或段落都编码成向量，通过向量相似度找到最匹配的答案。
-* 文本理解分析场景（评论舆情、去重、聚类）需要先把每条文本转成向量，再基于向量做聚类、相似度计算或分类。
-* 下游任务场景（文本分类、信息抽取、文本生成）则是直接把这一层的向量表示作为输入特征，喂给后续的分类器、抽取器或生成器，避免从头学习语义。
+There are commonly two ways of setting questions, and for each, a simple example is given in one sentence:
 
-工程上，常见做法是封装成统一的"文本向量服务"：输入任意一段文本，输出一串固定维度的向量，供搜索、推荐、问答等多个系统共享使用。在产品层面，这一层的能力主要体现在：搜索和推荐中的语义召回（不再只依赖关键词，而是通过向量相似度召回"说法不同但意思相近"的内容），以及面向企业知识库、FAQ、案例库的统一 embedding / 向量检索服务。
+1. **Backward connection (autoregressive) ** : Only provide the preceding content and let the model guess "what will be said next".
+2. Input Prefix:`It's raining today, so I`
+3. Model Task: Guess the next word, such as " **bring** (umbrella)" " **not** (go out)" " **plan** (to stay at home)" etc., and then continue to follow up.
+   This method mainly trains the model's grasp of  **continuation, coherence, and common expressions** .
+4. **Cloze Test (Masking) ** : Create a hole in the middle and let the model fill in the blank using the context before and after.
+5. Original sentence:`It's raining today, so I brought an umbrella`
+6. Training sentence:`It [MASK] today, so I brought an umbrella`
+7. Model task: Fill `[MASK] `with reasonable words like "  **rain ** ".
+   Here, the model must look at both "today" on the left and "so I brought an umbrella" on the right to decide what to fill in, which is more conducive to learning the  **whole sentence semantics ** .
 
-## 1.2 文本分类与文本匹配（Classification & Matching）
+By repeatedly doing these two types of "word guessing questions" on a vast amount of corpus, the model will gradually accumulate ** language sense and statistical common sense ** about language. Based on this, the next step is to explicitly transform this ability into  ** vector representations of words, sentences, and documents ** , laying the foundation for subsequent tasks such as retrieval, recommendation, and question answering.
 
-在上一节中，我们通过基础语言建模与表示，为每一段文本找到了在语义空间中的“坐标”。但仅有坐标还不够，业务真正关心的问题往往是：这段文本属于哪一类？和另一段文本是不是讲同一件事？两句话之间在逻辑上是相互支持还是互相矛盾？你可以把它理解为：用分类和匹配这两个能力，把底层的向量表示转化为可以直接驱动业务决策的标签与相关性信号。我们仍然从场景、原理和模型三个角度来梳理这一层：
+### 1.1.2 Word, Sentence, and Document Representation: Mapping Discrete Symbols to Semantic Space
 
-* **场景**
-  * 内容理解与审核：给评论、帖子、文章打上主题、情感、风险等标签，用于审核、推荐、统计分析。
-  * 推荐与排序：根据“用户兴趣标签”和“内容标签”的匹配程度，决定展示哪些内容、排在多前。
-  * 搜索与 FAQ：用户随便输入一句自然语言问题，系统能够自动找到最相关的问题‑答案对或文档片段。
-  * 相似内容识别：在大量文本中找到“内容相近”的条目，用于去重、合并统计、推荐“相关内容”。
-  * 逻辑关系判断：判断两句话之间是互相支持、互相矛盾，还是无关，用于事实核查、多轮对话一致性检查等。
-* **原理**
-  在语义表示的基础上，对整段文本或文本对进行整体判断：
-  * 文本分类：给单条文本打标签（如情感、主题、风险类型等）；
-  * 文本匹配：判断两段文本之间的相似度、相关性，或“问题–答案”是否匹配；
-* **模型**
-  以预训练 encoder 为基础，接上简单的分类 / 匹配结构：
-  * 单文本分类：BERT / RoBERTa / DeBERTa + 全连接分类层；
-  * 文本匹配：Sentence‑BERT、SimCSE、双塔（Bi‑Encoder）、交叉编码器（Cross‑Encoder）；
-  * 复杂判断：在 LLM 上通过指令微调，让模型直接输出标签或逻辑关系。
+The earliest generation of methods for constructing text vectors is  ** static word vectors ** : assigning a fixed vector to each word, which does not change with context after training, is intuitive and simple, but ** cannot distinguish the meanings of polysemous words in different contexts. ** To address this issue, context-based dynamic representation methods emerged later: the same word generates different vectors in different sentences, completely determined by its context. For example, "apple" in "Apple released a new phone" is closer to the semantic direction of "technology company", while in "Apples are rich in vitamins" it is closer to the concept of "fruit".
 
-### 1.2.1 文本分类：从“懂内容”到“给内容定性”
+This mechanism not only enhances the expressive ability at the word level but also paves the way for the vectorization of sentences and documents. For sentences, sentence vectors can be generated; for documents, the entire document can be input for encoding (if the length allows), or it can be segmented for encoding and then aggregated into a global vector through attention mechanisms, hierarchical pooling, contrastive learning, and other methods. In recent years, specialized embedding models (such as bge, E5, and the text-embedding series) have been continuously optimized around the goal of "bringing semantically similar texts closer in vector space," particularly excelling in tasks such as semantic retrieval and similarity matching.
 
-借助上一层的语义表示，我们可以非常自然地在其上方接一个简单的分类头，通过少量标注数据，让模型学会回答一个问题： **“这段文本属于哪一类？”** 。
+This process, from context modeling to sentence/document vector generation, has become the core infrastructure behind systems such as search, recommendation, and question answering. Let's return to the various scenarios mentioned earlier:
 
-最经典的是 **情感分类** 。用户的一句评价，可能是认可、抱怨，也可能只是陈述事实。模型在拿到这句话的向量表示之后，只需要再接一个 softmax 分类层，就能输出“正向 / 负向 / 中立”的概率。这类能力在电商、社交平台、应用市场等场景中，都已经非常成熟。
+* Retrieval and search scenarios (general search, e-commerce search, Knowledge Base retrieval) all need to encode both user input and candidate documents into vectors, and then perform similarity matching in the vector space to find the semantically closest results, rather than relying solely on keyword exact matching.
+* Recommendation ranking scenarios (information stream recommendation, product recommendation, user interest modeling) need to convert the content corresponding to user historical behavior into vectors, and then find new content with similar vectors to recommend to users, achieving the personalized effect of "recommend B after viewing A".
+* The FAQ Assistant scenario (FAQ Q&A, Knowledge Base Q&A) needs to encode both the user's questions and the questions or paragraphs in the Knowledge Base into vectors, and then find the most matching answer through vector similarity.
+* Text understanding and analysis scenarios (comment sentiment, deduplication, clustering) require first converting each text into a vector, and then performing clustering, similarity calculation, or classification based on the vector.
+* Downstream task scenarios (text classification, information extraction, text generation) directly use the vector representation of this layer as input features and feed them to subsequent classifiers, extractors, or generators, thereby avoiding learning semantics from scratch.
 
-另一大类是 **主题 / 行业分类** 。新闻推荐里，我们希望知道一篇文章是体育、财经还是娱乐；企业内部的客服 / 工单系统，则更关心这是产品咨询、功能异常还是投诉建议。这些标签既可以帮助内容被更精准地路由到合适的流程中，也可以作为推荐排序阶段的重要特征。
+In engineering, a common practice is to encapsulate it into a unified "text vector service": input any piece of text, and output a fixed-dimensional vector for multiple systems such as search, recommendation, and question-answering to share and use. At the product level, the capabilities of this layer are mainly reflected in: semantic recall in search and recommendation (no longer relying solely on keywords, but recalling content that "has different expressions but similar meanings" through vector similarity), as well as unified embedding/vector retrieval services for enterprise Knowledge Bases, FAQs, and case libraries.
 
-更进一步，**风险 / 合规分类**则直接与平台安全相关。我们会针对广告导流、谩骂攻击、涉政敏感、低俗色情等类别设置专门的分类模型，配合人工审核，对高风险内容进行拦截或降权。可以说，绝大部分内容安全策略的第一道闸门，都是由这类分类器构成的。
+## 1.2 Text Classification and Text Matching (Classification & Matching)
 
-可以看到，到这一层为止，我们已经能够把“抽象的语义表示”转化为若干业务可用的标签。接下来，我们要讨论的是：当文本之间产生关系时，我们又如何进行 **匹配与推断** 。
+In the previous section, we used basic language modeling and representation to find the "coordinates" of each text segment in the semantic space. However, coordinates alone are not enough. The questions that business truly cares about are often: which category does this text belong to? Does it talk about the same thing as another text segment? Are the two sentences logically supportive or contradictory to each other? You can understand it as: using the two capabilities of classification and matching to transform the underlying vector representation into labels and correlation signals that can directly drive business decisions. We still organize this layer from three perspectives: scenario, principle, and model:
 
-### 1.2.2 文本匹配：为一句话“找到最合适的另一句”
+* **Scenario**
+  * Content Understanding and Review: Assign tags such as topic, sentiment, and risk to comments, posts, and articles for review, recommendation, and statistical analysis.
+  * Recommendation and Ranking: Based on the matching degree between "user interest tags" and "content tags", determine which content to display and how high it should be ranked.
+  * Search and FAQ: When a user enters a natural language question at will, the system can automatically find the most relevant question-answer pair or document fragment.
+  * Similar content identification: Find "similar content" entries in a large amount of text, used for deduplication, combined statistics, and recommending "related content".
+  * Logical relationship judgment: Determine whether the relationship between two sentences is mutually supportive, mutually contradictory, or unrelated, used for fact-checking, consistency checking in multi-round conversations, etc.
+* **Principle**
+  Based on semantic representation, make an overall judgment on the entire text or text pair:
+  * Text Classification: Assign labels to individual texts (such as sentiment, topic, risk type, etc.);
+  * Text matching: Determine the similarity, relevance between two segments of text, or whether the "question - answer" pair matches;
+* **Model **
+  Based on a pre-trained encoder, followed by a simple classification/matching structure:
+  * Single text classification: BERT / RoBERTa / DeBERTa + fully connected classification layer;
+  * Text matching: Sentence-BERT, SimCSE, Bi-Encoder, Cross-Encoder;
+  * Complex judgment: Through instruction fine-tuning on LLM, enable the model to directly output labels or logical relationships.
 
-与分类对“单个文本定性”不同，**文本匹配**关注的是“两段文本之间的相关性”。在很多产品里，这往往是实现“智能”的关键一环：用户说了一句话，系统能不能找到知识库里最合适的一条进行回应，完全取决于匹配质量。
+### 1.2.1 Text Classification: From "Understanding Content" to "Qualifying Content"
 
-最基础的是 **语义相似度计算** 。我们会先用上一层的 embedding 模型，把两个句子编码成向量，再通过余弦相似度、点积等方式，判断它们在语义空间里的距离。像 SimCSE、Sentence‑BERT 这类模型，就是通过对比学习的方式，专门把“相似的句子对”拉近，把“不相似的句子对”推远。
+By leveraging the semantic representation of the previous layer, we can very naturally attach a simple classification head on top of it, allowing the model to learn to answer a question through a small amount of labeled data:  ** "Which category does this text belong to?" ** .
 
-在此之上，**复述检测**和**抄袭检测**只是特定应用场景的匹配任务。前者用于内容去重，避免平台充斥着重复表达；后者则在教育、知识社区等场景中，用来识别高度相似的回答或文章。技术上，它们本质都是根据文本相似度来做二分类或排序。
+The most classic one is  ** sentiment classification ** . A user's comment may be an endorsement, a complaint, or simply a statement of fact. After the model obtains the vector representation of this sentence, it only needs to connect a softmax classification layer to output the probabilities of "positive / negative / neutral". This type of capability has already been very mature in scenarios such as e-commerce, social platforms, and app markets.
 
-一个非常重要的下游应用是 **问答匹配** 。当用户提出一个自然语言问题时，我们不会直接用关键词去匹配 FAQ，而是通过语义向量先做召回，再用更精细的匹配模型（如交叉编码器 Cross‑Encoder）对若干候选进行重排序，选出最可能对应的那一条。这一链路构成了 FAQ 机器人和文档问答系统的基础。
+Another major category is  **topic/industry classification** . In news recommendation, we hope to know whether an article is about sports, finance, or entertainment; in an enterprise's internal customer service/ticket system, it is more concerned about whether it is a product consultation, a functional anomaly, or a complaint and suggestion. These labels can not only help content be more accurately routed to the appropriate process but also serve as important features during the recommendation and ranking stage.
 
-在这一层，我们已经具备了对“整段文本”进行分类和关系判断的能力。但在很多场景里，业务并不满足于此，而是进一步希望知道： **这段文本中具体提到了哪些实体、发生了什么事件** 。这就自然引出了下一节的主题—— **序列标注与信息抽取** 。
+Furthermore,**risk/compliance classification**is directly related to platform security. We will set up specialized classification models for categories such as advertising diversion, abuse and attacks, politically sensitive content, and vulgar and pornographic content, and cooperate with manual review to intercept or downgrade high-risk content. It can be said that the first line of defense for most Content-Security-Policies is composed of such classifiers.
 
-## 1.3 序列标注与信息抽取（Sequence Labeling & Information Extraction）
+As can be seen, up to this level, we have been able to transform "abstract semantic representation" into several business-usable labels. Next, what we are going to discuss is: when relationships are formed between texts, how do we perform  ** matching and inference ** .
 
-在完成了对文本整体的分类和匹配之后，我们往往会遇到一个更细致的诉求：不仅要知道“这篇文章是关于什么的、风险高不高”，还要进一步知道“它具体提到了谁、在哪儿、什么时候、金额是多少”。这一节，就是在整体判断之上向“细粒度结构化”迈出的关键一步。你可以把它理解为：在已经知道“应该看哪一类文本、它大概讲什么”的前提下，从文本内部挖掘实体、关系、事件和各类字段，让非结构化文本可以直接被业务系统消费。我们同样从目标、原理、模型和产品四个方面来看这一层：
+### 1.2.2 Text Matching: "Find the most suitable other sentence" for a given sentence
 
-* **场景**
-  * 行业文本结构化：从合同、报告、公告、病历、政策等文档中，抽取出人名、机构、金额、时间、条款等关键字段，用于入库和检索。
-  * 知识图谱与关系网：从新闻、论文、问答中识别实体及其关系，构建“谁和谁有什么关系”的图谱，用于搜索、推荐和分析。
-  * 票据与单据处理：对发票、对账单、报销单等，自动提取抬头、税号、金额、日期等字段，减少人工录入。
-  * 舆情与事件分析：从海量文本中抽取“谁在什么时候在哪儿做了什么”，用于事件跟踪、风险预警与统计报表。
-  * 日志与工单结构化：把客服对话、工单、系统日志等非结构化文本里的关键信息抽出来，方便统计、监控和自动化处理。
-* **原理**
-  在 token / 短语层面，对文本进行细粒度标注与结构化：
-  * 序列标注：对每个 token 贴标签（如人名、地名、机构名、产品名等），实现命名实体识别、词性标注、短语切分等；
-  * 关系与事件抽取：在实体之上识别“实体‑实体”之间的关系，以及“谁在何时何地做了什么”的事件结构；
-  * 业务字段抽取：围绕具体业务 schema（如合同字段、票据字段），将长文档转成标准化的 key‑value 或记录表。
-* **模型**
-  在预训练表示的基础上，通过序列标注或 span 抽取等结构完成信息提取：
-  * 序列标注模型：BiLSTM‑CRF、BERT + CRF / Softmax 等；
-  * Span‑based 抽取：直接预测实体 / 关系片段的起止位置；
-  * 文档级抽取：结合版式、布局的 DocIE 类模型；
-  * 基于 LLM 的抽取：通过 Prompt / Few‑shot，让大模型按指定格式抽取所需字段。
+Different from the classification pair "qualitative analysis of a single text", ** text matching ** focuses on "the correlation between two texts". In many products, this is often a crucial step in achieving "intelligence": when a user says something, whether the system can find the most appropriate item in the knowledge base to respond depends entirely on the quality of the matching.
 
-### 1.3.1 序列标注：给每个 token 和短语贴上语义“标签”
+The most fundamental is  ** semantic similarity calculation ** . We will first use the embedding model from the previous layer to encode two sentences into vectors, and then determine their distance in the semantic space through methods such as cosine similarity and dot product. Models like SimCSE and Sentence-BERT specifically use contrastive learning to bring "similar sentence pairs" closer and push "dissimilar sentence pairs" farther apart.
 
-在文本分类阶段，我们只关心整段文本属于哪一类；而在序列标注阶段，我们要对文本中的每一个 token、每一段短语进行标记。最典型的任务是命名实体识别（NER）：识别人名、机构名、地名、产品名、疾病名等特定类型的实体。
+Beyond this,**plagiarism detection**and**copying detection**are simply matching tasks for specific application scenarios. The former is used for content deduplication to prevent the platform from being flooded with repetitive expressions; the latter is used in scenarios such as education and knowledge communities to identify highly similar answers or articles. Technically, they are essentially binary classification or ranking tasks based on text similarity.
 
-* 例如，在句子“张三在北京加入某科技公司”中，把“张三”标为人名、“北京”标为地名、“某科技公司”标为机构。
+A very important downstream application is  ** question-answer matching ** . When a user poses a natural language question, we do not directly use keywords to match FAQs, but instead first perform retrieval through semantic vectors, then re-rank several candidates using a more refined matching model (such as the cross-encoder Cross-Encoder), and select the most likely corresponding entry. This pipeline forms the basis of FAQ robots and document question-answering systems.
 
-从建模方式上看，传统的做法是使用 BiLSTM + CRF 这类序列标注结构，后续则更多采用 BERT + CRF 或 BERT + Softmax，利用预训练 encoder 的上下文表征能力，来判断每个 token 的标签（如 B‑ORG、I‑ORG、O 等）。在实践中，NER 模型往往是后续知识图谱、关系抽取的第一道“预处理”。
+At this level, we already have the ability to classify and judge relationships for "whole text segments". However, in many scenarios, the business is not satisfied with this and further hopes to know:  ** What specific entities are mentioned in this text segment and what events have occurred ** . This naturally leads to the topic of the next section -  ** Sequence Labeling and Information Extraction ** .
 
-除了 NER 外，词性标注、短语切分也属于典型的序列标注任务。它们更多服务于底层语言分析，为后续更复杂的语法 / 语义任务提供基础结构。
+## 1.3 Sequence Labeling & Information Extraction
 
-* 比如对“快速 提升 模型 性能”标出“快速”为副词，“提升”为动词，“性能”为名词，用于下游分析。
+After completing the overall classification and matching of text, we often encounter a more detailed requirement: not only to know "what this article is about and whether the risk is high", but also to further know "who it specifically mentions, where, when, and how much the amount is". This section is a crucial step towards "fine-grained structuring" on top of the overall judgment. You can understand it as: on the premise of already knowing "which type of text to look at and what it is roughly about", mining entities, relationships, events, and various fields from within the text, so that unstructured text can be directly consumed by business systems. We also look at this layer from four aspects: objective, principle, model, and product:
 
-### 1.3.2 关系与事件抽取：把“点”连成“线”和“故事”
+* **Scenario**
+  * Structuring of industry texts: Extract key fields such as names, institutions, amounts, times, and clauses from documents like contracts, reports, announcements, medical records, policies, etc., for storage and retrieval.
+  * Knowledge Graph and Relationship Network: Identify entities and their relationships from news, papers, and Q&A, construct a graph of "who has what relationship with whom", and use it for search, recommendation, and analysis.
+  * Invoice and Documentation Processing: Automatically extract fields such as title, tax number, amount, and date from invoices, statements, reimbursement forms, etc., to reduce manual data entry.
+  * Public Opinion and Event Analysis: Extract "who did what, when, and where" from massive text for event tracking, risk early warning, and statistical reporting.
+  * Structuring of logs and tickets: Extract key information from unstructured text such as customer service conversations, tickets, and system logs to facilitate statistics, monitoring, and automated processing.
+* **Principle**
+  Perform fine-grained annotation and structuring of text at the token/phrase level:
+  * Sequence Labeling: Assign labels to each token (such as person names, place names, organization names, product names, etc.) to achieve Named Entity Recognition, Part-of-Speech tagging, phrase segmentation, etc.;
+  * Relationship and Event Extraction: Identify the relationships between "entity-entity" and the event structure of "who did what, when, and where" on top of entities;
+  * Business field extraction: Centering around specific business schemas (such as contract fields, documentation fields), convert long documents into standardized key-value pairs or record tables.
+* **Model**
+  completes information extraction through structures such as sequence labeling or span extraction based on pre-trained representations:
+  * Sequence labeling models: BiLSTM-CRF, BERT + CRF / Softmax, etc.;
+  * Span-based extraction: directly predict the start and end positions of entity/relationship fragments;
+  * Document-level extraction: DocIE-like models that combine layout and formatting;
+  * LLM-based extraction: Through Prompt / Few-shot, enable the large model to extract the required fields in the specified format.
 
-当我们通过序列标注识别出文本中的实体之后，一个顺理成章的问题是：这些实体之间到底是什么关系，它们共同构成了什么样的事件？
+### 1.3.1 Sequence Labeling: Assign semantic "labels" to each token and phrase
 
-关系抽取关注的是“实体对 + 关系类型”。例如，在一句“张三于 2024 年加入某科技公司担任 CTO”中，我们不仅要识别“张三”和“某科技公司”这两个实体，还要抽取它们之间的“就职于”关系。
+During the text classification stage, we only care about which category the entire text belongs to; while in the sequence tagging stage, we need to label each token and each phrase in the text. The most typical task is Named Entity Recognition (NER): identifying entities of specific types such as person names, organization names, location names, product names, disease names, etc.
 
-* 简单来说，就是从“张三 – 某科技公司”这对实体上，贴上“任职”这类关系标签。
+* For example, in the sentence "Zhang San joined a certain technology company in Beijing", label "Zhang San" as a person's name, "Beijing" as a place name, and "a certain technology company" as an organization.
 
-在关系之上，事件抽取则试图重建“谁在什么时候、什么地点，做了什么事情”。以一则新闻为例，一个标准的事件模板可能包含：事件类型（收购、合作、事故）、时间、地点、参与方、金额、后果等多个槽位。事件抽取模型需要从冗长的文本中自动填充这些槽位，从而构建出可被检索、统计和推理的“事件表”。
+From a modeling perspective, the traditional approach is to use sequence tagging structures such as BiLSTM + CRF, while subsequent methods more often adopt BERT + CRF or BERT + Softmax, leveraging the context representation capabilities of pre-trained encoders to determine the label of each token (e.g., B-ORG, I-ORG, O, etc.). In practice, the NER model is often the first "preprocessing" step for subsequent Knowledge Graph and relation extraction.
 
-* 比如从“某公司以 5 亿元收购另一家公司”中抽出：事件类型=收购，金额=5 亿元，参与方=两家公司。
+In addition to NER, part-of-speech tagging and phrase segmentation also belong to typical sequence tagging tasks. They are more focused on serving low-level language analysis, providing the underlying structure for subsequent more complex syntactic/semantic tasks.
 
-在建模方法上，除了传统的序列标注式抽取，我们还会采用 Span‑based IE（直接预测实体 / 关系 span 的起止位置）以及近年来兴起的 Prompt‑based IE 和基于 LLM 的 Few‑shot 抽取。后者的优势在于可以通过自然语言提示，快速适配新的 schema，减少大量重新标注和训练的成本。
+* For example, in "rapidly improve model performance", mark "rapidly" as an adverb, "improve" as a verb, and "performance" as a noun for downstream analysis.
 
-从工程角度看，成熟的抽取系统往往会形成一条管线：
+### 1.3.2 Relationship and Event Extraction: Connecting "Points" into "Lines" and "Stories"
 
-* 上游 NER / 序列标注识别实体；
-* 中间层做关系和事件结构建模；
-* 下游把结果写入数据库或知识图谱，供搜索、分析和风控系统消费。
+After we identify entities in text through sequence tagging, a natural question arises: What exactly are the relationships between these entities, and what kind of events do they jointly constitute?
 
-## 1.4 文本生成与编辑（Text Generation & Editing）
+Relation extraction focuses on "entity pair + relation type". For example, in the sentence "Zhang San joined a technology company as CTO in 2024", we not only need to identify the two entities "Zhang San" and "a technology company", but also extract the "employed at" relation between them.
 
-在前面几节中，我们已经依次构建了“表示 → 分类匹配 → 序列标注与抽取”这条理解链路：模型不仅能把文本映射到语义空间，还能对整段文本做判断，并从中抽取出结构化信息。这一节要做的，是把这条理解链路“反向”再走一遍：在充分理解的基础上，让模型主动去生产、改写、压缩和润色文本。你可以把它理解为：在语义空间中进行“反向编码”，把内部表示重新变成高质量的自然语言输出，是整条文字模态能力链里最贴近用户感知的一层。我们依旧从目标、原理、模型和产品四个维度来拆解：
+* Simply put, it is to attach a relationship label such as "employed" to the pair of entities "Zhang San - a technology company".
 
-* **场景**
-  * 日常写作与办公：生成邮件、通知、方案初稿，或对现有文本进行扩写、改写和润色。
-  * 知识管理与总结：对长文档、报告、会议记录进行自动摘要，帮助快速抓住重点。
-  * 客服与问答：根据用户问题和检索到的资料，自动生成结构清晰、口吻统一的回答。
-  * 营销与创意内容：生成广告文案、社交媒体帖子、活动介绍、脚本等。
-  * 多语言场景：在保持原意的基础上，完成翻译、本地化改写，适配不同语言和场景。
-* **原理**
-  在语言建模的基础上，对文本进行“从无到有”和“基于已有内容的修改”：
-  * 自由生成：根据意图、提示词或大纲，从头生成一段完整的文本；
-  * 受控改写：在保持核心信息不变的前提下，调整风格、长度、结构（如摘要、扩写、风格转换）；
-  * 纠错与润色：修正错别字、语法问题，优化表达顺序和逻辑结构。
-* **模型**
-  以大规模预训练 + 指令微调的生成模型为主：
-  * 指令微调 LLM：GPT 系列、LLaMA / Qwen / GLM 等，用于通用生成与编辑；
-  * Seq2Seq 模型：T5、BART、mT5 等，用于摘要、翻译、格式转换等任务；
-  * 对齐与安全：通过 RLHF / RLAIF 等手段，让生成内容更加符合指令和安全要求。
+Beyond relationships, event extraction attempts to reconstruct "who did what, when, and where". Taking a news item as an example, a standard event template may include multiple slots such as event type (acquisition, cooperation, accident), time, location, participants, amount, consequences, etc. The event extraction model needs to automatically fill these slots from lengthy text, thereby constructing an "event table" that can be retrieved, statistically analyzed, and inferred.
 
-由于这个部分基本等于提示词工程，故不再过多阐述，可以自行查看提示词工程部分的教程。
+* For example, extract from "A company acquires another company for 5 billion yuan": Event Type = Acquisition, Amount = 5 billion yuan, Participants = two companies.
 
-# 2. 图像模态（Image / Vision）
+In terms of modeling methods, in addition to traditional sequence tagging-based extraction, we will also adopt Span-based IE (directly predicting the start and end positions of entity/relation spans), as well as Prompt-based IE and LLM-based Few-shot extraction, which have emerged in recent years. The advantage of the latter lies in its ability to quickly adapt to new schemas through natural language prompts, reducing the cost of extensive re-labeling and training.
 
-在 AI 能力中，图像模态负责“用视觉理解世界”。不管最终想做的是安防监控、自动驾驶、短视频特效、电商智能修图，还是多模态问答、AI 画画，本质上都离不开一条路径：从原始像素出发，逐步获得对画面的结构化理解与可控生成能力。
+From an engineering perspective, a mature extraction system often forms a pipeline:
 
-## 2.1 底层视觉（Low‑Level Vision）
+* Upstream NER/Sequence Labeling identifies entities;
+* The middle layer models relationship and event structures;
+* The downstream writes the results into a database or Knowledge Graph for consumption by search, analysis, and risk control systems.
 
-在上一节中，我们从整体上介绍了视觉模态在多模态系统中的角色，以及它与语言、语音之间的衔接方式。但在真正进入目标检测、图像理解、视觉问答这些“高层语义任务”之前，还有一个往往被忽略、却至关重要的基础能力层——底层视觉。你可以把它理解为：在“看懂图里是什么”之前，系统需要先解决“这张图本身质量如何”“有哪些稳定的局部结构可以被上层复用”这两个问题，用一层通用的复原、增强和结构抽取，将原始像素转化为更干净、更稳定的图像表示。
+## 1.4 Text Generation & Editing
 
-从工程角度看，底层视觉既直接影响用户肉眼看到的“画质体验”，也决定了上层检测、识别、分割等任务的输入分布是否健康。如果这一层做得不好，后面所有模型都要在“噪声大、畸变重、光照极端”的环境下硬扛；相反，如果在这一层就把图像尽可能修好、结构信息提炼好，高层任务就可以在一个更友好的基座上发挥能力。下面我们同样从场景、原理和模型三个角度来梳理这一层：
+In the previous sections, we have successively constructed the understanding link of "representation → classification matching → sequence labeling and extraction": the model can not only map text into semantic space, but also make judgments on the entire text and extract structured information from it. What this section aims to do is to "reverse" this understanding link: on the basis of full understanding, enable the model to actively generate, rewrite, compress, and polish text. You can understand it as performing "reverse encoding" in semantic space, transforming internal representations back into high-quality natural language output, which is the layer closest to user perception in the entire text modality capability chain. We will still break it down from four dimensions: objective, principle, model, and product:
 
-* **场景**
-  * 相机与拍摄设备：手机/相机的自动去噪、HDR、夜景模式、防抖，多帧融合提升细节和动态范围。
-  * 内容平台与短视频：上传图片/视频的一键画质增强，去压缩块、提高清晰度和对比度，提升主观观感。
-  * 老照片与文档修复：老照片的去噪、上色、超分辨率；拍歪、拍暗的票据、合同、书页自动拉正、增强，方便 OCR。
-  * 监控与安防：低照度监控画面的降噪、去雾、防雨滴、提升分辨率，为后续人脸/车牌识别打基础。
-  * AR/VR 与三维重建：为 SLAM、全景拼接、三维重建提供稳定的角点、边缘和局部描述子，保证跟踪与配准鲁棒性。
-* **原理**
-  围绕“图像质量”和“局部结构”两个核心目标，对像素级信息进行物理与统计建模：
-  * 图像复原与增强：假设观测图像是理想图像经过噪声、模糊核、压缩和成像非线性等退化后得到，在这一假设下进行去噪、去模糊、去压缩伪影、低光照增强和超分辨率重建，使输出更接近真实场景成像，同时符合人眼感知习惯。
-  * 结构特征抽取：在不引入具体语义标签的前提下，从像素梯度和纹理统计中提取边缘、角点、局部纹理、显著区域等特征，为后续的检测、配准、跟踪、分割提供“几何骨架”。
-  * 几何与光照预处理：基于相机模型和简单几何线索（直线、消失点、对称性等）估计畸变与透视关系，通过去畸变、拉正、对比度与光照归一化等操作，将原始图像对齐到一个更标准、更稳定的输入空间。
-* **模型**
-  综合使用经典图像处理方法和深度学习模型，在效率与效果之间做权衡：
-  * 传统图像处理：双边滤波、非局部均值、引导滤波、Retinex、直方图均衡、Canny/LoG 边缘检测、Harris/FAST 角点、SIFT/SURF/ORB 描述子、Hough 变换、相机标定与几何校正等。
-  * 深度复原与增强模型：基于 CNN 或视觉 Transformer 的去噪、去模糊、超分辨率、去雨/去雾/去压缩伪影模型（如 EDSR、RCAN、SwinIR、ESRGAN 等），以及多帧/视频增强网络，用端到端方式学习从退化图到高质量图的映射，或使用现代的图像编辑模型实现例如即梦和 qwen 编辑模型。
+* **Scenario**
+  * Daily writing and work: Generate emails, notices, draft proposals, or expand, rewrite, and polish existing texts.
+  * Knowledge Management and Summarization: Automatically summarize long documents, reports, and meeting minutes to help quickly grasp key points.
+  * Customer Service and Q&A: Automatically generate well-structured and consistent answers based on user questions and retrieved materials.
+  * Marketing and Creative Content: Generate advertising copy, social media posts, event introductions, scripts, etc.
+  * Multilingual Scenarios: On the basis of maintaining the original meaning, complete translation, localization adaptation, and adaptation to different languages and scenarios.
+* **Principle**
+  Based on language modeling, text is processed in two ways: "from scratch" and "modification based on existing content":
+  * Free Generation: Generate a complete text from scratch based on intent, prompts, or outlines;
+  * Controlled Rewriting: Adjust style, length, and structure (such as summarization, expansion, style conversion) while keeping the core information unchanged;
+  * Correction and Polishing: Correct typos and grammar issues, optimize the expression order and logical structure.
+* **Model**
+  is mainly based on generative models with large-scale pre-training + instruction fine-tuning:
+  * Instruction-tuned LLMs: GPT series, LLaMA / Qwen / GLM, etc., for general generation and editing;
+  * Seq2Seq models: T5, BART, mT5, etc., used for tasks such as summarization, translation, format conversion, etc.;
+  * Alignment and Safety: Make the generated content more compliant with instructions and safety requirements through means such as RLHF / RLAIF.
 
-### 2.1.1 图像复原与增强：从“看得见”到“看得清”
+Since this part is basically equivalent to prompt engineering, we will not elaborate further. You can refer to the tutorial on the prompt engineering section on your own.
 
-在底层视觉里，图像复原与增强首先面对的是各种退化：噪声、模糊、压缩失真、低光照、动态范围不足等。很多真实场景下的原始图像并不“干净”：夜景和室内弱光会让画面布满颗粒和色斑，抓拍和监控画面常常因为运动、对焦不准而发虚，视频压缩会带来一块一块的方块噪声。复原与增强的目标，就是在不改变图像语义内容的前提下，尽可能恢复清晰的细节和自然的观感，把“模糊、灰暗、脏”的输入变得“清楚、明亮、舒适”。
+# 2. Image Modality (Image / Vision)
 
-典型任务包括去噪、去模糊、低光照增强和超分辨率等。去噪和去模糊需要在局部纹理和整体结构之间权衡：既要压制高频噪声、反卷积掉模糊核的影响，又不能把真实细节一起抹平；低光照增强则要在提升亮度与对比度的同时，避免暗部噪声被一并拉起，并校正偏色、压住过曝区域；超分辨率则侧重在放大的同时补出合理的高频信息，让放大后的图像既不显得“糊”和“塑料感严重”，又不过度“凭空捏造”细节。现代方法大多采用深度网络（CNN 或视觉 Transformer），在大量“退化–清晰”成对数据上学习从观测图像 y 到理想图像 x 的映射，同时使用包含像素误差、感知损失和对抗损失的组合目标，在“指标好看”和“人眼好看”之间取得平衡。
+In AI capabilities, the image modality is responsible for "understanding the world visually." Whether the ultimate goal is security monitoring, autonomous driving, short video special effects, e-commerce intelligent photo retouching, MultiModal Machine Learning question answering, or AI painting, in essence, they all rely on a common path: starting from raw pixels, gradually acquiring the ability to obtain structured understanding of the image and controllable generation.
 
-这些能力在产品中的呈现往往是隐性的：手机相机的夜景模式和 HDR 拍照、短视频平台的一键画质增强、老照片修复工具、监控系统的云端增强服务，本质上都依赖这一层的复原与增强模块。对业务而言，它们既直接影响用户对“画质”的主观感受，也间接决定了上层检测、识别、分割等算法的输入质量。可以说，越是复杂的上层视觉任务，越依赖底层有一个高质量、分布稳定的“图像地基”。
+## 2.1 Low-Level Vision
 
-### 2.1.2 结构特征与预处理：为高层理解搭好“脚手架”
+In the previous section, we introduced the role of the visual modality in the MultiModal Machine Learning system as a whole, as well as its connection with language and speech. However, before truly delving into "high-level semantic tasks" such as Object Detection, Image Understanding, and Visual Question Answering, there is a fundamental capability layer that is often overlooked but crucial - low-level vision. You can understand it as: before "understanding what is in the image", the system needs to first address two issues: "how is the quality of this image itself" and "what stable local structures can be reused by the upper layer", using a layer of general restoration, enhancement, and structure extraction to transform the raw pixels into a cleaner and more stable image representation.
 
-当图像质量被修复到一个可用水平之后，底层视觉的第二项关键工作，是从像素中抽取出与具体语义暂时无关、但对几何结构和视觉感知非常重要的特征，并对几何和光照进行统一。这一步不会直接告诉你“这里是一辆车”或“这是某个人的脸”，但会回答“哪里有清晰的轮廓和拐角”“哪些区域纹理结构显著”“图像是否发生畸变或倾斜”等问题，为上层模型提供可靠的结构性输入。
+From an engineering perspective, low-level vision not only directly affects the "image quality experience" perceived by users' naked eyes but also determines whether the input distribution of high-level tasks such as detection, recognition, and segmentation is healthy. If this layer is not well implemented, all subsequent models will have to operate under the harsh conditions of "high noise, severe distortion, and extreme lighting"; conversely, if the images are repaired as much as possible and structural information is well extracted at this layer, high-level tasks can perform better on a more user-friendly foundation. Next, we will also examine this layer from three perspectives: scenario, principle, and model:
 
-在特征提取方面，边缘和角点是最基础的元素。通过 Canny、Sobel 等算子，系统可以在整张图上标出灰度或颜色变化最剧烈的“边缘”，这些往往对应物体轮廓、部件分界和纹理走向；角点检测（如 Harris、FAST）则找到局部梯度在多个方向上都变化显著的“拐角”，通常出现在物体的角、线条交汇处。进一步地，像 SIFT、SURF、ORB 这样的局部描述子，会在这些关键点周围编码一小片区域的纹理模式，使得同一物理点在不同视角、尺度和一定光照变化下仍然可以被匹配出来，这为图像配准、全景拼接、SLAM、AR 跟踪和三维重建提供了基础支撑。
+* **Scenario**
+  * Camera and shooting equipment: Automatic noise reduction, HDR, night mode, anti-shake, and multi-frame fusion of mobile phones/cameras enhance details and dynamic range.
+  * Content Platform and Short Videos: One-click image/video quality enhancement for uploaded content, removing compression artifacts, improving sharpness and contrast, and enhancing subjective visual experience.
+  * Old Photo and Document Restoration: Denoising, coloring, and super-resolution of old photos; automatic straightening and enhancement of skewed or dimly lit receipts, contracts, and book pages for easy OCR.
+  * Monitoring and Security: Noise reduction, dehazing, anti-raindrop, and resolution enhancement of low-light monitoring images, laying the foundation for subsequent face/license plate recognition.
+  * AR/VR and 3D Reconstruction: Provide stable corner points, edges, and local descriptors for SLAM, panoramic stitching, and 3D reconstruction, ensuring the robustness of tracking and registration.
+* **Principle**
+  Centering around the two core objectives of "image quality" and "local structure", physical and statistical modeling is performed on pixel-level information:
+  * Image Restoration and Enhancement: Assuming that the observed image is obtained after the ideal image has undergone degradation such as noise, blur kernel, compression, and imaging nonlinearity, under this assumption, denoising, deblurring, de-compression artifact removal, low-light enhancement, and super-resolution reconstruction are performed to make the output closer to the imaging of the real scene while conforming to the perception habits of the human eye.
+  * Structural Feature Extraction: Without introducing specific semantic labels, features such as edges, corners, local textures, and salient regions are extracted from pixel gradients and texture statistics, providing a "geometric skeleton" for subsequent detection, registration, tracking, and segmentation.
+  * Geometry and illumination preprocessing: Estimate distortion and perspective relationships based on camera models and simple geometric cues (lines, vanishing points, symmetry, etc.), and align the original image to a more standard and stable input space through operations such as undistortion, rectification, contrast and illumination normalization.
+* **Model **
+  Comprehensively uses classical image processing methods and Deep learning models, making a trade-off between efficiency and effectiveness:
+  * Traditional Image Processing: Bilateral Filtering, Non-Local Means, Guided Filtering, Retinex, Histogram Equalization, Canny/LoG Edge Detection, Harris/FAST Corner Detection, SIFT/SURF/ORB Descriptors, Hough Transform, Camera Calibration and Geometric Correction, etc.
+  * Deep Restoration and Enhancement Models: Denoising, deblurring, super-resolution, deraining/dehazing/decompression artifact models based on CNN or Vision Transformer (such as EDSR, RCAN, SwinIR, ESRGAN, etc.), as well as multi-frame/video enhancement networks, which learn the mapping from degraded images to high-quality images in an end-to-end manner, or use modern image editing models such as Dreamina and Qwen editing models.
 
-与特征提取并行的，是各种几何和光照预处理操作。广角镜头带来的桶形/枕形畸变、拍摄文档时的倾斜和透视拉伸，都会通过直线检测、消失点估计等底层几何线索被识别出来，并通过去畸变、拉正、透视矫正等步骤被“拉回正常”；全局或自适应直方图均衡、对比度拉伸和光照归一化，则在保证细节不丢失的前提下，提升局部对比度、减弱光照不均和阴影的影响。颜色空间变换（RGB→HSV/Lab）与颜色直方图统计，为简单的基于颜色的分割、显著性区域检测、色偏校正等任务提供直接可用的输入。
+### 2.1.1 Image Restoration and Enhancement: From "Visible" to "Clear"
 
-在端到端深度学习成为主流之后，这些结构特征和预处理有一部分被“内化”到了网络前几层的卷积核和归一化策略中，不再以显式算子的形式出现在系统架构图上。但从功能上看，它们依然扮演着同样的角色：先用一层相对通用的、与具体类别无关的底层处理，把原始像素整理成在几何形态、光照条件和局部结构上更稳定的表示，再交给上层的分类、检测、分割和多模态模块去完成“理解这是什么”的任务。没有这层“脚手架”，上层模型就不得不在噪声大、畸变重、结构模糊的原始图上硬扛，整体系统的鲁棒性和泛化能力都会显著下降。
+In low-level vision, image restoration and enhancement first confront various forms of degradation: noise, blurring, compression artifacts, low illumination, insufficient dynamic range, etc. In many real-world scenarios, the original images are not "clean": night scenes and indoor low-light conditions can cause the image to be filled with grain and color spots, while candid and surveillance images often appear blurry due to motion or inaccurate focusing, and video compression can introduce blocky artifacts. The goal of restoration and enhancement is to restore clear details and natural visual appearance as much as possible without altering the semantic content of the image, transforming "blurry, dim, and dirty" inputs into "clear, bright, and comfortable" outputs.
 
-## 2.2 图像分类与识别（Image Classification & Recognition）
+Typical tasks include denoising, deblurring, low-light enhancement, and super-resolution, etc. Denoising and deblurring require a trade-off between local texture and overall structure: it is necessary to suppress high-frequency noise and deconvolve the effects of the blur kernel, while not smoothing out real details; low-light enhancement needs to enhance brightness and contrast while avoiding pulling up dark noise together, correcting color cast, and suppressing overexposed areas; super-resolution focuses on supplementing reasonable high-frequency information while magnifying, so that the magnified image neither appears "blurry" and "plastic-like" nor "fabricates" details excessively. Most modern methods use deep networks (CNN or Vision Transformer), learning the mapping from the observed image y to the ideal image x on a large amount of "degraded-clear" paired data, while using a combined objective that includes pixel error, perceptual loss, and adversarial loss to strike a balance between "good metrics" and "good to the human eye".
 
-在大部分图像任务中，业务方真正关心的问题是：**这张图整体属于哪一类？图里的这个人是谁？这名行人在不同摄像头下是不是同一个？** 你可以把这一层理解为：在一个统一、干净的输入空间上，为整张图像或者整个人/目标打上“类别标签”或“身份标签”，把视觉信号转化为最直接可用的识别结果。
+The manifestation of these capabilities in products is often implicit: the night mode and HDR photography of mobile phone cameras, the one-click image quality enhancement of Short Video Platforms, old photo restoration tools, and the cloud enhancement services of surveillance systems all essentially rely on the restoration and enhancement modules at this level. For business, they not only directly affect users' subjective perception of "image quality" but also indirectly determine the input quality of algorithms such as upper-level detection, recognition, and segmentation. It can be said that the more complex the upper-level visual tasks are, the more they rely on a high-quality and stably distributed "image foundation" at the bottom layer.
 
-从产品视角看，图像分类与识别是最早大规模落地的一批视觉能力，也是很多上层应用的“入口模块”。电商和内容平台用它来自动给图片打标签、识别主体品类；安防和门禁系统用它来确认“是不是同一个人”；行人重识别系统则在多路摄像头之间抽丝剥茧，找出同一目标的跨场景轨迹。下面我们同样从场景、原理和模型三个角度来梳理这一层：
+### 2.1.2 Structural Features and Preprocessing: Building the "Scaffold" for High-Level Understanding
 
-* **场景**
-  * 通用图片理解：为用户上传的图片自动打上“风景 / 美食 / 宠物 / 文档”等主题标签，用于检索、推荐、内容审核。
-  * 人脸识别与门禁：在人脸门禁、考勤系统中，根据人脸图像识别个人身份，实现“刷脸通行”“刷脸打卡”。
-  * 行人/人员重识别：在不同摄像头画面中判断是否为同一行人或同一人员，用于安防检索、轨迹分析。
-  * 人体属性识别：在不直接确认身份的前提下，识别性别、年龄段、是否戴帽子/背包/穿制服等属性，为检索和行为分析提供线索。
-* **原理**
-  在统一的视觉特征空间中，对整张图或整个人/目标进行判别式建模：
-  * 图像分类：以整张图像为输入，通过卷积网络或视觉 Transformer 提取全局特征，并在特征顶层接一个分类头，输出单标签或多标签的类别概率，用于回答“这是一张什么类型的图片”。
-  * 身份/实例识别：将“是谁”的问题转化为特征空间中的度量学习问题，即学习一个嵌入空间，使同一身份的图像特征彼此接近，不同身份的特征彼此远离，然后用最近邻搜索或聚类完成识别与检索。
-  * 属性识别：在共享的行人/人体特征之上，增加多任务输出头，预测性别、年龄段、衣着颜色、是否携带物品等属性标签，使得同一特征可以服务于多种下游检索与分析需求。
-* **模型**
-  以深度卷积网络和视觉 Transformer 为主干，结合分类头或度量学习头实现不同类型的识别任务：
-  * 图像分类 Backbone：ResNet、DenseNet、EfficientNet、ConvNeXt、Vision Transformer (ViT)、Swin Transformer 等，通常在 ImageNet 等大规模数据集上进行预训练，再在具体业务数据上微调。
-  * 通用分类结构：Backbone + 全连接分类层（Softmax / Sigmoid），用于单标签或多标签图像分类任务，可通过类别重加权、focal loss 等应对长尾分布。
-  * 身份/实例识别：在 Backbone 的特征输出之上，使用 ArcFace、CosFace、SphereFace 等带角度约束的损失函数，显式拉大不同身份之间的类间间隔，提升在特征空间中的可分性，并通过向量检索（ANN）完成大规模库上的比对。
-  * 行人/属性识别结构：针对行人 Re-ID 和人体属性识别，常见做法是采用共享 Backbone 提取行人特征，再在顶层分出“身份分支”和“属性分支”，既优化跨摄像头的身份区分能力，又兼顾多属性预测。
+After the image quality has been restored to a usable level, the second key task of low-level vision is to extract features from pixels that are temporarily unrelated to specific semantics but are crucial for geometric structure and visual perception, and to unify geometry and illumination. This step will not directly tell you "here is a car" or "this is someone's face", but will answer questions such as "where there are clear contours and corners", "which regions have significant texture structure", and "whether the image is distorted or tilted", providing reliable structural input for upper-level models.
 
-对应到具体产品形态，这一层的能力常以“图片内容识别 / 分类 API”“人脸识别 SDK / SaaS”“行人重识别平台”等方式对外提供。它们往往既直接驱动业务决策（如门禁放行、内容标签写入），又作为上游，为后续的检索、推荐、行为分析和多模态理解提供结构化标签与稳定的身份表征。下面，我们分别从图像分类和身份/属性识别两个角度展开。
+In terms of feature extraction, edges and corners are the most fundamental elements. Through operators such as Canny and Sobel, the system can mark the "edges" with the most drastic changes in canary release or color across the entire image, which often correspond to object contours, component boundaries, and texture directions; corner detection (such as Harris and FAST) finds the "corners" where local gradients change significantly in multiple directions, usually appearing at object corners and line intersections. Further, local descriptors like SIFT, SURF, and ORB encode the texture patterns of a small area around these key points, enabling the same physical point to still be matched under different perspectives, scales, and certain lighting changes, which provides fundamental support for image registration, panoramic stitching, SLAM, AR tracking, and 3D reconstruction.
 
-### 2.2.1 图像分类：回答“这是一张什么图？”
+Parallel to feature extraction are various geometric and illumination preprocessing operations. Barrel/pincushion distortion caused by wide-angle lenses, as well as tilt and perspective stretching when photographing documents, are all identified through low-level geometric cues such as line detection and vanishing point estimation, and are "pulled back to normal" through steps such as undistortion, rectification, and perspective correction; global or adaptive histogram equalization, contrast stretching, and illumination normalization enhance local contrast, reduce the effects of uneven illumination and shadows, while ensuring that details are not lost. Color space transformation (RGB→HSV/Lab) and color histogram statistics provide directly usable inputs for tasks such as simple color-based segmentation, salient region detection, and color cast correction.
 
-在最基础的图像分类任务中，系统面对的是整张图片，目标是给它贴上一个或若干个语义类别标签。最常见的是单标签分类，例如在 ImageNet 这样的数据集中，每张图被标注为“狗”“猫”“汽车”“飞机”等一个主类别；在业务场景中，这类能力被广泛用于给用户上传的图片加上“风景 / 美食 / 宠物 / 人像 / 文档”等主题标签，支持检索、推荐和内容审核。与文本分类类似，模型会在预训练 Backbone 提取的全局视觉特征之上接一个全连接 + Softmax 层，对所有候选类别输出一个概率分布。
+After end-to-end deep learning became mainstream, some of these structural features and preprocessing steps were "internalized" into the convolution kernels and normalization strategies of the first few layers of the network, and no longer appear in the system architecture diagram as explicit operators. However, functionally, they still play the same role: first, use a relatively general, category-independent low-level processing layer to organize the raw pixels into a more stable representation in terms of geometric shapes, lighting conditions, and local structures, and then pass it on to the upper-level classification, detection, segmentation, and multi-modal machine learning modules to complete the task of "understanding what this is". Without this "scaffold", the upper-level models would have to operate directly on the raw images with high noise, severe distortion, and blurred structures, and the robustness and generalization ability of the overall system would significantly decline.
 
-在很多实际应用中，一张图往往同时属于多个类别，比如一张“海边日落自拍”图片，既可以是“风景”，也是“人像”，还可能被标注为“旅行”“海边”。这时就需要多标签分类（Multi‑label Classification）：模型依然从整图特征出发，但输出层不再是互斥的 Softmax，而是对每个标签单独预测有/无的概率（Sigmoid），并采用多标签损失函数来训练。为了应对现实数据中大量“长尾类别”（冷门标签样本极少），多标签分类模型常会加入类别重加权、难例挖掘或标签结构建模等机制，提升对小众类别的召回。
+## 2.2 Image Classification & Recognition
 
-在人机接口层面，图像分类通常以“图片内容识别 API”的形式对外提供。上游业务只需上传一张图片，即可获得一组类别标签及其置信度，用于后续的策略判断：比如广告投放系统可以根据图片内容限制某些敏感类目，电商平台可以利用图片分类辅助商品类目纠错，内容平台则用来丰富推荐特征和审核信号。虽然从技术上看，这类能力相对成熟，但它仍然是后续目标检测、实例分割、视觉问答等更复杂能力的基石。
+In most image tasks, the issues that business parties truly care about are: ** What category does this image as a whole belong to? Who is the person in the image? Is this pedestrian the same person across different cameras? ** You can understand this layer as: on a unified and clean input space, assigning "category labels" or "identity labels" to the entire image or the entire person/target, and converting visual signals into the most directly usable recognition results.
 
-### 2.2.2 图像识别与属性识别：回答“这是谁 / 这是什么实例？”
+From a product perspective, image classification and recognition were among the earliest batch of visual capabilities to be widely deployed, and they also serve as the "entry module" for many upper-level applications. E-commerce and content platforms use them to automatically tag images and identify the main categories; security and access control systems use them to confirm "whether it is the same person"; pedestrian re-identification systems sift through multiple camera feeds to find the cross-scenario trajectories of the same target. Next, we will also sort out this layer from the three perspectives of scenario, principle, and model:
 
-与“这是一张什么类型的图”不同，图像识别更关心的是“图中的这个人/目标是谁”，也就是身份级、实例级的区分。典型代表是人脸识别和行人重识别：前者在门禁、考勤、支付等场景中判断“当前人脸与库中哪一个身份最接近”；后者则在多路摄像头与不同时间段的监控画面中，寻找是否存在同一行人，辅助案件回溯和轨迹分析。这类任务的核心，不再是简单的多分类，而是如何在特征空间中学习到一个“类内紧凑、类间分离”的嵌入，使同一身份在不同姿态、光照、摄像头下拍摄的图像仍能被聚到一起。
+* **Scenario**
+  * Universal Image Understanding: Automatically assigns theme tags such as "scenery / food / pet / document" to images uploaded by users for retrieval, recommendation, and content moderation.
+  * Face Recognition and Access Control: In face access control and attendance systems, personal identities are recognized based on facial images to enable "face recognition entry" and "face recognition clock-in".
+  * Pedestrian/person re-identification: Determines whether it is the same pedestrian or person in different camera frames, used for security retrieval and trajectory analysis.
+  * Human Attribute Recognition: Without directly confirming identity, it identifies attributes such as gender, age group, whether wearing a hat/backpack/uniform, etc., providing clues for retrieval and behavior analysis.
+* **Principle**
+  In a unified visual feature space, discriminative modeling is performed on the entire image or the entire person/target:
+  * Image Classification: Taking the entire image as input, global features are extracted through a convolutional network or a vision Transformer, and a classification head is connected to the top layer of the features to output single-label or multi-label class probabilities, which are used to answer "What type of image is this?"
+  * Identity/Instance Recognition: Transforms the question of "who" into a metric learning problem in the feature space, that is, learns an embedding space where image features of the same identity are close to each other, and features of different identities are far from each other, and then uses nearest neighbor search or clustering to complete recognition and retrieval.
+  * Attribute Recognition: On top of the shared pedestrian/human body features, additional multi-task output heads are added to predict attribute labels such as gender, age group, clothing color, and whether carrying items, enabling the same features to serve various downstream retrieval and analysis requirements.
+* **The model **
+  uses deep convolutional networks and visual Transformers as the backbone, combined with classification heads or metric learning heads to implement different types of recognition tasks:
+  * Image Classification Backbones: ResNet, DenseNet, EfficientNet, ConvNeXt, Vision Transformer (ViT), Swin Transformer, etc., are usually pre-trained on large-scale datasets such as ImageNet and then fine-tuned on specific business data.
+  * Universal Classification Structure: Backbone + Fully Connected Classification Layer (Softmax / Sigmoid), used for single-label or multi-label image classification tasks, and can address long-tailed distributions through techniques such as class reweighting and focal loss.
+  * Identity/Instance Recognition: Above the feature output of the Backbone, loss functions with angular constraints such as ArcFace, CosFace, and SphereFace are used to explicitly increase the inter-class spacing between different identities, enhance separability in the feature space, and complete comparison on large-scale databases through vector retrieval (ANN).
+  * Pedestrian/Attribute Recognition Structure: For pedestrian Re-ID and human attribute recognition, the common practice is to use a shared backbone to extract pedestrian features, and then separate the "identity branch" and "attribute branch" at the top layer, which not only optimizes the ability to distinguish identities across cameras but also takes into account multi-attribute prediction.
 
-在模型设计上，人脸识别和行人重识别通常采用类似的范式：先用 ResNet、ConvNeXt、ViT、Swin 等 Backbone 提取以人脸/行人为中心的特征，再接上专门为度量学习设计的损失函数，如 ArcFace、CosFace 等。与普通分类损失不同，这些损失直接在角度空间或特征空间上约束类间边界，显式拉大不同身份特征之间的间隔，从而使得训练好之后的特征可以拿来做大规模向量检索，而不必局限于训练时见过的固定类别。在线服务时，系统会先对图库中每个身份的特征进行预计算和索引，再对上线查询的人脸/行人特征进行近似最近邻搜索，找到最相似的若干候选，并结合业务阈值和多模态信息做最终决策。
+Corresponding to specific product forms, the capabilities at this level are often provided externally in the form of "Image Content Recognition/Classification API", "Facial Recognition SDK/SaaS", "Pedestrian Re-identification Platform", etc. They often not only directly drive business decisions (such as access control release, content tag writing), but also serve as an upstream source, providing structured tags and stable identity representations for subsequent retrieval, recommendation, behavior analysis, and MultiModal Machine Learning understanding. Next, we will expand from two perspectives: image classification and identity/attribute recognition.
 
-与“直接身份识别”相对应的，是不指向具体人的 **属性识别** 。在很多安防和零售场景下，系统只需要知道“是男性还是女性”“大概年龄段”“是否戴帽子/口罩”“衣服颜色和款式”“是否背包/拉行李”等属性，用于快速筛选目标，而不必、也不适合直接输出个人身份。这类任务通常在共享的行人/人体特征之上，接多个并行的属性头（头的意思是输出概率的位置，可以多几个概率输出的结果用于判断类别），每个头负责预测一个或一组属性标签，形成一个多任务学习框架。一方面，多任务训练可以让特征更加丰富、泛化更好；另一方面，属性本身也可以作为 Re-ID 或检索的辅助条件，提升系统在复杂场景下的可用性。
+### 2.2.1 Image Classification: Answer "What kind of image is this?"
 
-在产品形态上，这一类能力通常打包为“人脸识别 SDK/云服务”“行人重识别平台”“人体属性识别 API”等，被集成进门禁闸机、考勤机、安防平台和视频结构化系统。与通用图像分类相比，它们对数据安全和隐私保护要求更高，对误识率和召回率的权衡也更敏感，因此在算法之外，还会辅以质量检测（如是否为真人、是否为遮挡/翻拍）、活体检测、多模态交叉验证等机制，构成更完整、更负责任的身份识别方案。
+In the most basic image classification task, the system deals with the entire image, with the goal of assigning one or several semantic category labels to it. The most common is single-label classification. For example, in a dataset like ImageNet, each image is labeled with a primary category such as "dog", "cat", "car", "airplane", etc.; in business scenarios, this type of capability is widely used to add theme labels such as "landscape / food / pet / portrait / document" to images uploaded by users, supporting retrieval, recommendation, and content moderation. Similar to text classification, the model will connect a fully connected + Softmax layer on top of the global visual features extracted by the pre-trained Backbone to output a probability distribution for all candidate categories.
 
-## 2.3 目标检测（Object Detection）
+In many practical applications, an image often belongs to multiple categories simultaneously. For example, a "selfie at sunset by the sea" image can be both a "landscape" and a "portrait", and may also be labeled as "travel" or "seaside". In such cases, multi-label classification (Multi-label Classification) is required: the model still starts from the features of the entire image, but the output layer is no longer the mutually exclusive Softmax, but instead predicts the presence/absence probability (Sigmoid) for each label separately, and uses a multi-label loss function for training. To address the large number of "long-tail categories" (categories with very few samples of rare labels) in real-world data, multi-label classification models often incorporate mechanisms such as category reweighting, hard example mining, or label structure modeling to improve the recall of niche categories.
 
-在前面的图像分类与识别中，我们只对“整张图”或“整个人”给出一个整体标签，而忽略了它在图中出现的位置和大小。然而，真实业务更常见的问题是：**这张图里有哪些物体？它们分别在什么位置？** 比如一张街景图中，我们希望同时标出所有的行人、车辆、交通标志牌；在工业产线上，需要在同一画面中标出所有瑕疵区域、零件位置。目标检测就是为这些需求而生的：它在单张图像或视频帧中，同时预测每一个物体的 **位置（bounding box）和类别** ，是众多下游视觉任务（跟踪、分割、行为分析、多目标计数等）的基础能力。
+At the human-machine interface level, image classification is typically provided externally in the form of a "Picture Content Recognition API". Upstream services only need to upload an image to obtain a set of category labels and their Confidence Levels, which are used for subsequent policy judgments: for example, advertising delivery systems can restrict certain sensitive categories based on picture content, e-commerce platforms can use image classification to assist in correcting product category errors, and content platforms can use it to enrich recommendation features and review signals. Although technically, this type of capability is relatively mature, it remains the cornerstone for more complex capabilities such as subsequent Object Detection, Instance Segmentation, and Visual Question Answering.
 
-从工程使用角度看，目标检测是很多视觉系统的“第一步结构化”，把一张原始图分解为若干个带标签的矩形框，每个框都可以进一步送到其他模块做识别、跟踪、属性分析乃至语义生成。安防摄像头中行人/车辆的检测、无人零售货架上商品的检测、工业质检中缺陷/异物的检测、以及云厂商提供的「目标检测 / 物体检测」API，本质上都依赖这一层能力。下面我们从 **场景** 、**原理**和**模型**三个角度来梳理目标检测，并在后续小节中分别展开关键方向。
+### 2.2.2 Image Recognition and Attribute Recognition: Answer "Who is this / What instance is this?"
 
-* **场景**
-  * 安防与交通监控：在摄像头画面中实时检测行人、车辆、非机动车、交通标志、逆行/占道目标等，为后续的行为分析和告警提供基础。
-  * 工业质检与制造：在生产线上检测产品缺陷（划痕、破损、异物）、零部件位置、装配是否缺失，支持自动剔除与机器人定位。
-  * 零售与物流：无人零售货架商品检测、结算；仓储中包裹、托盘、码垛的目标检测与定位，辅助库存盘点和机器人抓取。
-  * 内容理解与审核：在图像/视频中检测人、logo、武器、敏感物品等，为内容审核、广告合规和品牌识别提供结构化信号。
-* **原理**
-  目标检测的核心，是在图像上构建一个密集预测机制：
-  * 将输入图像通过 Backbone 提取为多尺度特征图，在这些特征图上，对每个“位置”（或候选区域）同时预测“是否有目标”“是什么类别”“对应的 bbox 参数”。
-  * 按照架构划分，有先生成候选框再精修的 **双阶段检测（Two‑stage）** ，以及直接在特征图上做分类+回归的一体化 **单阶段检测（One‑stage）** ，两者在精度与速度上各有侧重。
-  * 按候选框设计划分，有依赖预定义锚框（anchor）的 **anchor‑based** 方法，也有直接预测中心点/边界的 **anchor‑free** 与基于集合匹配的  **DETR 家族** 。
-  * 为应对现实数据中的小目标、密集目标、遮挡和尺度变化，检测器通常会结合多尺度特征（FPN）、更高分辨率输入、特定损失函数与后处理策略（如 NMS 变体、多尺度测试）进行优化。
-* **模型**
-  检测模型大体由**骨干网络 + 特征金字塔 / 头部结构 + 损失与后处理**三部分构成：
-  * 经典双阶段检测器：Faster R‑CNN、Mask R‑CNN 等，先通过 RPN 产生候选框，再对每个候选区域做精细分类与回归，精度高、结构清晰，适合对精度要求极高的场景。
-  * 单阶段检测器：SSD、RetinaNet、YOLO 系列（YOLOv5/6/7/8、YOLOX、YOLOv10 等）等，在一个统一的网络中完成检测，结构紧凑、延迟低，是工业界实时检测的主力。
-  * Anchor‑free / Transformer 检测器：FCOS、CenterNet、ATSS 等以像素点为中心直接预测框；DETR / Deformable DETR 等通过 Transformer 和集合匹配，将检测视为“从一组查询中生成一组目标”的问题，简化多种手工设计。
-  * 视频检测与跟踪：在图像检测器的基础上，引入时序信息与关联策略（如跟踪头、光流、轨迹匹配），形成 Detection + Tracking 的统一框架，支撑长时间、多目标的行为分析。
+Different from "what type of image this is", image recognition is more concerned with "who this person/object in the image is", that is, identity-level and instance-level discrimination. Typical representatives are face recognition and pedestrian re-identification: the former determines "which identity in the database the current face is closest to" in scenarios such as access control, attendance, and payment; the latter searches for the presence of the same pedestrian in surveillance footage from multiple cameras and different time periods, assisting in case backtracking and trajectory analysis. The core of this type of task is no longer simple multi-classification, but rather how to learn an embedding that is "compact within classes and separated between classes" in the feature space, so that images of the same identity captured under different poses, lighting conditions, and cameras can still be clustered together.
 
-综合来看，目标检测处于视觉能力谱系的“中枢位置”——它一方面承接底层视觉提供的干净图像输入，另一方面把图像解构成可供识别、跟踪、分割和多模态理解使用的“目标级”元素。下面，我们分别从 **单/双阶段检测架构** 、**Anchor‑based / Anchor‑free / Transformer 检测**以及**小目标与视频检测**三个方向展开。
+In model design, face recognition and pedestrian re-identification typically adopt similar paradigms: first, use backbones such as ResNet, ConvNeXt, ViT, and Swin to extract face/pedestrian-centered features, and then connect them with loss functions specifically designed for metric learning, such as ArcFace and CosFace. Different from ordinary classification losses, these losses directly constrain the inter-class boundaries in the angular space or feature space, explicitly increasing the gap between features of different identities, so that the trained features can be used for large-scale vector retrieval without being limited to the fixed categories seen during training. During online service, the system first precomputes and indexes the features of each identity in the gallery, then performs approximate nearest neighbor search on the face/pedestrian features of online queries, finds several most similar candidates, and makes the final decision by combining business thresholds and MultiModal Machine Learning information.
 
-### 2.3.1 单阶段与双阶段检测：精度–速度的结构权衡
+Corresponding to "direct identity recognition" is  **attribute recognition** , which does not point to a specific individual. In many security and retail scenarios, the system only needs to know attributes such as "male or female", "approximate age range", "whether wearing a hat/mask", "clothing color and style", "whether carrying a backpack/pulling luggage", etc., for quickly screening targets, without the need or suitability to directly output personal identity. Such tasks usually connect multiple parallel attribute heads (a head refers to the position where probability is output, and multiple probability output results can be used to judge categories) on top of shared pedestrian/body features, with each head responsible for predicting one or a set of attribute labels, forming a multi-task learning framework. On the one hand, multi-task training can make features more abundant and generalize better; on the other hand, attributes themselves can also serve as auxiliary conditions for Re-ID or retrieval, enhancing the system's usability in complex scenarios.
 
-从架构上看，目标检测最经典的划分是 **双阶段（Two‑stage）与单阶段（One‑stage）** 。二者的主要区别在于：是先“粗选一批候选框，再进行精修”，还是在特征图上“一次性预测完所有框和类别”。
+In terms of product form, this type of capabilities are usually packaged as "Face Recognition SDK/Cloud Service", "Pedestrian Re-identification Platform", "Human Attribute Recognition API", etc., and integrated into access control gates, attendance machines, security platforms, and video structuring systems. Compared with general image classification, they have higher requirements for data security and privacy protection, and are more sensitive to the trade-off between false recognition rate and recall rate. Therefore, in addition to algorithms, they are also supplemented by mechanisms such as quality inspection (e.g., whether it is a real person, whether it is occluded/photographed), live detection, and MultiModal Machine Learning cross-verification, to form a more complete and responsible identity recognition solution.
 
-双阶段检测以 Faster R‑CNN 为代表。它首先在 Backbone 特征图上通过 RPN（Region Proposal Network）生成一批“高概率包含目标”的候选框（第一阶段），然后对每个候选区域进行 RoI 对齐与特征提取，再做更精细的分类与边框回归（第二阶段）。这种设计的好处是：大量负样本在 RPN 阶段就被过滤掉，第二阶段可以集中精力在少数候选区域上做高质量的判别，因此在精度上往往更有优势，也更容易扩展到实例分割（Mask R‑CNN）、关键点检测（Keypoint R‑CNN）等任务。不过，多阶段结构带来的计算与实现复杂度相对较高，更适合对实时性要求不那么苛刻、但强调精度和可扩展性的离线或准实时场景。
+## 2.3 Object Detection (Object Detection)
 
-单阶段检测则力图打通整个流程，在一个统一的网络中同时完成类别分类和边框回归。代表模型包括 SSD、RetinaNet 和 YOLO 系列等：它们直接在多尺度特征图的每个位置上预测若干候选框的“前景/背景 + 类别 + bbox”，省去了显式 proposal 阶段，更适合做端到端加速与部署。早期的单阶段检测器相对双阶段在精度上有一定差距，但凭借结构简单、速度快，在工业界迅速占据主导；随着 FPN、focal loss、IoU‑aware loss，以及更强 Backbone 和 Neck 的引入，RetinaNet、YOLOX、YOLOv7/8/10 等新一代模型已经在很多任务上实现了“接近甚至赶超双阶段”的精度–速度平衡。
+In the previous image classification and recognition, we only assigned an overall label to the "entire image" or "whole person", while ignoring its position and size in the image. However, the more common problems in real-world business are: ** What objects are in this image? Where are they located respectively? ** For example, in a street view image, we hope to simultaneously mark all pedestrians, vehicles, and traffic signs; in an industrial production line, we need to mark all defective areas and part positions in the same frame. Object Detection is designed for these needs: it simultaneously predicts the ** position (bounding box) and category ** of each object in a single image or video frame, and is the fundamental ability for many downstream vision tasks (tracking, segmentation, behavior analysis, multi-object counting, etc.).
 
-在应用层面，工程上通常会根据需求在这两类架构间做取舍：对于云端批量离线分析、需要较高精度和可扩展性（如同时做检测+分割+关键点）的任务，双阶段检测仍然是一个稳定可靠的选择；而对于边缘设备、移动端应用、摄像头实时检测等延迟敏感场景，YOLO 系列等单阶段检测器几乎是默认首选，并且往往会结合量化、剪枝、蒸馏等技巧，以进一步压缩模型和提升吞吐。
+From an engineering application perspective, Object Detection is the "first step of structuring" for many vision systems, breaking down an original image into several labeled rectangular boxes, each of which can be further sent to other modules for recognition, tracking, attribute analysis, and even semantic generation. The detection of pedestrians/vehicles in security cameras, the detection of products on unmanned retail shelves, the detection of defects/foreign objects in industrial quality inspection, and the "Object Detection" API provided by cloud providers all essentially rely on this layer of capabilities. Below, we will sort out Object Detection from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and expand on the key directions in the subsequent sections.
 
-### 2.3.2 Anchor‑based 与 Anchor‑free：从手工设定到端到端学习
+* **Scenario**
+  * Security and Traffic Monitoring: Real-time detection of pedestrians, vehicles, non-motorized vehicles, traffic signs, reverse/illegal occupation targets, etc. in camera footage, providing a basis for subsequent behavior analysis and alerts.
+  * Industrial Quality Inspection and Manufacturing: Detect product defects (scratches, damages, foreign objects), component positions, and missing assemblies on the production line, supporting automatic rejection and robot positioning.
+  * Retail and Logistics: Product detection and settlement for unmanned retail shelves; Object Detection and positioning of packages, pallets, and stacks in warehouses, assisting inventory counting and robot grasping.
+  * Content Understanding and Moderation: Detect people, logos, weapons, sensitive items, etc. in images/videos to provide structured signals for content moderation, advertising compliance, and brand recognition.
+* **Principle**
+  The core of Object Detection is to build a dense prediction mechanism on images:
+  * The input image is extracted into multi-scale feature maps through the Backbone. On these feature maps, for each "location" (or candidate region), predictions are simultaneously made for "whether there is an object", "what category it belongs to", and "the corresponding bbox parameters".
+  * According to the architecture, there is the **two-stage detection (Two-stage)** that first generates candidate boxes and then refines them, as well as the integrated **one-stage detection (One-stage)** that directly performs classification + regression on the feature map. The two have different focuses on accuracy and speed.
+  * Divided by the design of candidate boxes, there are **anchor-based** methods that rely on predefined anchors, as well as **anchor-free** methods that directly predict the center point/boundary and the **DETR family** based on set matching.
+  * To address small targets, dense targets, occlusion, and scale variations in real-world data, detectors typically optimize by combining multi-scale features (FPN), higher resolution inputs, specific loss functions, and post-processing strategies (such as NMS variants and multi-scale testing).
+* **Model **
+  The detection model is generally composed of ** backbone network + feature pyramid / head structure + loss and post-processing ** three parts:
+  * Classic two-stage detectors: Faster R-CNN, Mask R-CNN, etc., first generate candidate boxes through RPN, then perform fine-grained classification and regression on each candidate region, with high accuracy, clear structure, and suitable for scenarios with extremely high accuracy requirements.
+  * Single-stage detectors: SSD, RetinaNet, YOLO series (YOLOv5/6/7/8, YOLOX, YOLOv10, etc.), etc., complete detection in a unified network, featuring a compact structure and low latency, and are the mainstay of real-time detection in the industrial sector.
+  * Anchor-free / Transformer Detectors: FCOS, CenterNet, ATSS, etc., directly predict bounding boxes centered on pixel points; DETR / Deformable DETR, etc., treat detection as a problem of "generating a set of targets from a set of queries" through Transformer and set matching, simplifying various handcrafted designs.
+  * Video Detection and Tracking: Based on the image detector, introduce temporal information and association strategies (such as tracking head, optical flow, trajectory matching) to form a unified framework of Detection + Tracking, which supports long-term, multi-target behavior analysis.
 
-在如何定义“候选框”这一问题上，检测方法又可以分为 **Anchor‑based 和 Anchor‑free** 两大类。早期主流方法（如 Faster R‑CNN、SSD、RetinaNet、YOLOv3/v4/v5 等）采用 Anchor‑based 思路：在特征图的每个位置预先定义若干具有不同尺度和长宽比的锚框（anchor），然后学习每个 anchor 对应的前景概率和 bbox 偏移量。这种方式实现简单、效果好，但需要人工对 anchor 的尺寸和比例进行较多调参，且在小目标、密集目标场景下容易出现 anchor 数量庞大、正负样本极度不平衡的问题。
+Overall, Object Detection occupies the "central position" in the spectrum of visual capabilities - on the one hand, it receives clean image inputs provided by low-level vision, and on the other hand, it deconstructs images into "object-level" elements for recognition, tracking, segmentation, and MultiModal Machine Learning understanding. Next, we will expand from three directions:  **Single/Double-Stage Detection Architectures** ,  **Anchor-based / Anchor-free / Transformer Detection** , and  **Small Object and Video Detection** .
 
-Anchor‑free 方法则尝试摆脱对预定义 anchor 的依赖。以 FCOS、CenterNet、ATSS 等为代表，它们通常直接在特征图的每个像素点上预测“这里是否是某个目标的中心（或属于该目标）”以及对应的边界距离，从而完全避免了预设 anchor 的复杂性。这样的好处是：模型结构更简洁，训练样本分配策略可以更加自然，尤其在面对尺度变化大、目标形状复杂的真实场景时，具有更好的泛化和可扩展性。与此同时，Anchor‑free 检测器也推动了更多基于像素/点的统一框架，使得检测与关键点、分割等任务更易共同建模。
+### 2.3.1 Single-Stage vs. Two-Stage Detection: Structural Trade-Off between Accuracy and Speed
 
-更进一步，DETR / Deformable DETR 等 Transformer‑based 检测器从另一个维度重新思考了检测问题：它们不在特征图上密集铺设 anchor，而是引入一组固定数量的“查询向量”（object queries），通过 Transformer 的自注意力和交叉注意力机制，从全局特征中“生成”一组目标预测，并通过匈牙利匹配（Hungarian Matching）实现一一对齐。这种集合预测（set prediction）的思路彻底消除了 NMS 和手工样本分配等传统组件，在概念上非常简洁，但在早期实现中存在收敛慢、对小目标不友好等问题；后续的 Deformable DETR 通过引入可变形注意力和多尺度机制，在收敛速度和性能上都有明显提升，逐渐在检测与多任务场景中获得更多应用。
+Architecturally, the most classic division of Object Detection is  ** Two‑stage and One‑stage ** . The main difference between the two lies in whether it is to "coarsely select a batch of candidate boxes first and then refine them" or to "predict all boxes and classes at once" on the feature map.
 
-对于工程实践而言，Anchor‑based、Anchor‑free 与 Transformer 检测并不是互斥的选择，而更像是一条演化链：从 heavily engineered 的 anchor 设计，到更为端到端的点/中心预测，再到完全基于集合预测与注意力的统一框架。当前工业落地中，YOLO 系列等成熟 Anchor‑based 模型依然是主力，Anchor‑free 和 DETR 家族则更多出现在对结构简洁性、多任务统一性、可扩展性要求较高的系统中。
+Two-stage detection is represented by Faster R-CNN. It first generates a batch of candidate boxes (first stage) that "highly likely contain the target" on the Backbone feature map through the RPN (Region Proposal Network), then performs RoI alignment and feature extraction on each candidate region, and finally conducts more refined classification and bounding box regression (second stage). The advantage of this design is that a large number of negative samples are filtered out at the RPN stage, allowing the second stage to focus on a small number of candidate regions for high-quality discrimination. Therefore, it often has an advantage in accuracy and is easier to extend to tasks such as instance segmentation (Mask R-CNN) and keypoint detection (Keypoint R-CNN). However, the computational and implementation complexity brought by the multi-stage structure is relatively high, making it more suitable for offline or quasi-real-time scenarios where real-time requirements are not as stringent but accuracy and scalability are emphasized.
 
-### 2.3.3 小目标与视频检测：走向真实场景的鲁棒性
+Single-stage detection aims to streamline the entire process, simultaneously performing category classification and bounding box regression within a unified network. Representative models include SSD, RetinaNet, and the YOLO series: they directly predict the "foreground/background + category + bbox" of several candidate boxes at each position on the multi-scale feature map, eliminating the explicit proposal stage and being more suitable for end-to-end acceleration and deployment. Early single-stage detectors had a certain gap in accuracy compared to two-stage detectors, but with their simple structure and high speed, they quickly dominated the industrial field; with the introduction of FPN, focal loss, IoU-aware loss, as well as stronger Backbone and Neck, new-generation models such as RetinaNet, YOLOX, YOLOv7/8/10 have achieved an accuracy-speed balance of "approaching or even surpassing two-stage detectors" in many tasks.
 
-在公开数据集上的目标检测往往给人一种“问题已经基本解决”的错觉，但一旦进入真实场景，就会立刻遇到两类棘手问题：**小目标/密集目标**与 **视频中的稳健检测与跟踪** 。
+At the application level, engineering usually makes trade-offs between these two types of architectures based on requirements: for tasks such as cloud-based batch offline analysis that require high precision and scalability (e.g., simultaneous detection + segmentation + key point detection), two-stage detection remains a stable and reliable choice; while for latency-sensitive scenarios such as edge devices, mobile applications, and real-time camera detection, single-stage detectors like the YOLO series are almost the default first choice, and often combined with techniques such as quantization, pruning, and distillation to further compress the model and improve throughput.
 
-小目标检测中，目标在原图中往往只占极少的像素区域，例如远处的行人、遥远的车辆、空中无人机，或者高分辨率工业图像上的微小瑕疵。随着 Backbone 下采样和特征图分辨率的降低，这些小目标在高层特征中很容易被“淹没”，导致漏检。为此，检测器通常会采用多尺度特征金字塔（FPN/PAFPN 等）、提高输入分辨率、在浅层特征图上增加检测头，甚至专门设计针对小目标的分支和损失加权策略。同时，在数据层面也需要通过裁剪、放大、小目标重采样等方式，提升模型对小尺度目标的感知与记忆能力。
+### 2.3.2 Anchor‑based and Anchor‑free: From Manual Setting to End-to-End Learning
 
-密集目标（如拥挤人群、密集停车场、排列紧凑的商品/零件）则会暴露出锚框重叠、NMS 误杀、遮挡严重等问题。改进策略包括更精细的标签分配（如 ATSS 等自适应分配方法）、软 NMS 或基于学习的去重策略、以及通过中心点/密度图建模等方式缓解框间竞争。在工业质检中，许多系统还会结合检测与像素级分割，实现更精确的缺陷定位，以便后续自动处理。
+Regarding the issue of how to define "candidate boxes", detection methods can be further divided into **Anchor-based and Anchor-free** two major categories. Early mainstream methods (such as Faster R-CNN, SSD, RetinaNet, YOLOv3/v4/v5, etc.) adopted the Anchor-based approach: pre-defining a number of anchor boxes with different scales and aspect ratios at each position of the feature map, and then learning the foreground probability and bbox offset corresponding to each anchor. This approach is simple to implement and effective, but requires manual adjustment of many parameters for the size and ratio of the anchors, and is prone to problems such as a large number of anchors and extreme imbalance between positive and negative samples in scenarios with small targets and dense targets.
 
-当检测从单帧扩展到视频时，另一个挑战是 **时间连续性与目标稳定性** 。单帧检测器在每一帧上独立做出预测，难以避免短时丢检、ID 抖动和虚警，而现实应用中的告警、计数、轨迹分析往往需要跨帧一致的目标轨迹。为此，视频目标检测通常会叠加一个 Tracking 模块，把“检测 + 目标跟踪”打通：经典做法是以图像检测器为前端，在后端利用卡尔曼滤波、匈牙利匹配、外观特征相似度等实现多目标跟踪（如 SORT、DeepSORT 等）；更进一步的做法是将跟踪头直接整合到检测网络中，联合学习检测与跨帧关联，提高短时遮挡、快速运动等场景下的鲁棒性。
+Anchor-free methods attempt to break free from the reliance on pre-defined anchors. Represented by FCOS, CenterNet, ATSS, etc., they typically directly predict "whether this is the center of a target (or belongs to the target)" and the corresponding boundary distances at each pixel point on the feature map, thus completely avoiding the complexity of pre-set anchors. The advantages of this approach are: the model structure is more concise, the training sample assignment strategy can be more natural, and it has better generalization and scalability, especially when dealing with real-world scenarios with large scale variations and complex target shapes. Meanwhile, anchor-free detectors have also promoted more unified frameworks based on pixels/points, making it easier to jointly model detection with tasks such as keypoints and segmentation.
 
-在实际系统中，小目标、密集目标和视频检测往往不是孤立的问题，而是同时出现：例如城市道路监控中的远处行人/车辆、车站广场中的密集人群、产线视频中的高速运动零件。这也决定了，高质量的目标检测模块，除了在标准 benchmark 上有亮眼指标外，更需要在多尺度、多密度、长时间视频等真实条件下，经受住各种复杂因素的考验，才能真正支撑上层的行为分析、智能告警和多模态理解。
+Going further, Transformer-based detectors such as DETR/Deformable DETR have rethought the detection problem from another dimension: instead of densely laying anchors on the feature map, they introduce a fixed number of "object queries", and through the self-attention and cross-attention mechanisms of the Transformer, "generate" a set of object predictions from global features, and achieve one-to-one alignment through Hungarian Matching. This set prediction approach completely eliminates traditional components such as NMS and manual sample assignment, and is conceptually very concise, but in early implementations, it had problems such as slow convergence and being unfriendly to small objects; subsequent Deformable DETR has significantly improved both convergence speed and performance by introducing deformable attention and multi-scale mechanisms, and has gradually gained more applications in detection and multi-task scenarios.
 
-## 2.4 图像分割（Image Segmentation）
+In engineering practice, Anchor-based, Anchor-free, and Transformer-based Object Detection are not mutually exclusive choices, but rather resemble an evolutionary chain: from heavily engineered anchor design, to more end-to-end point/center prediction, and then to a unified framework fully based on set prediction and attention. In current industrial implementations, mature Anchor-based models such as the YOLO series remain the mainstay, while Anchor-free and DETR families are more commonly found in systems with high requirements for structural simplicity, multi-task unity, and scalability.
 
-有了目标检测，我们已经可以知道“图里有哪些物体、它们大致在哪里”，但很多任务还需要更精细的结构化理解：**精确到每一个像素，判断它属于哪一类、属于哪个实例** 。例如自动驾驶中要知道哪些像素是路、哪些是人和车；抠图工具要把头发丝和背景分得干干净净；医学图像里要精确描出肿瘤和器官的边界。这类任务统称为图像分割，它直接在像素层面输出语义或实例标签，相比检测提供了更细粒度的空间结构信息。
+### 2.3.3 Small Object and Video Detection: Towards Robustness in Real-World Scenarios
 
-从产品角度看，图像分割是“像素级结构化”的核心能力：抠图和背景替换工具依赖它决定哪些像素需要保留；自动驾驶的感知模块依赖它构建精细的“可行驶区域 + 障碍物”地图；医学影像软件依赖它测量病灶大小、形状和体积；遥感平台依赖它区分农田、水体、建筑、道路等地物。下面我们从 **场景** 、**原理**和**模型**三个角度来梳理图像分割，并在后续子项中展开语义/实例/全景/大模型分割等方向。
+Object Detection on public datasets often gives the illusion that "the problem has been basically solved," but once it comes to real-world scenarios, two types of thorny problems will immediately arise:**small objects/dense objects** and  **robust detection and tracking in videos** .
 
-* **场景**
-  * 内容编辑与抠图：人像抠图、头发丝级别的背景替换、物体抠出和分层编辑，用于图片美化、短视频特效、广告创意制作。
-  * 自动驾驶与机器人：对每个像素标注路面、车道线、行人、车辆、护栏、建筑、天空等，用于路径规划、碰撞预警和环境建模。
-  * 医学影像分析：在 CT、MRI、超声等图像中精确分割器官、肿瘤、病灶区域，支持辅助诊断、手术规划和疗效评估。
-  * 遥感与地理信息：在卫星/航拍图中分割农田、水体、道路、建筑、林地等地物，支持国土规划、土地利用监测和灾害评估。
-* **原理**
-  图像分割本质上是“密集预测”，对输入图像通过编码器（Backbone）提取多尺度特征，再通过解码器或上采样模块，将特征图逐步还原到与输入同尺寸的分割图，在每个像素位置上输出一个语义或实例标签。
-  * **语义分割（Semantic Segmentation）** ：为每个像素分配一个语义类别（如路、人、车、天空），不区分同类的不同个体，适合描述“场景组成”。
-  * **实例分割（Instance Segmentation）** ：在语义信息之上进一步区分同类不同实例，为“每一辆车、每一个人”生成独立掩膜，是检测与分割的结合。
-  * **全景分割（Panoptic Segmentation）** ：统一处理“可数的物体（thing，如人、车）”与“不可数的背景（stuff，如路、天空）”，为每个像素同时给出语义标签和实例 ID。
-    与检测相比，分割对空间细节与边界质量更加敏感，需要更丰富的多尺度上下文信息和更精细的上采样/融合策略。
-* **模型**
-  经典到最新的分割模型大致沿着“FCN → 编码器–解码器 → 多尺度上下文 → 检测+分割一体化 → 大模型分割”的路线演化：
-  * 语义分割：FCN、U‑Net 及其变体、DeepLab 系列（DeepLabv3/v3+）、PSPNet 等，通过空洞卷积、金字塔池化、跳跃连接等方式获取多尺度上下文和精细边界。
-  * 实例/全景分割：Mask R‑CNN、Panoptic FPN、Mask2Former 等，将检测头与分割头结合，实现目标级分割和全景分割。
-  * 大模型与通用分割：Segment Anything Model (SAM) 等基础分割模型，将分割从“每个任务单独训练”提升为“一个模型适配多数分割场景”，支持交互式、提示驱动（prompt‑based）的分割。
+In small object detection, objects often occupy only a very small pixel area in the original image, such as pedestrians in the distance, distant vehicles, aerial drones, or tiny defects in high-resolution industrial images. As the backbone down-samples and the resolution of the feature map decreases, these small objects are easily "submerged" in high-level features, leading to missed detections. To address this, detectors typically employ multi-scale feature pyramids (such as FPN/PAFPN), increase the input resolution, add detection heads to shallow feature maps, and even specifically design branches and loss weighting strategies for small objects. Meanwhile, at the data level, it is also necessary to enhance the model's perception and memory capabilities for small-scale objects through methods such as cropping, zooming, and small object resampling.
 
-总体而言，图像分割相比目标检测提供了更精细的空间结构表达，是构建高可靠感知系统和高级编辑工具时不可或缺的一环。下面，我们从 **语义分割与实例分割**, **全景分割与检测一体化**, 以及**通用分割**, **大模型**, **与无监督分割**三个方向展开。
+Dense targets (such as crowded crowds, dense parking lots, and compactly arranged goods/parts) will expose problems such as anchor box overlap, NMS misclassification, and severe occlusion. Improvement strategies include more refined label assignment (such as self-adaptive assignment methods like ATSS), soft NMS or learning-based deduplication strategies, and alleviating inter-box competition through methods such as center point/density map modeling. In industrial quality inspection, many systems also combine detection with pixel-level segmentation to achieve more accurate defect localization for subsequent automatic processing.
 
-### 2.4.1 语义分割与实例分割：从“像素类别”到“像素实例”
+When detection expands from single frames to videos, another challenge is  ** temporal continuity and target stability ** . Single-frame detectors make independent predictions on each frame, making it difficult to avoid short-term missed detections, ID jitter, and false alarms. However, alarms, counting, and trajectory analysis in real-world applications often require target trajectories that are consistent across frames. To address this, video object detection typically adds a Tracking module to integrate "detection + object tracking": the classic approach is to use an image detector as the front end and implement multi-object tracking in the back end using Kalman filtering, Hungary matching, appearance feature similarity, etc. (such as SORT, DeepSORT, etc.); a more advanced approach is to directly integrate the tracking head into the detection network, jointly learning detection and cross-frame association to improve robustness in scenarios such as short-term occlusion and fast motion.
 
-**语义分割（Semantic Segmentation）** 的目标，是为图像中的每一个像素指定一个语义类别，使得网络学会“这片区域是路，那片区域是车，这里是人，那边是天空和建筑”。经典做法通常采用编码器–解码器结构：编码器（如 ResNet、EfficientNet、Swin Transformer 等）提取逐渐下采样的高层特征，解码器通过上采样、跳跃连接（skip connection）和多尺度融合，将粗糙的高层语义特征与底层细节结合，还原到原始分辨率。FCN 首次将这种密集预测形式系统化，U‑Net 通过对称的 U 型结构与大量 skip connection 在医学影像中取得了巨大成功；DeepLab 系列通过空洞卷积（dilated convolution）和 ASPP（金字塔空洞池化）在不降低分辨率的情况下扩大感受野；PSPNet 则通过金字塔池化获取全局上下文信息。这些模型共同推动了在道路场景、遥感、医学等领域的大规模应用。
+In real-world systems, small targets, dense targets, and video detection are often not isolated problems but occur simultaneously: for example, distant pedestrians/vehicles in urban road surveillance, dense crowds in station squares, and high-speed moving parts in production line videos. This also determines that a high-quality Object Detection module, in addition to having outstanding metrics on standard benchmarks, needs to withstand the tests of various complex factors under real conditions such as multi-scale, multi-density, and long-duration videos to truly support upper-level behavior analysis, intelligent alarm, and MultiModal Machine Learning.
 
-**实例分割（Instance Segmentation）** 进一步在像素语义标签的基础上区分同类不同个体：不只要知道哪些像素是“车”，还要知道这些像素分别属于哪一辆车。最具代表性的模型是 Mask R‑CNN，它在 Faster R‑CNN 的检测框架上增加了一个并行的分割分支：先通过检测头预测每个候选框的类别和位置，再在每个框内生成一个二值掩膜，从而得到“框 + 掩膜”的目标级分割结果。与纯语义分割相比，这种方法能够很好地处理物体重叠和遮挡，是人像/商品抠图、多目标计数、细粒度编辑等任务的基础。后续的实例分割方法在 mask 质量、多尺度与速度上不断改进，也出现了基于 anchor‑free 和 Transformer 的新架构，但“检测 + 局部分割”的思路仍然非常主流。
+## 2.4 Image Segmentation
 
-在产品层面，语义分割通常出现在“场景级”的应用中，例如自动驾驶道路分割、遥感地物识别、医学器官分割等；实例分割则更常用于“物体级”抠图、计数和编辑，例如一键选中并分离每一辆车、每一个人、每一件商品。两者结合，可以为上层任务提供既精细又结构化的空间信息。
+With Object Detection, we can already know "what objects are in the image and roughly where they are", but many tasks require more refined structured understanding: ** accurate to each pixel, determining which class it belongs to and which instance it belongs to** . For example, in autonomous driving, we need to know which pixels are roads, which are people and vehicles; in image matting tools, hair strands need to be clearly separated from the background; in medical images, the boundaries of tumors and organs need to be precisely delineated. Such tasks are collectively referred to as Image Segmentation, which directly outputs semantic or instance labels at the pixel level, providing more fine-grained spatial structure information compared to detection.
 
-仅做语义分割会把同类对象混在一起（所有“车”像素都属于同一个类）；仅做实例分割又往往只关注可数的“东西”（things，如人、车、动物），而忽视大面积的不可数“背景”（stuff，如路、草地、天空）。在很多场景中，我们既需要知道**每一个对象的实例级掩膜** ，又想了解 **整体场景构成** 。这就催生了**全景分割（Panoptic Segmentation）** ：为每一个像素同时给出语义类和实例 ID，实现对 thing + stuff 的统一建模。
+From a product perspective, image segmentation is the core capability of "pixel-level structuring": matting and background replacement tools rely on it to determine which pixels need to be retained; the perception module of autonomous driving relies on it to construct a detailed "drivable area + obstacle" map; medical imaging software relies on it to measure the size, shape, and volume of lesions; remote sensing platforms rely on it to distinguish features such as farmland, water bodies, buildings, and roads. Next, we will sort out image segmentation from three perspectives:  **scenarios** ,  **principles** , and  **models** , and expand on directions such as semantic/instance/panoramic/large model segmentation in subsequent sub-items.
 
-早期的全景分割系统通常通过“语义分割模型 + 实例分割模型 + 后处理合成”的方式实现：先用一个网络预测每个像素的语义类别，再用另一个网络输出各个实例的掩膜与类别，最后通过一套规则（如优先级、重叠处理）将两者合并为一个一致的全景分割结果。Panoptic FPN 代表了一条工程上更优雅的路径：在一个共享 Backbone 与特征金字塔（FPN）上，分别挂载语义分割头和实例分割头，通过联合训练与特征共享，同时得到两种输出，再通过轻量的后处理将它们融合。这样不仅提高了效率，也增强了语义和实例之间的一致性。
+* **Scenario**
+  * Content Editing and Image Matting: Portrait Matting, Hair-Level Background Replacement, Object Extraction, and Layered Editing, used for Image Beautification, Short Video Special Effects, and Advertising Creative Production.
+  * Autonomous Driving and Robotics: Label each pixel with road surface, lane lines, pedestrians, vehicles, guardrails, buildings, sky, etc., for path planning, collision warning, and environmental modeling.
+  * Medical Image Analysis: Accurately segment organs, tumors, and lesion regions in images such as CT, MRI, and ultrasound, supporting auxiliary diagnosis, surgical planning, and efficacy evaluation.
+  * Remote Sensing and Geographic Information: Segmenting features such as farmland, water bodies, roads, buildings, and forest land in satellite/aerial images, supporting national land planning, land use monitoring, and disaster assessment.
+* **Principle**
+  Image segmentation is essentially "dense prediction", which extracts multi-scale features from the input image through an encoder (Backbone), and then gradually restores the feature map to a segmentation map of the same size as the input through a decoder or upsampling module, outputting a semantic or instance label at each pixel position.
+  * **Semantic Segmentation** : Assigns a semantic category (such as road, person, car, sky) to each pixel, without distinguishing different individuals of the same category, and is suitable for describing "scene composition".
+  * **Instance Segmentation** : Based on semantic information, it further differentiates different instances of the same class, generating independent masks for "each vehicle, each person", and is a combination of detection and segmentation.
+  * **Panoptic Segmentation** : It uniformly processes "countable objects (things, such as people and cars)" and "uncountable background (stuff, such as roads and sky)", assigning both semantic labels and instance IDs to each pixel simultaneously.
+    Compared with detection, segmentation is more sensitive to spatial details and boundary quality, requiring richer multi-scale contextual information and more refined upsampling/fusion strategies.
+* **Model**
+  Classic to the latest segmentation models have roughly evolved along the path of "FCN → encoder-decoder → multi-scale context → integrated detection + segmentation → large model segmentation":
+  * Semantic segmentation: FCN, U-Net and its variants, DeepLab series (DeepLabv3/v3+), PSPNet, etc., obtain multi-scale context and fine boundaries through methods such as dilated convolution, pyramid pooling, and skip connection.
+  * Instance/Panoptic Segmentation: Mask R‑CNN, Panoptic FPN, Mask2Former, etc., combine the detection head with the segmentation head to achieve object-level segmentation and panoptic segmentation.
+  * Large Models and General Segmentation: Basic segmentation models such as Segment Anything Model (SAM) have elevated segmentation from "training separately for each task" to "one model adapting to most segmentation scenarios", supporting interactive, prompt-based segmentation.
 
-在模型层面，随着检测/分割一体化与 Transformer 架构的发展，出现了如 Mask2Former 等统一的全景分割框架：它们倾向于使用一套通用的“query + mask decoder”结构，在同一网络中同时预测语义、实例乃至其他下游任务的掩膜，从而在架构上大幅简化系统、方便多任务扩展。对于自动驾驶、机器人导航、AR 场景理解等复杂任务来说，全景分割提供了一种更接近“人眼主观感受”的完整场景描述，让上层决策和规划可以在更准确的空间语义上进行。
+Overall, image segmentation provides a more detailed spatial structure representation compared to Object Detection, and is an indispensable part when building highly reliable perception systems and advanced editing tools. Next, we will explore from  **Semantic Segmentation and Instance Segmentation** ,  **Panoptic Segmentation and Detection Integration** , and **Generalized Segmentation** ,  **Large Models** , **and Unsupervised Segmentation**in three directions.
 
-在产品形态上，全景分割往往内嵌在自动驾驶、机器人系统和高端视觉分析平台中，用户未必直接感知到“全景分割”这个概念，但会真实受益于更稳健的场景理解和更自然的交互体验。
+### 2.4.1 Semantic Segmentation and Instance Segmentation: From "Pixel Class" to "Pixel Instance"
 
-### 2.4.2 通用分割与无监督分割：从任务定制到“Segment Anything”
+**Semantic Segmentation **The goal is to assign a semantic category to each pixel in the image, so that the network learns "this area is the road, that area is the car, here is the person, there is the sky and buildings". The classic approach usually adopts an encoder-decoder structure: the encoder (such as ResNet, EfficientNet, Swin Transformer, etc.) extracts gradually downsampled high-level features, and the decoder combines rough high-level semantic features with low-level details through upsampling, skip connection, and multi-scale fusion to restore the original resolution. FCN systematizes this dense prediction form for the first time. U-Net has achieved great success in medical imaging through symmetrical U-shaped structure and a large number of skip connections. The DeepLab series expands the receptive field without reducing resolution through dilated convolution and ASPP. PSPNet obtains global contextual information through pyramid pooling. These models have jointly promoted large-scale applications in fields such as road scenes, remote sensing, and medicine.
 
-传统分割模型往往围绕特定数据集和任务训练：比如“道路场景 19 类语义分割”“某种肿瘤分割”“某几类商品分割”等，每换一个任务就要重新标注、重新训练。在实际业务中，这种强依赖精标数据的方式代价巨大，并且难以覆盖长尾类别和不断涌现的新场景。近年来，随着大规模预训练视觉模型和提示驱动（prompt‑based）范式的发展，出现了以 **Segment Anything Model (SAM)** 为代表的**通用分割大模型** ，试图把分割能力从“任务定制”提升为“基础设施”。
+**Instance Segmentation ** further distinguishes different individuals of the same class based on pixel semantic labels: not only do we need to know which pixels belong to "cars", but also which car each of these pixels belongs to. The most representative model is Mask R‑CNN, which adds a parallel segmentation branch to the detection framework of Faster R‑CNN: first, the detection head predicts the category and position of each candidate box, and then generates a binary mask within each box, thus obtaining the object-level segmentation result of "box + mask". Compared with pure semantic segmentation, this method can handle object overlap and occlusion well, and is the basis for tasks such as portrait/commodity matting, multi-object counting, and fine-grained editing. Subsequent instance segmentation methods have continuously improved in terms of mask quality, multi-scale, and speed, and new architectures based on anchor-free and Transformer have also emerged, but the idea of "detection + local segmentation" remains very mainstream.
 
-以 SAM 为例，它通过一个强大的图像编码器（通常是大规模预训练的 ViT）学习全图的通用特征，再通过轻量的提示编码器和掩膜解码器，将用户给出的点、框、文本提示等转化为分割结果。在训练阶段，SAM 利用了海量、多源、多任务的掩膜标注，使得模型学到的是一种“泛化的分割能力”，而不是对某个数据集标签的死记硬背；在使用阶段，用户只需给出极少量提示（一个点或者一个粗框），就能在各种未见过的图像类型和物体类别上得到质量较高的掩膜。这种范式大大降低了构建新分割应用的门槛，也为无监督/弱监督场景提供了强有力的工具。
+At the product level, semantic segmentation typically appears in "scene-level" applications, such as autonomous driving road segmentation, remote sensing object recognition, medical organ segmentation, etc.; instance segmentation is more commonly used for "object-level" keying, counting, and editing, such as selecting and separating each vehicle, each person, and each item with a single click. Combining the two can provide both detailed and structured spatial information for upper-level tasks.
 
-与之相关的，是更广义的**无监督 / 自监督分割**方向：不依赖或极少依赖人工掩膜，通过图像内部的相似性、时序一致性、多视角约束等信号，自动将图像划分为若干有意义的区域。早期工作多侧重于“视觉聚类”和区域提议（proposal generation），如今则更多地被大模型内化为一种表征学习方式，为下游的分割任务提供良好的初始化。结合 CLIP 等文本–图像对比学习模型，越来越多的方法能够在“只给文本类别名称、不提供掩膜标注”的条件下，进行零样本或少样本分割，为冷启动场景和长尾类提供新解法。
+Semantic segmentation alone will mix objects of the same class together (all "car" pixels belong to the same class); instance segmentation alone often only focuses on countable "things" (such as people, cars, animals) while ignoring large areas of uncountable "background" (such as roads, grasslands, skies). In many scenarios, we need to know both** the instance-level mask of each object** and understand ** the overall scene composition** . This has given rise to ** Panoptic Segmentation** : assigning both a semantic class and an instance ID to each pixel simultaneously, achieving unified modeling of things + stuff.
 
-在实际产品中，通用分割大模型往往以“交互式抠图工具”“智能选区”“一键抠背景”等形式出现，也逐步被整合进医学、遥感、工业等领域的专业软件中，作为半自动标注与辅助分割的加速器。与传统定制模型相比，它们不一定在某个特定任务上达到极致，但在“什么都能做一点、多场景快速落地”上有显著优势，也为后续构建真正的多模态基础视觉模型打下了基础。
+Early panoptic segmentation systems were typically implemented through the approach of "semantic segmentation model + instance segmentation model + post-processing synthesis": first, a network was used to predict the semantic class of each pixel, then another network was used to output the masks and classes of each instance, and finally, the two were combined into a consistent panoptic segmentation result through a set of rules (such as priority and overlap handling). Panoptic FPN represents a more elegant engineering path: on a shared backbone and feature pyramid network (FPN), a semantic segmentation head and an instance segmentation head are respectively attached, and through joint training and feature sharing, both outputs are obtained simultaneously, and then they are fused through lightweight post-processing. This not only improves efficiency but also enhances the consistency between semantics and instances.
 
-## 2.5 关键点检测与动作识别（Keypoint Detection & Action Recognition）
+At the model level, with the development of integrated detection/segmentation and the Transformer architecture, unified panoramic segmentation frameworks such as Mask2Former have emerged: they tend to use a set of common "query + mask decoder" structures to simultaneously predict masks for semantic, instance, and even other downstream tasks within the same network, thereby significantly simplifying the system in terms of architecture and facilitating multi-task expansion. For complex tasks such as autonomous driving, robot navigation, and AR scene understanding, panoramic segmentation provides a complete scene description that is closer to the "subjective perception of the human eye", enabling higher-level decision-making and planning to be carried out on more accurate spatial semantics.
 
-在分类、检测、分割之后，我们已经可以知道“图里有什么、在哪儿、每个像素属于什么”。但在很多真实任务中，业务关心的不仅是“物体存在与位置”，而是**姿态和动作** ：一个人是在走路还是在奔跑？这只手是否举起、是否做出某个手势？工人是否正确佩戴安全设备、执行规范动作？运动员的技术动作是否标准？这些问题需要我们进一步理解  **物体内部的结构与时序变化** 。
+In terms of product form, panoptic segmentation is often embedded in autonomous driving, robotic systems, and high-end visual analysis platforms. Users may not directly perceive the concept of "panoptic segmentation," but they will truly benefit from more robust scene understanding and more natural interaction experiences.
 
-关键点检测与动作识别就是面向这一需求的两层能力：
+### 2.4.2 General Segmentation and Unsupervised Segmentation: From Task Customization to "Segment Anything"
 
-* **关键点检测（Keypoint Detection）** ：在图像或视频帧上，预测目标（通常是人体、手部、面部或特定机械结构）的若干“骨架点”（如关节、指尖、五官），得到一个精细的结构化姿态表示（pose）。
-* **动作识别（Action Recognition）** ：在时序上分析这些关键点或外观特征随时间的变化，判断“这个人/这群人正在做什么动作或行为”。
+Traditional segmentation models are often trained around specific datasets and tasks, such as "19-class semantic segmentation of road scenes", "segmentation of certain tumors", "segmentation of certain types of goods", etc. Each task needs to be re-labeled and re-trained. In practical business, this method of relying heavily on precision-labeled data is costly and difficult to cover long-tail categories and emerging new scenarios. In recent years, with the development of large-scale pre-trained visual models and prompt-based paradigms, a **universal segmentation large model **represented by the **Segment Anything Model (SAM) **has emerged, attempting to elevate segmentation capabilities from "task customization" to "infrastructure".
 
-从产品视角看，这一能力广泛服务于：人机交互（手势控制）、体育分析（技术动作评估）、安防（跌倒检测、打架/奔跑等异常行为识别）、工业安全（违规动作检测）、虚拟人驱动（依靠人体/面部关键点驱动 3D 骨骼与动画）等场景。下面我们从 **场景** 、**原理**和**模型**三个角度梳理这一层能力，并在子节中分别展开关键点检测与动作识别。
+Taking SAM as an example, it learns the general features of the entire image through a powerful image encoder (usually a large-scale pre-trained ViT), and then converts user-provided point, box, text prompts, etc. into segmentation results through a lightweight prompt encoder and mask decoder. During the training phase, SAM utilizes massive, multi-source, and multi-task mask annotations, enabling the model to learn a "generalized segmentation ability" rather than rote memorization of labels from a specific dataset; during the usage phase, users only need to provide a very small number of prompts (a single point or a rough box) to obtain high-quality masks on various unseen image types and object categories. This paradigm significantly lowers the threshold for building new segmentation applications and also provides a powerful tool for unsupervised/weakly supervised scenarios.
 
-* **场景**
-  * 人机交互与 AR/VR：通过手势识别、身体姿态检测，实现“比划一下就能控制”的自然交互，或在 AR/VR 中实时驱动虚拟形象。
-  * 体育训练与运动分析：对跑步、跳高、投篮、举重等动作进行关键点追踪与角度分析，给出技术动作评估与纠错建议。
-  * 安防与公共安全：检测跌倒、打架、剧烈奔跑、翻越护栏等异常行为，用于及时告警；在工地、厂区中识别是否规范操作。
-  * 工业与人机协作：检测工人是否按规范姿态操作、与机器人协作时的安全距离、是否出现危险动作。
-  * 面部/表情驱动与虚拟人：通过面部关键点捕捉表情细节，用于表情迁移、数字人驱动、视频会议虚拟形象等。
-* **原理**
-  两类任务分别侧重空间结构与时序变化，但本质上都是在高维特征空间中做结构化预测：
-  * 关键点检测：在图像上定位一组预定义关键点（如 17/25 个人体关节、21 个手部关节、68/106 个面部关键点），常用方式是在特征图上预测每个关键点的热力图（heatmap），再通过峰值位置反推坐标；多人的场景下，还需要进行“关节到人的组装”。
-  * 单帧/短时动作识别：基于单张图或短时间窗口，通过人体姿态（关键点）和外观特征，判断该帧/该片段中发生的动作类别（如走、跑、举手、挥手、坐下等）。
-  * 时序动作识别：在更长的时间尺度上，分析特征序列（图像特征、关键点序列或光流等），建模动作的起始、持续与结束，识别“正在打电话”“正在做俯卧撑”“两人互相推搡”等复杂行为。
-  * 结构化表示：关键点序列提供了一种比原始像素更紧凑、更稳定的结构化表示，便于在动作识别中处理视角变化、背景干扰和外观差异。
-* **模型**
-  常见模型大致沿着“卷积/Transformer 特征提取 + 关键点/时序头”这一统一范式发展：
-  * 关键点检测：OpenPose 系列、Hourglass Network、HRNet、基于自顶向下（先检测人再估计姿态）和自底向上（先检测关节再组装）两大分支；近年来也有基于 Transformer 的姿态估计器。
-  * 视频动作识别：基于 2D/3D CNN 的视频模型（I3D、SlowFast 等）、基于骨架的 GCN 模型（ST‑GCN 等，直接在关键点图上建模时空关系）、以及基于视频 Transformer（Video Swin、TimeSformer 等）的端到端方案。
-  * 统一多任务与大模型：在通用视觉 Backbone 上同时输出检测、分割、关键点和动作标签，或利用多模态大模型通过文本提示直接理解“这个人在做什么动作”，将结构化预测与语义理解连接起来。
+Related to this is the broader**unsup****er****vised/self-supervised segmentation**direction: without relying on or relying very little on manual masks, it automatically divides images into several meaningful regions through signals such as internal image similarity, temporal consistency, and multi-view constraints. Early work mostly focused on "visual clustering" and region proposal generation, while today it is more often internalized by large models as a form of representation learning, providing good initialization for downstream segmentation tasks. By combining text-image contrastive learning models such as CLIP, more and more methods can perform zero-shot or few-shot segmentation under the condition of "only providing text category names without mask annotations", offering new solutions for cold-start scenarios and long-tail classes.
 
-下面我们分别从**关键点检测与姿态估计**以及**动作识别与行为理解**两个方向展开。
+In actual products, general-purpose large segmentation models often appear in forms such as "interactive image matting tools", "intelligent selection", and "one-click background removal", and are gradually integrated into professional software in fields such as medicine, remote sensing, and industry, serving as accelerators for semi-automatic annotation and auxiliary segmentation. Compared with traditional customized models, they may not achieve the ultimate performance in a specific task, but they have significant advantages in "being able to do a little of everything and quickly deploying in multiple scenarios", and also lay the foundation for the subsequent construction of truly multi-modal basic vision models.
 
-### 2.5.1 关键点检测与姿态估计：给人和物“画骨架”
+## 2.5 Keypoint Detection & Action Recognition
 
-关键点检测（也常被称为姿态估计，Pose Estimation）关注的是 **单帧或单幅图像中的空间结构** ：在二维图像中找到一组具有语义意义的关键点，并将它们连接成骨架。例如，在人体姿态估计中，我们通常需要检测头部、肩膀、肘、腕、髋、膝、踝等关节；在面部姿态中则是眼角、嘴角、鼻尖、脸廓等；在手部姿态中则是指根、指关节、指尖。对于机械臂、关节结构件等非人体对象，也可以同样定义一套关键点体系。
+After classification, detection, and segmentation, we can already know "what is in the image, where it is, and what each pixel belongs to". However, in many real-world tasks, what the business cares about is not only "the existence and location of objects", but  ** posture and motion ** : Is a person walking or running? Is this hand raised or making a certain gesture? Are workers correctly wearing safety equipment and performing standard actions? Are the technical movements of athletes standard? These questions require us to further understand  ** the internal structure and temporal changes of objects ** .
 
-在模型设计上，关键点检测常用的是 **“特征提取 + 热力图预测”**范式：
+Key point detection and action recognition are two levels of capabilities designed to meet this need:
 
-* 首先使用 CNN 或视觉 Transformer（如 ResNet、HRNet、Swin 等）对输入图像提取多尺度特征。
-* 然后通过一个解码头或多层卷积，为每一个关键点类型输出一张热力图（heatmap），其中每个像素值表示“该位置是该关键点的可能性”。
-* 推理阶段，通常取每张热力图的峰值位置作为关键点坐标，并通过双线性插值、局部拟合等方式进行亚像素级优化。
+* **Keypoint Detection** : On an image or video frame, predict several "skeleton points" (such as joints, fingertips, facial features) of the target (usually a human body, hand, face, or specific mechanical structure) to obtain a detailed structured pose representation (pose).
+* **Action Recognition** : Analyze the changes of these key points or appearance features over time in the time sequence to determine "what action or behavior this person/these people are performing".
 
-针对多人场景，姿态估计方法大致分为两路：
+From a product perspective, this capability is widely applied in scenarios such as human-computer interaction (gesture control), sports analysis (technical movement assessment), security (fall detection, abnormal behavior recognition such as fighting/running), industrial safety (violation action detection), virtual human driving (driving 3D skeletons and animations based on human body/face key points), etc. Next, we will sort out this layer of capabilities from three perspectives:  **scenario** ,  **principle** , and  **model** , and expand key point detection and action recognition respectively in subsections.
 
-* **自顶向下（Top‑down）** ：先使用行人检测器在图中找到每个人的边界框，再对每个框内的图像分别做单人姿态估计。这种方式对单人精度高、框架简单，但在多人密集场景中计算代价大、对检测质量敏感。代表系统包括许多基于 Faster R‑CNN/YOLO + Hourglass/HRNet 的组合。
-* **自底向上（Bottom‑up）** ：不先区分每个人，而是在全图上直接预测所有潜在关键点（及其类型），同时预测关键点之间的连接关系或亲和场（如 OpenPose 的 PAF）。然后通过图匹配/聚类算法，将关键点组装成多个独立的人体骨架。这类方法在多人密集场景中更高效、对人数规模更鲁棒，但组装过程复杂，对连接质量敏感。
+* **Scenario**
+  * Human-Computer Interaction and AR/VR: Through gesture recognition and body posture detection, achieve natural interaction where "a gesture can control" or drive virtual humans in real-time in AR/VR.
+  * Sports Training and Movement Analysis: Conduct key point tracking and angle analysis on movements such as running, high jump, shooting, weightlifting, etc., and provide technical movement evaluation and error correction suggestions.
+  * Security and Public Safety: Detect abnormal behaviors such as falls, fights, intense running, and climbing over guardrails for timely alerts; identify whether operations are conducted in compliance with regulations at construction sites and industrial zones.
+  * Industrial and human-robot collaboration: Detect whether workers operate in accordance with standard postures, the safety distance when collaborating with robots, and whether dangerous actions occur.
+  * Facial/Expression Driven and Virtual Human: Capturing expression details through facial key points for expression transfer, digital human driving, virtual avatars in video conferencing, etc.
+* **Principle**
+  The two types of tasks respectively focus on spatial structure and temporal variation, but in essence, they are both structured prediction in high-dimensional feature space:
+  * Key point detection: Locate a set of predefined key points (such as 17/25 human body joints, 21 hand joints, 68/106 facial key points) on an image. The common approach is to predict the heatmap of each key point on the feature map, and then infer the coordinates through the peak position; in the scenario of multiple people, "assembly of joints to people" is also required.
+  * Single-frame/short-term action recognition: Based on a single image or a short time window, through human body pose (keypoints) and appearance features, determine the action category (such as walking, running, raising a hand, waving, sitting, etc.) that occurs in the frame/segment.
+  * Temporal action recognition: On a longer time scale, analyze feature sequences (such as image features, key point sequences, or optical flow), model the start, duration, and end of actions, and recognize complex behaviors such as "talking on the phone", "doing push-ups", and "two people shoving each other".
+  * Structured representation: The key point sequence provides a more compact and stable structured representation than raw pixels, facilitating the handling of viewpoint changes, background interference, and appearance differences in action recognition.
+* **Model**
+  Common models generally develop along the unified paradigm of "convolution/Transformer feature extraction + keypoint/temporal head":
+  * Key point detection: OpenPose series, Hourglass Network, HRNet, based on two major branches: top-down (first detect people and then estimate poses) and bottom-up (first detect joints and then assemble); in recent years, there have also been pose estimators based on Transformer.
+  * Video action recognition: Video models based on 2D/3D CNN (such as I3D, SlowFast, etc.), skeleton-based GCN models (such as ST-GCN, etc., which directly model spatio-temporal relationships on the key point graph), and end-to-end solutions based on video Transformer (such as Video Swin, TimeSformer, etc.).
+  * Unifying multi-task and large models: Simultaneously output detection, segmentation, keypoint, and action labels on a general-purpose vision backbone, or use MultiModal Machine Learning large models to directly understand "what action this person is performing" through text prompts, connecting structured prediction with semantic understanding.
 
-近年来，基于 Transformer 的姿态估计模型也逐渐出现，将关键点检测看作一组“查询–响应”任务，与 DETR 类似，可以在架构上统一对象检测与姿态估计。在工程应用中，关键点检测能力通常被封装为“人体/手势/面部关键点 SDK 或 API”，上游应用只需传入图像或视频帧，即可获取结构化的骨架坐标，用于后续的动作识别、交互控制或动画驱动。
+Next, we will proceed separately from**keypoint detection and pose estimation**and**action recognition and behavior understanding**in two directions.
 
-### 2.5.2 动作识别与行为理解：让“骨架”动起来
+### 2.5.1 Key Point Detection and Pose Estimation: "Drawing Skeletons" for People and Objects
 
-在得到关键点或高层视觉特征之后，下一步就是理解 **时间维度上的变化** ——也就是动作识别（Action Recognition）和行为分析（Behavior Understanding）。与关键点检测不同，动作识别不再局限于单帧；它关心的是一段时间内特征的演化模式：从“抬手”到“挥手”，从“走路”到“奔跑”，从“站立”到“跌倒”。
+Key point detection (also commonly referred to as pose estimation) focuses on  **the spatial structure in a single frame or single image ** : finding a set of semantically meaningful key points in a two-dimensional image and connecting them into a skeleton. For example, in human pose estimation, we usually need to detect joints such as the head, shoulders, elbows, wrists, hips, knees, and ankles; in facial pose, it's the corners of the eyes, mouth, nose tip, face contour, etc.; in hand pose, it's the finger roots, finger joints, and fingertips. For non-human objects such as robotic arms and joint structural components, a set of key point systems can also be similarly defined.
 
-在输入表示上，大致有三条路线：
+In model design, the commonly used paradigm for key point detection is the **"feature extraction + heatmap prediction"** paradigm:
 
-* **基于原始** **视频帧**  **/光流** ：直接对视频帧序列建模，或额外引入光流（描述局部运动速度的场）作为输入，让模型从外观 + 运动信息中联合学习。
-* **基于骨架/关键点序列** ：先用姿态估计得到人体关键点坐标序列，再在“时空骨架图”上建模，弱化背景与光照干扰，更关注人体结构与运动模式。
-* **多模态融合** ：将视频特征、关键点序列、甚至音频、文本等多模态一起纳入，处理复杂行为场景（如多人互动、事件级动作）。
+* First, use CNN or visual Transformer (such as ResNet, HRNet, Swin, etc.) to extract multi-scale features from the input image.
+* Then, through a decoder head or multi-layer convolution, a heatmap is output for each keypoint type, where each pixel value represents "the probability that this location is the keypoint".
+* During the inference phase, the peak position of each heatmap is usually taken as the key point coordinate, and sub-pixel level optimization is performed through methods such as bilinear interpolation and local fitting.
 
-对应地，模型结构也呈现出多样化发展：
+For multi-person scenarios, pose estimation methods can be roughly divided into two categories:
 
-* 早期的动作识别主要依赖 **2D CNN + 时间 n 池化** 或  **3D CNN** （如 I3D、C3D）：前者对每一帧提特征再在时间维上做池化或 RNN；后者直接在空间和时间上做三维卷积，捕捉短时运动模式。
-* 针对骨架序列，典型方法是 **时空图卷积网络（ST ‑ GCN）** ：把人体关键点看作图结构节点，关节之间的连接是边，在时间维上也连边，通过图卷积在时空图上传播信息，从而学习动作模式。这类方法轻量、对背景鲁棒，适合在资源有限的设备上部署。
-* 近年来， **视频 Transformer** （如 TimeSformer、Video Swin）在动作识别中表现突出，它们将视频切分为时空 patch，通过自注意力机制建模长时间依赖，能够更好地捕捉复杂动作与多目标交互。
+* **Top-down** : First, use a pedestrian detector to find the bounding box of each person in the image, and then perform single-person pose estimation on the image within each box separately. This approach has high accuracy for single-person cases and a simple framework, but it has high computational cost and is sensitive to detection quality in crowded multi-person scenarios. Representative systems include many combinations based on Faster R-CNN/YOLO + Hourglass/HRNet.
+* **Bottom-up** : Instead of first distinguishing each individual, it directly predicts all potential key points (and their types) on the entire image, while also predicting the connection relationships or affinity fields between key points (such as PAF in OpenPose). Then, through graph matching/clustering algorithms, the key points are assembled into multiple independent human skeletons. This type of method is more efficient in crowded multi-person scenarios and more robust to the number of people, but the assembly process is complex and sensitive to the quality of connections.
 
-在业务侧，动作识别往往会与检测、跟踪、关键点检测结合，形成端到端的行为分析系统：
+In recent years, Transformer-based pose estimation models have gradually emerged, treating key point detection as a set of "query-response" tasks. Similar to DETR, they can unify object detection and pose estimation in architecture. In engineering applications, key point detection capabilities are usually encapsulated as "human/gesture/facial key point SDK or API". Upstream applications only need to input images or video frames to obtain structured skeleton coordinates for subsequent action recognition, interactive control, or animation driving.
 
-* 在安防中，先检测并跟踪人员，再对每条轨迹的关键点序列进行动作分类，实现跌倒检测、打架/奔跑识别等；
-* 在体育和健身应用中，通过关键点序列分析动作是否标准、幅度是否合适，并给出纠正建议；
-* 在人机交互场景中，对实时姿态流进行轻量级动作分类，实现挥手、比心、手势指令等交互；
-* 在工业安全中，对工人操作动作进行持续监测，识别危险姿态（如俯身进入危险区、越过安全线等）。
+### 2.5.2 Action Recognition and Behavior Understanding: Making the "Skeleton" Move
 
-面向未来，多模态大模型正在将“动作识别”提升为更高层的“事件与意图理解”：模型不仅可以标注“走路、跑步、打电话”，还能够回答“这个人似乎在示意招呼某人”“这两人正在发生争执”等更接近日常语言的描述。关键点检测和动作识别在其中，作为重要的结构化运动线索，与外观特征和语言提示一起，共同支撑更复杂的时空理解能力。
+After obtaining key points or high-level visual features, the next step is to understand ** changes in the temporal dimension ** — that is, action recognition and behavior understanding. Different from key point detection, action recognition is no longer limited to a single frame; it focuses on the evolution patterns of features over a period of time: from "raising a hand" to "waving", from "walking" to "running", and from "standing" to "falling".
 
-## 2.6 开放词汇 / 开放世界 / 开放域检测
+In terms of input representation, there are roughly three routes:
+
+* **Based**** on**** the original** **video frames**  **/optical flow** : Directly model the video frame sequence, or additionally introduce optical flow (a field describing local motion velocity) as input, enabling the model to jointly learn from appearance + motion information.
+* **Based on skeleton/keypoint sequences** : First, obtain the coordinate sequence of human body keypoints through pose estimation, then model on the "spatiotemporal skeleton graph" to weaken the interference of background and illumination, and focus more on human body structure and motion patterns.
+* **MultiModal Machine Learning** : Incorporate multiple modalities such as video features, key point sequences, and even audio and text together to handle complex behavior scenarios (e.g., multi-person interaction, event-level actions).
+
+Correspondingly, the model structure also shows diversified development:
+
+* Early action recognition mainly relied on **2D CNN + temporal n pooling **or  **3D CNN ** (such as I3D, C3D): the former extracts features from each frame and then performs pooling or RNN on the temporal dimension; the latter directly performs three-dimensional convolution in space and time to capture short-term motion patterns.
+* For skeleton sequences, the typical method is ** Spatio-Temporal Graph Convolutional Network (ST-GCN)**: It treats human key points as nodes in a graph structure, with connections between joints as edges, and also connects edges in the time dimension. Information is propagated on the spatio-temporal graph through graph convolution to learn action patterns. This type of method is lightweight, robust to background, and suitable for deployment on devices with limited resources.
+* In recent years, ** video Transformers ** (such as TimeSformer, Video Swin) have shown outstanding performance in action recognition. They divide videos into spatio-temporal patches, model long-term dependencies through self-attention mechanisms, and can better capture complex actions and multi-object interactions.
+
+On the business side, action recognition is often combined with detection, tracking, and key point detection to form an end-to-end User Behavior Analysis system:
+
+* In security, first detect and track people, then perform action classification on the key point sequence of each trajectory to achieve fall detection, fight/run recognition, etc.;
+* In sports and fitness applications, analyze whether the movements are standard and the amplitude is appropriate through key point sequence analysis, and provide corrective suggestions;
+* In human-computer interaction scenarios, perform lightweight action classification on real-time pose streams to enable interactions such as waving, heart gestures, and gesture commands;
+* In industrial safety, continuous monitoring of workers' operational actions is conducted to identify dangerous postures (such as bending over into a hazardous area, crossing the safety line, etc.).
+
+Looking towards the future, MultiModal Machine Learning is elevating "action recognition" to a higher level of "event and intent understanding": the model can not only label "walking, running, making a phone call", but also answer descriptions closer to everyday language such as "this person seems to be signaling to greet someone" and "these two people are arguing". Key point detection and action recognition, as important structured motion cues, together with appearance features and language cues, jointly support more complex spatio-temporal understanding capabilities.
+
+## 2.6 Open Vocabulary / Open World / Open Domain Detection
 
 （Open‑Vocabulary / Open‑World / Open‑Domain Detection）
 
-前面的检测与分割能力，基本都默认一个前提： **训练和推理时的类别集合是固定的** 。也就是说，模型在训练阶段就完整地见过“所有要识别的类别”，推理时只需要在这套封闭标签里做选择。但真实世界远比数据集复杂：新商品、新品牌、新路牌、新物种、新场景随时出现，不可能为每个新类都准备充足的标注数据重新训练检测器。这就催生了 **开放词汇 / 开放世界 / 开放域检测** ：在训练数据只覆盖有限“已知类”的情况下，让模型在推理时仍然能够感知、定位和识别 **未见的新类** ，并且在视觉风格和拍摄域（domain）变化时保持鲁棒性。
+Previous detection and segmentation capabilities have basically all assumed a premise: ** the set of categories during training and inference is fixed ** . That is to say, the model has fully seen "all categories to be recognized" during the training phase, and only needs to make choices within this set of closed labels during inference. However, the real world is far more complex than datasets: new products, new brands, new road signs, new species, and new scenarios emerge at any time, and it is impossible to prepare sufficient labeled data for each new category to retrain the detector. This has given rise to  ** open-vocabulary / open-world / open-domain detection ** : allowing the model to still perceive, locate, and recognize ** unseen new categories ** during inference, even when the visual style and shooting domain change, while maintaining robustness.
 
-你可以把这一层理解为：在传统检测之上，加入“对语言空间与开放世界的对齐和泛化能力”。模型不再只会说“这是 80 类 COCO 之一”，而是可以在任意文本描述的空间里理解和检索目标，例如“检测图里所有‘红色运动鞋’”“标出所有‘疑似小型飞行器’”，即便这些精细类别在训练集中从未显式出现。下面我们从 **场景** 、**原理**和**模型**三个角度来梳理这一层，并在子小节中分别展开开放词汇检测、开放世界检测和开放域泛化。
+You can understand this layer as adding "the alignment and generalization capabilities for language space and open world" on top of traditional detection. The model no longer simply says "this is one of the 80 COCO classes", but can understand and retrieve targets in the space of any text description, such as "detect all 'red sneakers' in the image" and "mark all 'suspected small aircraft'", even if these fine-grained categories have never explicitly appeared in the training set. Next, we will sort out this layer from three perspectives:  **scenario** ,  **principle** , and  **model** , and expand on open-vocabulary detection, open-world detection, and open-domain generalization respectively in the subsections.
 
-* **场景**
-  * 通用场景理解 API：用户给出任意自然语言描述（类别词或短句），系统在任意风格的图像中返回对应目标的检测框或分割掩膜，例如“图中所有安全帽”“所有疑似品牌 logo”“所有带轮子的物体”。
-  * 大规模商品 / 物种识别：电商中不断上新的长尾商品、自然界中数量巨大的动植物物种，训练数据只能覆盖一部分已知类，但系统需要对海量新类进行定位与粗识别，并支持通过文本或图像检索。
-  * 跨域安防 / 自动驾驶感知：训练数据多来自白天城市道路/少数摄像头视角，实际部署却面临不同城市、乡村、高速、极端天气、红外/鱼眼摄像头等“新域”，其中还会出现训练集中从未标注过的新型目标（新款车型、新交通设施、新类型障碍物）。
-* **原理**
-  这类方法的核心，是用**视觉–语言对齐的嵌入空间**替代传统的“固定 one‑hot 类别头”，并通过多种机制处理“未见类”和“新域”：
-  * 开放词汇检测（Open‑Vocabulary Detection）：在训练阶段，利用大规模图文对（image–text pairs）预训练得到类似 CLIP 的对齐空间，使得图像区域和文本嵌入可以直接在同一语义空间中做相似度匹配；检测头不再输出固定的类别 logit，而是输出一个区域特征向量，与任意文本描述向量进行对比，从而支持“训练只见部分类别，推理可指定任意文本类别”。
-  * 开放世界检测（Open‑World Detection）：进一步处理“训练集中完全没有标注的新类”，要求模型可以将这类目标检测为“未知类（unknown）”，并在后续通过交互标注或持续学习，把这些未知类逐步纳入已知类别集合，形成一个可以不断扩充类目的在线学习系统。
-  * 开放域 / 跨域检测（Open‑Domain Detection）：面对图像风格、成像设备、环境条件等大幅变化（domain shift），通过领域自适应（Domain Adaptation）、领域泛化（Domain Generalization）等技术，让检测器在未见过的新域中保持稳定检测性能；常见手段包括对抗性域对齐、多域训练、风格随机化、元学习等。
-  * 分割与检测一体的开放词汇：将上述思路扩展到像素级，对任意文本描述生成分割掩膜（open‑vocabulary segmentation），通过 Region–Word 或 Mask–Word 对齐损失，实现“用自然语言描述一个区域/物体，就能得到对应 mask 或框”。
-* **模型**
-  当前开放词汇 / 开放世界 / 开放域检测的主流技术路线，基本围绕“大规模视觉–语言预训练 + 检测头适配 + 域泛化机制”展开：
-  * CLIP‑based 检测器：以 CLIP 风格的图像编码器和文本编码器为基础，在区域级特征（ROI、特征图 patch、mask 区域）与文本嵌入之间应用对比学习和 Region–Word 对齐损失；典型实现包括在 Faster R‑CNN / RetinaNet / YOLO / DETR 等架构上替换或扩展分类头，使其以“cosine 相似度 + 文本嵌入”方式输出类别分数。
-  * Caption‑driven / Prompt‑based Detection：利用大规模图文描述（caption）数据，为图像中的区域或 mask 自动生成文字描述，再用这些自动生成的文字与检测/分割区域对齐训练，从而减少对人工类别标签的依赖；推理时则通过自然语言 prompt（如“所有穿红色衣服的人”“所有电动车”）驱动检测/分割。
-  * Open‑World Detection 系列工作：在传统检测框架中显式引入“未知类（unknown）”建模、渐进式类别扩展和增量学习机制，一部分方法通过度量空间的距离与不确定性估计来判断“是否为未知类”，另一部分引入记忆库与在线重训练，使系统能随时间积累新类别知识。
-  * 域自适应 / 域泛化检测：在 Backbone 和检测头层面增加域判别器、对抗性损失、多域 batch normalization、风格随机化增强等模块，使检测器在不同域之间学习到更域不变的表示；也有工作在 Transformer 检测框架（如 Deformable DETR）上引入多源域训练和元学习策略，提升跨域泛化能力。
-  * 通用 / Foundation 检测模型：把检测问题上升到“基础模型”层面，预训练一个在类别和域上都尽可能通用的 Detection Foundation Model，再通过轻量微调或文本 prompt 适配特定场景；这类模型通常结合大规模检测标注、多源图文对、甚至视频数据，目标是让“任意文本 + 任意风格图像”的通用理解成为可能。
+* **Scenario**
+  * Universal Scene Understanding API: The user provides any natural language description (category word or short sentence), and the system returns the detection boxes or segmentation masks of the corresponding targets in images of any style, such as "all safety helmets in the image", "all suspected brand logos", "all objects with wheels".
+  * Large-scale commodity / species identification: In e-commerce, there are constantly new long-tail commodities, and in nature, there are a vast number of animal and plant species. Training data can only cover a portion of known classes, but the system needs to locate and roughly identify a vast number of new classes, and support retrieval through text or images.
+  * Cross-domain security / autonomous driving perception: Training data mostly comes from daytime urban roads / a few camera perspectives, but actual deployment faces "new domains" such as different cities, rural areas, highways, extreme weather, infrared / fisheye cameras, etc., among which there will also be new types of targets (new car models, new traffic facilities, new types of obstacles) that have never been labeled in the training set.
+* **Principle**
+  The core of this type of method is to replace the traditional "fixed one-hot category head" with  **the embedding space of vision-language alignment** , and handle "unseen classes" and "new domains" through various mechanisms:
+  * Open-Vocabulary Detection: During the training phase, a CLIP-like alignment space is pre-trained using large-scale image-text pairs, enabling direct similarity matching between image regions and text embeddings in the same semantic space; the detection head no longer outputs fixed class logits but instead outputs a regional feature vector, which is compared with any text description vector, thus supporting the ability to "train on only some classes during training and specify any text class during inference".
+  * Open-World Detection: Further process "new classes that are completely unlabeled in the training set", requiring the model to detect such targets as "unknown classes", and gradually incorporate these unknown classes into the set of known classes through interactive annotation or continuous learning in subsequent steps, forming an online learning system that can continuously expand its categories.
+  * Open-Domain / Cross-Domain Detection (Open‑Domain Detection): In the face of significant changes (domain shift) in image style, imaging devices, environmental conditions, etc., through techniques such as Domain Self-Adaptation and Domain Generalization, the detector can maintain stable detection performance in unseen new domains; common methods include adversarial domain alignment, multi-domain training, style randomization, meta-learning, etc.
+  * Open-vocabulary segmentation and detection integration: Extend the above idea to the pixel level, generate segmentation masks for any text description (open-vocabulary segmentation), and achieve "using natural language to describe a region/object to obtain the corresponding mask or bounding box" through Region–Word or Mask–Word alignment loss.
+* **Model **
+  The current mainstream technical routes for open vocabulary / open world / open domain detection basically revolve around "large-scale vision-language pre-training + detection head adaptation + domain generalization mechanism":
+  * CLIP-based Detector: Based on CLIP-style image encoders and text encoders, it applies contrastive learning and Region–Word alignment loss between region-level features (ROI, feature map patches, mask regions) and text embeddings; typical implementations include replacing or extending the classification head in architectures such as Faster R-CNN / RetinaNet / YOLO / DETR to output class scores in the form of "cosine similarity + text embeddings".
+  * Caption-driven / Prompt-based Detection: Utilizes large-scale image caption data to automatically generate text descriptions for regions or masks in images, then aligns and trains these automatically generated texts with detection/segmentation regions, thereby reducing the reliance on manual category labels; during inference, it drives detection/segmentation through natural language prompts (e.g., "all people wearing red clothes", "all electric vehicles").
+  * Open-World Detection Series of Works: Explicitly introduce "unknown class" modeling, progressive category expansion, and incremental learning mechanisms into traditional detection frameworks. Some methods determine "whether it is an unknown class" through distance and uncertainty estimation in the metric space, while others introduce a translation memory and online retraining to enable the system to accumulate knowledge of new categories over time.
+  * Domain Self-Adaptation / Domain Generalization Detection: At the Backbone and detection head levels, modules such as domain discriminators, adversarial losses, multi-domain batch normalization, and style randomization augmentation are added to enable the detector to learn more domain-invariant representations across different domains; some work also introduces multi-source domain training and meta-learning strategies into Transformer detection frameworks (such as Deformable DETR) to enhance cross-domain generalization ability.
+  * General / Foundation Detection Model: Elevate the detection problem to the level of "foundation models", pre-train a Detection Foundation Model that is as general as possible in terms of categories and domains, and then adapt it to specific scenarios through lightweight fine-tuning or text prompts; such models typically combine large-scale detection annotations, multi-source image-text pairs, and even video data, aiming to make general understanding of "arbitrary text + arbitrary style image" possible.
 
-在具体产品形态上，开放词汇/开放世界/开放域检测往往体现为“更自然、更少限制”的视觉接口：用户不必提前约定一小撮固定标签，而是可以用自然语言描述想找的目标；系统也不需要为每个业务场景从零开始重训检测器，而是基于统一的通用模型，通过 prompt 或少量样本快速适配。对于大规模商品 / 物种识别、全球化部署的安防与自动驾驶感知系统而言，这一层能力正在成为从“封闭数据集性能”走向“真实开放世界可用性”的关键跳板。
+In terms of specific product forms, open-vocabulary/open-world/open-domain detection often manifests as a "more natural, less restrictive" visual interface: users do not need to pre-agree on a small set of fixed labels, but can describe the target they want to find in natural language; the system also does not need to retrain detectors from scratch for each business scenario, but can quickly adapt based on a unified general model through prompts or a small number of samples. For large-scale commodity/species recognition, globally deployed security and autonomous driving perception systems, this layer of capability is becoming a key springboard from "closed dataset performance" to "real open-world usability".
 
-### 2.6.1 开放词汇检测：从固定类别头到文本驱动类别空间
+### 2.6.1 Open-Vocabulary Detection: From Fixed Category Heads to Text-Driven Category Space
 
-**开放词汇检测（Open‑Vocabulary Detection）的出发点，是突破传统检测中“固定类别头”的限制。以往的检测器在顶层接一个大小固定的分类层（对应训练集中的 N 个类别），训练完成后只能在这 N 个类别中选择；而开放词汇检测则通过引入文本**， **编码器**， **和共享的语义嵌入空间，让检测头输出的区域特征可以与任意文本描述**进行相似度对比，从而在推理时接纳未见过的新类别。
+ **The starting point of Open-Vocabulary Detection is to break through the limitations of the "fixed category head" in traditional detection. Previous detectors were connected to a fixed-size classification layer (corresponding to N categories in the training set) at the top layer, and after training, they could only choose from these N categories; while Open-Vocabulary Detection, by introducing text ** ,  ** encoders ** ,  ** and a shared semantic embedding space, enables the region features output by the detection head to be compared for similarity with any text description ** , thereby accepting unseen new categories during inference.
 
-典型做法是使用类似 CLIP 的视觉–语言预训练模型：
+A typical approach is to use a vision-language pre-trained model similar to CLIP:
 
-* 文本端：对类别名称或自然语言描述（如“person”、“red sports car”、“yellow construction helmet”）进行编码，得到文本向量。
-* 视觉端：在检测框架（Faster R‑CNN、RetinaNet、YOLO、DETR 等）中，对每个候选区域或特征点提取区域特征向量。
-* 对齐训练：通过对比损失、Region–Word 对齐损失，使同一语义的文本和区域特征在嵌入空间中靠近，不同语义的向量远离。训练时即便只对一部分类别提供显式框标注，也可以利用图文对或图像 caption 扩展语义覆盖。
+* Text end: Encode the category name or natural language description (such as "person", "red sports car", "yellow construction helmet") to obtain the text vector.
+* Vision End: In detection frameworks (Faster R-CNN, RetinaNet, YOLO, DETR, etc.), extract regional feature vectors for each candidate region or feature point.
+* Alignment Training: Through contrastive loss and Region–Word alignment loss, text and region features of the same semantics are brought closer in the embedding space, while vectors of different semantics are kept apart. During training, even if explicit box annotations are provided for only a subset of categories, semantic coverage can be extended using image-text pairs or image captions.
 
-推理阶段，系统不再依赖训练时固定的一组类名，而是允许用户在线提供任意类别词或自然语言描述，通过文本编码器转为嵌入，再与区域特征做相似度匹配。这使得检测器可以在不重新训练的前提下，支持诸如“检测所有滑板”“检测所有绿植”“检测所有安全相关设备”等灵活需求，即便某些具体类目在训练集中从未出现过完整标注，只要语义上与预训练的图文空间有重叠，就能被一定程度地识别和定位。
+During the inference phase, the system no longer relies on a fixed set of class names used during training, but instead allows users to provide arbitrary category terms or natural language descriptions online. These are converted into embeddings via a text encoder and then matched for similarity with regional features. This enables the detector to support flexible requirements such as "detect all skateboards", "detect all green plants", and "detect all safety-related equipment" without retraining, even if some specific categories have never been fully annotated in the training set. As long as their semantics overlap with the pre-trained text-image space, they can be identified and located to a certain extent.
 
-在工程实践中，开放词汇检测需要在效果与效率之间平衡：一方面，保持与大规模预训练的视觉–语言 Backbone 的语义对齐；另一方面，又要承载检测任务对多尺度、实时性的要求。主流 CLIP‑based 检测器往往采用“预计算文本嵌入 + 高效向量相似度计算”的方式，避免在在线服务中反复编码文本，同时对区域特征进行量化或蒸馏，兼顾精度和推理速度。
+In engineering practice, open-vocabulary detection needs to strike a balance between effectiveness and efficiency: on the one hand, maintaining semantic alignment with large-scale pre-trained vision-language backbones; on the other hand, meeting the requirements of multi-scale and real-time performance for detection tasks. Mainstream CLIP-based detectors often adopt the approach of "precomputing text embeddings + efficient vector similarity computation" to avoid repeatedly encoding text in online services, while also quantizing or distilling regional features to balance accuracy and inference speed.
 
-### 2.6.2 开放世界检测：从“未见类”到“可学习的未知”
+### 2.6.2 Open World Detection: From "Unseen Classes" to "Learnable Unknowns"
 
- **开放世界检测（Open‑World Detection）在开放词汇的基础上，进一步要求模型显式处理“未知类”** ：训练数据中只标注了部分类别，其余物体要么未被标注，要么被统称为背景；推理时，这些“未被标注的真实物体”既不应该被简单视为背景，也不应被错误归入已知类别，而应作为“未知类（unknown）”被检测出来，并具备后续转化为“新已知类”的可能。
+**Open‑World Detection, based on open vocabulary, further requires the model to explicitly handle "unknown classes". ** During training, only some classes are labeled in the training data, while the remaining objects are either unlabeled or collectively referred to as background. During inference, these "unlabeled real objects" should neither be simply treated as background nor misclassified into known classes, but should be detected as "unknown classes" and have the potential to be subsequently converted into "new known classes".
 
-在建模上，开放世界检测通常需要解决三个问题：
+In modeling, open-world detection usually needs to address three issues:
 
-1. **未知类感知** ：如何在训练阶段避免将所有未标注目标都学成“背景”？常见做法包括：引入显式“未知类”槽位，通过负例挖掘和不确定性建模让模型学会在低置信度区域输出“unknown”；或者利用无标注数据和自监督机制，对高置信度的潜在目标区域进行聚类和伪标签生成。
-2. **错误归类控制** ：模型需要在“宁可判为 unknown，也不要错误归入错误已知类”之间做权衡，这涉及到损失设计（如 margin、开放集判别）、决策阈值和后处理策略。
-3. **渐进式类别扩展** ：当业务方对一批“unknown”目标人工标注出新类别后，模型应能够通过增量学习将这些新类别纳入“已知类”集合，而不显著遗忘旧类。为此，很多工作引入了记忆库、蒸馏损失、参数隔离或重放机制，实现对新类别的稳定吸收。
+1. **Unknown Class Awareness** : How to prevent all unlabeled targets from being learned as "background" during the training phase? Common practices include: introducing an explicit "unknown class" slot, enabling the model to output "unknown" in low-confidence regions through negative example mining and uncertainty modeling; or leveraging unlabeled data and self-supervised mechanisms to perform clustering and pseudo-label generation on high-confidence potential target regions.
+2. **Misclassification Control ** : The model needs to strike a balance between "preferring to classify as unknown rather than misclassifying into a wrong known class", which involves loss design (such as margin, open-set discrimination), decision thresholds, and post-processing strategies.
+3. **Progressive Category Expansion ** : When the business party manually labels a new category for a batch of "unknown" targets, the model should be able to incorporate these new categories into the "known class" set through incremental learning without significantly forgetting the old classes. To this end, many works have introduced translation memory, distillation loss, parameter isolation, or replay mechanisms to achieve stable absorption of new categories.
 
-从产品视角看，开放世界检测特别适合那些**类目不断增长、长尾极度严重**的场景，例如自然物种识别、新品快速上新的商品识别、复杂安防场景中的异常目标检测等。系统可以先用开放世界检测将“任何非背景的可疑目标”标出，并逐步通过人工或半自动标注，将其中有价值的聚类升级为正式类目，从而形成一个“类目可持续生长”的检测系统，而不是被固定数据集束缚。
+From a product perspective, open-world detection is particularly suitable for those **scenarios with continuously growing categories and extremely long tails** , such as natural species recognition, commodity recognition for rapid new product launches, and abnormal target detection in complex security scenarios. The system can first use open-world detection to mark "any suspicious non-background targets" and gradually upgrade valuable clustering into formal categories through manual or semi-automatic annotation, thus forming a detection system with "sustainable category growth" rather than being constrained by fixed datasets.
 
-### 2.6.3 开放域 / 开放分布检测：跨风格、跨设备、跨场景的鲁棒性
+### 2.6.3 Open Domain / Open Distribution Detection: Robustness across Styles, Devices, and Scenarios
 
-即使类别集合保持不变，检测器仍然会在现实部署中遭遇严重的 **域偏移（Domain Shift）** ：训练数据可能来自少数城市的白天高清摄像头，而部署环境却包含不同国家、乡村、高速路、隧道、夜间、雨雪、低分辨率摄像头、鱼眼镜头甚至红外成像；电商商品摄影与用户实拍、广告图/插画/动漫风格之间也存在巨大差异。**开放域检测（Open‑Domain Detection）**关注的正是：在图像分布发生显著变化的条件下，保持检测性能的稳定与可靠。
+Even if the category set remains unchanged, the detector will still encounter severe ** domain shift ** in real-world deployment: the training data may come from daytime high-definition cameras in a few cities, while the deployment environment includes different countries, rural areas, highways, tunnels, nighttime, rain and snow, low-resolution cameras, fisheye lenses, and even infrared imaging; there are also significant differences between e-commerce product photography and user real shots, as well as between advertising images/illustrations/anime styles. **Open-Domain Detection** focuses precisely on maintaining the stability and reliability of detection performance under conditions where the image distribution changes significantly.
 
-典型的技术路径包括：
+Typical technical paths include:
 
-* **领域自适应（Domain Adaptation）** ：在拥有目标域无标注数据或少量标注数据的前提下，通过对抗性域对齐（在特征空间上混淆源域/目标域）、多级域对齐（图像风格、特征、检测头输出）、风格迁移（如将源域图像风格迁移到目标域）等方式，让模型学到对域不敏感的特征。
-* **领域泛化（Domain Generalization）** ：在仅有多个源域数据、没有目标域数据的前提下，利用多域训练、风格随机化、特征扰动、元学习等手段，使模型在训练阶段就尽可能暴露于多样化分布，提升对未知新域的泛化能力。
-* **通用 / Foundation 检测模型** ：通过在极大规模、多源、多风格数据上预训练检测 Backbone 和头部结构（包括自然图像、视频帧、合成数据、跨模态数据等），再在特定业务场景轻量微调，从而获得比“单域训练”更强的开放域鲁棒性。
+* **Domain Adaptation** : On the premise of having unlabeled data or a small amount of labeled data in the target domain, the model learns domain-insensitive features through methods such as adversarial domain alignment (confusing the source/target domains in the feature space), multi-level domain alignment (image style, features, detection head output), and style transfer (e.g., transferring the image style of the source domain to the target domain).
+* **Domain Generalization** : On the premise of only having multiple source domain data and no target domain data, by means of multi-domain training, style randomization, feature perturbation, meta-learning, etc., the model is exposed to diverse distributions as much as possible during the training phase to improve its generalization ability to unknown new domains.
+* **Universal / Foundation Detection Model** : By pre-training the detection backbone and head structure on large-scale, multi-source, multi-style data (including natural images, video frames, synthetic data, cross-modal data, etc.), and then performing lightweight fine-tuning on specific business scenarios, it achieves stronger open-domain robustness than "single-domain training".
 
-这些开放域机制往往与开放词汇/开放世界能力相互叠加：一个面向真实世界的通用检测系统，既要能听懂用户的自然语言类别描述（开放词汇），又要能对新出现的目标给出合理的“未知”判断和渐进吸收（开放世界），还要能在不同国家、不同设备、不同天气和风格下保持性能（开放域）。在工程落地中，这三者并不是彼此孤立的研究方向，而是共同构成了从“封闭 benchmark”迈向“开放世界可用”的关键能力组合。
+These open-domain mechanisms often interact with open-vocabulary/open-world capabilities: a general-purpose detection system for the real world must be able to understand users' natural language category descriptions (open vocabulary), make reasonable "unknown" judgments and gradually absorb newly emerging targets (open world), and maintain performance across different countries, devices, weather conditions, and styles (open domain). In engineering implementation, these three aspects are not isolated research directions but together form a key combination of capabilities for moving from "closed benchmarks" to "open-world usability".
 
-## 2.7 视觉–语言任务（Vision–Language Tasks）
+## 2.7 Vision–Language Tasks
 
-前面的章节主要围绕“单模态视觉”展开：输入是一张图像，输出是检测框、分割掩膜、类别标签或质量分数。而在很多真实应用中，视觉信息并不是孤立存在的——一张图往往伴随标题、说明文字、对话或搜索查询；用户想问的是“图里在讲什么”“这张图和这句话匹不匹配”。**视觉–语言任务**正是解决这类问题：它们以图像 + 文本为输入或输出，通过 **跨模态对齐与联合建模** ，让系统能够“看图说话”“看图回答问题”“用文字找图 / 用图找文”。
+The previous chapters mainly focused on "single-modal vision": the input is an image, and the output is a detection box, segmentation mask, category label, or quality score. In many real-world applications, visual information does not exist in isolation - an image is often accompanied by a title, descriptive text, dialogue, or search query; users want to know "what is the image about" and "whether the image matches the text". ** Visual - Language Tasks ** precisely address such issues: they take image + text as input or output, and through  ** cross-modal alignment and joint modeling ** , enable the system to "describe an image", "answer questions based on an image", "find images with text / find text with images".
 
-从产品视角看，视觉–语言模型（VLM）是多模态系统的中枢能力：搜索引擎依赖它实现“以文搜图 / 以图搜文”；内容平台用它做智能配图、广告审核、图文一致性检查；多模态助手则将其作为基础能力，实现“看图聊天”“对文档/截图提问”等功能。下面我们从 **场景** 、**原理**和**模型**三个角度梳理这一层，并在后续小节中分别展开图像描述、视觉问答与图文检索。
+From a product perspective, Visual-Language Models (VLM) are the central capabilities of MultiModal Machine Learning systems: search engines rely on them to implement "text-to-image / image-to-text search"; content platforms use them for intelligent image matching, advertising review, and text-image consistency checking; multimodal assistants use them as a basic capability to implement functions such as "chatting with images" and "asking questions about documents / screenshots". Next, we will sort out this layer from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and expand on image description, visual question answering, and text-image retrieval in the subsequent subsections.
 
-* **场景**
-  * 图像描述（Image Captioning）：为图片自动生成一两句自然语言描述，用于无障碍辅助阅读、智能相册说明、搜索索引丰富。
-  * 图像问答（VQA）：用户针对图片提出自然语言问题（“这个人拿着什么？”“车牌号是多少？”），系统给出精准回答，可用于教育、辅助决策和多模态助手。
-  * 图文检索（Cross‑modal Retrieval）：以文本检索相关图片（Text‑to‑Image）、以图片检索相关文本（Image‑to‑Text），支撑“以文搜图 / 以图搜文”搜索、创意选图和广告投放审核。
-  * 图文一致性与审核：判断图片与标题/广告语是否相符，有没有“图文不符”“诱导性描述”等风险，用于内容审核和品牌安全。
-* **原理**
-  核心问题是：如何把图像和文本映射到 **同一个语义空间** ，并在这个空间内进行对齐与推理：
-  * 跨模态对齐：通过联合训练的图像编码器和文本编码器，让对应的“图–文对”在表示空间中彼此靠近，不相关对彼此远离（典型如 CLIP）；这为检索、匹配提供了基础。
-  * 联合理解与生成：在对齐的表示基础上，引入跨模态注意力，让语言模型在“看着图像特征”的前提下生成文本（图像描述）、推理和回答问题（VQA）。
-  * 提示化与指令化：用自然语言指令统一描述多种视觉–语言任务（“为这张图写标题”“回答关于这张图的问题”“判断这段文字是否描述了图片”），让一个模型通过不同提示完成多种任务。
-* **模型**
-  主流视觉–语言模型大致演化为两类：**对比学习型 VLM** 与 **生成式多模态** **大模型** ：
-  * 对比学习型：CLIP、ALIGN 等，将图像和文本分别编码成向量，通过大规模图–文配对训练，使其在检索和匹配任务上表现出色，是“以文搜图 / 以图搜文”的基础。
-  * 视觉–语言生成模型：BLIP / BLIP‑2、Flamingo、Kosmos、LLaVA 等，将视觉编码器与大语言模型（LLM）衔接，通过跨模态注意力和指令微调，支持图像描述、VQA、多轮对话等复杂任务。
-  * 通用多模态大模型：如 GPT‑4.1 with Vision、Gemini 1.5 等，进一步将视觉与更多模态（语音、代码等）统一在一个大模型中，通过统一的接口完成检索、问答、推理和生成。
+* **Scenario**
+  * Image Captioning: Automatically generates one or two natural language descriptions for images, used for accessible assisted reading, intelligent photo album descriptions, and enriching search indexes.
+  * Visual Question Answering (VQA): Users pose natural language questions about images ("What is this person holding?", "What is the license plate number?"), and the system provides accurate answers, which can be used in education, decision support, and MultiModal Machine Learning assistants.
+  * Cross-modal Retrieval: Text-to-Image retrieval (searching for relevant images using text) and Image-to-Text retrieval (searching for relevant text using images), supporting "text-to-image / image-to-text" search, creative image selection, and advertising placement review.
+  * Image-Text Consistency and Review: Determine whether the image matches the title/advertising slogan, and check for risks such as "image-text mismatch" and "inductive description", which are used for content moderation and brand safety.
+* **Principle**
+  The core issue is: how to map images and text into  **the same semantic space** , and perform alignment and reasoning within this space:
+  * Cross-modal alignment: Through jointly trained image and text encoders, corresponding "image-text pairs" are brought closer to each other in the representation space, while unrelated pairs are kept far apart (a typical example is CLIP); this provides a foundation for retrieval and matching.
+  * Joint Understanding and Generation: Based on the aligned representation, cross-modal attention is introduced to enable the language model to generate text (image description), reason, and answer questions (VQA) while "looking at image features".
+  * Prompting and Instructionalization: Use natural language instructions to uniformly describe multiple vision-language tasks ("Write a caption for this image", "Answer questions about this image", "Determine whether this text describes the image"), enabling a single model to complete multiple tasks through different prompts.
+* **Model**
+  Mainstream vision-language models have roughly evolved into two categories:** Contrastive Learning VLM ** and ** Generative MultiModal Machine Learning **  ** Large Model ** :
+  * Contrastive learning models: CLIP, ALIGN, etc., encode images and text into vectors respectively, and through large-scale image-text pairing training, they perform excellently in retrieval and matching tasks, serving as the foundation for "text-to-image / image-to-text" search.
+  * Vision-Language Generation Models: BLIP / BLIP-2, Flamingo, Kosmos, LLaVA, etc., connect visual encoders with large language models (LLMs), and support complex tasks such as image captioning, VQA, and multi-round dialogue through cross-modal attention and instruction fine-tuning.
+  * General MultiModal Machine Learning large models: such as GPT-4.1 with Vision, Gemini 1.5, etc., further unify vision with more modalities (speech, code, etc.) in a single large model, and complete retrieval, Q&A, reasoning, and generation through a unified interface.
 
-总体而言，视觉–语言任务标志着“视觉不再是一个单独的感知通道”，而是与语言共同参与到更高层的知识表达和推理之中。下面，我们从 **图像描述与视觉问答** 、**图文检索与跨模态对齐**两个方向展开（这里按内容合并为两小节）。
+Overall, vision-language tasks mark that "vision is no longer a separate perceptual channel", but rather participates together with language in higher-level knowledge representation and reasoning. Next, we will elaborate from two directions:  **image captioning and visual question answering** , **image-text retrieval and cross-modal alignment** (here combined into two subsections according to content).
 
-### 2.7.1 图像描述与视觉问答：从“看图说话”到“看图推理”
+### 2.7.1 Image Description and Visual Question Answering: From "Describing Images" to "Reasoning from Images"
 
-**图像描述（Image Captioning）**的目标，是输入一张图像，输出一段自然语言描述，比如“一个小女孩在草地上放风筝”。传统做法通常采用“CNN + RNN”结构：用卷积网络提取整图特征，再用 LSTM/GRU 逐词生成描述；随着 Transformer 和预训练 VLM 的出现，主流范式逐渐转向“图像编码器 + 文本解码器”结构，如 BLIP / BLIP‑2、ViT + GPT 等。训练上，模型通常在大量图–文对上进行自回归训练，有时还会采用强化学习或对比损失，优化描述的多样性与正确性。在产品层面，图像描述被广泛用于无障碍阅读（为盲人读屏软件生成图片说明）、智能相册自动加标题，以及为搜索系统提供更多文本索引。
+The goal of **Image Captioning** is to take an image as input and output a natural language description, such as "A little girl is flying a kite on the grass." Traditional approaches typically adopt the "CNN + RNN" architecture: using a convolutional network to extract features from the entire image, and then using LSTM/GRU to generate the description word by word; with the emergence of Transformer and pre-trained VLM, the mainstream paradigm has gradually shifted to the "image encoder + text decoder" architecture, such as BLIP / BLIP-2, ViT + GPT, etc. In terms of training, models are usually trained autoregressively on a large number of image-text pairs, and sometimes reinforcement learning or contrastive loss is also used to optimize the diversity and correctness of the descriptions. At the product level, image captioning is widely used in accessible reading (generating image descriptions for screen readers for the blind), automatically adding captions to smart photo albums, and providing more text indices for search systems.
 
- **视觉问答（VQA）则进一步把人类交互引入进来：模型的输入不再是“图 + 空白提示”，而是“图 + 问题”，输出一个简短答案或者自然语言解释。与图像描述相比，VQA 更强调可控性与推理能力** ：问题可以关注局部细节（“男人的帽子是什么颜色？”）、关系（“哪辆车离路口更近？”）、计数（“有几只狗？”），甚至需要外部知识（“这道菜属于哪种菜系？”）。早期 VQA 模型通常使用图像编码器 + 问题编码器 + 融合模块（如双线性池化、注意力）+ 分类头，输出一个有限词表中的答案；现代多模态大模型则直接用图像编码器 + LLM，在“看图”的基础上进行自然语言生成，在开放式回答和多轮对话上有明显优势。
+ **Visual Question Answering (VQA) further introduces human interaction: the input to the model is no longer "image + blank prompt", but "image + question", with the output being a short answer or natural language explanation. Compared to image captioning, VQA places greater emphasis on controllability and reasoning ability ** : questions can focus on local details ("What color is the man's hat?"), relationships ("Which car is closer to the intersection?"), counting ("How many dogs are there?"), or even require external knowledge ("What cuisine does this dish belong to?"). Early VQA models typically used an image encoder + question encoder + fusion module (such as bilinear pooling, attention) + classification head, outputting an answer from a limited vocabulary; modern MultiModal Machine Learning large models directly use an image encoder + LLM, generating natural language based on "looking at the image", with obvious advantages in open-ended answers and multi-round conversations.
 
-两者在统一的 VLM 框架下可以被视为不同的“提示模板”：
+Both can be regarded as different "prompt templates" within the unified VLM framework:
 
 * Captioning：`<图像> + "Describe this image in one sentence."` → 文本；
-* VQA：`<图像> + "Q: ... A:"` → 文本。
+* VQA: `<Image> + "Q:... A:" ` → Text.
 
-通过指令微调（Instruction Tuning），同一个多模态大模型可以兼容描述、问答、解释、打标签等多种任务，这也是现代 VLM 产品（多模态助手、图像问答机器人等）的基础工程思路。
+Through Instruction Tuning, the same MultiModal Machine Learning large model can be compatible with various tasks such as description, question answering, explanation, and tagging, which is also the basic engineering concept of modern VLM products (MultiModal assistants, image question answering robots, etc.).
 
-### 2.7.2 图文检索与跨模态对齐：以文搜图 & 以图搜文
+### 2.7.2 Image-Text Retrieval and Cross-Modal Alignment: Text-to-Image Search & Image-to-Text Search
 
-**图文检索（Cross‑modal Retrieval）**解决的是另一个高频需求：给定一段文本，找到匹配的图片（Text‑to‑Image Retrieval）；或给定一张图，找到相关的文字描述、商品信息、新闻报道等（Image‑to‑Text Retrieval）。这些能力构成了“以文搜图 / 以图搜文”“看图找商品”“给新闻配图”等产品的核心。
+**Cross-modal Retrieval** addresses another high-frequency need: given a piece of text, find matching images (Text-to-Image Retrieval); or given an image, find relevant text descriptions, product information, news reports, etc. (Image-to-Text Retrieval). These capabilities form the core of products such as "text-to-image / image-to-text search", "find products by image", and "match images to news".
 
-核心技术是 **跨模态对齐** ：以 CLIP 为代表的模型，对图像和文本分别使用各自的编码器（如 ViT 和 Transformer 文本编码器），在大规模图–文配对数据上使用对比学习训练：
+The core technology is  ** cross-modal alignment ** : models represented by CLIP use separate encoders (such as ViT and Transformer text encoder) for images and text respectively, and are trained using contrastive learning on large-scale image-text paired data:
 
-* 对于同一对（图像，文本），让它们的向量在嵌入空间中彼此靠近；
-* 对于不匹配的图–文对，则推远它们的向量。
+* For the same pair (image, text), make their vectors close to each other in the embedding space;
+* For mismatched image-text pairs, push their vectors apart.
 
-训练完成后，只需将所有图片和文本编码成向量，就可以通过向量检索（最近邻搜索）在共享空间中进行快速匹配：
+After training is completed, simply encode all images and text into vectors, and then fast matching can be performed in the shared space through vector retrieval (nearest neighbor search):
 
-* Text‑to‑Image：文本 → 文本向量 → 最近的图像向量；
-* Image‑to‑Text：图像 → 图像向量 → 最近的文本向量。
+* Text-to-Image: Text → Text Vector → Nearest Image Vector;
+* Image-to-Text: Image → Image Vector → Nearest Text Vector.
 
-在工程实践中，这类模型通常采用两阶段结构：
+In engineering practice, this type of model typically adopts a two-stage structure:
 
-* 第一阶段用轻量快速的双编码器（Bi‑Encoder，如 CLIP）做粗检索，在亿级图像库中快速筛选出一小部分候选；
-* 第二阶段可选用更强的交叉编码器（Cross‑Encoder）或多模态大模型对候选进行精排与重排序，以提升相关性和鲁棒性。
+* In the first stage, a lightweight and fast bi-encoder (Bi-Encoder, such as CLIP) is used for coarse retrieval, quickly screening out a small number of candidates from a billion-level image library;
+* In the second stage, a stronger cross-encoder or a MultiModal Machine Learning large model can be optionally used to perform fine ranking and re-ranking on candidates to improve relevance and robustness.
 
-在产品侧，图文检索与跨模态对齐被广泛用于：图片搜索、广告检索（根据广告文案找到合适图片）、合规审核（检查广告图文是否一致）、内容推荐（基于用户阅读文本历史向其推荐相关图片/视频）等。随着多模态大模型的兴起，这类检索能力也逐渐被统一进更大的多模态框架中，以“自然语言指令 + 多模态记忆/向量库”的形式，对外提供统一接口。
+On the product side, image-text retrieval and cross-modal alignment are widely used in: image search, ad retrieval (finding suitable images based on ad copy), compliance review (checking whether ad images and text are consistent), content recommendation (recommending relevant images/videos to users based on their text reading history), etc. With the rise of MultiModal Machine Learning large models, this type of retrieval capability has also gradually been integrated into a larger multi-modal framework, providing a unified interface externally in the form of "natural language instructions + multi-modal memory/vector library".
 
-## 2.8 光学字符识别（OCR）
+## 2.8 Optical Character Recognition (OCR)
 
-在很多业务中，最重要的信息既不体现在“画面里的物体和场景”，也不在自然语言对图像的描述里，而是直接写在图像上的 **文字** ：合同条款、发票金额、路牌名称、仪表读数、屏幕截图上的错误信息等。**光学字符识别（OCR）**就是围绕“图像 + 文档版式”的结构化理解任务：从复杂的视觉输入中，自动检测并识别文字内容，理解文档的布局和结构，进而支持搜索、统计、自动录入和智能问答。
+In many businesses, the most important information is neither reflected in the "objects and scenes in the picture" nor in the natural language description of the image, but directly written on the image  **Text ** : contract terms, invoice amount, road sign name, meter reading, error messages on screenshots, etc. Optical Character Recognition (OCR) is a structured understanding task around "image + document layout": automatically detect and recognize text content from complex visual input, understand the layout and structure of documents, and then support search, statistics, automatic input, and intelligent Q & A.
 
-从产品视角看，OCR 是“把纸质/图像信息变成可计算文本”的关键桥梁，是电子化、自动化与智能化办公的基础设施：合同审阅、票据入账、政企档案数字化、办公软件中的 PDF 转 Word、文档问答助手等，都建立在 OCR 能力之上。下面从 **场景** 、**原理**和**模型**三个角度梳理 OCR 体系，并在后续小节中展开核心方向。
+From a product perspective, Optical Character Recognition (OCR) is the key bridge that "transforms paper/image information into computable text" and serves as the infrastructure for electronic, automated, and intelligent work: contract review, invoice entry, digitalization of government and enterprise archives, PDF to Word conversion in office software, document Q&A assistants, etc., are all built on OCR capabilities. The following will sort out the OCR system from three perspectives:  **scenarios** ,  **principles** , and  **models** , and expand on the core directions in the subsequent sections.
 
-* **场景**
-  * 场景文本识别：街景中店铺招牌、路牌、广告牌、包装盒文案等，用于导航、搜索、零售洞察和合规审核。
-  * 文档 OCR：扫描件、传真件、PDF、照片版合同/发票/报告等的文字识别与结构化，还原成可编辑文本。
-  * 专用场景：车牌识别、仪表盘读数（电表、水表、气表）、屏幕截图文字提取、试卷/表单识别等。
-  * 文档理解：在布局复杂的长文档中，抽取标题、段落、表格、注释等结构，为搜索、摘要、问答奠定基础。
-* **原理**
-  OCR 体系通常分成几个关键步骤：
-  * 文本检测：在图像上检测出所有文字区域（文本行或文本块），输出定位框（水平或四点多边形），这是后续识别的输入。
-  * 文本识别：对每个检测到的文字区域进行序列识别，将像素序列转化为字符序列（如中文、英文、数字、符号等）。
-  * 版式分析（Layout Analysis）：在文档场景中，识别各区域的角色（标题、正文、图片、表格、页眉页脚等），恢复阅读顺序和层次结构。
-  * 表格结构识别：对表格区域进行行列划分、单元格边界解析、合并单元格恢复，重建逻辑表格结构。
-  * 文档问答（DocVQA）：在 OCR 和版式理解的基础上，让模型能够回答“这份合同的付款日期是什么？”“发票的金额是多少？”这类跨区域、多步骤推理的问题。
-* **模型**
-  工程上常见的是“专用 OCR 模块 + 文档理解模型 + 多模态大模型”组合：
-  * 文本检测与识别：
-    * 检测：EAST、DBNet/DBNet++ 等基于分割或边缘学习的方法，擅长处理弯曲文本和复杂背景；
-    * 识别：CRNN、RARE、SAR 等序列模型（CNN + RNN/Attention + CTC 或自回归解码），支持多语种和多字体。
-  * 文档版式与结构理解：
-    * LayoutLM / LayoutLMv2/v3、DocFormer 等，将文本内容（token）、位置信息（bounding box）和视觉特征联合编码；
-    * Donut 等“端到端文档理解”模型，直接从图像到结构化输出（如 JSON / Markdown），弱化传统 OCR 的边界。
-  * 文档问答与多模态理解：
-    * 在布局模型基础上，叠加任务头进行 DocVQA；
-    * 或直接使用多模态大模型（VLM）读取文档图像，在自然语言层面完成问答和摘要，同时隐式利用 OCR 能力。
+* **Scenario**
+  * Scene text recognition: store signs, road signs, billboards, packaging copy, etc. in street scenes, used for navigation, search, retail insights, and compliance audits.
+  * Document OCR: Text recognition and structuring of scanned documents, faxes, PDFs, photo versions of contracts/invoices/reports, etc., and restoration into editable text.
+  * Specialized scenarios: license plate recognition, dashboard reading (electric meter, water meter, gas meter), text extraction from screenshots, test paper/form recognition, etc.
+  * Document Understanding: Extract structures such as headings, paragraphs, tables, and annotations from long documents with complex layouts, laying the foundation for search, summarization, and question answering.
+* **Principle**
+  The OCR system is typically divided into several key steps:
+  * Text Detection: Detect all text regions (text lines or text blocks) in an image, output localization boxes (horizontal or four-point polygons), which serve as the input for subsequent recognition.
+  * Text Recognition: Perform sequence recognition on each detected text region, converting pixel sequences into character sequences (such as Chinese, English, numbers, symbols, etc.).
+  * Layout Analysis: In document scenarios, identify the roles of each region (title, body text, image, table, header, footer, etc.), and restore the reading order and hierarchical structure.
+  * Table Structure Recognition: Perform row and column partitioning, cell boundary parsing, merged cell restoration on the table area, and reconstruct the logical table structure.
+  * Document Question Answering (DocVQA): Based on OCR and layout understanding, enable the model to answer questions that require cross-region and multi-step reasoning, such as "What is the payment date of this contract?" and "What is the amount of the invoice?"
+* **Model **
+  Commonly seen in engineering is the combination of "dedicated OCR module + document understanding model + MultiModal Machine Learning large model":
+  * Text Detection and Recognition:
+    * Detection: Methods based on segmentation or edge learning, such as EAST, DBNet/DBNet++, etc., are good at handling curved text and complex backgrounds;
+    * Recognition: Sequence models such as CRNN, RARE, and SAR (CNN + RNN/Attention + CTC or autoregressive decoding), supporting multilingual and multi-font capabilities.
+  * Understanding of Document Layout and Structure:
+    * LayoutLM / LayoutLMv2/v3, DocFormer, etc., jointly encode text content (tokens), position information (bounding boxes), and visual features;
+    * Models such as Donut, which are "end-to-end document understanding" models, directly go from images to structured outputs (such as JSON / Markdown), weakening the boundaries of traditional OCR.
+  * Document Q&A and MultiModal Machine Learning Understanding:
+    * On the basis of the layout model, a task head is stacked for DocVQA;
+    * Or directly use MultiModal Machine Learning (VLM) to read document images, complete question answering and summarization at the natural language level, while implicitly leveraging OCR capabilities.
 
-综合来看，OCR 已经从早期“简单的字符识别”发展为涵盖**文字 + 版式 + 结构 + 问答**的整体文档理解体系，是企业数字化、政务档案管理和智能办公的关键支柱。下面，我们从 **文本检测与识别** 、 **文档版式与表格结构分析** 、**文档问答与多模态 DocVQA**三个方向展开。
+Overall, OCR has evolved from the early "simple character recognition" to a comprehensive document understanding system that encompasses ** text + layout + structure + question answering ** , and is a key pillar for enterprise digitization, government archive management, and intelligent work. Next, we will delve into it from  ** text detection and recognition ** ,  ** document layout and table structure analysis ** , ** document question answering and MultiModal Machine Learning DocVQA ** in three directions.
 
-### 2.8.1 文本检测与识别：从像素到可用文本
+### 2.8.1 Text Detection and Recognition: From Pixels to Usable Text
 
-OCR 的第一步是 **文本检测** ：在输入图像中找到所有包含文字的区域。街景/场景文本面临字体多样、倾斜扭曲、光照复杂、背景干扰严重等挑战；文档场景则强调对密集文本和多栏排版的鲁棒支持。EAST、DBNet 等方法通过将检测问题转化为“像素级分割 + 边缘学习”，在特征图上预测文本概率和几何参数，再通过后处理获得精确的文本框（可为水平框或任意四边形/多边形），兼顾精度和速度。
+The first step of OCR is  ** text detection ** : finding all regions containing text in the input image. Street view/scene text faces challenges such as diverse fonts, skewed distortion, complex lighting, and severe background interference; document scenes emphasize robust support for dense text and multi-column layout. Methods such as EAST and DBNet transform the detection problem into "pixel-level segmentation + edge learning", predict text probabilities and geometric parameters on the feature map, and then obtain precise text boxes (which can be horizontal boxes or arbitrary quadrilaterals/polygons) through post-processing, taking into account both accuracy and speed.
 
-**文本识别**则把每个检测出的文本区域切下来，转化为字符序列。经典做法以 CRNN 为代表：先用 CNN 提取特征，再通过 RNN 或 Transformer 进行序列建模，最后使用 CTC 或注意力解码输出字符序列。对于不定长文本、弯曲文字和复杂语言（中英文混排、多语种），识别模型需要在视觉特征建模和字符语言建模上同时发力。诸如 RARE、SAR 等方法会引入空间变换网络（STN）或注意力对齐机制，以纠正几何畸变、提升对复杂布局的适应能力。
+**Text recognition**cuts out each detected text region and converts it into a character sequence. The classic approach, represented by CRNN, first extracts features using CNN, then performs sequence modeling through RNN or Transformer, and finally uses CTC or attention decoding to output the character sequence. For variable-length text, curved text, and complex languages (such as Chinese-English mixed ranking and multilingual), recognition models need to simultaneously focus on visual feature modeling and character language modeling. Methods such as RARE and SAR introduce spatial transformer networks (STN) or attention alignment mechanisms to correct geometric distortion and improve adaptability to complex layouts.
 
-在工程系统中，检测与识别通常作为两个解耦的服务组成一条 OCR pipeline：前端检测将图像拆成若干文本行/块，后端识别对每个块做字符识别，并可叠加语言模型做错误纠正（如拼写修复、数字/金额校验）。对于车牌、仪表读数等特定场景，还会使用专门微调的检测/识别模型，以利用场景先验（固定字体、有限字符集）换取更高精度和更低延迟。
+In engineering systems, detection and recognition typically serve as two decoupled services to form an OCR pipeline: front-end detection splits the image into several text lines/blocks, while back-end recognition performs character recognition on each block and can overlay a language model for error correction (such as spelling repair, number/amount verification). For specific scenarios such as license plates and meter readings, specially fine-tuned detection/recognition models are also used to leverage scene priors (fixed fonts, limited character sets) in exchange for higher accuracy and lower latency.
 
-### 2.8.2 文档版式与表格结构分析：还原“文档的形状”
+### 2.8.2 Document Layout and Table Structure Analysis: Restoring the "Shape of the Document"
 
-单纯把文字识别出来还不够，尤其在长文档、报告、合同和票据等场景中，**版式结构**往往决定了信息的含义和重要性：标题与正文的层级关系、图表与配文的位置、页眉页脚的作用、表格内外文段的逻辑顺序等。**文档版式分析（Document Layout Analysis）**的目标，就是在二维页面上识别出不同区域的角色和边界，并恢复出合理的阅读顺序与层级结构。
+Simply recognizing text is not enough, especially in scenarios such as long documents, reports, contracts, and invoices. ** Layout structure ** often determines the meaning and importance of information: the hierarchical relationship between headings and body text, the position of charts and captions, the role of headers and footers, the logical order of text paragraphs inside and outside tables, etc. The goal of `<b>` Document Layout Analysis (DLA) `</b>` is to identify the roles and boundaries of different regions on a two-dimensional page and restore a reasonable reading order and hierarchical structure.
 
-LayoutLM / LayoutLMv2/v3、DocFormer 等模型，将每个文本 token 的内容（文本 embedding）、空间位置（bounding box 坐标）以及局部视觉特征（来自 CNN/ViT）联合编码，通过 Transformer 建模 token 间的语义–空间关系。通过在带版式标注的数据集上训练，模型可以学会区分“标题/段落/列表/表格/图片说明/页眉页脚”等多种区域类型，并在输出中给出对应标签和层级。这类模型通常作为“中间层”，为合同审阅系统、报告解析、档案数字化平台提供结构化的文档骨架。
+Models such as LayoutLM / LayoutLMv2/v3 and DocFormer jointly encode the content (text embedding), spatial position (bounding box coordinates), and local visual features (from CNN/ViT) of each text token, and model the semantic-spatial relationships between tokens through Transformer. By training on datasets with layout annotations, the models can learn to distinguish various region types such as "title/paragraph/list/table/caption/header/footer" and provide corresponding labels and hierarchies in the output. Such models typically serve as an "intermediate layer" to provide structured document skeletons for contract review systems, report parsing, and archival digitization platforms.
 
-**表格结构识别（Table Structure Recognition）** 是版式分析中特别关键的一支：它不仅要检测出表格区域，还要进一步解析行列边界、单元格坐标和合并单元格，最终重建一份逻辑表格（通常表示为 HTML、Markdown 表、或带坐标的结构化 JSON）。实现方法包括：
+**Table Structure Recognition** is a particularly crucial branch in layout analysis: it not only needs to detect the table area but also further analyze row and column boundaries, cell coordinates, and merged cells, ultimately reconstructing a logical table (usually represented as HTML, Markdown table, or structured JSON with coordinates). Implementation methods include:
 
-* 基于规则/视觉：使用线检测、分割网络、对象检测等手段提取表格线和单元格区域，再进行拓扑建图；
-* 基于 Transformer：将表格区域的文本块与几何信息编码成序列，直接预测单元格结构和关联关系。
+* Rule/vision-based: Use methods such as line detection, segmentation networks, and object detection to extract table lines and cell regions, and then perform topological mapping;
+* Based on Transformer: Encode text blocks and geometric information in the table area into sequences, and directly predict cell structure and association relationships.
 
-在产品上，这些能力支撑了“PDF 转 Word/Excel”“票据/发票结构化录入”“报表解析与指标抽取”等高价值场景，是政企办公自动化的关键组件。
+In terms of products, these capabilities support high-value scenarios such as "PDF to Word/Excel conversion", "structured entry of bills/invoices", and "report analysis and indicator extraction", and are key components of government and enterprise work automation.
 
-### 2.8.3 文档问答与 DocVQA：从“读文档”到“问文档”
+### 2.8.3 Document Question Answering and DocVQA: From "Reading Documents" to "Asking Documents"
 
-当 OCR 与版式分析能力足够强时，下一步自然需求就是： **不再让人自己翻阅文档，而是直接“问文档”** 。这就是 **文档问答（DocVQA）** ：模型在合同、报告、票据、说明书等复杂文档上回答问题，比如“这份合同的生效日期是什么时候？”“这页报表中 2023 年 Q4 的净利润是多少？”“发票上的购方名称是谁？”。
+When OCR and layout analysis capabilities are strong enough, the next natural requirement is:  ** Instead of having people manually flip through documents, they can directly "ask the document" ** . This is  ** Document Question Answering (DocVQA) ** : The model answers questions on complex documents such as contracts, reports, invoices, and instructions, for example, "When is the effective date of this contract?" "What is the net profit for Q4 2023 in this page of the report?" "Who is the purchaser's name on the invoice?"
 
-传统 DocVQA 系统通常以“OCR + 版式模型 + QA 头”的方式构建：
+Traditional DocVQA systems are typically constructed in the form of "OCR + layout model + QA head":
 
-* 先使用 OCR 提取文本及坐标；
-* 用 LayoutLM / DocFormer 等建模文本–版式–视觉三模态关系；
-* 最后在这个表示上叠加任务头（分类 / 抽取 / span 预测），根据问题在文档中定位答案或相关片段。
+* First, use OCR to extract text and coordinates;
+* Model the tri-modal relationship of text-layout-vision using LayoutLM / DocFormer, etc.;
+* Finally, overlay a task head (classification / extraction / span prediction) on this representation, and locate the answer or relevant segments in the document based on the question.
 
-随着多模态大模型的发展，越来越多系统开始直接使用“文档图像 + 问题”作为输入，让一个 VLM 或多模态 LLM 直接生成答案或带引用的解释。在这种架构下，OCR、版式、语义理解和推理能力在模型内部以端到端的方式协同工作：模型既能看到原始版式和视觉线索，又能利用语言世界知识和推理模式完成复杂问题的解答。
+With the development of MultiModal Machine Learning large models, more and more systems have begun to directly use "document image + question" as input, enabling a VLM or MultiModal LLM to directly generate answers or explanations with references. Under this architecture, OCR, layout, semantic understanding, and reasoning capabilities work together in an end-to-end manner within the model: the model can both see the original layout and visual cues and utilize language world knowledge and reasoning patterns to solve complex problems.
 
-在产品形态上，DocVQA 通常以“合同审阅助手”“发票/报表问答”“长文档智能问答”形式出现，帮助用户从大量文档中快速定位关键信息、自动生成摘要、进行条款比对等，大幅减轻人工审阅和信息检索的负担。
+In terms of product form, DocVQA typically appears in the forms of "Contract Review Assistant", "Invoice/Report Q&A", and "Long Document Intelligent Q&A", helping users quickly locate key information from a large number of documents, automatically generate summaries, conduct clause comparisons, etc., significantly reducing the burden of manual review and information retrieval.
 
-## 2.9 图像生成与编辑（Image Generation & Editing）
+## 2.9 Image Generation & Editing
 
-前面介绍的视觉能力大多是“判别式”的：输入图像，输出标签、框、掩膜或文本；而近年来快速发展的另一条主线是 **生成式视觉** ：模型不再只是理解图像，而是 **创造或修改图像** ，在给定文本/图像条件下生成高质量、多风格的视觉内容。**图像生成与编辑**正是这一方向的核心能力，支撑了从 AIGC 绘图平台到智能修图/特效工具的大量产品。
+Most of the visual capabilities introduced earlier are "discriminative": input an image, output labels, boxes, masks, or text; while another main line that has developed rapidly in recent years is  **generative vision** : the model no longer just understands images, but  **creates or modifies images** , generating high-quality, multi-style visual content given text/image conditions.**Image generation and editing**are precisely the core capabilities of this direction, supporting a large number of products from AIGC drawing platforms to intelligent photo retouching/special effects tools.
 
-从业务视角看，生成式视觉已经从“技术演示”变成切实可用的生产力工具：设计师用它做灵感草图和细化稿；营销团队用它批量生成海报和广告素材；普通用户用它制作头像、插画、壁纸；视频创作者用它做抠图、背景替换和特效。下面我们从 **场景** 、**原理**和**模型**三个角度梳理这一层，并在后续小节中展开文本生成图像、图像到图像与编辑能力。
+From a business perspective, generative vision has evolved from a "technology demonstration" into a practical productivity tool: designers use it for inspiration sketches and detailed drafts; marketing teams use it to generate posters and advertising creatives in bulk; ordinary users use it to create avatars, illustrations, and wallpapers; video creators use it for keying, background replacement, and special effects. Next, we will organize this layer from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and expand on text-to-image generation, image-to-image, and editing capabilities in subsequent sections.
 
-* **场景**
-  * 文本生成图像：用户输入一段描述（“赛博朋克风的夜景城市”），系统自动生成符合描述的多张图片，支持选图与迭代修改。
-  * 风格迁移与图像翻译：将真实照片转换为动漫/素描/油画/水彩风格，或在不同领域间做映射（白天 ↔ 夜晚、夏天 ↔ 冬天）。
-  * 条件重绘与扩展：在原图的局部进行重绘（Inpainting）、对画面外扩（Outpainting），用于修补瑕疵、移除/添加对象、扩展构图。
-  * 文本驱动编辑：用自然语言指令修改图像（“把天空改成日落”“让这辆车变成红色跑车”），用户无需掌握复杂的图像编辑软件。
-* **原理**
-  生成式视觉模型主要通过学习“图像分布”和“条件控制”来完成生成与编辑：
-  * 分布建模：GAN、扩散模型（Diffusion）、Flow Matching 等从大量图像中学习高维分布，使得模型能从随机噪声中逐步“采样”出逼真的图像。
-  * 条件生成：在纯图像分布建模基础上，引入文本/草图/分割图/关键点/深度图等条件，使生成过程受到外部信号约束（Text‑to‑Image、Image‑to‑Image、ControlNet 等）。
-  * 可控编辑：在已有图像的潜在空间中，通过文本或局部 mask 对局部特征进行引导和修改，实现局部重绘、风格变化、构图调整等。
-* **模型**
-  当前主流图像生成与编辑模型以**扩散模型 + 条件控制**为主：
-  * GAN 系列：StyleGAN 等在高分辨率人脸和样式控制方面表现突出；但训练不稳定、难以覆盖复杂多模态分布。
-  * 扩散模型：Stable Diffusion、Imagen、DALL·E 系列等，通过“正向加噪 + 反向去噪”的过程进行采样，兼具质量和多样性，是当前 Text‑to‑Image 的主力方向。
-  * 可控生成与编辑：ControlNet、T2I‑Adapter 等，在基础扩散模型上叠加条件通道（边缘、姿态、分割等），实现精确控制；结合文本引导的 Inpainting/Outpainting 实现局部编辑和画面扩展。
-  * Flow Matching 与新一代生成模型：通过学习连续流场将噪声分布变换到图像分布，在效率、可控性与稳定性上探索新的平衡。
+* **Scenario**
+  * Text-to-Image: The user inputs a description ("Cyberpunk-style night cityscape"), and the system automatically generates multiple images that match the description, supporting image selection and iterative modification.
+  * Style Transfer and Image Translation: Convert real photos into anime/sketch/oil painting/watercolor styles, or perform mapping between different domains (day ↔ night, summer ↔ winter).
+  * Conditional Repainting and Expansion: Perform inpainting on a local area of the original image and outpainting to expand the image, used for repairing defects, removing/adding objects, and expanding the composition.
+  * Text-driven editing: Modify images using natural language instructions ("Change the sky to sunset", "Make this car a red sports car"), without users needing to master complex image editing software.
+* **Principle**
+  Generative visual models primarily accomplish generation and editing by learning "image distribution" and "conditional control":
+  * Distribution Modeling: GAN, Diffusion models, Flow Matching, etc., learn high-dimensional distributions from a large number of images, enabling the model to gradually "sample" realistic images from random noise.
+  * Conditional Generation: Based on pure image distribution modeling, introduce conditions such as text, sketches, segmentation maps, key points, depth maps, etc., to make the generation process constrained by external signals (Text-to-Image, Image-to-Image, ControlNet, etc.).
+  * Controllable Editing: In the latent space of an existing image, local features are guided and modified through text or local masks to achieve local redrawing, style changes, composition adjustment, etc.
+* **Model**
+  Currently, the mainstream image generation and editing models are mainly based on  **diffusion models + conditional control** :
+  * The GAN series, such as StyleGAN, excels in high-resolution face and style control; however, it suffers from unstable training and difficulty in covering complex MultiModal Machine Learning distributions.
+  * Diffusion models: Stable Diffusion, Imagen, DALL·E series, etc., sample through the process of "forward noise addition + reverse noise removal", combining both quality and diversity, and are the current mainstream direction of Text‑to‑Image.
+  * Controllable Generation and Editing: ControlNet, T2I-Adapter, etc., overlay conditional channels (edges, poses, segmentation, etc.) on the base diffusion model to achieve precise control; combine text-guided Inpainting/Outpainting to achieve local editing and image expansion.
+  * Flow Matching and Next-Generation Generative Models: By learning continuous flow fields to transform noise distributions into image distributions, exploring new balances in efficiency, controllability, and stability.
 
-在产品层面，这些技术以即梦、阿里 qwen 图像模型、FLUX、OpenAI 或者 Gemini nanobanana、Stable Diffusion 生态、Photoshop Generative Fill、Canva AI、剪映/CapCut 智能抠图与特效等形态面向用户，逐步从“玩具”演进为内容生产链条中的正式环节。下面，我们从 **文本生成图像** 、**图像到图像翻译**和**文本驱动编辑**三个方向展开。
+At the product level, these technologies are presented to users in the forms of Dreamina, Alibaba Qwen Image Model, FLUX, OpenAI, or Gemini nanobanana, Stable Diffusion ecosystem, Photoshop Generative Fill, Canva AI, and intelligent keying and special effects in Jianying/CapCut, gradually evolving from "toys" into formal links in the content production chain. Next, we will expand from  ** text-to-image generation ** , ** image-to-image translation ** and ** text-driven editing ** in three directions.
 
-### 2.9.1 文本生成图像（Text‑to‑Image）：从一句话到一张画
+### 2.9.1 Text-to-Image: From a Sentence to a Painting
 
-**文本生成图像（Text‑to‑Image）** 的核心任务是：给定一段自然语言描述，生成一张尽可能匹配其语义和风格的图像。现代 Text‑to‑Image 模型主要基于扩散架构：
+**The core task of Text‑to‑Image is: given a natural language description, generate an image that best matches its semantics and style. Modern Text‑to‑Image models are mainly based on diffusion architecture: **
 
-* 首先使用文本编码器（如 CLIP Text Encoder 或 T5/LLM）将输入文本编码为条件向量；
-* 然后在图像潜空间中，从高噪声状态开始，通过多步反向去噪采样，在每一步都利用文本条件引导生成方向；
-* 最终得到符合描述的高分辨率图像，可进一步放大或后处理。
+* First, use a text encoder (such as CLIP Text Encoder or T5/LLM) to encode the input text into a conditional vector;
+* Then, in the image latent space, starting from a high-noise state, through multi-step reverse denoising sampling, at each step, text conditions are used to guide the generation direction;
+* Finally, a high-resolution image that meets the description is obtained, which can be further magnified or post-processed.
 
-Stable Diffusion、Imagen、DALL·E 系列等方法在大规模图–文对上进行训练，使模型既掌握视觉谱系（形状、纹理、构图、光影），又获得一定程度的语言–视觉对齐能力（理解“风格”“材质”“构图”等复杂描述）。在产品层面，这种能力让“不会画画的人也能画图”：用户只需用自然语言描述想法，系统就能给出多种视觉实现，支持迭代试探和细化。
+Methods such as Stable Diffusion, Imagen, and the DALL·E series are trained on large-scale image-text pairs, enabling the model to not only master the visual spectrum (shape, texture, composition, light and shadow) but also acquire a certain degree of language-vision alignment ability (understanding complex descriptions such as "style", "material", and "composition"). At the product level, this ability allows "people who can't draw to also create images": users only need to describe their ideas in natural language, and the system can provide multiple visual implementations, supporting iterative exploration and refinement.
 
-Text‑to‑Image 模型通常同时支持多风格、多分辨率输出：通过在训练或推理时加入风格 token、尺寸条件等，使同一个模型在“写实照片风、扁平插画风、3D 渲染风”等不同风格之间切换。工程上常用的技巧包括：
+Text-to-Image models typically support multi-style and multi-resolution outputs simultaneously: by incorporating style tokens, size conditions, etc. during training or inference, the same model can switch between different styles such as "realistic photo style, flat illustration style, 3D rendering style". Commonly used engineering techniques include:
 
-* 文本提示工程（Prompt Engineering），用于细化和稳定输出风格；
-* LoRA / DreamBooth 等轻量微调技术，在通用模型上快速适配特定人物、IP 或品牌风格。
+* Prompt Engineering, used to refine and stabilize the output style;
+* Lightweight fine-tuning techniques such as LoRA / DreamBooth can quickly adapt to specific characters, IPs, or brand styles on general models.
 
-### 2.9.2 图像到图像（Image‑to‑Image）：翻译、风格迁移与局部重绘
+### 2.9.2 Image-to-Image: Translation, Style Transfer, and Local Repainting
 
-**Image‑to‑Image** 任务在给定输入图像的基础上，生成另一个“受其约束”的图像版本：既保留原图的整体结构或内容，又实现某种转换或增强。典型形态包括：
+**Image-to-Image** tasks generate another "constrained" version of an image based on a given input image: while preserving the overall structure or content of the original image, they also achieve a certain transformation or enhancement. Typical forms include:
 
-* 图像翻译 / 风格迁移：在不同视觉域之间进行映射，如“照片 → 动漫”“夏天 → 冬天”“白天 → 夜晚”“素描 → 彩色图像”。早期多基于 GAN（CycleGAN、Pix2Pix 等），现在也可以用扩散模型在条件控制下完成。
-* 条件生成：以草图、分割图、深度图、边缘图等为条件，通过 ControlNet、T2I‑Adapter 等模块引导扩散过程，让生成图严格遵守几何/布局条件，同时在纹理、光影、风格上自由发挥。
-* Inpainting / Outpainting：在原图上划定某个区域，将其视为待重绘部分（inpainting），或在画面外延展生成新内容（outpainting），实现“填坑”“扩图”等操作。
+* Image Translation / Style Transfer: Mapping between different visual domains, such as "photo → anime", "summer → winter", "day → night", "sketch → color image". Early methods were mostly based on GANs (CycleGAN, Pix2Pix, etc.), and now diffusion models can also be used to achieve this under conditional control.
+* Conditional Generation: Taking sketches, segmentation maps, depth maps, edge maps, etc. as conditions, guiding the diffusion process through modules such as ControlNet and T2I-Adapter, enabling the generated images to strictly adhere to geometric/layout conditions while freely expressing themselves in terms of texture, lighting, and style.
+* Inpainting / Outpainting: Define a certain area on the original image, treat it as the part to be redrawn (inpainting), or extend and generate new content outside the image (outpainting), to achieve operations such as "filling holes" and "extending images".
 
-这类任务的关键是 **在保留约束的前提下创造新内容** 。扩散模型在这方面表现突出：在 inpainting 中，模型只对 mask 区域进行采样，而在未被遮挡的区域保持原图不变，通过语义理解与上下文信息，使新内容与周围区域在风格与光影上自然融合。对于风格迁移，模型在保留输入结构的同时，从目标风格分布中采样纹理和颜色，实现“换壳不换骨”。
+The key to this type of task is  ** to create new content while preserving constraints ** . Diffusion models excel in this regard: in inpainting, the model only samples the masked area while keeping the unmasked area unchanged, and through semantic understanding and contextual information, it enables the new content to blend naturally with the surrounding area in terms of style and lighting. For style transfer, the model samples textures and colors from the target style distribution while preserving the input structure, achieving "changing the shell without changing the core".
 
-在产品里，Image‑to‑Image 能力支撑了大量创意工具：风格滤镜、漫画化、一键天空替换、自动美颜、旧照修复、局部修图等，通常以高度可视化的界面呈现给用户。
+Within the product, the Image-to-Image capability supports a wide range of creative tools: style filters, Caricature, one-click sky replacement, automatic beauty retouching, old photo restoration, local photo editing, etc., which are usually presented to users through a highly visual interface.
 
-### 2.9.3 文本驱动图像编辑：自然语言当“画笔”
+### 2.9.3 Text-Driven Image Editing: Natural Language as the "Brush"
 
-在传统图像编辑软件中，用户需要掌握图层、蒙版、选区、滤镜等一整套专业概念；而**文本驱动图像编辑（Text‑guided Editing）** 尝试用自然语言替代大部分专业操作：
+In traditional image editing software, users need to master a set of professional concepts such as layers, masks, selections, and filters; while ** text-guided image editing (Text-guided Editing) ** attempts to replace most professional operations with natural language:
 
-* “把背景换成夜晚城市天际线”；
-* “让这个人穿黑色西装”；
-* “把这辆车变成蓝色跑车，增加运动模糊效果”。
+* "Change the background to a night city skyline";
+* "Let this person wear a black suit";
+* "Turn this car into a blue sports car and add motion blur effect."
 
-技术上，文本驱动编辑通常建立在 Text‑to‑Image 扩散模型之上，通过几种方式实现：
+Technically, text-driven editing is typically built on Text-to-Image diffusion models and implemented in several ways:
 
-* 在原图附近的潜空间中搜索或采样，使编辑后的图与原图保持高相似度，只在受文本影响的局部发生变化；
-* 使用显式 mask（用户圈定区域），将编辑范围限制在特定区域（这就是许多工具中的“选中区域后输入文本指令”）；
-* 引入“指令控制”模块（如 ControlNet、可学习控制 token），增强模型对编辑请求的可控性与稳定性。
+* Search or sample in the latent space near the original image to ensure that the edited image maintains high similarity to the original image, with changes occurring only locally in areas affected by the text;
+* Use an explicit mask (user-defined area) to limit the editing scope to a specific area (this is the "input text instruction after selecting an area" in many tools);
+* Introduce "instruction control" modules (such as ControlNet, learnable control tokens) to enhance the controllability and stability of the model in response to editing requests.
 
-即梦、FLUX、阿里 qwen 图像模型、Stable Diffusion 生态、Canva AI 等产品都提供了类似能力：用户通过简单文字和少量交互即可完成复杂编辑。对专业用户而言，这成为加速创作流程的“智能助手”；对普通用户而言，则极大降低了图像编辑的门槛。
+Products such as Dreamina, FLUX, Alibaba Qwen Image Model, Stable Diffusion ecosystem, Canva AI, etc., all offer similar capabilities: users can complete complex editing tasks through simple text and minimal interaction. For professional users, this serves as an "intelligent assistant" to accelerate the creative process; for ordinary users, it significantly lowers the threshold of image editing.
 
-## 2.10 图像质量评估（Image Quality Assessment, IQA）
+## 2.10 Image Quality Assessment (IQA)
 
-在底层视觉增强、压缩编码、图像生成与编辑等任务中，我们经常需要回答一个看似主观的问题： **“这张图看起来好不好？”** 。手工检查显然无法规模化，而像 PSNR 这类传统指标又常常与人眼主观感受不一致。**图像质量评估（Image Quality Assessment, IQA）** 的目标，就是建立一套自动化机制，对图像的主观/客观质量进行评分或排序，成为连接“底层算法输出”和“用户真实体验”的关键环节。
+In tasks such as low-level visual enhancement, compression encoding, image generation and editing, we often need to answer a seemingly subjective question: ** "Does this image look good?" ** Manual inspection is clearly not scalable, while traditional metrics like PSNR often do not align with human subjective perception. ** The goal of Image Quality Assessment (IQA) ** is to establish an automated mechanism to score or rank the subjective/objective quality of images, serving as a key link between "low-level algorithm output" and "user real experience".
 
-从系统角度看，IQA 是很多流水线中的“看门人”和“调参参考”：电商/内容平台用它筛掉模糊、噪声重、压缩过度的上传图片；手机相机/相册用它在连拍中挑出“最好的一张”；云端增强和压缩服务用它进行前后对比评估，以指导模型迭代。下面从 **场景** 、**原理**和**模型**三个维度梳理 IQA，并在后续小节中展开评估类型与指标/学习范式。
+From a system perspective, IQA serves as the "gatekeeper" and "parameter tuning reference" in many pipelines: e-commerce/content platforms use it to filter out uploaded images that are blurry, noisy, or over-compressed; mobile phone cameras/photo albums use it to select the "best shot" from continuous shots; cloud enhancement and compression services use it for pre-and-post comparison and evaluation to guide Model Iteration. The following will sort out IQA from three dimensions:  **scenarios** ,  **principles** , and  **models** , and expand on evaluation types and metrics/learning paradigms in the subsequent sections.
 
-* **场景**
-  * 上传质检与审核：对用户上传的图片/视频做质量评分，过滤严重模糊、曝光异常、噪声明显和压缩伪影严重的内容。
-  * 智能选片与去重：在手机相册、相机应用中，从多张相似照片中选择清晰度、表情、构图更好的版本，同时识别质量差或冗余图片用于清理。
-  * 增强/压缩算法评估：在图像增强、降噪、超分辨率、编解码等算法 A/B 测试中，用 IQA 指标客观衡量“哪种策略更好”，辅助参数搜索与模型选择。
-  * 海报/缩略图自动选取：在视频或多图集合中自动选择视觉质量和吸引力更高的帧作为封面或海报候选。
-* **原理**
-  IQA 的核心是从两个维度刻画图像质量：**相对于参考图的失真程度**与 **人眼主观感知的好坏** ：
-  * 全参考 IQA（FR‑IQA）：在有高质量参考图的前提下，将待评估图与参考图进行逐像素或特征对比，衡量失真程度，用于算法研发和实验评估。
-  * 无参考 IQA（NR‑IQA / Blind IQA）：实际场景中更常见，没有参考图，只能从单张图的统计特征或深度特征中推断质量，需要模型从大量图像与主观评分中学习到“人眼喜欢什么样的图”。
-  * 伪参考 / 降采样参考：在某些场景中，可以使用压缩前的低分辨率版本、模型预测的“理想图”等作为近似参考，兼顾可实现性与评估精度。
-* **模型**
-  IQA 模型大致分为**传统手工特征指标**与**深度学习****式质量预测**两大类：
-  * 传统指标：
-    * FR‑IQA：PSNR、SSIM、MS‑SSIM、FSIM 等，侧重结构、对比度和相位信息，对简单退化（如加噪、模糊）较敏感。
-    * 感知指标：LPIPS、DISTS 等，在深度特征空间衡量图像间感知差异，与人眼主观感受有更高相关性。
-  * 无参考 / 学习式 IQA：
-    * 早期方法：BRISQUE、NIQE、BLIINDS 系列等，从自然场景统计（NSS）和手工特征出发，训练浅层模型预测质量分数。
-    * 深度 NR‑IQA：RankIQA、DBCNN、HyperIQA、MUSIQ 等，直接用 CNN / ViT 从图像中抽取特征，并在 MOS（Mean Opinion Score，主观评分均值）数据上监督训练，使输出质量分数尽可能拟合人眼评价。
-    * 预训练表征：利用 CLIP、ViT 等大模型的特征，作为质量预测网络的输入或 backbone，在有限 MOS 数据上微调，提升对复杂失真类型的泛化能力。
+* **Scenario**
+  * Upload Quality Inspection and Review: Conduct quality scoring on user-uploaded images/videos, and filter out content with severe blurring, abnormal exposure, obvious noise, and severe compression artifacts.
+  * Smart Photo Selection and Deduplication: In the phone's photo album and camera app, select the version with better clarity, expression, and composition from multiple similar photos, while identifying low-quality or redundant images for cleanup.
+  * Enhancement/Compression Algorithm Evaluation: In A/B testing of algorithms such as image enhancement, noise reduction, super-resolution, and encoding/decoding, use IQA metrics to objectively measure "which strategy is better" to assist in parameter search and model selection.
+  * Automatic Poster/Thumbnail Selection: Automatically select frames with higher visual quality and appeal from videos or multi-image collections as candidates for covers or posters.
+* **Principle**
+  The core of IQA is to characterize image quality from two dimensions:** the degree of distortion relative to the reference image ** and  ** the subjective perception of the human eye ** :
+  * Full-reference IQA (FR-IQA): On the premise of having a high-quality reference image, the image to be evaluated is compared with the reference image pixel by pixel or in terms of features to measure the degree of distortion, which is used for algorithm development and experimental evaluation.
+  * No-reference IQA (NR-IQA / Blind IQA): More common in real-world scenarios, where there is no reference image, and image quality can only be inferred from the statistical or deep features of a single image. The model needs to learn from a large number of images and subjective scores what kind of images the human eye prefers.
+  * Pseudo-reference / Downsampling reference: In certain scenarios, a low-resolution version before compression, an "ideal image" predicted by a model, etc., can be used as an approximate reference, taking into account both implementability and evaluation accuracy.
+* **Model**
+  IQA models are roughly divided into**traditional handcrafted feature metrics**and**Deep learning-based quality prediction**two major categories:
+  * Traditional Indicators:
+    * FR-IQA: PSNR, SSIM, MS-SSIM, FSIM, etc., focus on structural, contrast, and phase information, and are more sensitive to simple degradations (such as noise addition and blurring).
+    * Perceptual metrics: LPIPS, DISTS, etc., measure the perceptual differences between images in the deep feature space and have a higher correlation with human subjective perception.
+  * No-reference / Learning-based IQA:
+    * Early methods: BRISQUE, NIQE, BLIINDS series, etc., starting from natural scene statistics (NSS) and handcrafted features, train shallow models to predict quality scores.
+    * Deep NR-IQA: RankIQA, DBCNN, HyperIQA, MUSIQ, etc., directly extract features from images using CNN/ViT and perform supervised training on MOS (Mean Opinion Score) data to make the output quality scores fit human eye evaluations as closely as possible.
+    * Pre-trained Representations: Utilize features from large models such as CLIP and ViT as inputs or backbones for the quality prediction network, and fine-tune on limited MOS data to enhance generalization ability for complex distortion types.
 
-整体来看，IQA 并不是“越高越好”的单一指标，而是一套与具体业务目标相关的评估体系：在某些场景（如监控增强）中，保留细节和可识别性比视觉自然更重要；在内容创作平台中，主观观感和审美标准则占主导。因此，工业界常见做法是：在通用 IQA 模型基础上，通过少量业务数据微调或学习加权，构建“任务感知”的质量评估器。
+Overall, IQA is not a single metric where "the higher, the better", but rather an evaluation system related to specific business objectives: in certain scenarios (such as surveillance enhancement), preserving details and recognizability is more important than visual naturalness; in content creation platforms, subjective perception and aesthetic standards dominate. Therefore, a common practice in the industry is to build a "task-aware" quality evaluator on the basis of a general IQA model by fine-tuning with a small amount of business data or learning weights.
 
-### 2.10.1 评估类型：有参考、无参考与伪参考
+### 2.10.1 Evaluation Types: Referenced, Non-referenced, and Pseudo-referenced
 
-按照是否存在高质量参考图，IQA 可以分为三类： **全参考（FR‑IQA）** 、 **无参考（NR‑IQA）和伪参考** 。
+According to the existence of high-quality reference images, IQA can be divided into three categories: ** full reference (FR-IQA)** ,  ** no reference (NR-IQA), and pseudo-reference** .
 
-在 **全参考 IQA** 中，我们假设存在一张理想的高质量参考图像，待评估图是其经过压缩、传输或处理后的退化版本。模型通过对两者进行逐像素或特征级比较，量化失真程度。PSNR 是最简单的度量（基于均方误差），SSIM/MS‑SSIM/FSIM 等进一步考虑亮度、对比度、结构或相位信息，在一定程度上更接近人眼感受。这类指标非常适合在算法开发阶段评估编解码、超分辨率、去噪等方法，但在真实业务中往往缺乏参考图，应用场景有限。
+In  ** full-reference IQA ** , we assume that there is an ideal high-quality reference image, and the image to be evaluated is its degraded version after compression, transmission, or processing. The model quantifies the degree of distortion by comparing the two at the pixel or feature level. PSNR is the simplest metric (based on mean squared error), while SSIM/MS-SSIM/FSIM etc. further consider luminance, contrast, structure, or phase information, and are closer to human visual perception to some extent. These metrics are very suitable for evaluating methods such as codec, super-resolution, and denoising during the algorithm development stage, but in real-world applications, reference images are often lacking, limiting their application scenarios.
 
-**无参考 IQA（Blind IQA）** 是实际系统中更常见的设定：只有待评估图像本身，没有任何参考。早期无参考方法（如 BRISQUE、NIQE、BLIINDS 等）主要基于自然场景统计：假设高质量自然图像在某些统计分布上有稳定形态，失真会引起统计特征变化，从而可以训练模型根据这些特征预测质量分数。深度学习时代，NR‑IQA 模型通常直接利用 CNN / ViT 提取特征，并在带有人眼主观评分（MOS）的数据集上回归质量分数或学习排序关系，使其能够覆盖噪声、模糊、压缩伪影、曝光异常等多种失真类型。
+**No-reference IQA (Blind IQA) ** is a more common setting in practical systems: only the image to be evaluated itself is available, without any reference. Early no-reference methods (such as BRISQUE, NIQE, BLIINDS, etc.) were mainly based on natural scene statistics: assuming that high-quality natural images have stable forms in certain statistical distributions, and distortion would cause changes in statistical features, thus enabling the training of models to predict quality scores based on these features. In the era of deep learning, NR-IQA models typically directly utilize CNN/ViT to extract features and regress quality scores or learn ranking relationships on datasets with human subjective scores (MOS), enabling them to cover various distortion types such as noise, blur, compression artifacts, and abnormal exposure.
 
-**伪参考 / 降采样参考 IQA** 介于两者之间：在没有真正高质量参考的情况下，使用某种可获得的近似版本（如压缩前低分辨率图、模型预测的“干净图”）作为参考，对退化程度进行估计。这种方式常见于在线视频质量监控、编解码优化任务中，可以在成本与精度之间取得平衡。
+**Pseudo-reference / downsampled reference IQA ** lies between the two: in the absence of a truly high-quality reference, it uses some available approximate version (such as a low-resolution image before compression, a "clean image" predicted by a model) as a reference to estimate the degree of degradation. This approach is commonly used in online video quality monitoring and codec optimization tasks, and can strike a balance between cost and accuracy.
 
-### 2.10.2 指标与学习范式：从 PSNR 到感知质量预测
+### 2.10.2 Metrics and Learning Paradigms: From PSNR to Perceptual Quality Prediction
 
-在具体实现层面，IQA 采用多种指标和学习范式来逼近人眼主观感受。
+At the specific implementation level, IQA employs multiple metrics and learning paradigms to approximate the subjective perception of the human eye.
 
-**传统指标**方面：
+ **Traditional Indicators** :
 
-* PSNR 直接基于像素级误差，简单高效，但对人眼不敏感的变化（如轻微平移、结构保持的滤波）也会给出较大惩罚；
-* SSIM、MS‑SSIM、FSIM 等从亮度、对比度、结构、相位等多个维度建模图像相似性，对结构性失真更敏感，也一定程度反映人眼对结构信息的偏好。
+* PSNR is directly based on pixel-level error, being simple and efficient, but it also imposes significant penalties on changes that are insensitive to the human eye (such as slight translation and structure-preserving filtering);
+* SSIM, MS-SSIM, FSIM, etc., model image similarity from multiple dimensions such as luminance, contrast, structure, and phase, are more sensitive to structural distortion, and also reflect to some extent the human eye's preference for structural information.
 
-**感知指标**方面：LPIPS、DISTS 等通过在预训练深度网络（VGG、AlexNet、ViT 等）内部特征层计算向量差异，并按照不同层的重要性加权，得到一种“特征空间中的距离”，与主观感知相似性有更高相关性。它们特别适合作为生成式任务（超分、生成、编辑）的训练目标或评估指标，用来衡量“看起来像不像”。
+ **Perceptual Metrics** : LPIPS, DISTS, etc., calculate vector differences within the internal feature layers of pre-trained deep networks (VGG, AlexNet, ViT, etc.) and weight them according to the importance of different layers to obtain a "distance in feature space", which has a higher correlation with subjective perceptual similarity. They are particularly suitable as training objectives or evaluation metrics for generative tasks (super resolution, generation, editing) to measure "how similar it looks".
 
-**学习式质量预测**方面，深度 NR‑IQA 模型（如 RankIQA、DBCNN、HyperIQA、MUSIQ 等）直接对图像打分或排序：
+ **In terms of learning-based quality prediction ** , deep NR-IQA models (such as RankIQA, DBCNN, HyperIQA, MUSIQ, etc.) directly score or rank images:
 
-* 训练数据中，每张图像附带一组主观评分（MOS），模型以此为监督训练质量回归或排序网络；
-* 模型结构上，多采用 CNN/ViT + 全局池化 + MLP 输出质量分数，或输出一组质量分布再取期望；
-* 有些方法还利用对比学习或排序学习（pairwise ranking），让模型更关注“相对好/坏”的关系，而不是绝对分数。
+* In the training data, each image is accompanied by a set of subjective scores (MOS), based on which the model trains a quality regression or ranking network under supervision;
+* In terms of model structure, CNN/ViT + global pooling + MLP is often used to output a quality score, or to output a set of quality distributions and then take the expectation;
+* Some methods also utilize contrastive learning or pairwise ranking to enable the model to focus more on "relative good/bad" relationships rather than absolute scores.
 
-随着大规模预训练视觉模型的普及，越来越多 IQA 方法采用“预训练 Backbone + 轻量头”的范式：利用 CLIP、ViT 等丰富的视觉表征，在较少 MOS 数据上进行微调，从而在跨失真类型、跨场景上保持良好的泛化。
+With the popularity of large-scale pre-trained vision models, more and more IQA methods adopt the paradigm of "pre-trained backbone + lightweight head": leveraging rich visual representations such as CLIP and ViT, fine-tuning on a small amount of MOS data, and thus maintaining good generalization across distortion types and scenarios.
 
-在工程落地中，通常会将上述多种指标组合使用：例如 FR‑IQA 指标用于实验阶段评估算法改进；深度 NR‑IQA 模型用于线上实时质检；感知指标用于生成任务的内部优化。通过 A/B 实验将这些自动指标与真实用户数据（点击率、完播率、投诉率等）对齐，逐步构建起与业务目标高度相关的“感知质量度量体系”。
+In the implementation of projects, the above-mentioned multiple metrics are usually used in combination: for example, the FR-IQA metric is used to evaluate algorithm improvements during the experimental phase; the deep NR-IQA model is used for online real-time quality inspection; and the perceptual metric is used for internal optimization of generation tasks. Through A/B testing, these automatic metrics are aligned with real user data (click-through rate, completion rate, complaint rate, etc.), gradually building a "perceptual quality measurement system" that is highly relevant to business objectives.
 
-# 3. 3D / 空间模态（3D / Spatial / XR）
+# 3. 3D / Spatial Mode (3D / Spatial / XR)
 
-随着应用从“平面图像/视频”走向自动驾驶、机器人、AR/VR/XR 等场景，系统不再满足于只看“2D 像素”，而是需要理解 **真实世界的三维结构、尺度和位姿关系** 。这类任务统称为 3D / 空间模态：既包括对几何与拓扑的精确建模，也包括在 3D 空间中的语义理解、定位导航与内容生成。它一端连接 LiDAR、RGB‑D、IMU 等多种传感器，另一端连接自动驾驶感知模块、机器人导航系统、ARKit/ARCore 环境模型、手机 3D 扫描建模应用以及数字孪生平台等。
+As applications evolve from "flat images/videos" to scenarios such as autonomous driving, robotics, AR/VR/XR, etc., systems are no longer content with merely looking at "2D pixels" but need to understand  ** the three-dimensional structure, scale, and pose relationships of the real world ** . These tasks are collectively referred to as 3D/space modalities: they include both precise modeling of geometry and topology, as well as semantic understanding, localization and navigation, and content generation in 3D space. One end of it is connected to various sensors such as LiDAR, RGB-D, IMU, etc., while the other end is connected to autonomous driving perception modules, robot navigation systems, ARKit/ARCore environmental models, mobile phone 3D scanning and modeling applications, and digital twin platforms, etc.
 
-## 3.1 3D 感知与重建（3D Perception & Reconstruction）
+## 3.1 3D Perception & Reconstruction (3D Perception & Reconstruction)
 
-在 2D 视觉里，我们只看到了“拍成照片后的世界”；而在自动驾驶、机器人、AR/VR 等场景中，更关键的是： **真实世界在 3D 空间中的位置、形状和结构** 。3D 感知与重建就是要从多种传感器（相机、LiDAR、深度相机等）出发，恢复环境的三维几何信息，并以点云、体素、网格（Mesh）、隐式场等形式表达出来，为路径规划、物理仿真、数字孪生和 3D 内容生成提供基础。
+In 2D vision, we only see the "world captured in photos"; while in scenarios such as autonomous driving, robotics, AR/VR, etc., what is more crucial is:  ** the position, shape, and structure of the real world in 3D space ** . 3D perception and reconstruction aim to start from various sensors (cameras, LiDAR, depth cameras, etc.), recover the three-dimensional geometric information of the environment, and express it in forms such as point clouds, voxels, meshes, implicit fields, etc., providing a foundation for path planning, physical simulation, digital twin, and 3D content generation.
 
-在工程实践中，这一层涵盖从**点云处理**到**多视角几何重建**再到**神经辐射场 / 神经场渲染**等多个技术方向，对应着自动驾驶 3D 感知模块、ARKit/ARCore 环境建模、手机 3D 扫描/建模应用以及数字孪生城市/园区建模平台等产品形态。下面从 **场景** 、 **原理** 、**模型**三个角度展开，并进一步细分几个关键子方向。
+In engineering practice, this layer covers multiple technical directions, from ** point cloud processing ** to ** multi-view geometric reconstruction ** to  ** neural radiance field / neural field rendering ** , corresponding to product forms such as autonomous driving 3D perception modules, ARKit/ARCore environment modeling, mobile phone 3D scanning/modeling applications, and digital twin city/park modeling platforms. The following expands from three perspectives:  ** scenario ** ,  ** principle ** ,  ** model ** , and further subdivides several key sub-directions.
 
-* **场景**
-  * 自动驾驶与辅助驾驶：从车载 LiDAR 点云和多摄像头图像中感知车辆、行人、路沿、车道线、交通设施等 3D 结构，用于路径规划和安全决策。
-  * 室内/室外环境扫描：利用手机/平板（结构光 / ToF / 双目）或手持扫描仪采集多视角数据，实时构建房间、楼宇、街区的 3D 模型，用于 AR 建模、家装设计、数字孪生。
-  * 数字孪生与 BIM：将实际工厂、园区、城市通过多视角影像和点云重建成高精度 3D 模型，用于运维管理、仿真与可视化。
-  * 消费级 3D 扫描：手机 3D 扫描 App、一键“拍照变 3D 模型”工具，为 3D 打印、虚拟试穿、游戏/影视资产制作提供原始几何。
-* **原理**
-  * 点云处理：将 LiDAR 或多视角重建得到的稀疏/稠密点集合视作 3D 采样点集，对其进行滤波、配准、下采样和特征学习，再做分类、语义/实例分割或 3D 目标检测。
-  * 多视角几何与三维重建：通过 SfM（Structure‑from‑Motion）估计多张图像之间的相机位姿和稀疏 3D 点云，再通过 MVS（Multi‑View Stereo）生成稠密点云，随后进行网格重建与纹理贴图。
-  * 神经辐射场 / 神经隐式场：使用 NeRF、Instant‑NGP、Gaussian Splatting 等方法，把 3D 场景表示为连续的体密度/颜色场或高斯粒子集合，通过体渲染或光栅化生成图像，从多视图监督中学习；训练好后可以进行新视角渲染和几何提取。
-* **模型**
-  * 点云网络：PointNet / PointNet++、PointCNN、DGCNN、MinkowskiNet 等直接在点或稀疏体素上学习特征，用于点云分类、分割与 3D 检测。自动驾驶中常用 VoxelNet、SECOND、CenterPoint 等 3D 检测框架，将点云转换为体素或 BEV（鸟瞰图）特征后进行检测。
-  * 几何重建工具链：COLMAP、OpenMVG / OpenMVS 等传统 SfM/MVS 系统，可从多视角照片恢复相机位姿和稠密点云，构建出高质量 Mesh。
-  * 神经场重建与渲染：NeRF / Instant‑NGP、Gaussian Splatting 及大量改进模型，把场景编码在神经网络或高斯云中，实现高保真的新视角合成与 3D 场景重建，并逐步形成工程化产品。业界也出现了如「混元 3D」「Tripo」这类面向开发者和内容生产的 3D AI 服务，将 NeRF/高斯等技术封装成云端 API 或交互工具。
+* **Scenario**
+  * Autonomous driving and assisted driving: Perceive 3D structures such as vehicles, pedestrians, curbs, lane lines, and traffic facilities from in-vehicle LiDAR point clouds and multi-camera images for path planning and safety decision-making.
+  * Indoor/Outdoor Environment Scanning: Utilize mobile phones/tablets (structured light/ToF/stereo vision) or handheld scanners to collect multi-view data, and construct 3D models of rooms, buildings, and neighborhoods in real-time for AR modeling, home decoration design, and digital twin applications.
+  * Digital Twin and BIM: Reconstructing actual factories, industrial parks, and cities into high-precision 3D models through multi-perspective imagery and point clouds for operation and maintenance management, simulation, and visualization.
+  * Consumer-grade 3D scanning: Mobile 3D scanning apps, one-click "photo to 3D model" tools, provide raw geometry for 3D printing, virtual try-on, and game/film asset production.
+* **Principle**
+  * Point Cloud Processing: Treat the sparse/dense point sets obtained from LiDAR or multi-view reconstruction as 3D sampling point sets, perform filtering, registration, downsampling, and feature learning on them, and then conduct classification, semantic/instance segmentation, or 3D Object Detection.
+  * Multi-View Geometry and 3D Reconstruction: Estimate camera poses and sparse 3D point clouds between multiple images through SfM (Structure-from-Motion), then generate dense point clouds through MVS (Multi-View Stereo), and subsequently perform mesh reconstruction and texture mapping.
+  * Neural Radiance Fields / Neural Implicit Fields: Using methods such as NeRF, Instant-NGP, Gaussian Splatting, etc., represent 3D scenes as continuous volumetric density/color fields or sets of Gaussian particles, generate images through volume rendering or rasterization, and learn from multi-view supervision; after training, new view rendering and geometry extraction can be performed.
+* **Model**
+  * Point cloud networks: PointNet / PointNet++, PointCNN, DGCNN, MinkowskiNet, etc., directly learn features on points or sparse voxels for point cloud classification, segmentation, and 3D detection. In autonomous driving, 3D detection frameworks such as VoxelNet, SECOND, and CenterPoint are commonly used, which convert point clouds into voxel or BEV (bird's-eye view) features before performing detection.
+  * Geometric reconstruction toolchain: Traditional SfM/MVS systems such as COLMAP, OpenMVG / OpenMVS can recover camera poses and dense point clouds from multi-view photos, and construct high-quality meshes.
+  * Neural Field Reconstruction and Rendering: NeRF / Instant-NGP, Gaussian Splatting, and numerous improved models encode scenes in neural networks or Gaussian clouds, enabling high-fidelity novel view synthesis and 3D scene reconstruction, and gradually evolving into engineered products. In the industry, 3D AI services such as "Hunyuan 3D" and "Tripo" have emerged, which are targeted at developers and content production, encapsulating technologies like NeRF/Gaussian into cloud-based APIs or interactive tools.
 
-从这一层开始，传统几何与深度学习、隐式表示与显式网格密切交织，既要解决「如何准确还原真实世界」的问题，又要兼顾实时性和可用性，服务更上层的 3D 场景理解、3D 生成与编辑。
+Starting from this layer, traditional geometry and Deep learning, implicit representation and explicit mesh are closely intertwined. It is necessary to address the issue of "how to accurately restore the real world" while also taking into account real-time performance and usability, serving higher-level 3D scene understanding, 3D generation, and editing.
 
-### 3.1.1 点云处理与 3D 目标检测
+### 3.1.1 Point Cloud Processing and 3D Object Detection
 
-对于自动驾驶、机器人和高精度测绘而言，LiDAR 点云是最关键的 3D 传感信息之一。点云是一组三维坐标（有时附带反射强度、时间戳等）构成的稀疏点集，没有规则的栅格结构，给传统卷积带来了挑战。点云处理的目标，是从这些非结构化的点中提取有用的几何与语义信息，例如“这里是一辆车”“这里是路沿/地面”“这里是一栋建筑物”。
+For autonomous driving, robotics, and high-precision mapping, LiDAR point cloud is one of the most critical 3D sensing information. A point cloud is a sparse set of points composed of a set of three-dimensional coordinates (sometimes accompanied by reflection intensity, timestamp, etc.), without a regular grid structure, which poses challenges to traditional convolution. The goal of point cloud processing is to extract useful geometric and semantic information from these unstructured points, such as "here is a car", "here is a curb/ground", and "here is a building".
 
-在**点云分类与分割**任务中，我们往往关注：某个点（或点簇）属于哪一类结构，如车、行人、地面、路沿、建筑、植被等，或者对场景做语义/实例分割。从建模方式看，可以粗略分为三类：
+In ** point cloud classification and segmentation ** tasks, we often focus on: which type of structure a point (or point cluster) belongs to, such as cars, pedestrians, ground, curbs, buildings, vegetation, etc., or perform semantic/instance segmentation on the scene. From the perspective of modeling methods, they can be roughly divided into three categories:
 
-1. 直接点云网络：PointNet / PointNet++、PointCNN、DGCNN 等直接在点集上定义“对点集排列不敏感”的运算，通过局部邻域聚合构建层级特征，适合中小规模点云的分类与分割。
-2. 体素与稀疏卷积：将点云栅格化为 3D 体素，再用稀疏 3D CNN（如 VoxelNet、MinkowskiNet）进行卷积，兼顾结构规整性与空间稀疏性，在自动驾驶 3D 检测中应用广泛。
-3. 投影与多视图：将点云投影到 BEV（鸟瞰图）、前视深度图或多视角视图，再用 2D CNN 提取特征，相对易于与成熟的 2D 检测网络结合。
+1. Direct point cloud networks: PointNet / PointNet++, PointCNN, DGCNN, etc., directly define operations that are "insensitive to point set permutation" on point sets, construct hierarchical features through local neighborhood aggregation, and are suitable for classification and segmentation of small- to medium-scale point clouds.
+2. Voxels and Sparse Convolution: Rasterize the point cloud into 3D voxels, then perform convolution using sparse 3D CNNs (such as VoxelNet, MinkowskiNet), taking into account both structural regularity and spatial sparsity, and are widely used in 3D detection for autonomous driving.
+3. Projection and Multi-View: Projecting the point cloud onto BEV (Bird's Eye View), front-view depth map, or multi-view perspectives, and then using 2D CNN to extract features, is relatively easy to integrate with mature 2D detection networks.
 
-在**3D 目标检测**中，目标不再是单纯地给点打标签，而是要预测 3D 边界框（位置、尺寸、朝向）及其类别，这是自动驾驶环境感知的核心。典型方法如 VoxelNet、SECOND、PointPillars 和 CenterPoint 等，它们通常将点云转换为体素或柱状表示，在 BEV 或 3D 空间上进行检测回归。CenterPoint 等方法通过“中心点检测”范式，直接在 BEV 上检测目标中心及其尺寸/方向，兼具精度和速度。随着深度学习与传感器硬件的演进，3D 检测已能在车规级芯片上实现实时推理，成为自动驾驶感知栈的基础模块之一。
+In  ** 3D Object Detection ** , the goal is no longer simply to label points, but to predict 3D bounding boxes (position, size, orientation) and their categories, which is the core of autonomous driving environment perception. Typical methods such as VoxelNet, SECOND, PointPillars, and CenterPoint usually convert point clouds into voxel or pillar representations and perform detection regression in BEV or 3D space. Methods such as CenterPoint detect the target center and its size/orientation directly on BEV through the "center point detection" paradigm, combining both accuracy and speed. With the evolution of Deep learning and sensor hardware, 3D detection has been able to achieve real-time inference on automotive-grade chips, becoming one of the basic modules of the autonomous driving perception stack.
 
-### 3.1.2 多视角几何与三维重建：从照片到 Mesh
+### 3.1.2 Multi-view Geometry and 3D Reconstruction: From Photos to Mesh
 
-如果没有 LiDAR，是否仍能“看懂”3D？答案是可以的——多视角几何与三维重建依赖的是“多张照片 + 摄像机运动”。通过在不同视角拍摄同一场景，我们可以利用几何约束恢复相机位姿和空间结构，这就是经典的 SfM/MVS 管线。
+Can we still "understand" 3D without LiDAR? The answer is yes - multi-view geometry and 3D reconstruction rely on "multiple photos + camera motion". By capturing the same scene from different perspectives, we can use geometric constraints to recover camera poses and spatial structures, which is the classic SfM/MVS pipeline.
 
-**SfM（Structure‑from‑Motion）** 主要解决两个问题：
+**SfM (Structure-from-Motion) ** mainly addresses two issues:
 
-1. 从多张成对或多视角图像中，估计每一张图像的相机外参（位置和朝向）；
-2. 在统一坐标系下恢复一组稀疏 3D 特征点。
+1. Estimate the camera extrinsic parameters (position and orientation) of each image from multiple paired or multi-view images;
+2. Recover a set of sparse 3D feature points in a unified coordinate system.
 
-典型工具如 COLMAP、OpenMVG，通过特征提取与匹配（SIFT/ORB 等）、增量或全局 BA（Bundle Adjustment），可以从无标定图像集合中自动恢复稀疏点云和相机位姿。
- 在此基础上，**MVS（Multi‑View Stereo）** 会利用多视角的光度一致性，生成稠密点云：对每个像素/视线进行深度估计，逐步填充场景的几何细节。
+Typical tools such as COLMAP and OpenMVG can automatically recover sparse point clouds and camera poses from uncalibrated image sets through feature extraction and matching (e.g., SIFT/ORB) and incremental or global BA (Bundle Adjustment).
+Based on this,** MVS (Multi-View Stereo) ** uses photometric consistency across multiple views to generate dense point clouds: estimating the depth for each pixel/line of sight and gradually filling in the geometric details of the scene.
 
-获得稠密点云后，下一步是 **网格重建（Mesh Reconstruction）** ：
+After obtaining the dense point cloud, the next step is  ** mesh reconstruction (Mesh Reconstruction) ** :
 
-* 通过 Poisson Surface Reconstruction、Marching Cubes 或基于学习的方法，将散乱的点云“包裹”成连续曲面，形成带拓扑结构的 Mesh。
-* 后续通常还会进行孔洞填补、平滑、边界优化，并进行纹理贴图（Texture Mapping），得到可直接用于渲染和编辑的 3D 模型。
+* Wrap the scattered point cloud into a continuous surface through Poisson Surface Reconstruction, Marching Cubes, or learning-based methods to form a mesh with topological structure.
+* Subsequently, hole filling, smoothing, boundary optimization are usually performed, and texture mapping is carried out to obtain a 3D model that can be directly used for rendering and editing.
 
-在产品形态上，这一整套管线已通过桌面软件、云服务和 SDK 的形式下沉。例如：手机上的 3D 扫描应用，会在后台调用类似 SfM/MVS 的流程，给用户“绕一圈拍照”或“扫一圈视频”之后自动输出一个可导入到游戏引擎的网格模型；数字孪生平台则在城市/园区尺度上，用航摄影像 + 街景数据跑大规模重建，生成可交互的 3D 场景。
+In terms of product form, this entire pipeline has been implemented through desktop software, cloud services, and SDKs. For example, a 3D scanning application on a mobile phone will call a process similar to SfM/MVS in the background, automatically outputting a mesh model that can be imported into a game engine after the user takes a "360-degree photo" or "360-degree video"; the digital twin platform, on the scale of cities/parks, runs large-scale reconstruction using aerial photography images + street view data to generate an interactive 3D scene.
 
-### 3.1.3 神经辐射场与体渲染：NeRF、Gaussian 与新一代 3D 重建
+### 3.1.3 Neural Radiance Fields and Volume Rendering: NeRF, Gaussian, and Next-Generation 3D Reconstruction
 
-传统的 SfM/MVS/网格重建，可以得到结构良好的显式几何，但在渲染质量、视角连续性和细节表现上仍有局限；而神经辐射场（NeRF）及其后续工作则以**隐式场 + 体渲染**的方式重新定义了 3D 重建和新视角合成。
+Traditional SfM/MVS/mesh reconstruction can obtain well-structured explicit geometry, but still has limitations in rendering quality, view continuity, and detail performance; while Neural Radiance Fields (NeRF) and its subsequent work have redefined 3D reconstruction and novel view synthesis in the form of **implicit field + volume rendering** .
 
-在 NeRF 中，整个 3D 场景被建模为一个连续函数：
+In NeRF, the entire 3D scene is modeled as a continuous function:
 
-![](https://ecn00p15ubf1.feishu.cn/space/api/box/stream/download/asynccode/?code=ZjYyZTc5MWFhY2QxM2FjNTI1MDFhNDM5NTEwNTBkNGFfM3RvSngwZnhwc1hMRFQxaXVXMkFNem5RSFFqUkppdkdfVG9rZW46TVltUGJUUWRib1NGV2V4dklHZ2NYandjbkJlXzE3NjcxMDU4ODM6MTc2NzEwOTQ4M19WNA)
+![](https://ecn00p15ubf1.feishu.cn/space/api/box/stream/download/asynccode/?code=ZTY0MjY3NDAyNGQzMGY3NzhjMjZiZmJhNDk3ZTZiOTNfN0hPdFdnMTNLM0xZSzJpbUpJaTQyc3RxSjdodnZNSDZfVG9rZW46T2FEWWJjQk1Yb1RRNmh4Ynp3YmNwYkdObkRlXzE3NjczNTAzNjE6MTc2NzM1Mzk2MV9WNA)
 
-给定三维空间中的一个点位置 x 和观察方向 d，网络会输出该点对应的体密度 σ 与颜色 c。沿着相机视线方向对这个映射函数做体渲染积分运算，我们就能得到该相机位姿下的像素颜色；反过来，只要给定一组多视角照片及其相机参数，我们就能通过最小化渲染结果与真实图像的误差，求解出模型的参数 θ。待模型训练完成后，只需改变相机位姿，就能合成那些 “从未被真实拍摄过” 的新视角图像（Novel View Synthesis）。
+Given a point position x and an observation direction d in three-dimensional space, the network outputs the corresponding volume density σ and color c of the point. By performing volume rendering integration on this mapping function along the camera's line of sight, we can obtain the pixel color under the camera pose; conversely, given a set of multi-view photos and their camera parameters, we can solve for the model parameters θ by minimizing the error between the rendered results and the real images. After Model Training is completed, simply changing the camera pose allows us to synthesize new view images (Novel View Synthesis) that "have never been actually captured".
 
-传统 NeRF 训练和渲染速度都偏慢，后续如 **Instant‑NGP** 通过多分辨率哈希网格编码等手段，大幅加快了收敛与推理速度；**Gaussian Splatting** 则用 3D 高斯粒子替代表达场景，通过高效的光栅化策略，实现了高质量、实时的新视角渲染。与此同时，大量工作还围绕 NeRF/高斯做了可编辑、多模态、可组合等扩展，使其逐渐从研究原型走向工程体系。
+Traditional NeRF has slow training and rendering speeds. Subsequently, methods such as **Instant‑NGP** have significantly accelerated convergence and inference speeds through techniques like multi-resolution hash grid encoding; **Gaussian Splatting** replaces scene representation with 3D Gaussian particles and achieves high-quality, real-time novel view rendering through an efficient rasterization strategy. Meanwhile, a large amount of work has also extended NeRF/Gaussian in terms of editability, multi-modal, and composability, gradually evolving it from a research prototype to an engineering system.
 
-在产品化层面，NeRF/高斯类技术已经嵌入到多种 3D AI 产品中：
+At the productization level, NeRF/Gaussian technologies have been embedded in various 3D AI products:
 
-* 手机/PC 端的“多视角视频 → 3D 场景”工具，底层往往基于神经场或高斯粒子完成重建和渲染；
-* 游戏/影视资产管线中，利用神经场进行快速场景捕捉和光照还原，再导出为 Mesh + 纹理供传统 DCC 工具使用；
-* 各大云厂商和内容平台推出的 3D AI 服务，如腾讯系的「混元 3D」、Tripo 等，通常支持“多视图照片/短视频 → 可编辑 3D 模型/场景”，在内部则综合运用神经辐射场、SDF/Gaussian 表示与后续显式重建，把高质量 3D 结果打包为对开发者友好的 API 或交互式产品。
+* The "Multi-view Video → 3D Scene" tool on mobile/PC platforms often relies on neural fields or Gaussian particles at the underlying level to complete reconstruction and rendering;
+* In the game/film asset pipeline, neural fields are used for rapid scene capture and lighting restoration, and then exported as Mesh + textures for use in traditional DCC tools;
+* 3D AI services launched by major cloud providers and content platforms, such as Tencent's "Hunyuan 3D", Tripo, etc., typically support "multi-view photos/short videos → editable 3D models/scenes", and internally comprehensively utilize neural radiance fields, SDF/Gaussian representations, and subsequent explicit reconstruction to package high-quality 3D results into developer-friendly APIs or interactive products.
 
-## 3.2 3D 场景理解与定位（3D Scene Understanding & SLAM）
+## 3.2 3D Scene Understanding & SLAM
 
-如果说 3D 感知与重建回答的是“这个世界长什么样”，那么 3D 场景理解与定位则进一步回答：“ **我在这个世界的哪里？这个世界中哪些地方可以走，哪些是障碍？** ” 对于扫地机器人、AGV 机器人、无人机、AR 导航和室内定位系统来说，能够在 3D 环境中自定位、自建图、自主规划路径，是生存的前提。
+If 3D perception and reconstruction answer the question "what does the world look like", then 3D scene understanding and localization further answer: ** "Where am I in this world? Which places in this world are passable, and which are obstacles?" ** For floor cleaning robots, AGV robots, drones, AR navigation, and indoor location systems, the ability to self-localize, self-map, and autonomously plan paths in a 3D environment is a prerequisite for survival.
 
-这部分工作主要围绕**3D 语义理解**与**SLAM（Simultaneous Localization and Mapping）**展开：前者在重建的 3D 场景中进行语义分割和可通行区域识别，后者则利用视觉/IMU/LiDAR 等传感器进行相机/机器人位姿估计与地图构建。在工程上，这一层通常以 SDK 或算法模块的形式嵌入到机器人底盘、无人机飞控或移动端 AR 引擎中。
+This part of the work mainly revolves around ** 3D semantic understanding ** and ** SLAM (Simultaneous Localization and Mapping) **: the former performs semantic segmentation and traversable area recognition in the reconstructed 3D scene, while the latter uses sensors such as vision / IMU / LiDAR for camera / robot pose estimation and map construction. In engineering, this layer is usually embedded in robot chassis, UAV flight control, or mobile AR engines in the form of SDKs or algorithm modules.
 
-* **场景**
-  * 家用与服务机器人：扫地机器人、送餐/巡检机器人在室内环境中构建地图、识别房间类型和障碍物，实现自动规划清扫或巡逻路径。
-  * 仓储与物流：AGV/AMR 机器人在仓库中进行自主导航，识别货架、通道与禁入区域，完成搬运和盘点任务。
-  * 无人机与户外机器人：在室外环境中构建 3D 地图，避开建筑、树木、电线等障碍，执行巡检、测绘与安防任务。
-  * AR 导航与室内定位：手机/AR 眼镜通过 SLAM 获取相机位姿，并在语义地图上叠加导航箭头、房间信息和 POI，实现沉浸式导览与导航。
-* **原理**
-  * 3D 语义分割与场景理解：在点云或体素表示上进行语义分割，区分墙壁、地面、桌椅、货架、门窗等结构，同时识别可通行区域和障碍物，为导航和行为决策提供语义层信息。
-  * 位姿估计与 SLAM：通过 Visual SLAM（单目/双目 / RGB‑D）或 LiDAR‑SLAM，从连续传感数据中估计相机/机器人的 6D 位姿，处理回环检测与地图优化，必要时融合 IMU、轮速、GNSS 等多源信息提高鲁棒性。
-  * 地图构建与导航：在局部/全局地图上叠加几何和语义信息，形成 2D/3D/拓扑/语义地图，并在此基础上进行路径规划、避障和任务分配。
-* **模型**
-  * SLAM 系统：经典的特征点法 ORB‑SLAM 系列、直接法 DSO，以及融合惯导的 VINS‑Mono / VINS‑Fusion，通过前端特征跟踪 + 后端优化实现精确位姿估计与稠密/半稠密地图。LiDAR/视觉‑LiDAR 融合中常见 LIO‑SAM 等框架。
-  * 3D 语义分割网络：3D U‑Net、MinkowskiNet 等 3D CNN，以及基于点云的 PointNet++ / KPConv / SparseConv 系列，用于点云/体素的语义分割与实例分割。
-  * 多传感器融合定位：基于图优化或滤波（EKF/UKF）的方法，将视觉、IMU、LiDAR、里程计等多源信息在统一状态空间中融合，提升在恶劣光照、纹理缺失或动态环境中的定位稳定性。
+* **Scenario**
+  * Household and Service Robots: Floor cleaning robots, food delivery/inspection robots build maps, identify room types and obstacles in indoor environments, and achieve automatic planning of cleaning or patrol paths.
+  * Warehousing and Logistics: AGV/AMR robots perform autonomous navigation in warehouses, identify shelves, aisles, and restricted areas, and complete handling and inventory tasks.
+  * Drones and Outdoor Robots: Build 3D maps in outdoor environments, avoid obstacles such as buildings, trees, and power lines, and perform inspection, mapping, and security tasks.
+  * AR Navigation and Indoor Location: Mobile phones/AR glasses obtain camera poses through SLAM and overlay navigation arrows, room information, and POIs on the semantic map to achieve immersive guided tours and navigation.
+* **Principle**
+  * 3D Semantic Segmentation and Scene Understanding: Perform semantic segmentation on point clouds or voxel representations to distinguish structures such as walls, floors, tables and chairs, shelves, doors and windows, while identifying traversable areas and obstacles, providing semantic layer information for navigation and behavior decision-making.
+  * Pose Estimation and SLAM: Estimate the 6D pose of the camera/robot from continuous sensor data through Visual SLAM (monocular/stereo/RGB-D) or LiDAR-SLAM, handle loop closure detection and map optimization, and fuse multi-source information such as IMU, wheel speed, and GNSS when necessary to improve robustness.
+  * Map Building and Navigation: Overlay geometric and semantic information on local/global maps to form 2D/3D/topological/semantic maps, and based on this, perform path planning, obstacle avoidance, and task allocation.
+* **Model**
+  * SLAM systems: The classic feature-based method ORB-SLAM series, the direct method DSO, and the inertial-aided VINS-Mono/VINS-Fusion, achieve accurate pose estimation and dense/semi-dense mapping through front-end feature tracking + back-end optimization. Frameworks such as LIO-SAM are commonly used in LiDAR/visual-LiDAR fusion.
+  * 3D Semantic Segmentation Networks: 3D CNNs such as 3D U-Net, MinkowskiNet, and point cloud-based PointNet++ / KPConv / SparseConv series, used for semantic and instance segmentation of point clouds/voxels.
+  * Multi-sensor fusion localization: Based on graph optimization or filtering (EKF/UKF) methods, it fuses multi-source information such as vision, IMU, LiDAR, and odometry in a unified state space to improve the localization stability in harsh lighting, textureless, or dynamic environments.
 
-整体上，3D 场景理解与定位构成了机器人“能动起来”的基础：既要在复杂三维世界中构建可靠的自我定位框架，又要让地图变得“有意义”，从而支持高层任务规划与人机交互。
+Overall, 3D scene understanding and localization form the foundation for robots to "become mobile": they must not only build a reliable self-localization framework in the complex three-dimensional world but also make the map "meaningful" to support high-level task planning and human-robot interaction.
 
-### 3.2.1 3D 语义分割与可通行区域理解
+### 3.2.1 3D Semantic Segmentation and Traversable Area Understanding
 
-在纯几何地图中，所有结构只是无差别的点/体素；而在真实应用中，我们关心的是：哪里是地面、哪里是墙、哪里有桌子或货架、哪里可以通行。**3D 语义分割**就是要为每一个点或体素赋予语义标签，将“纯几何”转化为“几何 + 语义”。
+In a pure geometric map, all structures are just undifferentiated points/voxels; while in real applications, what we care about is: where the ground is, where the walls are, where there are tables or shelves, and where it is passable. ** 3D semantic segmentation ** is to assign semantic labels to each point or voxel, transforming "pure geometry" into "geometry + semantics".
 
-在室内/室外场景中，典型目标包括：
+In indoor/outdoor scenarios, typical targets include:
 
-* 固定结构：墙、地面、天花板、楼梯、柱子、道路、路沿等；
-* 家具与设施：桌椅、柜子、货架、门窗、扶手等；
-* 可通行/不可通行区域：机器人可行走区域、需绕行的障碍物、禁入区域等。
+* Fixed structures: walls, floors, ceilings, stairs, columns, roads, curbs, etc.;
+* Furniture and fixtures: tables, chairs, cabinets, shelves, doors, windows, handrails, etc.;
+* Passable/Non-passable Areas: Areas where the robot can move, obstacles to be bypassed, restricted areas, etc.
 
-建模上，3D 语义分割常采用：
+In modeling, 3D semantic segmentation often employs:
 
-* 体素/稀疏卷积方案：把点云体素化后，用 3D U‑Net、MinkowskiNet 等稀疏 CNN 学习体素级特征，兼顾局部细节和全局结构。
-* 点云直接方案：PointNet++、KPConv 等点云网络，对局部邻域做特征聚合，实现点级别的语义预测。
+* Voxel/Sparse Convolution Scheme: After voxelizing the point cloud, use sparse CNNs such as 3D U-Net and MinkowskiNet to learn voxel-level features, taking into account both local details and global structure.
+* Point cloud direct approach: PointNet++, KPConv and other point cloud networks perform feature aggregation on local neighborhoods to achieve point-level semantic prediction.
 
-在扫地机器人、AGV 机器人等应用中，语义分割的结果会被进一步抽象成 **语义地图** ：例如把房间划分为卧室/客厅/厨房，把仓库内空间划分为货架区域/通道/禁行区。机器人不仅知道“哪里可以走”，还可以根据房间类型定制不同策略（如卧室避开地毯区域、仓库中优先覆盖某些货区）。
+In applications such as floor cleaning robots and AGV robots, the results of semantic segmentation are further abstracted into  ** semantic maps ** : for example, dividing a room into bedroom/living room/kitchen, and dividing the space inside a warehouse into shelf area/passage/no-go area. Robots not only know "where they can go", but also can customize different strategies based on room types (such as avoiding carpet areas in bedrooms and preferentially covering certain cargo areas in warehouses).
 
-### 3.2.2 位姿估计、SLAM 与多传感器融合定位
+### 3.2.2 Pose Estimation, SLAM, and Multi-Sensor Fusion Localization
 
-**SLAM（Simultaneous Localization and Mapping）** 的目标是：在未知环境中，一边移动一边估计自身轨迹，同时构建环境地图。对于没有高精度外部定位（如 RTK‑GNSS）支持的室内环境来说，SLAM 是绝大多数机器人和 AR 引擎的首选方案。
+**The goal of SLAM (Simultaneous Localization and Mapping) ** is to estimate its own trajectory while moving and simultaneously construct an environmental map in an unknown environment. For indoor environments without high-precision external positioning (such as RTK-GNSS) support, SLAM is the preferred solution for most robots and AR engines.
 
-在视觉 SLAM 中，以 ORB‑SLAM、DSO、VINS‑Mono/VINS‑Fusion 为代表的方法，通常分为几个关键模块：
+In visual SLAM, methods represented by ORB‑SLAM, DSO, VINS‑Mono/VINS‑Fusion are typically divided into several key modules:
 
-* 前端：从连续图像中提取和跟踪关键点/图像块，估计相邻帧之间的相对位姿。
-* 后端：在滑动窗口或全局图中进行 BA 或图优化，处理漂移、回环检测与重定位。
-* 地图：根据位姿和深度信息构建稠密或半稠密地图，为后续导航或渲染提供基础。
+* Frontend: Extract and track key points/image patches from consecutive images, and estimate the relative pose between adjacent frames.
+* Backend: Perform BA or graph optimization in sliding windows or global graphs, handling drift, loop closure detection, and relocalization.
+* Mapping: Build a dense or semi-dense map based on pose and depth information, providing a foundation for subsequent navigation or rendering.
 
-纯视觉在纹理缺失、光照剧烈变化时容易失效，因此实践中一般会采用 **多传感器融合定位** ：
+Pure vision is prone to failure when there is a lack of texture or drastic changes in lighting, so in practice, ** multi-sensor fusion positioning ** is generally adopted:
 
-* 视觉 + IMU：VINS‑Mono/VINS‑Fusion 等框架将 IMU 的高频短时精度与视觉的尺度和几何约束结合，大幅提高短时和急转弯场景的稳定性。
-* LiDAR + IMU + 视觉：如 LIO‑SAM 等里程计框架在 LiDAR‑SLAM 中引入惯导与可选视觉信息，利用三者互补的特性实现鲁棒定位，在自动驾驶和高精度测绘中广泛使用。
+* Vision + IMU: Frameworks such as VINS-Mono/VINS-Fusion combine the high-frequency short-term accuracy of IMU with the scale and geometric constraints of vision, significantly improving the stability in short-term and sharp turn scenarios.
+* LiDAR + IMU + Vision: Odometry frameworks such as LIO-SAM introduce inertial navigation and optional visual information into LiDAR-SLAM, leveraging the complementary characteristics of the three to achieve robust positioning, and are widely used in autonomous driving and high-precision mapping.
 
-在产品层面，这些方法通常被封装为机器人底盘控制器、无人机飞控、AR 引擎（如 ARKit/ARCore 中的 Visual‑Inertial SLAM）或室内定位 SDK 的一部分，对上层应用屏蔽了复杂的状态估计和图优化逻辑，让开发者可以直接拿到“实时位姿 + 地图”。
+At the product level, these methods are typically encapsulated as part of robot chassis controllers, UAV flight controllers, AR engines (such as Visual‑Inertial SLAM in ARKit/ARCore), or Indoor Location SDKs, shielding upper-level applications from complex state estimation and graph optimization logic, allowing developers to directly obtain "real-time pose + map".
 
-### 3.2.3 语义地图、导航与避障
+### 3.2.3 Semantic Mapping, Navigation, and Obstacle Avoidance
 
-有了稳定的位姿估计和几何/语义地图，下一步是让机器人“聪明地动起来”。这部分主要涉及 **语义地图构建、路径规划和避障** 。
+With stable pose estimation and geometric/semantic maps, the next step is to enable the robot to "move smartly". This part mainly involves  ** semantic map construction, path planning, and obstacle avoidance ** .
 
-* **语义地图构建** ：在几何地图上叠加语义信息（房间类型、POI、区域标签），形成适合高层决策的地图表征。例如：
-* 家庭场景中，将地图划分为卧室、客厅、厨房、卫生间等区域；
-* 仓储场景中，标注货架位置、装卸区、危险区域等；
-* 大型商场/展馆中，标注店铺、服务台、洗手间等 POI，用于 AR 导航和导览。
-* **路径规划与避障** ：在地图上构建栅格图或拓扑图，利用 A*、D* Lite、RRT 等规划算法为机器人找到从起点到目标点的可行路径；同时结合实时感知（前方障碍物、动态行人/车辆），进行局部重规划和避障，保证运行安全与效率。
-* **导航行为与任务调度** ：在 AGV 机器人和无人机中，还会在导航之上叠加任务调度与多机协同模块：分配任务、避免拥堵、优化整体路径与能耗。
+* **Semantic Map Construction** : Overlay semantic information (room type, POI, area label) on the geometric map to form a map representation suitable for high-level decision-making. For example:
+* In the home scenario, the map is divided into areas such as bedrooms, living rooms, kitchens, bathrooms, etc.;
+* In the warehousing scenario, mark the locations of shelves, loading and unloading areas, hazardous areas, etc.;
+* In large shopping malls/exhibition halls, POIs such as stores, help desks, and restrooms are marked for AR navigation and guidance.
+* **Path Planning and Obstacle Avoidance** : Construct a grid map or topological map on the map, and use planning algorithms such as A*, D* Lite, and RRT to find a feasible path for the robot from the starting point to the target point; at the same time, combine real-time perception (front obstacles, dynamic pedestrians/vehicles) to perform local replanning and obstacle avoidance, ensuring operational safety and efficiency.
+* **Navigation Behavior and Task Scheduling** : In AGV robots and drones, task scheduling and multi-vehicle collaboration modules are also layered on top of navigation: assigning tasks, avoiding congestion, and optimizing overall paths and energy consumption.
 
-AR 导航与室内定位系统本质上也依赖类似的语义地图和路径规划，只不过“执行者”从机器人变成了人：系统通过 SLAM 获取用户设备的位姿，在语义地图上规划行走路径，再以增强现实的形式把路径可视化叠加到真实世界视图中。
+AR navigation and indoor location systems also essentially rely on similar semantic maps and path planning, except that the "executor" has changed from a robot to a human: the system obtains the pose of the user's device through SLAM, plans a walking path on the semantic map, and then visualizes and overlays the path onto the real-world view in the form of augmented reality.
 
-## 3.3 3D 生成与编辑（3D Generation & Editing）
+## 3.3 3D Generation & Editing (3D Generation & Editing)
 
-如果说 3D 感知和 SLAM 是从真实世界“采集并理解”几何，那么 3D 生成与编辑则是站在内容生产的角度： **如何用 AI 自动生产和改造 3D 资产** 。这直接面向游戏、影视、数字人、虚拟空间、电商展示、3D 打印等巨大的内容需求。
+If 3D perception and SLAM are about "collecting and understanding" geometry from the real world, then 3D generation and editing are from the perspective of content production:  ** how to use AI to automatically produce and transform 3D assets ** . This directly addresses the huge content demands of games, film and television, virtual humans, virtual spaces, e-commerce displays, 3D printing, and other fields.
 
-最近两三年，随着 NeRF/Gaussian、SDF 表示、多模态扩散模型等技术的突破，3D 生成进入快速发展期：从文本、图像、视频一键生成 3D 模型或场景已经成为现实，各大云厂商和创业团队推出了如「混元 3D」、Tripo、DreamFusion / Magic3D 系列方法落地为在线工具，使 3D 生产逐渐向“人人可用”的方向演进。3D 生成与编辑大致可以拆成四类能力：文生 3D、图/视频生 3D、模型优化与编辑，以及绑定与动画。
+In the past two or three years, with breakthroughs in technologies such as NeRF/Gaussian, SDF representation, and MultiModal Machine Learning diffusion models, 3D generation has entered a period of rapid development: One-click generation of 3D models or scenes from text, images, and videos has become a reality. Major cloud providers and startup teams have launched methods such as "Hunyuan 3D", Tripo, and DreamFusion/Magic3D series, which have been implemented as online tools, gradually evolving 3D production towards the direction of "accessible to all". 3D generation and editing can be roughly divided into four categories of capabilities: text-to-3D, image/video-to-3D, model optimization and editing, and binding and animation.
 
-* **场景**
-  * 游戏 / 影视资产制作：为角色、道具、建筑、场景快速生成可用的 3D 模型，大幅降低美术工作量。
-  * 电商与产品展示：根据产品文案或照片自动生成 3D 展示模型，用于 3D 看样、AR 试摆、交互式广告。
-  * 数字人与虚拟内容：快速生成虚拟人、虚拟试衣模特、虚拟主播场景等 3D 资产，支持直播、短视频和互动应用。
-  * 3D 打印与个性化建模：从草图/照片/文本生成可打印模型，实现个性化礼品、原型设计与教育场景应用。
-* **原理**
-  * 文生 3D（Text‑to‑3D）：将文本描述编码为语义向量，再通过多阶段优化或扩散过程生成 3D 表示（NeRF/SDF/Gaussian/Mesh），通常借助强大的 2D 文生图模型做“评分器”或先验。
-  * 图 / 视频生 3D：利用单张或多张图像、多视角视频作为监督，结合 NeRF、SDF 或隐式/显式混合表示，重建出带几何和纹理的 3D 模型。
-  * 3D 模型优化与编辑：对已有模型进行重拓扑、简模、细节增强、LOD 生成、UV 展开和贴图生成，以及基于语言/图像的形变与风格化。
-  * 绑定与动画：为 3D 角色自动推断骨骼结构并完成 Rigging，支持骨骼动画和物理模拟（布料、软体、刚体），形成可驱动的动态资产。
-* **模型**
-  * 3D 生成基础表示：NeRF / Instant‑NGP、SDF（隐式表面）、Gaussian Splatting 以及 Mesh‑based 生成网络，构成 3D 数据的表达空间。
-  * Text‑to‑3D 方法：DreamFusion、Magic3D、Fantasia3D 等典型路线，通过“2D 文生图模型 + 3D 优化”或“3D 扩散模型”完成从文本到 3D 的端到端生成，为后来的混元 3D、Tripo 等产品奠定技术基础。
-  * 图/视频生 3D 模型：基于 NeRF/SDF/Gaussian 的重建与优化框架，从多视图一致性和单视图先验中恢复稳定的 3D 几何与纹理。
-  * 绑定与动画算法：自动骨骼提取、骨骼权重预测、基于深度学习的 Retargeting 与运动生成，为虚拟人/角色动画提供一键化工具。
+* **Scenario**
+  * Game / Film Asset Production: Rapidly generate usable 3D models for characters, props, buildings, and scenes, significantly reducing the workload of art production.
+  * E-commerce and Product Display: Automatically generate 3D display models based on product copy or photos for 3D product viewing, AR trial placement, and interactive advertising.
+  * Digital Humans and Virtual Content: Rapidly generate 3D assets such as virtual humans, virtual fitting models, and virtual LIVE creator scenarios, supporting LIVE, short videos, and interactive applications.
+  * 3D Printing and Personalized Modeling: Generate printable models from sketches/photos/text, enabling applications in personalized gifts, prototype design, and educational scenarios.
+* **Principle**
+  * Text-to-3D: Encodes text descriptions into semantic vectors, then generates 3D representations (NeRF/SDF/Gaussian/Mesh) through a multi-stage optimization or diffusion process, often leveraging powerful 2D text-to-image models as "scorers" or priors.
+  * Image/Video to 3D: Using single or multiple images, multi-view videos as supervision, combined with NeRF, SDF, or implicit/explicit hybrid representations, to reconstruct 3D models with geometry and texture.
+  * 3D Model Optimization and Editing: Perform retopology, model simplification, detail enhancement, LOD generation, UV unwrapping, and texture generation on existing models, as well as language/image-based deformation and stylization.
+  * Binding and Animation: Automatically infer the skeletal structure for 3D characters and complete rigging, support skeletal animation and physical simulation (cloth, soft body, rigid body), and form drivable dynamic assets.
+* **Model**
+  * 3D Generation Basic Representations: NeRF / Instant‑NGP, SDF (Implicit Surface), Gaussian Splatting, and Mesh‑based Generation Networks, constitute the representation space of 3D data.
+  * Text-to-3D methods: Typical approaches such as DreamFusion, Magic3D, and Fantasia3D complete end-to-end generation from text to 3D through "2D text-to-image model + 3D optimization" or "3D diffusion model", laying the technical foundation for subsequent products such as Hunyuan 3D and Tripo.
+  * Image/Video to 3D Model: A reconstruction and optimization framework based on NeRF/SDF/Gaussian, which recovers stable 3D geometry and texture from multi-view consistency and single-view priors.
+  * Binding and Animation Algorithms: Automatic bone extraction, bone weight prediction, Retargeting and motion generation based on deep learning, providing one-click tools for virtual human/character animation.
 
-在这一层，传统 3D DCC（Maya/Blender/3ds Max 等）与 AI 工具链逐步融合：许多 3D AI 服务以插件或云端接口的形式嵌入现有生产流程，让建模师/美术可以在人机协作中迅速迭代资产。
+At this level, traditional 3D DCCs (such as Maya/Blender/3ds Max) are gradually integrating with AI toolchains: many 3D AI services are embedded in existing production workflows in the form of plugins or cloud interfaces, enabling modelers/artists to rapidly iterate on assets through human-machine collaboration.
 
-### 3.3.1 文生 3D 与场景草模
+### 3.3.1 Text-to-3D and Scene Sketch Model
 
-**文生 3D（Text‑to‑3D）** 的目标是：给出一句自然语言描述，例如“一个卡通风格的黄色小鸭玩具，带有蓝色围巾，适合儿童玩具展示”，系统自动生成一个可编辑的 3D 模型（Mesh/NeRF/SDF/Gaussian 等）。这是将大语言模型/多模态模型与 3D 表示结合的典型应用。
+**Wensheng 3D (Text-to-3D) **The goal is to provide a natural language description, such as "a cartoon-style yellow duck toy with a blue scarf, suitable for children's toy display", and the system automatically generates an editable 3D model (Mesh/NeRF/SDF/Gaussian, etc.). This is a typical application that combines large language models/MultiModal Machine Learning models with 3D representation.
 
-典型技术路径包括：
+Typical technical paths include:
 
-1. **基于 2D 文生图模型的优化** （如 DreamFusion、Magic3D）：
-2. 使用强大的 Text‑to‑Image 模型（如扩散模型）作为“评估器”，给定 3D 表示在某一视角下渲染出的图像，评估它与文本描述的匹配程度。
-3. 通过梯度优化或扩散过程，迭代调整 3D 表示（NeRF/SDF/Mesh），使得从多个视角渲染出的图像都符合文本语义。
-4. **3D 扩散模型 / 直接生成** ：
-5. 将 3D 数据（点云、体素、隐式场参数、Gaussian 粒子等）作为扩散模型的生成目标，在大规模 3D 数据集上预训练；
-6. 通过文本条件控制，实现端到端的 Text‑to‑3D 采样。
+1. **Optimization based on 2D text-to-image models** (e.g., DreamFusion, Magic3D):
+2. Use a powerful Text-to-Image model (such as a diffusion model) as an "evaluator" to assess the degree of match between a given 3D representation and a text description based on the image rendered from a certain perspective.
+3. Iteratively adjust the 3D representation (NeRF/SDF/Mesh) through gradient optimization or diffusion processes, ensuring that the images rendered from multiple perspectives all conform to the text semantics.
+4. **3D Diffusion Model / Direct Generation** :
+5. Use 3D data (point cloud, voxel, implicit field parameters, Gaussian particles, etc.) as the generation target of the diffusion model, and pre-train it on large-scale 3D datasets;
+6. Achieve end-to-end Text-to-3D sampling through text condition control.
 
-在场景级别，**场景草模**能力允许用户用自然语言或粗略草图描述空间布局，例如“一个带落地窗的客厅，左边一张 L 型沙发，中间一张茶几，右侧有书架和电视柜”，系统自动搭建出一个几何和语义合理的 3D 布局草图。后续可以在 DCC 工具中细化模型与材质，或直接通过混元 3D、Tripo 等工具中的“场景生成”能力快速产出可用的场景原型。
+At the scene level,** the scene rough model **capability allows users to describe spatial layouts using natural language or rough sketches, such as "a living room with floor-to-ceiling windows, an L-shaped sofa on the left, a coffee table in the middle, and bookshelves and a TV cabinet on the right." The system automatically constructs a 3D layout sketch with reasonable geometry and semantics. Subsequently, the model and materials can be refined in DCC tools, or a usable scene prototype can be quickly generated directly through the "scene generation" capabilities in tools such as Hunyuan 3D and Tripo.
 
-当前，多家平台已经推出面向设计师和开发者的 Text‑to‑3D 产品：
+Currently, multiple platforms have launched Text-to-3D products targeting designers and developers:
 
-* 「混元 3D」等将文生 3D、多视图生成与重建能力整合进统一界面，支持从文本快速生成角色、道具和场景再导出到游戏引擎；
-* Tripo 类产品则强调“多模态输入 + 一键 3D 输出”，支持简单文本和参考图像混合，引导生成满足风格与结构需求的 3D 资产。
+* "Hunyuan 3D" and others integrate text-to-3D, multi-view generation, and reconstruction capabilities into a unified interface, supporting the rapid generation of characters, props, and scenes from text and then exporting them to game engines;
+* Tripo products emphasize "MultiModal Machine Learning input + one-click 3D output", support the mixing of simple text and reference images, and guide the generation of 3D assets that meet style and structural requirements.
 
-### 3.3.2 图 / 视频生 3D 与模型优化编辑
+### 3.3.2 Image/Video Generation of 3D and Model Optimization Editing
 
-与纯文本相比，从图像或视频生成 3D 模型对几何约束更强，在视觉上一致性也更好。因此，大量 3D AI 产品支持 **图生 3D / 视频生 3D** ：
+Compared with plain text, generating 3D models from images or videos imposes stronger geometric constraints and has better visual consistency. Therefore, a large number of 3D AI products support  **Image-to-3D/Video-to-3D** :
 
-* 单张照片 → 粗 3D：利用单视图先验（如人脸、人体、常见物体类别的形状先验），推断大致的 3D 几何，生成可用于预览或简单交互的 3D 模型。
-* 多张照片 / 短视频 → 高质量 3D：综合使用 NeRF/SDF/Gaussian 重建、多视角几何和后处理，将数十张照片或几秒钟视频转换为高保真的 3D 模型，适合游戏/影视资产或高质量电商展示。
+* Single Photo → Coarse 3D: Utilize single-view priors (such as shape priors for faces, human bodies, and common object categories) to infer approximate 3D geometry and generate 3D models that can be used for preview or simple interaction.
+* Multiple Photos / Short Videos → High-Quality 3D: By comprehensively using NeRF/SDF/Gaussian reconstruction, multi-view geometry, and post-processing, dozens of photos or a few seconds of video can be converted into high-fidelity 3D models, suitable for game/film assets or high-quality e-commerce displays.
 
-生成出 3D 几何只是第一步，后续还需要大量**模型优化与编辑**工作：
+Generating 3D geometry is just the first step, and a large amount of**model optimization and editing**work is still needed in the follow-up:
 
-* 重拓扑与简模：将隐式场或高多边形 Mesh 转换为结构规整、面数可控的拓扑，以便于绑定、动画和实时渲染。
-* LOD 生成：自动生成多级细节模型（Level of Detail），在远处用低模、近处用高模，兼顾画质与性能。
-* UV 展开与贴图生成：自动为模型展开 UV、生成或优化法线贴图、位移贴图、粗糙度/金属度贴图等 PBR 材质；有些模型还支持从文本或参考图自动生成风格化纹理。
-* 几何与风格编辑：基于语言或示例图进行局部修改，如“让这个椅子腿变短一点”“把这栋楼改成赛博朋克风格”，底层通常通过形状潜空间操作或神经场编辑实现。
+* Retopology and Simplified Modeling: Convert implicit fields or high-polygon meshes into topologies with regular structures and controllable face counts to facilitate rigging, animation, and real-time rendering.
+* LOD Generation: Automatically generates multi-level detail models (Level of Detail), using low-poly models for distant views and high-poly models for close views, balancing image quality and performance.
+* UV Unwrapping and Texture Generation: Automatically unwrap UVs for models, generate or optimize normal maps, displacement maps, roughness/metallic maps, and other PBR materials; some models also support automatically generating stylized textures from text or reference images.
+* Geometry and Style Editing: Perform local modifications based on language or example images, such as "make this chair leg a bit shorter" or "change this building to Cyberpunk style", which is typically implemented through shape latent space operations or neural field editing at the underlying level.
 
-混元 3D、Tripo 等产品往往将上述流程打通：用户从照片/视频或简单文本出发，系统内部完成重建、重拓扑、贴图与导出，让非专业用户也能在几分钟内获得“即插即用”的 3D 模型，大幅缩短从概念到资产的时间。
+Products such as Hunyuan 3D and Tripo often integrate the above processes: starting from photos/videos or simple text, the system internally completes reconstruction, retopology, texturing, and export, enabling non-professional users to obtain "Plug and Play" 3D models within minutes, significantly reducing the time from concept to asset.
 
-### 3.3.3 绑定、动画与动态 3D 资产
+### 3.3.3 Binding, Animation, and Dynamic 3D Assets
 
-静态模型只是内容的一半，“能动起来”的 3D 资产在游戏、影视、虚拟人和交互应用中更为关键。这涉及**骨骼绑定（Rigging）、权重绘制、动画与物理模拟**等环节，传统上都是高门槛的专业工作，如今也逐渐被 AI 工具辅助甚至半自动完成。
+Static models are only half of the content; "animated" 3D assets are more crucial in games, film and television, virtual humans, and interactive applications. This involves**rigging, weight painting, animation, and physical simulation**and other processes, which have traditionally been high-threshold professional tasks but are now gradually being assisted or even semi-automatically completed by AI tools.
 
-* **自动 Rigging** ：给定一个角色 Mesh，系统自动推断骨骼层级结构（脊柱、四肢、手指等）和骨骼在模型中的位置，并预测每个顶点相对于各个骨骼的权重。近年来的深度学习方法可以在大规模带骨骼标注的角色数据集上学习这一映射，实现一键骨骼绑定。
-* **动画与动作生成** ：在已有骨骼上叠加动作数据（Mocap 或 AI 生成），完成走路、跑步、表情、手势等动画；基于深度学习的动作生成与 Retargeting 可以将视频中的人体动作或其他角色的动作迁移到新角色上。
-* **物理模拟** ：对布料、软体、刚体等进行物理模拟，使头发、衣服、旗帜、柔软物体的运动更自然。有些系统利用神经网络加速或近似物理，使实时引擎中的物理效果更逼真。
+* **Automatic Rigging** : Given a character mesh, the system automatically infers the bone hierarchy (spine, limbs, fingers, etc.) and the positions of bones within the model, and predicts the weights of each vertex relative to individual bones. In recent years, deep learning methods have been able to learn this mapping on large-scale character datasets with bone annotations, enabling one-click rigging.
+* **Animation and Motion Generation** : Overlay motion data (Mocap or AI-generated) on existing skeletons to complete animations such as walking, running, expressions, gestures, etc.; Deep learning-based motion generation and Retargeting can transfer human body movements in videos or movements of other characters to new characters.
+* **Physical simulation** : Conduct physical simulations on cloth, soft bodies, rigid bodies, etc., to make the movements of hair, clothing, flags, and soft objects more natural. Some systems use neural networks to accelerate or approximate physics, making the physical effects in real-time engines more realistic.
 
-在产品与生态上，这些能力常常内嵌于：
+In terms of products and ecosystems, these capabilities are often embedded in:
 
-* 游戏 / 影视资产工具链：为建模师提供一键 Rigging、自动权重分配和基础动作库，大幅减少重复劳动；
-* 虚拟人 / 数字资产制作平台：从人物照片或扫描开始，经由 3D 重建 + 自动 Rigging + 动作驱动，输出可在直播、短视频、互动应用中驱动的虚拟人；
-* 3D AI 平台（如混元 3D、Tripo 及同类产品）：在 3D 生成之后，进一步增加绑定与简单动画功能，让用户“生成的角色可以立刻动起来”，而不需要复杂的 DCC 工具操作。
+* Game / Film Asset Toolchain: Provides one-click rigging, automatic weight assignment, and a basic motion library for modelers, significantly reducing repetitive labor;
+* Virtual Human / Digital Asset Creation Platform: Starting from a portrait photo or scan, through 3D reconstruction + automatic rigging + motion driving, it outputs virtual humans that can be driven in LIVE broadcasts, short videos, and interactive applications;
+* 3D AI platforms (such as Hunyuan 3D, Tripo, and similar products): After 3D generation, further add rigging and simple animation functions to enable users to "make the generated characters move immediately" without the need for complex DCC tool operations.
 
-随着 3D 生成与编辑技术的成熟，整个 3D 内容生产流程正在从“以专业 DCC 工具为中心”演化为“AI 驱动的人机协作”：AI 负责生成与大量基础工作，人类更多在风格定义、品控和关键设计节点上做决策。混元 3D、Tripo 等新一代 3D AI 产品正是这一趋势的集中体现，为上层的游戏、影视、AR/VR、数字孪生和虚拟人应用提供了更快、更易用的 3D 基础设施。
+With the maturity of 3D generation and editing technologies, the entire 3D content production process is evolving from "centered around professional DCC tools" to "AI-driven human-machine collaboration": AI is responsible for generation and a large amount of basic work, while humans make decisions more on style definition, quality control, and key design nodes. New-generation 3D AI products such as Hunyuan 3D and Tripo are the concentrated embodiment of this trend, providing faster and more user-friendly 3D infrastructure for upper-level applications in gaming, film and television, AR/VR, digital twin, and virtual human.
 
-# 4. 音频（Audio / Speech）
+# 4. Audio / Speech
 
-在整体技术栈中，“音频”对应的是对声学信号的感知与生成：既包括对原始波形和频谱的处理，也包括把语音转为文字、理解“谁在说”“说了什么”，以及进一步对声音、音乐进行创作和合成。与视觉类似，音频也可以被拆成多层：底层的**波形与频谱处理**负责“听清楚”；中层的**语音识别与说话人技术**负责“听懂是谁在说什么”；在此之上，是更抽象的**音频/音乐理解**与 **语音、音乐生成** 。这一整块能力共同支撑了会议实时字幕、语音助手、播客后期修音、智能音箱、声学安防监控、音乐推荐与生成等产品。
+In the overall technology stack, "audio" corresponds to the perception and generation of acoustic signals: it includes both the processing of raw waveforms and spectra, as well as converting speech into text, understanding "who is speaking" and "what is being said", and further creating and synthesizing sounds and music. Similar to vision, audio can also be broken down into multiple layers: the underlying ** waveform and spectrum processing ** is responsible for "hearing clearly"; the middle layer ** speech recognition and speaker technology ** is responsible for "understanding who is saying what"; on top of this, there is the more abstract ** audio/music understanding ** and  ** speech and music generation ** . This entire set of capabilities jointly supports products such as real-time meeting subtitles, voice assistants, podcast post-production audio tuning, smart speakers, acoustic security monitoring, music recommendation and generation, etc.
 
-## 4.1 波形层面音频处理：从“听得清”开始
+## 4.1 Waveform-level Audio Processing: Starting from "Clear Listening"
 
-在音频技术的最底层，我们首先关心的并不是“说了什么”“是谁在说”“音乐是什么风格”，而是 **这个声音本身干不干净、听不听得清** 。这一层主要在波形和频谱层面工作，通过重采样、增强、降噪、分离等操作，把嘈杂、失真、混在一起的原始声音加工成更适合后续识别、分析和生成的“干净信号”。可以把它类比到视觉里的“图像增强 + 去噪 +分离前景/背景”，更多是在做声学层面的清理，而不直接处理语义。
+At the lowest level of audio technology, what we first care about is not "what was said", "who said it", or "what style the music is", but  ** whether the sound itself is clean and clear ** . This layer mainly operates at the waveform and spectrum levels, processing noisy, distorted, and mixed raw sounds into "clean signals" more suitable for subsequent recognition, analysis, and generation through operations such as resampling, enhancement, noise reduction, and separation. It can be compared to "image enhancement + denoising + foreground/background separation" in vision, mainly performing acoustic-level cleaning rather than directly processing semantics.
 
-从产品角度看，这一层几乎“隐身”在所有音频产品背后：会议软件的实时降噪、播客/短视频后期修音、录音笔和手机里的“语音增强模式”、直播平台里的“美声开关”，以及给 ASR/声纹模型做的前端预处理，都是波形层面音频处理的直接体现。下面依旧从 **场景** 、**原理**和**模型**三个角度来梳理，并在后续小节具体展开预处理 & 特征提取、增强与降噪、声源分离三个关键方向。
+From a product perspective, this layer is almost "invisible" behind all audio products: real-time noise reduction in conferencing software, post-production audio tuning for podcasts/short videos, the "voice enhancement mode" in voice recorders and mobile phones, the "beauty voice switch" in LIVE platforms, and front-end preprocessing for ASR/voiceprint models are all direct manifestations of audio processing at the waveform level. The following will still be sorted out from the three perspectives of  ** scenarios ** ,  ** principles ** , and  ** models ** , and the three key directions of preprocessing & feature extraction, enhancement & noise reduction, and sound source separation will be specifically expanded in the subsequent subsections.
 
-* **场景**
-  * 在线沟通与会议：Zoom、腾讯会议等在嘈杂办公室、开放工位、家中环境下，实时压制键盘声、敲击声、街噪、回声，让语音更清晰。
-  * 内容创作与后期修音：播客、短视频、直播后期中，自动消除底噪、电流声、房间混响，修补录音爆音和频段缺失，提高整体听感。
-  * 录音与转写前端：录音笔、智能字幕、会议转写服务在进入 ASR 之前，通过 VAD、降噪、响度归一等处理，提升后端识别鲁棒性。
-  * 终端与 IoT：智能音箱、车机、摄像头等设备上的“远场拾音”与“降噪模式”，在复杂声场中尽量捕获到主说话人或关键声源。
-* **原理**
-  波形层面处理通常不直接理解语义，而是围绕频谱结构和统计特性做信号优化：
-  * 在时间域和频率域之间来回变换（如 STFT → 频谱/梅尔频谱 → iSTFT），对噪声频带、混响特征或背景声进行抑制或建模。
-  * 通过 VAD 和能量/谱特征，区分“有语音的片段”和“静音/噪声片段”，减少无效片段对后端的影响。
-  * 使用深度学习或经典滤波方法估计“干净语音谱”和“噪声谱”的掩码或增益函数，对频谱进行加权，达到增强与降噪的目的。
-  * 在多声源混合的场景中，通过端到端分离网络或稀疏表示，将不同说话人、人声与伴奏、前景与背景环境声解混到独立的轨道。
-* **模型**
-  波形/频谱层面的模型大致可分为两类：**频谱域模型**和 **时域端到端模型** ：
-  * 频谱/梅尔频谱上的 U‑Net 系列：Spectrogram‑based U‑Net、DCCRN 等，在时–频平面上做“图像式”的卷积与编码–解码，是语音增强、歌声分离等任务的常用方案。
-  * 波形端到端模型：Wave‑U‑Net、Conv‑TasNet、Demucs 等，直接在时域波形上建模，避免显式 STFT/ISTFT，往往在主观听感和时域保真度上效果更好。
-  * 经典信号处理方法：谱减、Wiener 滤波等传统频域方法，在轻量级设备或对延迟极敏感的场景中仍然广泛存在，常与深度增强网络结合形成“混合方案”。
+* **Scenario**
+  * Online Communication and Meetings: Zoom, Tencent Meeting, etc., can suppress keyboard noise, tapping sounds, street noise, and echoes in real-time in noisy offices, open workstations, and home environments, making voices clearer.
+  * Content Creation and Post-production Audio Tuning: Automatically eliminate background noise, electrical hum, and room reverb in podcast, short video, and LIVE post-production, repair recording pops and frequency band deficiencies, and enhance the overall listening experience.
+  * Recording and Transcription Front-End: Before entering ASR, recording pens, intelligent subtitles, and meeting transcription services enhance the robustness of back-end recognition through processing such as VAD, noise reduction, and loudness normalization.
+  * Terminals and IoT: "Far-field sound pickup" and "noise reduction mode" on devices such as smart speakers, in-vehicle infotainment systems, and cameras aim to capture the main speaker or key sound source as much as possible in complex sound fields.
+* **Principle**
+  Waveform-level processing typically does not directly understand semantics but instead focuses on signal optimization around spectral structure and statistical characteristics:
+  * Transform back and forth between the time domain and the frequency domain (e.g., STFT → spectrogram/Mel spectrogram → iSTFT) to suppress or model noise bands, reverberation characteristics, or background sounds.
+  * By using VAD and energy/spectral features, distinguish "voice segments" from "silence/noise segments" to reduce the impact of invalid segments on the backend.
+  * Use deep learning or classical filtering methods to estimate the mask or gain function of the "clean speech spectrum" and "noise spectrum", and weight the spectrum to achieve the purpose of enhancement and noise reduction.
+  * In a multi-source mixed scenario, different speakers, vocals and accompaniment, foreground and background environmental sounds are separated into independent tracks through end-to-end separation networks or sparse representation.
+* **Models**
+  Models at the waveform/spectrum level can be roughly divided into two categories:**spectral domain models** and  **time domain end-to-end models** :
+  * U-Net series on spectrogram/Mel spectrogram: Spectrogram-based U-Net, DCCRN, etc., perform "image-like" convolution and encoding-decoding on the time-frequency plane, and are commonly used solutions for tasks such as speech enhancement and singing voice separation.
+  * Waveform end-to-end models: Wave-U-Net, Conv-TasNet, Demucs, etc., directly model on the time-domain waveform, avoiding explicit STFT/ISTFT, and often perform better in subjective listening experience and time-domain fidelity.
+  * Classical signal processing methods, such as traditional frequency domain methods like spectral subtraction and Wiener filtering, still widely exist in lightweight devices or scenarios highly sensitive to latency, and are often combined with deep enhancement networks to form "hybrid solutions".
 
-### 4.1.1 预处理与特征提取：为后端“清场搭台”
+### 4.1.1 Preprocessing and Feature Extraction: "Clearing the Stage and Setting the Platform" for the Backend
 
-任何后续的 ASR、声纹识别、事件检测、TTS 等模型，都需要一个尽量统一、干净、结构化的音频输入，这就是预处理与特征提取层的职责。它负责做最基础却又极其关键的“清场”和“格式统一”，为上游音频模型搭好舞台。
+Any subsequent models such as ASR, voiceprint recognition, event detection, TTS, etc., require a unified, clean, and structured audio input as much as possible, which is the responsibility of the preprocessing and feature extraction layer. It is responsible for performing the most basic yet extremely crucial "cleaning up" and "format standardization" to set the stage for upstream audio models.
 
-在预处理阶段，首先会对采集到的音频做 **采样率转换和声道转换** ：比如把 48kHz 立体声转换为 16kHz 单声道，以满足下游模型的输入规格，并降低计算成本。随后，会对响度进行归一化、去直流分量、简单滤波等，使不同设备、不同场景下录得的音频在能量尺度上更加一致。
+During the preprocessing stage, the collected audio will first undergo  ** sampling rate conversion and channel conversion ** : for example, converting 48kHz stereo to 16kHz mono to meet the input specifications of downstream models and reduce computational costs. Subsequently, operations such as loudness normalization, DC component removal, and simple filtering will be performed to make the audio recorded under different devices and scenarios more consistent in terms of energy scale.
 
-**语音端点检测（VAD）** 则是预处理中的另一个关键环节。它尝试在音频流中自动划分“有语音的片段”和“静音/纯噪声片段”，常基于帧能量、谱熵、零交叉率或小型神经网络判别。VAD 的好处是：可以显著减少送入 ASR/声纹模型的无效数据，降低计算量，同时避免静音段干扰识别（例如误识为长串空格或奇怪字符）。在实时通信中，VAD 还可以驱动“语音活动指示灯”和自动静音逻辑。
+**Voice Activity Detection (VAD)** is another key step in preprocessing. It attempts to automatically partition "speech segments" and "silence/pure noise segments" in the audio stream, often based on frame energy, spectral entropy, zero-crossing rate, or small neural network discrimination. The benefits of VAD are: it can significantly reduce the invalid data fed into the ASR/speaker recognition model, reduce computational load, and avoid interference from silent segments during recognition (e.g., misrecognition as long strings of spaces or strange characters). In real-time communication, VAD can also drive the "voice activity indicator" and automatic mute logic.
 
-在特征提取层面，最常见的是将时域波形转为**频谱**或 **梅尔频谱** 。通过短时傅里叶变换（STFT），音频被分解为随时间变化的频率分布；再通过梅尔滤波器组，可以得到更符合人耳感知的梅尔频谱或梅尔倒谱特征（如 log Mel‑spectrogram、MFCC）。这些时–频特征为后续的识别、分离与生成提供了一种“二维表示”，类似视觉里的灰度图或多通道特征图，便于卷积、注意力等结构处理。随着端到端建模的发展，也有越来越多模型直接在波形上学习特征（如 Wav2Vec 2.0 ），但在工程实践中，STFT + 梅尔特征的组合仍然是最普遍、最稳妥的前端。
+At the feature extraction level, the most common approach is to convert the time-domain waveform into **spectrum **or  **Mel spectrum ** . Through the Short-Time Fourier Transform (STFT), audio is decomposed into time-varying frequency distributions; then, by using the Mel filter bank, Mel spectrum or Mel cepstral features (such as log Mel-spectrogram, MFCC) that better match human auditory perception can be obtained. These time-frequency features provide a "two-dimensional representation" for subsequent recognition, separation, and generation, similar to canary release or multi-channel feature maps in vision, facilitating processing by structures such as convolution and attention. With the development of end-to-end modeling, more and more models are directly learning features on waveforms (such as Wav2Vec 2.0), but in engineering practice, the combination of STFT + Mel features remains the most common and reliable front-end.
 
-### 4.1.2 增强与降噪：把“糊音”修成“干声”
+### 4.1.2 Enhancement and Noise Reduction: Correct "muffled sound" to "dry sound"
 
-在真实环境中，声音几乎总是在噪声和混响中传播：空调声、键盘敲击、路噪、人群嘈杂、房间回声，都在不同程度上降低了语音和音乐的可懂度与主观质量。**语音增强与降噪**的目标，就是在尽量保持语音自然度和完整度的前提下，抑制这些背景干扰，把“糊掉”的声音尽可能修成“干净”的声音。
+In real-world environments, sound almost always propagates in noise and reverberation: air conditioning noise, keyboard typing, road noise, crowd noise, and room echoes all reduce the intelligibility and subjective quality of speech and music to varying degrees. ** The goal of speech enhancement and noise reduction ** is to suppress these background interferences and restore the "blurred" sound to as "clean" as possible while maintaining the naturalness and integrity of speech as much as possible.
 
-在传统方法中，这一任务主要通过谱减、Wiener 滤波等频域技术实现：先估计噪声谱，然后在频谱上按一定规则“减去”噪声或进行频带增益调整。虽然实现简单、实时性好，但在强噪声、非平稳噪声和复杂混响场景下容易产生明显的“音乐噪声”和伪影。
+In traditional methods, this task is mainly achieved through frequency domain techniques such as spectral subtraction and Wiener filtering: first estimate the noise spectrum, and then "subtract" the noise or adjust the frequency band gain on the spectrum according to certain rules. Although it is simple to implement and has good real-time performance, it is prone to produce obvious "musical noise" and artifacts in scenarios with strong noise, non-stationary noise, and complex reverberation.
 
-深度学习方法则通过在频谱或波形上学习一个 **映射** ：给定带噪语音，预测一个时间–频率掩码或直接预测干净波形。常见方案包括在梅尔/线性频谱上使用 **Spectrogram‑based U‑Net、DCCRN** 等编码–解码结构，对每一帧的频谱进行细致修复；也有直接在时域波形上用 **Conv‑TasNet、Demucs、Wave‑U‑Net** 等模型进行端到端的波形增强。这些方法在语音电话、在线会议、录音修复等场景中，能显著提高语音清晰度和主观听感。
+Deep learning methods, on the other hand, learn a **mapping** on the spectrum or waveform: given noisy speech, they predict a time-frequency mask or directly predict the clean waveform. Common solutions include using **spectrogram-based U-Net, DCCRN** and other encoder-decoder structures on the Mel/linear spectrum to carefully repair the spectrum of each frame; there are also models such as **Conv-TasNet, Demucs, Wave-U-Net** that directly perform end-to-end waveform enhancement on the time-domain waveform. These methods can significantly improve speech clarity and subjective listening experience in scenarios such as voice calls, online meetings, and audio recording restoration.
 
-在内容创作和后期制作中，“录音修复”往往还涉及减少爆音（plosives）、削减齿音（sibilance）、补偿频段缺失以及均衡（EQ）和动态处理（压缩器/限幅器）等更“音频工程师味”的操作。越来越多的工具将这些传统处理与深度模型结合，提供一键“修音”和“音频美化”能力，服务播客、视频创作者和直播平台。
+In content creation and post production, "audio restoration" often involves more "audio engineer-like" operations such as reducing plosives, cutting sibilance, compensating for missing frequency bands, and equalization (EQ) and dynamic processing (compressors/limiters). More and more tools combine these traditional processes with deep models to provide one-click "audio repair" and "audio beautification" capabilities, serving podcasters, video creators, and live streaming platforms.
 
-### 4.1.3 声源分离：把“混音”拆开
+### 4.1.3 Sound Source Separation: Split the "Mixed Audio"
 
-如果说增强与降噪是“让主声更突出、背景更安静”，那么**声源分离**则进一步尝试将混合在一起的多个声源完全拆分成独立轨道。例如：会议录音中多位说话人同时讲话；音乐中人声与伴奏混在一起；环境录音中主事件（如警报、喊叫）掩埋在背景噪声里。声源分离的目标，是从单条或多条混合信号中，恢复出每个独立声源的波形或频谱。
+If enhancement and noise reduction are about "making the main sound more prominent and the background quieter", then ** source separation ** further attempts to completely split multiple mixed sound sources into independent tracks. For example: multiple speakers speaking simultaneously in a meeting recording; vocals and accompaniment mixed together in music; the main event (such as an alarm or shouting) buried in background noise in an environmental recording. The goal of source separation is to recover the waveform or spectrum of each independent sound source from single or multiple mixed signals.
 
-在语音领域，**多说话人分离**是一个核心应用：模型需要在没有单独麦克风分轨的情况下，根据声纹、时频结构和说话人特征，将多个重叠语音分到不同通道。这类能力不仅能提升多说话人 ASR 的表现，还可为说话人分离与标注（Diarization）提供更干净的输入。在音乐领域，**人声/伴奏分离（歌声分离）**则可以从一首混音好的歌曲中分离出清晰的人声轨和纯伴奏轨，用于翻唱、Remix、卡拉 OK、音乐分析等。类似地，**环境音/前景声分离**可用于安防与 IoT 场景，从复杂背景中提取关键事件声（如玻璃破碎、冲突声）。
+In the field of speech, ** multi-speaker separation ** is a core application: the model needs to separate multiple overlapping voices into different channels based on voiceprints, time-frequency structure, and speaker characteristics without separate microphone tracks. This type of ability not only improves the performance of multi-speaker ASR but also provides cleaner input for speaker separation and annotation (Diarization). In the music field, **vocals/accompaniment separation (singing voice separation)** can separate clear vocal tracks and pure accompaniment tracks from a mixed song for cover singing, remixing, karaoke, music analysis, etc. Similarly, ** ambient sound/foreground sound separation ** can be used in security and IoT scenarios to extract key event sounds (such as glass breaking, conflict sounds) from complex backgrounds.
 
-在模型层面，声源分离通常采用比普通增强更强的建模能力和更复杂的架构。**Conv‑TasNet、Demucs、Wave‑U‑Net** 等端到端网络可以直接在时域进行多声源分解；在频谱域上，则常见多分支 U‑Net、注意力、掩码估计等结构，分别为不同声源预测专门的掩码或频谱。随着训练数据和计算资源的增长，现代声源分离模型已经能在相当复杂的混响和噪声环境下，输出可用于实际创作与分析的高质量分轨，为直播美声、多说话人会议、音乐制作和音频检索提供了坚实基础。
+At the model level, source separation typically employs stronger modeling capabilities and more complex architectures than ordinary enhancement.** End-to-end networks such as Conv-TasNet, Demucs, and Wave-U-Net ** can directly perform multi-source decomposition in the time domain; in the spectral domain, structures such as multi-branch U-Net, attention, and mask estimation are commonly used to predict dedicated masks or spectra for different sound sources respectively. With the growth of training data and computing resources, modern source separation models have been able to output high-quality separated tracks suitable for actual creation and analysis in fairly complex reverberant and noisy environments, providing a solid foundation for LIVE vocal beautification, multi-speaker meetings, music production, and audio retrieval.
 
-## 4.2 语音识别与说话人技术（ASR & Speaker）
+## 4.2 Automatic Speech Recognition & Speaker Identification (ASR & Speaker)
 
-在波形层面完成了预处理、增强和分离之后，我们终于可以开始问更高层的问题：**“音频里说了什么？”“是谁在说？”“什么时候谁在说？”** 这一层聚焦的是各种围绕语音本身的“理解与标注”任务：自动语音识别（ASR）、说话人识别与验证、说话人分离与标注（Diarization），以及面向交互的热词与关键词检测（KWS）。
+After completing preprocessing, enhancement, and separation at the waveform level, we can finally start asking higher-level questions: ** "What was said in the audio?" "Who was speaking?" "When did who speak?" ** This layer focuses on various "understanding and annotation" tasks centered around speech itself: Automatic Speech Recognition (ASR), Speaker Identification and Verification, Speaker Separation and Annotation (Diarization), and Interaction-Oriented Hotword and Keyword Detection (KWS).
 
-从产品形态看，这一层是绝大多数“语音产品”的核心：语音输入法、会议转写、客户服务录音分析、智能客服质检、智能音箱和车机语音交互、电话机器人、金融场景声纹验证等，几乎都直接依赖这些技术。它们把前一层“干净的声音”转化为文字序列、说话人标签或关键词事件，是音频到语义世界的最重要桥梁之一。
+From a product form perspective, this layer is the core of most "voice products": voice input methods, meeting transcription, customer service recording analysis, intelligent customer service quality inspection, smart speakers and in-vehicle voice interaction, telephone robots, financial scenario voiceprint verification, etc., almost all directly rely on these technologies. They transform the "clean sound" from the previous layer into text sequences, speaker labels, or keyword events, and are one of the most important bridges from the audio to the semantic world.
 
-* **场景**
-  * 自动语音识别（ASR）：实时字幕、语音输入法、会议与课堂记录、客服通话转写，为用户提供“听觉到文本”的即时通道。
-  * 说话人识别与验证：手机/银行/呼叫中心中的“声纹解锁”“声纹验证”，以及在海量录音中检索某一特定说话人。
-  * 说话人分离与标注（Diarization）：在会议、访谈、圆桌讨论中，自动回答“谁在什么时候说话”，实现“分说话人转写”。
-  * 热词与关键词检测（KWS）：智能音箱/车机唤醒词检测（“Hey Siri”“OK Google”），以及在客服录音、质检中捕捉关键短语（如“投诉”“退款”“要升级”等）。
-* **原理**
-  这一层的大部分任务都可以被统一视为对音频序列进行 **时间对齐与序列标注** ：
-  * ASR：给定一段语音，学习从声学特征到文本序列的映射，常使用 CTC、RNN‑Transducer（RNN‑T）或基于注意力的端到端结构；现代模型多采用大规模预训练（如 Wav2Vec 2.0、Whisper 等）再微调。
-  * 说话人识别：从音频中提取一个固定维度的 **说话人嵌入** （speaker embedding，如 x‑vector、ECAPA‑TDNN），在这个嵌入空间中，同一人的语音彼此接近，不同人的语音彼此远离，再结合度量或分类模型完成识别与验证。
-  * 说话人分离与标注（Diarization）：综合利用声纹嵌入、VAD、分段聚类或端到端网络（EEND），为每一段时间片分配说话人标签，从而拼出“时间轴上的多说话人时间线”。
-  * KWS：在连续音频流上进行低延迟的小模型检测，对预定义的唤醒词或关键词进行局部模式匹配和置信度评估，兼顾低算力与高召回。
-* **模型**
-  ASR 与说话人技术的模型谱系既包括端到端架构，也包括专门的嵌入模型与聚类方法：
-  * ASR：Wav2Vec 2.0、Conformer、Whisper、RNN‑T、Citrinet 等，大多采用卷积 + 自注意力或纯自注意力结构，支持多语种、大词表和长上下文。
-  * 说话人嵌入：ECAPA‑TDNN、x‑vector、i‑vector 等，通过对大量说话人数据进行分类训练或度量学习，得到稳健的说话人特征空间。
-  * Diarization：从 VAD + 分段 + 聚类的传统流程，到 End‑to‑End Diarization（EEND）这类直接输出“时刻 × 说话人”矩阵的端到端方法。
-  * 热词/关键词检测：轻量级 CNN/RNN/Transformer 前端组合 CTC 或门控机制，嵌入在设备本地，以超低算力、低延迟实现常开监听。
+* **Scenario**
+  * Automatic Speech Recognition (ASR): Real-time subtitles, speech input method, meeting and classroom recording, customer service call transcription, providing users with an instant "hearing-to-text" channel.
+  * Speaker Identification and Verification: "Voiceprint Unlock" and "Voiceprint Verification" in mobile phones, banks, and call centers, as well as retrieving a specific speaker from a vast amount of recordings.
+  * Speaker Diarization: Automatically answers "who spoke when" in meetings, interviews, and roundtable discussions, enabling "transcription by speaker".
+  * Hotword and Keyword Spotting (KWS): Detection of wake words for smart speakers/car infotainment systems (e.g., "Hey Siri", "OK Google"), as well as capturing key phrases (such as "complaint", "refund", "want upgrade", etc.) in customer service recordings and quality inspections.
+* **Principle**
+  Most tasks at this layer can be uniformly regarded as performing **temporal alignment and sequence annotation** on the audio sequence:
+  * ASR: Given a segment of speech, it learns the mapping from acoustic features to text sequences, often using CTC, RNN-Transducer (RNN-T), or attention-based end-to-end architectures; modern models mostly adopt large-scale pre-training (such as Wav2Vec 2.0, Whisper, etc.) followed by fine-tuning.
+  * Speaker Identification: Extract a fixed-dimensional **speaker embedding** (e.g., x-vector, ECAPA-TDNN) from the audio. In this embedding space, the voices of the same person are close to each other, while the voices of different people are far apart. Then, combine a metric or classification model to complete identification and verification.
+  * Speaker Diarization: By comprehensively utilizing voiceprint embedding, VAD, segment clustering, or end-to-end network (EEND), it assigns speaker labels to each time segment, thereby piecing together the "multi-speaker timeline on the time axis".
+  * KWS: Performs low-latency small model detection on continuous audio streams, conducts local pattern matching and confidence level evaluation on predefined wake words or keywords, and takes into account both low computing power and high recall.
+* **Model**
+  The model lineage of ASR and speaker technology includes both end-to-end architectures and specialized embedding models and clustering methods:
+  * ASR: Wav2Vec 2.0, Conformer, Whisper, RNN-T, Citrinet, etc., mostly adopt convolution + self-attention or pure self-attention architectures, supporting multilingual, large vocabulary, and long context.
+  * Speaker embedding: ECAPA-TDNN, x-vector, i-vector, etc., obtain a robust speaker feature space through classification training or metric learning on a large amount of speaker data.
+  * Diarization: From the traditional process of VAD + segmentation + clustering to end-to-end methods such as End-to-End Diarization (EEND) that directly output a "time × speaker" matrix.
+  * Hotword/Keyword Detection: A lightweight CNN/RNN/Transformer front-end combined with CTC or a gating mechanism, embedded locally on the device, enables always-on listening with ultra-low computing power and low latency.
 
-### 4.2.1 自动语音识别（ASR）：把“声音”变成“文字”
+### 4.2.1 Automatic Speech Recognition (ASR): Transforming "sound" into "text"
 
- **自动语音识别（ASR）是“音频→文本”的主通路：无论是语音输入法，还是会议转写、智能字幕、客服录音分析，第一步都是要把用户说的话准确地转成文字。现代 ASR 系统多采用端到端架构** ：从声学特征（如梅尔频谱或直接波形）出发，经过一系列深度网络（如 Conformer、Citrinet、基于 Transformer 的 Encoder），直接输出文字序列或对应的 token 序列。
+ **Automatic Speech Recognition (ASR) is the main pathway for "audio → text": whether it is a speech input method, meeting transcription, intelligent subtitles, or customer service recording analysis, the first step is to accurately convert what the user says into text. Modern ASR systems mostly adopt an end-to-end architecture ** : starting from acoustic features (such as Mel spectrograms or direct waveforms), passing through a series of deep networks (such as Conformer, Citrinet, Transformer-based Encoder), and directly outputting text sequences or corresponding token sequences.
 
-在建模上，ASR 的难点主要包括长时依赖、多语种与方言、口音变化、重叠语音、背景噪声以及领域内专有名词。为此，当前主流方向是利用大规模无标注音频做自监督预训练（如 Wav2Vec 2.0、HuBERT），或在多语种、多任务数据上做大规模监督训练（如 Whisper），再通过相对少量的领域数据进行微调，从而在不同语言、口音和场景下达到较好的鲁棒性。
+In terms of modeling, the challenges of Automatic Speech Recognition (ASR) mainly include long-term dependencies, multilingualism and dialects, accent variations, overlapping speech, background noise, and domain-specific proper nouns. To address these issues, the current mainstream approach is to use large-scale unlabeled audio for self-supervised pre-training (e.g., Wav2Vec 2.0, HuBERT), or conduct large-scale supervised training on multilingual and multi-task data (e.g., Whisper), and then fine-tune with a relatively small amount of domain-specific data to achieve good robustness across different languages, accents, and scenarios.
 
-在产品层面，ASR 通常被打包为“语音输入法 SDK”“云端语音识别 API”“会议转写服务”等能力输出：前端可以是实时流式识别（RNN‑T、流式 Transformer 等），后端可通过热词注入、自定义词表、上下文约束来强化对特定人名、地名、品牌名和业务术语的识别。这些识别结果往往是后续 NLP、对话系统和数据分析的基础。
+At the product level, ASR is typically packaged as capabilities such as "Speech Input Method SDK", "Cloud Speech Recognition API", and "Meeting Transcription Service": the front end can be real-time streaming recognition (RNN-T, Streaming Transformer, etc.), and the back end can enhance the recognition of specific person names, place names, brand names, and business terms through hot word injection, custom vocabulary, and context constraints. These recognition results often serve as the foundation for subsequent NLP, dialogue systems, and data analysis.
 
-### 4.2.2 说话人识别与分离标注：回答“是谁”与“何时在说话”
+### 4.2.2 Speaker Identification and Separation Annotation: Answering "Who" and "When Speaking"
 
-与“说了什么”相比，**“是谁在说”在很多应用中同样重要：金融、政务、客服、安防等场景需要通过声纹识别**来验证身份或排查风险；而会议与访谈场景则需要知道“每一句是谁说的”，以支持分说话人转写、发言统计和行为分析。
+Compared with "what was said",** "who said it" is equally important in many applications: scenarios such as finance, government affairs, customer service, and security need to verify identity or investigate risks through voiceprint recognition;** while meeting and interview scenarios need to know "who said each sentence" to support speaker-specific transcription, speech statistics, and behavior analysis.
 
-在**说话人识别/验证（Speaker Recognition）** 任务中，系统的目标是：给定一段语音，判断说话人是谁，或者判断是否与某个注册说话人属于同一人。现代系统通常通过 ECAPA‑TDNN、x‑vector 等模型，从语音段中提取一个固定维度的说话人嵌入向量。在训练阶段，以说话人分类与度量学习的组合，保证同一人的嵌入更为聚集、不同人之间的嵌入距离更大；在推理阶段，再采取最近邻或后端判别器（如 PLDA、Cosine scoring with margin）进行验证与识别。这样，系统就能在电话、麦克风、噪声环境下，以一定置信度回答“是不是同一个人”。
+In ** Speaker Identification/Verification (Speaker Recognition) ** tasks, the goal of the system is: given a speech segment, determine who the speaker is, or determine whether it belongs to the same person as a registered speaker. Modern systems typically extract a fixed-dimensional speaker embedding vector from speech segments through models such as ECAPA-TDNN and x-vector. During the training phase, a combination of speaker classification and metric learning is used to ensure that the embeddings of the same person are more clustered and the embedding distances between different people are larger; during the inference phase, nearest neighbor or back-end discriminators (such as PLDA, Cosine scoring with margin) are then used for verification and identification. In this way, the system can answer "whether it is the same person" with a certain confidence level in telephone, microphone, and noisy environments.
 
-**说话人分离与标注（Diarization）** 则进一步回答“谁在什么时候说话”。传统方案通常包含三个步骤：先用 VAD 找出有语音的片段，再将长音频切成短 segments，为每个 segment 提取说话人嵌入，最后在嵌入空间中做聚类和时间拼接，得到一条多说话人时间轴。更先进的 **End‑to‑End Diarization (EEND)** 类方法则尝试直接从音频特征输出“时间 × 说话人”布尔矩阵，端到端学习重叠语音、说话人切换等复杂模式。Diarization 在会议、访谈节目、法庭记录、电话客服等场景中极具价值，常与 ASR 结合形成“带说话人标签的文字记录”。
+**Speaker Diarization** further answers "who spoke when". Traditional approaches typically involve three steps: first, use VAD to identify speech segments; second, split long audio into short segments; third, extract speaker embeddings for each segment; and finally, perform clustering and temporal stitching in the embedding space to obtain a multi-speaker timeline. More advanced **End-to-End Diarization (EEND)** methods attempt to directly output a "time × speaker" boolean matrix from audio features, learning complex patterns such as overlapping speech and speaker switching in an end-to-end manner. Diarization is highly valuable in scenarios such as meetings, interview programs, court records, and telephone customer service, often combined with ASR to form "transcripts with speaker labels".
 
-### 4.2.3 热词与关键词检测：面向交互和监控的“耳朵”
+### 4.2.3 Hot Words and Keyword Detection: The "Ears" for Interaction and Monitoring
 
-在持续的音频流中，不是每一秒都值得被完整识别和存储。**热词与关键词检测（KWS）**的角色，就是一个始终在线的“守门员”：
+In a continuous audio stream, not every second is worth being fully recognized and stored. The role of **Keyword Spotting (KWS)** is that of an always-on "goalkeeper":
 
-* 在智能音箱、车机、手机助手中，KWS 模块负责检测唤醒词（如“Hey Siri”“OK Google”“小爱同学”），一旦检测到唤醒词，就把音频流交给更昂贵的 ASR 与对话系统处理。
-* 在智能客服、质检和合规场景中，KWS 会对录音或实时通话中出现的关键短语（如“投诉”“退货”“维权”“欺诈”）进行标记和告警，为后端分析和质检策略提供触发点。
+* In smart speakers, in-vehicle infotainment systems, and mobile phone assistants, the KWS module is responsible for detecting wake words (such as "Hey Siri", "OK Google", "Xiaomi Tongxue"). Once a wake word is detected, it hands over the audio stream to the more expensive ASR and dialogue system for processing.
+* In intelligent customer service, quality inspection, and compliance scenarios, KWS marks and alerts key phrases (such as "complaint", "return", "rights protection", "fraud") that appear in recordings or real-time calls, providing trigger points for backend analysis and quality inspection strategies.
 
-在技术实现上，KWS 通常需要在**极低算力和低延迟**的约束下运行，尤其是本地设备上的唤醒词检测：模型往往是一个小型 CNN/RNN/Transformer 前端，接 CTC 或门控判别头，对特定词的声学模式进行检测，并利用滑动窗口和置信度平滑避免误唤醒。对于关键词质检场景，则可以采用更强的 ASR + 关键词匹配/正则 + 统计分析，或者直接训练端到端关键词 tagging 模型。无论哪种形态，KWS 本质上是在语音流上加了一层“事件级”的语义筛选，是连接音频世界与交互逻辑的重要接口。
+In Technology Implementation, KWS usually needs to operate under the constraints of  ** extremely low computing power and low latency ** , especially for wake word detection on local devices: the model is often a small CNN/RNN/Transformer front end, followed by a CTC or gated discriminative head, to detect the acoustic patterns of specific words, and uses sliding windows and confidence level smoothing to avoid false wake-ups. For keyword quality inspection scenarios, stronger ASR + keyword matching/regular expressions + statistical analysis can be adopted, or an end-to-end keyword tagging model can be directly trained. Regardless of the form, KWS essentially adds a layer of "event-level" semantic filtering to the speech stream, and is an important interface connecting the audio world and interaction logic.
 
-## 4.3 音频/音乐理解（Audio Event & Music Understanding）
+## 4.3 Audio Event & Music Understanding
 
-并非所有音频都以“语音”为中心。现实中有大量与环境声、事件声、音乐相关的场景，它们更关注的是：**“发生了什么声音事件？”“当前环境是什么声景？”“这首歌是什么风格、用了哪些乐器、节奏和调是什么？”** 这部分能力统称为音频/音乐理解，主要围绕声音事件检测、环境/场景分类和音乐属性理解展开。
+Not all audio is centered around "speech". In reality, there are numerous scenarios related to environmental sounds, event sounds, and music, which are more concerned with:** "What sound event has occurred?" "What is the current acoustic environment?" "What is the style of this song, what instruments are used, and what are the rhythm and key?" ** This set of capabilities is collectively referred to as audio/music understanding, which mainly revolves around sound event detection, environment/scene classification, and music attribute understanding.
 
-从产品视角看，音频理解技术支撑了安防声学监控、IoT 声学传感器、智能设备的环境自适应、音乐推荐与分类、音乐版权识别、音乐检索和创作辅助等广泛应用。与图像中的“图像分类 + 细粒度分类”类似，这一层把原本连续、复杂的声音空间结构化成离散的事件标签、多维属性向量和风格描述。
+From a product perspective, audio understanding technology supports a wide range of applications such as security acoustic monitoring, IoT acoustic sensors, environmental self-adaptation of smart devices, music recommendation and classification, music copyright recognition, music retrieval, and creative assistance. Similar to "image classification + fine-grained classification" in images, this layer structures the originally continuous and complex sound space into discrete event labels, multi-dimensional attribute vectors, and style descriptions.
 
-* **场景**
-  * 声音事件检测：检测警报声、玻璃破碎、婴儿哭声、撞击声等，用于安防监控、智慧楼宇、车辆安全系统和工业告警。
-  * 环境/场景分类：识别“室内/室外”“办公室/车内/街道/地铁”等声景，为智能设备的降噪策略、自适应增益、模式切换提供依据。
-  * 音乐理解与音乐信息检索（MIR）：曲风分类、乐器识别、节奏与调性分析，支撑音乐推荐、歌单生成、音乐检索、版权识别和创作助手。
-* **原理**
-  音频/音乐理解大多基于**时–频特征 + 深度神经网络**进行分类或多标签标注：
-  * 使用 log Mel‑spectrogram 等特征，将音频转化为“声学图像”，再利用 CNN、CRNN 或 Transformer 等结构进行时–频模式识别。
-  * 对于声音事件检测，往往采用多标签、多时序输出，对每种事件在时间轴上进行存在性预测，有时还会结合弱监督标签和多实例学习。
-  * 对环境/场景分类，则更注重长时间统计特征和背景格局，往往需要在较长窗口上建模。
-  * 音乐理解任务则结合音乐理论知识，对节奏（BPM）、拍点、调性、和弦和结构进行建模，部分任务通过自监督或对比学习预训练音乐嵌入，再做下游微调。
-* **模型**
-  常见的音频理解模型多在公开数据集（如 AudioSet）上预训练，再迁移到具体任务：
-  * VGGish、YAMNet、PANNs 等 CNN/CRNN 模型，在大规模有声数据上预训练后，可用于多种音频事件与声景任务。
-  * AST（Audio Spectrogram Transformer）等 Transformer‑based 模型，直接在频谱图上使用自注意力，获得更强的全局时–频建模能力。
-  * 针对音乐的 MusicTagging / MIR 模型，会在百万级歌曲上预训练标签模型或嵌入模型，用于风格/情感/乐器标签、音乐检索和推荐。
+* **Scenario**
+  * Sound Event Detection: Detects alarm sounds, glass breaking, baby crying, impact sounds, etc., for security monitoring, smart buildings, vehicle safety systems, and industrial alarms.
+  * Environment/Scene Classification: Identify soundscapes such as "indoor/outdoor", "office/car/street/subway", etc., to provide a basis for noise reduction strategies, self-adaptation gain, and mode switching of smart devices.
+  * Music Understanding and Music Information Retrieval (MIR): Genre Classification, Instrument Identification, Rhythm and Tonality Analysis, supporting Music Recommendation, Playlist Generation, Music Retrieval, Copyright Identification, and Creative Assistant.
+* **Principle**
+  Audio/music understanding is mostly based on **time-frequency features + deep neural networks **for classification or multi-label annotation:
+  * Using features such as log Mel-spectrogram, convert audio into "acoustic images", and then utilize structures such as CNN, CRNN, or Transformer for time-frequency Pattern Recognition.
+  * For sound event detection, multi-label and multi-temporal output are often adopted to predict the existence of each event on the time axis, and sometimes weak supervision labels and multi-instance learning are also combined.
+  * When classifying environments/scenes, more emphasis is placed on long-term statistical features and background patterns, often requiring modeling over a longer window.
+  * Music understanding tasks combine music theory knowledge to model rhythm (BPM), beat points, tonality, chords, and structure. Some tasks pre-train music embeddings through self-supervised or contrastive learning and then perform downstream fine-tuning.
+* **Model**
+  Common audio understanding models are often pre-trained on public datasets (such as AudioSet) and then transferred to specific tasks:
+  * CNN/CRNN models such as VGGish, YAMNet, and PANNs, after pre-training on large-scale audio data, can be used for various audio event and soundscape tasks.
+  * Transformer-based models such as AST (Audio Spectrogram Transformer) directly use self-attention on spectrograms to obtain stronger global time-frequency modeling capabilities.
+  * The MusicTagging / MIR model for music will pre-train a label model or an embedding model on millions of songs, which is used for style/ emotion/ instrument tagging, music retrieval, and recommendation.
 
-### 4.3.1 声音事件与环境声景：让设备“听得懂环境”
+### 4.3.1 Sound Events and Environmental Soundscapes: Enabling Devices to "Understand the Environment"
 
-在安防、IoT、智慧城市、车载系统中，光靠摄像头并不足以全面理解环境状态。**声音事件检测**的目标，就是让系统“听得懂”关键事件：当发生玻璃破碎、警报拉响、婴儿哭泣、碰撞、尖叫、打斗、破坏行为时，系统能够在音频信号中识别并发出告警。与语音识别不同，这类事件往往是短促、非语言的，频率范围和能量形态各异，且可能和背景噪声高度重叠。
+In security, IoT, smart cities, and in-vehicle systems, relying solely on cameras is not sufficient to comprehensively understand the environmental state. ** The goal of sound event detection ** is to enable the system to "understand" key events: when glass breaks, alarms sound, babies cry, collisions occur, screams are heard, fights break out, or acts of vandalism take place, the system can recognize and issue alerts in the audio signal. Different from speech recognition, such events are often short-lived, non-verbal, vary in frequency range and energy pattern, and may highly overlap with background noise.
 
-**环境/场景分类**则更关注持续性的声景（acoustic scene）：是安静办公室、热闹街道、车内、高铁站还是咖啡馆？系统可以根据声景自动调整降噪强度、回声抵消参数、麦克风阵列波束指向，甚至改变交互策略（例如在车内通过更简短的反馈交互，在嘈杂街道上提高输出音量）。在 IoT 场景中，多个声音传感器组成的“声学网络”可用于对环境状态进行长期监控和统计分析。
+**Environment/Scene Classification ** focuses more on the continuous acoustic scene: is it a quiet office, a bustling street, inside a car, a high-speed railway station, or a coffee shop? The system can automatically adjust noise reduction intensity, echo cancellation parameters, microphone array beam direction, and even change interaction strategies (e.g., through shorter feedback interactions in a car and increasing output volume on a noisy street). In IoT scenarios, an "acoustic network" composed of multiple sound sensors can be used for long-term monitoring and statistical analysis of environmental conditions.
 
-在技术实现上，这两类任务都大多采用**多标签分类 + 时序建模**方案：将音频转换为梅尔频谱，使用 VGGish、PANNs、AST 或类似模型进行特征抽取，再用时序池化或序列模型输出每个标签在时间轴上的激活情况。由于很多数据集只提供“片段级标签”（weak labels），模型常需通过多实例学习、自注意力池化等方式，在弱监督下学习事件的时间定位。
+In Technology Implementation, both types of tasks mostly adopt ** multi-label classification + temporal modeling ** solutions: convert audio to Mel spectrograms, use models such as VGGish, PANNs, AST or similar for feature extraction, and then use temporal pooling or sequence models to output the activation of each label on the time axis. Since many datasets only provide "weak labels" (weak labels), models often need to learn the temporal localization of events under weak supervision through methods such as multi-instance learning and self-attention pooling.
 
-### 4.3.2 音乐理解与标签：从“歌单标签”到“结构分析”
+### 4.3.2 Music Understanding and Labeling: From "Playlist Tags" to "Structural Analysis"
 
-在音乐领域，音频理解的目标不仅仅是“这是一首什么歌”，更是要回答：**“这首歌什么风格？用到了哪些乐器？节奏快慢如何？调性与大致和声结构是什么？”** 这些信息一方面支撑音乐推荐与歌单编排，另一方面也为创作者和生成模型提供结构化“音乐元数据”。
+In the field of music, the goal of audio understanding is not just "what song is this", but also to answer: **"What is the style of this song? What instruments are used? What is the tempo? What is the tonality and approximate harmonic structure?" ** On the one hand, this information supports music recommendation and playlist compilation; on the other hand, it also provides structured "music metadata" for creators and generative models.
 
-**曲风分类**任务会根据歌曲整体声学特征与结构，将其归入流行、摇滚、古典、嘻哈、电子、Lo‑Fi 等不同风格；**乐器识别**则在时–频特征上区分鼓、贝斯、吉他、钢琴、弦乐等不同乐器的声学指纹，可用于乐器统计、音乐检索和混音分析。**节奏/调性分析**则是对 BPM、拍点位置、拍号、主调（Key）等进行估计，为节奏匹配、自动和声、DJ 混音、游戏音轨同步等任务提供基础。
+**Genre Classification**categorizes songs into different styles such as pop, rock, classical, hip-hop, electronic, Lo-Fi, etc., based on their overall acoustic characteristics and structure;**Instrument Identification**distinguishes the acoustic fingerprints of different instruments such as drums, bass, guitar, piano, strings, etc., in the time-frequency domain, which can be used for instrument statistics, music retrieval, and mixing analysis.**Rhythm/Tonality Analysis**estimates parameters such as BPM, beat position, time signature, key, etc., providing a basis for tasks such as rhythm matching, automatic harmony, DJ mixing, and game soundtrack synchronization.
 
-在模型上，音乐理解多沿用通用音频模型（如 PANNs、AST），但也有大量专门面向音乐信息检索（MIR）的模型与预训练嵌入。典型做法是在大规模音乐数据集上进行 **多标签音乐标签学习** （genre、mood、instrument、era 等），得到音乐嵌入空间，再在上述具体任务上微调或做零样本推断。结合这些模型，音乐平台可以更智能地完成音乐分类与推荐，版权平台可以强化音乐指纹与相似性检索，而创作工具则可以利用这些理解能力，为用户推荐合适的伴奏、扩展相似风格或自动生成音乐结构。
+In terms of models, music understanding mostly follows general audio models (such as PANNs, AST), but there are also a large number of models and pre-trained embeddings specifically designed for music information retrieval (MIR). A typical approach is to perform ** multi-label music tag learning ** (genre, mood, instrument, era, etc.) on large-scale music datasets to obtain a music embedding space, and then fine-tune or perform zero-shot inference on the above specific tasks. By combining these models, music platforms can more intelligently perform music classification and recommendation, copyright platforms can strengthen music fingerprinting and similarity retrieval, and creative tools can leverage these understanding capabilities to recommend suitable accompaniments to users, expand similar styles, or automatically generate music structures.
 
-## 4.4 语音与音频生成（TTS / VC / Music Generation）
+## 4.4 Speech and Audio Generation (TTS / VC / Music Generation)
 
-在完成了对音频的“清理”“识别”和“理解”之后，下一层自然的问题是：**“我们能否直接让机器‘说话’、‘唱歌’甚至‘作曲’？”** 这就是语音与音频生成的世界：从文本到语音（TTS），从一种声音到另一种声音（VC / Voice Cloning），到更大范围的音乐与音效生成，再到可以演唱歌词和旋律的歌声合成。与图像生成类似，这一层不再只是在已有数据上打标签或提取结构，而是主动“创造”新的声音内容。
+After completing the "cleaning", "recognition", and "understanding" of audio, the next natural question at the next level is: ** "Can we directly enable machines to 'speak', 'sing', or even 'compose music'?" ** This is the world of speech and audio generation: from text-to-speech (TTS), from one voice to another (VC / Voice Cloning), to a broader scope of music and sound effect generation, and then to singing synthesis that can perform lyrics and melodies. Similar to image generation, this level no longer simply tags or extracts structures from existing data, but actively "creates" new sound content.
 
-在产品层面，这一层能力已经渗透到各类应用：OpenAI TTS、ElevenLabs、火山引擎、minimax等语音产品线为应用提供高质量合成语音；Suno、Udio 等音乐生成平台为创作者甚至普通用户提供从文案到完整音乐的能力；游戏、视频、虚拟主播和数字人依赖这些模型进行配音和歌唱，极大降低了内容制作的门槛。
+At the product level, this layer of capabilities has already penetrated into various applications: voice product lines such as OpenAI TTS, ElevenLabs, Volcengine, and Minimax provide high-quality synthetic voices for applications; music generation platforms such as Suno and Udio provide the ability to create complete music from text for creators and even ordinary users; games, videos, virtual LIVE creators, and digital humans rely on these models for voiceovers and singing, greatly lowering the threshold for content creation.
 
-* **场景**
-  * 文本转语音（TTS）：新闻播报、导航播报、智能客服语音回复、学习类 App 朗读内容、无障碍读屏等，需要将任意文本转换为自然、清晰、可控的语音。
-  * 语音转换 / 语音克隆（VC / Voice Cloning）：在保持语义和韵律的前提下，改变说话人音色，实现“换声说话”或“少样本声纹克隆”（在严格合规条件下）。
-  * 音乐与音效生成：为短视频、游戏、广告、播客等生成合适的背景音乐与音效（环境声、UI 声效、过场音）。
-  * 歌声合成与翻唱：给定旋律与歌词，让虚拟歌手演唱，或在合规前提下生成某种风格/音色的翻唱版本。
-* **原理**
-  语音与音频生成通常采用**“高层表示 → 低层波形”** 的分层建模思路：
-  * TTS 中，先将文本转为音素/音节/字级序列，再通过序列到声学特征（如梅尔谱）的模型（Tacotron、FastSpeech、VITS 等），最后用神经声码器（WaveNet、WaveRNN、HiFi‑GAN 等）从特征生成高保真波形。
-  * Voice Conversion 中，通过解耦“说什么（内容）”与“谁在说（音色）”，从源语音提取内容表示，再与目标说话人嵌入或声码条件结合，生成新的语音波形。
-  * 音乐与音效生成可基于 token 化的表示（如音符、MIDI、编码后的频谱/codec token），采用自回归、扩散（Diffusion）或神经 codec 生成模型，从文本、参考音频或结构参数中采样出新音频。
-  * 歌声合成在 TTS 的基础上引入更精细的韵律、音高轨迹和歌唱控制，通常对音高、时值、连音、颤音等有显式或隐式建模。
-* **模型**
-  当前语音与音频生成的主流技术路线包括：
-  * TTS：Tacotron / Tacotron2、FastSpeech 系列（非自回归 TTS）、VITS 等负责从文本到梅尔谱或 codec token；WaveNet、WaveRNN、HiFi‑GAN、WaveGlow 等作为 vocoder 或解码器负责从特征到波形。最近的 Diffusion‑based TTS 和 Neural Codec 模型在自然度和多样性上进一步提升。
-  * Voice Conversion / Cloning：基于 speaker embedding + content encoder 的 VC 框架，以及利用神经 codec 的语音转换模型，支持少样本音色克隆和跨语言说话人迁移。这类技术目前已被多家平台商用落地，提供便捷的语音克隆调用服务，国内常见平台包括火山引擎、minimax、科大讯飞开放平台、百度智能云千帆大模型平台、阿里云智能语音交互平台等；海外则有 ElevenLabs、Resemble.ai、Play.ht 等主流平台。其中，火山引擎的语音克隆能力支持少量音频样本快速训练，适配智能客服、有声读物等多场景的商用调用；minimax 则依托其大模型技术优势，实现了克隆音色与文本内容的自然适配，同时支持跨语言的说话人音色迁移；科大讯飞开放平台的语音克隆在中文发音的清晰度和情感表现力上具备显著优势，广泛服务于教育、广电等领域。
-  * 音乐与音效生成：MusicLM、MusicGen、以及 Suno / Udio 类模型，通常基于文本和/或参考音频条件，使用自回归或扩散架构在离散 codec token 上生成长时音频。
+* **Scenario**
+  * Text To Speech (TTS): News broadcasts, navigation announcements, intelligent customer service voice responses, reading content in learning apps, accessibility screen reading, etc., require converting any text into natural, clear, and controllable speech.
+  * Voice Conversion / Voice Cloning (VC / Voice Cloning): Under the premise of maintaining semantics and prosody, change the speaker's timbre to achieve "voice replacement speech" or "few-shot voiceprint cloning" (under strict compliance conditions).
+  * Music and Sound Effect Generation: Generate appropriate background music and sound effects (ambient sounds, UI sound effects, transition sounds) for short videos, games, advertisements, podcasts, etc.
+  * Singing Synthesis and Cover Version: Given a melody and lyrics, make a virtual singer perform, or generate a cover version of a certain style/timbre under compliant conditions.
+* **Principle**
+  Speech and audio generation typically adopt the hierarchical modeling approach of **"high-level representation → low-level waveform"**:
+  * In TTS, text is first converted into a phoneme/syllable/character-level sequence, then passed through a sequence-to-acoustic feature (such as Mel spectrogram) model (Tacotron, FastSpeech, VITS, etc.), and finally a neural vocoder (WaveNet, WaveRNN, HiFi-GAN, etc.) is used to generate high-fidelity waveforms from the features.
+  * In Voice Conversion, by decoupling "what is said (content)" and "who is speaking (timbre)", the content representation is extracted from the source speech and then combined with the target speaker embedding or vocoder conditions to generate a new speech waveform.
+  * Music and sound effect generation can be based on tokenized representations (such as musical notes, MIDI, encoded spectrum/codec tokens), using autoregressive, diffusion, or neural codec generative models to sample new audio from text, reference audio, or structural parameters.
+  * Singing voice synthesis introduces more refined prosody, pitch contour, and singing control on the basis of TTS, and usually models pitch, duration, legato, vibrato, etc. explicitly or implicitly.
+* **Model**
+  The current mainstream technical routes for speech and audio generation include:
+  * TTS: Tacotron / Tacotron2, FastSpeech series (non-autoregressive TTS), VITS, etc., are responsible for converting text to mel spectrograms or codec tokens; WaveNet, WaveRNN, HiFi‑GAN, WaveGlow, etc., serve as vocoders or decoders and are responsible for converting features to waveforms. Recent Diffusion‑based TTS and Neural Codec models have further improved in naturalness and diversity.
+  * Voice Conversion / Cloning: VC framework based on speaker embedding + content encoder, as well as voice conversion models utilizing neural codecs, support few-shot voice cloning and cross-lingual speaker transfer. These technologies have currently been commercially implemented by multiple platforms, providing convenient voice cloning call services. Common domestic platforms include Volcengine, Minimax, iFlytek Open Platform, Baidu Smart Cloud Qianfan Big Model Platform, Alibaba Cloud Speech And Audio Interaction Platform, etc.; overseas, there are mainstream platforms such as ElevenLabs, Resemble.ai, Play.ht, etc. Among them, Volcengine's voice cloning capabilities support rapid training with a small number of audio samples, adapting to commercial calls in multiple scenarios such as intelligent customer service and audiobooks; Minimax relies on its large model technology advantages to achieve natural adaptation between cloned voice and text content, while also supporting cross-lingual speaker voice transfer; iFlytek Open Platform's voice cloning has significant advantages in the clarity of Chinese pronunciation and emotional expressiveness, widely serving fields such as education and radio and television.
+  * Music and Sound Effect Generation: Models such as MusicLM, MusicGen, and Suno/Udio typically generate long-duration audio on discrete codec tokens using autoregressive or diffusion architectures, based on text and/or reference audio conditions.
 
-### 4.4.1 文本转语音（TTS）：让机器“自然开口说话”
+### 4.4.1 Text To Speech (TTS): Enabling machines to "naturally speak"
 
-**文本转语音（TTS）**是最直观的语音生成任务：输入一段文本，输出一段自然流畅的语音，理想状态下可以与人声几乎难以区分。现代 TTS 系统通常分为两个主要阶段：文本到声学特征（如梅尔频谱），以及声学特征到波形。
+**Text To Speech (TTS)** is the most intuitive speech generation task: input a text, output a natural and fluent speech, and in an ideal state, it can be almost indistinguishable from human voice. Modern TTS systems are usually divided into two main stages: text to acoustic features (such as Mel spectrogram), and acoustic features to waveform.
 
-在第一个阶段，模型需要处理分词、音素化、多音字消歧、标点与停顿、韵律预测等问题。典型模型包括基于注意力的 Tacotron 系列和基于长度预测的 FastSpeech 系列，后者通过非自回归架构显著加速合成、提升稳定性。近年来，VITS 等端到端模型将声学建模和声码器融合在一个统一框架中，进一步简化了系统。
+In the first stage, the model needs to handle issues such as word segmentation, phoneme conversion, disambiguation of polyphonic characters, punctuation and pauses, and prosody prediction. Typical models include the attention-based Tacotron series and the length prediction-based FastSpeech series, with the latter significantly accelerating synthesis and improving stability through a non-autoregressive architecture. In recent years, end-to-end models such as VITS have integrated acoustic modeling and vocoders into a unified framework, further simplifying the system.
 
-在第二个阶段，神经声码器（Neural Vocoder）如 WaveNet、WaveRNN、HiFi‑GAN、WaveGlow 等负责将梅尔谱或其他中间表示转换为高保真波形。训练良好的声码器不仅可以生成自然清晰的语音，还能很好地还原不同音色、情感和风格。现代 TTS 系统还支持 **多说话人建模** （通过 speaker embedding）、音色/语速/情绪控制（如“兴奋”“平静”“播音腔”），以及跨语种 TTS，为各类应用提供高度定制化的声音能力。
+In the second stage, neural vocoders such as WaveNet, WaveRNN, HiFi‑GAN, WaveGlow, etc., are responsible for converting mel spectrograms or other intermediate representations into high-fidelity waveforms. A well-trained vocoder can not only generate natural and clear speech but also effectively reproduce different timbres, emotions, and styles. Modern TTS systems also support ** multi-speaker modeling ** (through speaker embedding), timbre/speech rate/emotion control (such as "excited", "calm", "broadcasting tone"), and cross-lingual TTS, providing highly customizable voice capabilities for various applications.
 
-### 4.4.2 语音转换与声纹克隆：改变“谁在说”
+### 4.4.2 Voice Conversion and Voiceprint Cloning: Changing "Who's Speaking"
 
-在很多创作和辅助场景中，我们希望在**不改变内容与韵律**的前提下，改变说话人的音色或风格，这就是**语音转换（VC）**和**语音克隆（Voice Cloning）**的任务。前者主要解决“把 A 的话变成 B 的声音”；后者则进一步强调“少样本甚至几句语音就能学到新的音色”。
+In many creative and auxiliary scenarios, we hope to change the speaker's tone or style without  **changing the content and rhythm ** . This is the task of ** speech conversion (VC) **and **voice cloning (Voice Cloning) **. The former mainly solves the problem of "turning A's words into B's voice"; the latter further emphasizes "learning new tones with fewer samples or even a few sentences of speech".
 
-技术上，VC 通常采用“内容–音色解耦”的思路：通过一个内容编码器提取说话内容与韵律信息（可以是基于 ASR 的离散单位，也可以是自监督的连续表示），再通过一个条件生成器结合目标说话人嵌入或 codec 条件，生成目标音色但语义与节奏基本不变的新语音。如引入神经 codec，则可以在编解码空间直接编辑语音，实现高保真转换。
+Technically, VC typically adopts the idea of "content-timbre decoupling": a content encoder extracts speech content and prosodic information (which can be discrete units based on ASR or self-supervised continuous representations), and then a conditional generator combines the target speaker embedding or codec conditions to generate new speech with the target timbre but essentially unchanged semantics and rhythm. If a neural codec is introduced, speech can be directly edited in the codec space to achieve high-fidelity conversion.
 
-**语音克隆**在 VC 的基础上强调少样本与泛化能力：模型需要从几个样本甚至几秒音频中提取稳定的说话人表示，并据此生成风格一致、音色接近的合成语音。这一能力在虚拟人设、个性化助手、游戏角色定制、配音加速等方面非常有用，但也需要严格遵守法律与伦理规范，确保只在合规授权、充分知情和安全控制的前提下使用，避免滥用或身份冒充风险。
+**Voice cloning**emphasizes few-shot and generalization capabilities on the basis of VC: the model needs to extract stable speaker representations from just a few samples or even a few seconds of audio, and generate synthetic speech with consistent style and similar timbre accordingly. This capability is highly useful in areas such as virtual character design, personalized assistants, game character customization, and dubbing acceleration, but it also requires strict adherence to legal and ethical norms to ensure that it is used only under the premise of compliant authorization, full informed consent, and secure control, thereby avoiding the risks of abuse or identity impersonation.
 
-### 4.4.3 音乐与音效生成：从提示到完整声景
+### 4.4.3 Music and Sound Effect Generation: From Prompt to Complete Soundscape
 
-相比语音生成，**音乐与音效生成**在结构与时间尺度上更为复杂：音乐往往持续时间更长，内部结构（段落、旋律、和声、节奏）更加丰富；音效则种类繁多，从自然环境（雨声、风声、海浪）到拟声（UI 点击、提示音、游戏技能音效）都有各自模式。近年来，基于神经 codec、序列建模和扩散的模型使得“从文本生成完整音乐/音效”成为现实。
+Compared to speech generation,** music and sound effect generation ** are more complex in terms of structure and time scale: music often has a longer duration and a richer internal structure (paragraphs, melodies, harmonies, rhythms); sound effects come in a wide variety, from natural environments (rain, wind, waves) to onomatopoeia (UI clicks, beeps, game skill sound effects), each with its own pattern. In recent years, models based on neural codecs, sequence modeling, and diffusion have made "generating complete music/sound effects from text" a reality.
 
-在音乐生成中，像 MusicLM、MusicGen、Suno、Udio 等模型通常将音频编码为离散的 codec token 序列，再在这一离散空间上训练文本条件或多模态条件的生成模型。用户只需提供一段文本描述（如“节奏适中、温暖治愈的 Lo‑Fi 背景音乐，适合学习专注”“紧张的电子管弦配乐，适合科幻预告片”），或上传一段参考音乐片段，模型就能生成长度达几十秒甚至数分钟的高质量音乐。对于创作者，这既是灵感来源，也是快速打样和背景音乐生成的利器。
+In music generation, models such as MusicLM, MusicGen, Suno, Udio, etc., typically encode audio into a sequence of discrete codec tokens, and then train text-conditioned or MultiModal Machine Learning-conditioned generative models in this discrete space. Users only need to provide a text description (such as "moderate tempo, warm and soothing Lo-Fi background music suitable for studying and concentration", "tense electronic orchestral score suitable for science fiction trailers") or upload a reference music snippet, and the model can generate high-quality music up to dozens of seconds or even minutes in length. For creators, this is both a source of inspiration and a powerful tool for rapid prototyping and background music generation.
 
-在音效生成上，类似的技术可以根据文本提示生成 UI 声效、通知音、游戏环境声等，帮助产品与游戏团队快速迭代声音设计。结合前一层的音频理解能力，还可以做到风格对齐与场景自适应，例如根据画面或游戏关卡自动匹配音效风格。
+In sound effect generation, similar technologies can generate UI sound effects, notification tones, game environment sounds, etc. based on text prompts, helping product and game teams quickly iterate on sound design. Combining with the audio understanding capabilities of the previous layer, it can also achieve style alignment and scene self-adaptation, such as automatically matching sound effect styles according to the screen or game level.
 
-无论是语音还是音乐与音效生成，这一层能力都在快速演进：从早期合成味浓重的机器音，到现在与人声、专业音乐难以区分的高保真内容。与此同时，围绕版权、合规、溯源和可控性的问题也变得尤为重要——如何在提供强大创作工具的同时，保护创作者和使用者的合法权益，将是这一层技术持续需要面对的关键议题。
+Whether it is voice, music, or sound effect generation, the capabilities at this level are evolving rapidly: from the early machine voices with a strong synthetic flavor to the current high-fidelity content that is indistinguishable from human voices and professional music. Meanwhile, issues surrounding copyright, compliance, traceability, and controllability have become particularly important - how to protect the legitimate rights and interests of creators and users while providing powerful creative tools will be a key issue that this level of technology will continue to face.
 
-# 5. 视频（Video）
+# 5. Video (Video)
 
-在多模态 AI 体系中，**视频模态**负责理解和生成“随时间变化的视觉信号”。相比单帧图像，视频不仅包含空间维度上的纹理、形状和布局信息，还携带丰富的 **时间维度线索** ：动作的起落、物体的运动轨迹、镜头的切换节奏等。无论是安防监控中的行为识别、体育训练中的动作分析，还是短视频平台的一键剪辑、长视频的智能解析，本质上都依赖于一整套围绕“帧序列”展开的理解与生成能力。
+In the MultiModal Machine Learning system, ** the video modality ** is responsible for understanding and generating "time-varying visual signals". Compared to single-frame images, videos not only contain information about texture, shape, and layout in the spatial dimension but also carry rich  ** temporal dimension clues ** , such as the rise and fall of actions, the motion trajectories of objects, and the rhythm of shot transitions. Whether it is behavior recognition in security monitoring, action analysis in sports training, one-click editing on Short Video Platforms, or intelligent parsing of long videos, they all essentially rely on a comprehensive set of understanding and generation capabilities centered around "frame sequences".
 
-从工程视角看，视频能力大体可以分为几层：**底层的视频增强与复原**负责保证“能看清”；**视频理解与结构分析**负责回答“发生了什么”；在此基础上，**视频 + 语言多模态任务**将视频内容转化为文本可用的结构化描述和检索接口；进一步的，**视频生成与编辑**则反过来从文本或示例视频出发，用可控的方式生成或重组视频内容；而以**数字人 / 虚拟人**为代表的一类应用，则将语音、语言、动作和视频渲染综合在一起，构成面向交互与内容生产的新形态。
+From an engineering perspective, video capabilities can generally be divided into several levels: ** The underlying video enhancement and restoration ** is responsible for ensuring "clear visibility"; ** Video understanding and structural analysis ** is responsible for answering "what happened"; on this basis, ** Video + Language MultiModal Machine Learning tasks ** convert video content into structured descriptions and retrieval interfaces that can be used in text; further, ** Video generation and editing ** in turn starts from text or example videos to generate or recombine video content in a controllable manner; and ** Digital humans / virtual humans ** as a representative type of application, integrate speech, language, motion, and video rendering together to form a new form for interaction and content production.
 
-下面我们同样从分层能力出发，对视频相关能力进行梳理。
+Next, we will also start from the hierarchical capabilities to sort out the video-related capabilities.
 
-## 5.1 传统视频处理：从“能播”到“好看、好用”
+## 5.1 Traditional Video Processing: From "Playable" to "Good-looking and User-friendly"
 
-在视频技术的最底层，我们首先关心的，并不是“画面里是谁”“发生了什么事件”，而是这段视频本身是否稳定、清晰、舒适：画面抖不抖、糊不糊、噪点多不多、比例是否适合目标终端播放。**传统视频处理**这一层，主要在帧序列和时空像素层面工作，通过增强、修复、超分辨率、插帧和重定帧等操作，把嘈杂、抖动、分辨率不足或比例不合适的原始视频，转换为更适合观看和后续分析的“高质量时序信号”。可以把它类比为图像模态中的“图像复原与增强 + 几何校正”，只不过这里额外引入了时间维度上的平滑与一致性。
+At the lowest level of video technology, what we first care about is not "who is in the picture" or "what event has occurred", but whether the video itself is stable, clear, and comfortable: whether the picture is shaky, blurry, has many noise points, or has a suitable aspect ratio for playback on the target terminal.**Traditional video processing**operates mainly at the frame sequence and spatio-temporal pixel levels. Through operations such as enhancement, restoration, super-resolution, frame interpolation, and reframing, it transforms the original video, which is noisy, shaky, has insufficient resolution, or an inappropriate aspect ratio, into a "high-quality temporal signal" that is more suitable for viewing and subsequent analysis. It can be analogized to "image restoration and enhancement + geometric correction" in the image modality, except that here additional smoothing and consistency in the time dimension are introduced.
 
-从产品角度看，这一层能力几乎“隐身”在所有视频产品背后：剪辑软件的一键画质增强、短视频平台的自动画质升级、电视盒子和播放器的智能超分与插帧、老影片修复服务，以及给上游检测/识别模型做的多帧预处理，都是传统视频处理的直接体现。下面依然从 **场景** 、**原理**和**模型**三个角度来梳理，并在后续小节中展开视频增强与修复、超分与插帧几个关键方向。
+From a product perspective, this layer of capabilities is almost "invisible" behind all video products: one-click image quality enhancement in video editing software, automatic image quality upgrade on Short Video Platforms, intelligent super resolution and frame interpolation in TV boxes and players, old film restoration services, and multi-frame preprocessing for upstream detection/recognition models are all direct manifestations of traditional video processing. The following will still be sorted out from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and several key directions such as video enhancement and restoration, super resolution, and frame interpolation will be expanded in the subsequent sections.
 
-* **场景**
-  在线视频平台、剪辑工具、监控系统和终端设备中，传统视频处理主要出现在以下典型场景：
-  * 内容平台与剪辑工具：短视频、长视频在上传或编辑时，通过一键画质增强、稳像、防抖、降噪，让用户“拿起手机就能拍、拍完就能用”；老视频素材在导入剪辑工程时，通过修复和补帧，使其与新素材在观感上更一致。
-  * 影视与老影片修复：对历史胶片、早期电视节目和标清素材进行数字修复，去除划痕、噪点和抖动，恢复色彩和细节，为重映、再发行和数字档案保存提供更高质量的版本。
-  * 视频监控与行车记录：对弱光、雨雾、压缩严重的监控画面进行降噪、去雾、增强对比度和稳像，提升后续检测和识别模块的鲁棒性，便于取证和溯源。
-  * 终端播放与设备侧增强：电视、机顶盒、手机播放器本地集成超分和插帧功能，将存量的 720p/1080p、24/30fps 内容在播放端“升级”为近似 4K、60/120fps 的视觉效果。
-  * 多终端适配与分发：为同时覆盖手机竖屏、平板横屏和大屏电视，对同一视频进行横竖屏适配、智能裁剪和多比例重定帧，减少手工剪辑和多版本维护成本。
-* **原理**
-  传统视频处理通常不直接理解语义类别，而是围绕画质、稳定性和时间一致性在时空信号层面做建模和优化：
-  * 时空联合建模：在单帧图像增强的基础上，引入时间维度的信息，通过光流估计、相机运动建模或时空卷积，把前后帧作为额外“观测”，在时间轴上做多帧融合与噪声抑制。
-  * 稳像与防抖：将相机抖动建模为一段时间上的几何变换序列（平移、旋转、缩放等），通过估计全局或局部运动轨迹，将其平滑后重新投影到输出视频中，从而达到去抖和稳定的效果。
-  * 视频超分与插帧：视频超分通过多帧对齐和细节重建，在提升空间分辨率的同时保持时间一致性；插帧则通过光流估计或时空生成网络，在两帧之间合成中间帧，用更高帧率呈现运动，提高流畅度。
-  * 重定帧与自动构图：通过检测和追踪视频中的主体（人物、物体），在时间轴上估计主体轨迹，再结合目标分辨率的长宽比，为每一帧选择合适的裁剪窗口，并对裁剪窗口的运动进行时间平滑，保证观感自然。
-  * 质量与效率权衡：在云端离线处理可以追求最优画质和复杂模型，而在手机、播放器和实时场景中则需要控制模型参数量、计算复杂度和延迟，在算法结构和推理框架上做精细折中。
-* **模型**
-  在具体实现上，传统视频处理综合使用经典视频信号处理方法和深度学习模型，在效果、效率与部署形态之间寻找平衡：
-  * 经典视频处理方法：基于光流的稳像与插帧、时域滤波与多帧融合、基于块匹配的去噪和去压缩伪影等，仍然广泛应用于算力受限或对可解释性有要求的场景。
-  * 深度视频复原与增强模型：以 EDVR、BasicVSR / BasicVSR++、Real‑ESRGAN 视频版等为代表的多帧超分与增强网络，通过对齐与时空特征聚合，在去噪、去模糊、细节恢复和去压缩伪影方面显著优于传统方法。
-  * 深度插帧模型：如 DAIN、RIFE、FILM 等插帧网络，通过显式或隐式光流估计与中间特征融合生成中间帧，相比传统光流 + 重采样方法在复杂运动和遮挡场景中更稳定。
-  * 基于 Transformer 的视频复原：利用时空注意力统一处理空间纹理与时间依赖，在复杂镜头运动、多物体场景下具备更强的建模能力，同时在推理时通过稀疏注意力、滑动窗口等机制控制计算量。
-  * 实际产品与系统：剪映 / CapCut 的智能增强、Topaz Video Enhance 等商用增强软件，B 站及各短视频平台的画质增强管线、老影片修复 SaaS 服务等，通常会将多种模型与策略级联，按素材类型和终端条件动态选择最优处理路径。
+* **Scenarios**
+  In online video platforms, editing tools, surveillance systems, and terminal devices, traditional video processing mainly occurs in the following typical scenarios:
+  * Content Platforms and Editing Tools: When uploading or editing short videos or long videos, users can "pick up their phones and shoot, and use the footage right after shooting" through one-click image quality enhancement, image stabilization, anti-shake, and noise reduction; when importing old video creatives into an editing project, they can be made more visually consistent with new creatives through restoration and frame interpolation.
+  * Film and Old Film Restoration: Perform digital restoration on historical film, early television programs, and standard-definition creatives, removing scratches, noise, and jitter, restoring colors and details, and providing higher-quality versions for re-screening, re-publishing, and digital archive preservation.
+  * Video surveillance and driving record: Perform noise reduction, dehazing, contrast enhancement, and image stabilization on surveillance footage with low light, rain and fog, or severe compression to improve the robustness of subsequent detection and recognition modules, facilitating evidence collection and traceability.
+  * Terminal Playback and Device-side Enhancement: TVs, set-top boxes, and mobile phone players locally integrate super resolution and frame interpolation functions, "upgrading" existing 720p/1080p, 24/30fps content at the playback end to approximate 4K, 60/120fps visual effects.
+  * Multi-terminal adaptation and distribution: To simultaneously cover portrait mobile screens, landscape tablet screens, and large-screen TVs, perform portrait and landscape adaptation, intelligent cropping, and multi-aspect ratio reframing on the same video, reducing the costs of manual editing and multi-version maintenance.
+* **Principle**
+  Traditional video processing usually does not directly understand semantic categories, but instead focuses on modeling and optimization at the spatio-temporal signal level around image quality, stability, and temporal consistency:
+  * Spatiotemporal Joint Modeling: On the basis of single-frame image enhancement, introduce information from the temporal dimension, and use optical flow estimation, camera motion modeling, or spatiotemporal convolution to treat the preceding and succeeding frames as additional "observations", performing multi-frame fusion and noise suppression along the time axis.
+  * Image stabilization and anti-shake: Model camera shake as a sequence of geometric transformations (translation, rotation, scaling, etc.) over a period of time. By estimating the global or local motion trajectory, smooth it and then reproject it into the output video, thereby achieving anti-shake and stabilization effects.
+  * Video Super Resolution and Frame Interpolation: Video super resolution maintains temporal consistency while enhancing spatial resolution through multi-frame alignment and detail reconstruction; frame interpolation synthesizes intermediate frames between two frames through optical flow estimation or spatio-temporal generative networks, presenting motion at a higher frame rate and improving smoothness.
+  * Reframing and Automatic Composition: By detecting and tracking the subjects (people, objects) in the video, estimating the subject's trajectory on the timeline, and then combining the aspect ratio of the target resolution, a suitable cropping window is selected for each frame, and the motion of the cropping window is temporally smoothed to ensure a natural viewing experience.
+  * Quality-Efficiency Tradeoff: Offline processing in the cloud can pursue optimal image quality and complex models, while in mobile phones, players, and real-time scenarios, it is necessary to control the number of model parameters, computational complexity, and latency, and make fine compromises in algorithm structure and inference framework.
+* **Model**
+  In terms of specific implementation, traditional video processing comprehensively uses classical video signal processing methods and deep learning models to strike a balance among effectiveness, efficiency, and deployment form:
+  * Classical video processing methods, such as optical flow-based image stabilization and frame interpolation, temporal filtering and multi-frame fusion, block matching-based denoising and de-compression artifact removal, etc., are still widely used in scenarios with limited computing power or requirements for interpretability.
+  * Deep Video Restoration and Enhancement Models: Multi-frame super resolution and enhancement networks represented by EDVR, BasicVSR / BasicVSR++, Real-ESRGAN Video Edition, etc., significantly outperform traditional methods in denoising, deblurring, detail restoration, and de-compression artifacts removal through alignment and spatio-temporal feature aggregation.
+  * Deep frame interpolation models: Frame interpolation networks such as DAIN, RIFE, FILM, etc., generate intermediate frames through explicit or implicit optical flow estimation and intermediate feature fusion, and are more stable in complex motion and occlusion scenarios compared to traditional optical flow + resampling methods.
+  * Transformer-based Video Restoration: Utilizing spatio-temporal attention to uniformly process spatial textures and temporal dependencies, it has stronger modeling capabilities under complex camera motion and multi-object scenarios, while controlling the computational cost during inference through mechanisms such as sparse attention and sliding windows.
+  * Actual products and systems: Commercial enhancement software such as CapCut's intelligent enhancement, Topaz Video Enhance, etc., the image quality enhancement pipelines of Bilibili and various Short Video Platforms, SaaS services for old film restoration, etc., usually cascade multiple models and strategies, dynamically selecting the optimal processing path based on creative type and terminal conditions.
 
-综合来看，这一层更多是在“语义之前”为视频打好物理与感知基础：既帮助用户获得更舒适的观感，也为上游检测、识别和生成模型提供更干净、更稳定的输入。下面，我们分别从 **视频增强与修复** 、**超分辨率与插帧等**子方向展开。
+Overall, this layer mainly lays the physical and perceptual foundation for videos "before semantics": it not only helps users obtain a more comfortable viewing experience but also provides cleaner and more stable inputs for upstream detection, recognition, and generation models. Next, we will delve into sub-directions including  **video enhancement and restoration** ,  **super-resolution and frame interpolation** , etc.
 
-### 5.1.1 视频增强与修复：把“能看”打磨到“好看”
+### 5.1.1 Video Enhancement and Restoration: Polishing from "Watchable" to "Beautiful"
 
-在真实拍摄条件下，视频往往并不“干净”：手持设备造成的剧烈抖动、弱光下的高噪点和涂抹感、网络压缩带来的块状伪影和色带、老旧设备录制的褪色和划痕，都让视频质量明显低于理想状态。视频增强与修复的目标，就是在不改变视频语义内容的前提下，最大程度恢复稳定、清晰、自然的观感，把“勉强能看”的素材打磨到“看起来顺眼甚至好看”的水准。
+Under real shooting conditions, videos are often not "clean": severe jitter caused by handheld devices, high noise and smeariness in low light, blocky artifacts and color bands due to network compression, as well as fading and scratches from recordings on old devices, all make the video quality significantly lower than the ideal state. The goal of video enhancement and restoration is to, without changing the semantic content of the video, maximize the restoration of a stable, clear, and natural visual experience, refining "barely watchable" creatives to a level where they "look pleasing or even good".
 
-在时域上，增强与修复首先要解决的是稳定性问题。通过对连续帧进行特征匹配或光流估计，可以分离出全局相机运动和局部物体运动，再利用平滑后的相机轨迹重新渲染输出帧，从而抑制快速抖动与微小晃动，避免观众在观看过程中产生眩晕感。在此基础上，画面级的去噪、去模糊和去伪影则更多集中在空间–时间联合建模：多帧联合去噪利用前后帧冗余信息，在时间方向上进行类似“多曝光融合”的处理，在保留细节纹理的同时有效抑制高 ISO 噪声和压缩噪声；对轻微运动模糊，则通过估计模糊核或使用端到端深度网络，在帧序列上进行反卷积式的清晰化处理，使静态背景和运动主体都更锐利。
+In the time domain, the primary issue to be addressed in enhancement and restoration is stability. By performing feature matching or optical flow estimation on consecutive frames, global camera motion and local object motion can be separated, and then the output frames can be re-rendered using the smoothed camera trajectory, thereby suppressing rapid jitter and minor shaking and preventing viewers from experiencing dizziness during viewing. On this basis, frame-level denoising, deblurring, and artifact removal are more focused on spatio-temporal joint modeling: multi-frame joint denoising utilizes redundant information from previous and subsequent frames to perform a process similar to "multi-exposure fusion" in the temporal direction, effectively suppressing high ISO noise and compression noise while preserving detailed textures; for slight motion blur, by estimating the blur kernel or using an end-to-end deep network, a deconvolution-like sharpening process is performed on the frame sequence to make both the static background and moving subjects sharper.
 
-对于老影片和低质量素材，修复还涉及色彩和结构层面的“重建”。胶片老化会导致画面泛黄、对比度下降、局部划痕和污点显著，早期数字视频则常见分辨率低、压缩严重和边缘锯齿等问题。现代修复流程往往采用多步协同：先利用检测和分割模型定位划痕、污点等局部损坏区域，再通过时空补全网络在邻近帧和邻近空间像素中“借料填坑”；同时进行色彩还原和对比度重塑，使整体色调接近原始拍摄或设定的风格参考。对于严重压缩的视频，还会引入针对块效应和振铃伪影的专用去伪影网络，在不过度平滑的前提下改善边缘和细节。
+For old films and low-quality creatives, restoration also involves "reconstruction" at the color and structural levels. Film aging can lead to yellowing of the picture, decreased contrast, and prominent local scratches and stains, while early digital videos often have issues such as low resolution, severe compression, and jagged edges. Modern restoration processes often adopt multi-step collaboration: first, use detection and segmentation models to locate local damaged areas such as scratches and stains, then "borrow materials to fill the gaps" from neighboring frames and neighboring spatial pixels through spatio-temporal completion networks; at the same time, perform color restoration and contrast reshaping to make the overall color tone close to the original shooting or the set style reference. For severely compressed videos, dedicated de-artifact networks targeting blocking artifacts and ringing artifacts are also introduced to improve edges and details without over-smoothing.
 
-这些增强与修复能力在产品中的体现往往是“一键式”的：用户只需勾选“稳像”“画质增强”或“老视频修复”，系统便会在后台自动选择合适的模型和参数组合，对视频帧序列做多阶段处理。对业务而言，这一层既直接决定了观众对画质的主观评价，也间接影响上游分析模型的表现：更干净、更稳定的视频输入，往往意味着更可靠的人脸/车牌识别、更准确的行为检测和更少的误报。
+These enhancements and restoration capabilities are often implemented as "one-click" features in the product: users simply need to check "image stabilization", "image quality enhancement", or "old video restoration", and the system will automatically select the appropriate model and parameter combination in the background to perform multi-stage processing on the video frame sequence. From a business perspective, this layer not only directly determines the audience's subjective evaluation of image quality but also indirectly affects the performance of upstream analysis models: cleaner and more stable video input often means more reliable face/license plate recognition, more accurate behavior detection, and fewer false alarms.
 
-### 5.1.2 超分辨率与插帧：从“能看清”到“更流畅”
+### 5.1.2 Super Resolution and Frame Interpolation: From "Visible" to "Smoother"
 
-在显示设备不断升级、用户对细节和流畅度要求不断提高的背景下，大量存量视频内容在分辨率和帧率上显得“先天不足”：1080p 在 4K 屏幕上显得不够锐利，24/30fps 在大屏和快速运动场景中容易出现拖影或卡顿感。超分辨率与插帧技术正是为了解决这两个问题：前者在空间维度上“补细节”，后者在时间维度上“补过程”，共同把“勉强能看清”的视频提升为“细节丰富、播放顺滑”的观感。
+Against the backdrop of continuous upgrades to display devices and ever-increasing user demands for details and smoothness, a large amount of existing video content appears "inherently deficient" in terms of resolution and frame rate: 1080p looks less sharp on 4K screens, and 24/30fps is prone to motion blur or laggy sensations in large-screen and fast-moving scenarios. Super resolution and frame interpolation technologies are precisely designed to address these two issues: the former "fills in details" in the spatial dimension, while the latter "fills in the process" in the temporal dimension, jointly elevating videos that are "barely visible" to a viewing experience that is "rich in details and smooth in playback".
 
-视频超分辨率相比单帧图像超分多了一个关键维度：时间。简单的逐帧放大容易导致相邻帧细节不一致，出现闪烁和纹理抖动。因此，主流方法都会利用前后多帧的信息，通过光流估计或特征级对齐，将邻近帧中的细节对齐到目标帧上，再在对齐后进行细节重建。像 EDVR、BasicVSR / BasicVSR++、Real‑ESRGAN 视频版等模型，会先在特征空间对多帧进行对齐和聚合，再用深度网络推断高分辨率细节，避免简单插值带来的“糊”和“塑料感”。在这一过程中，如何在“物理合理”和“感官好看”之间平衡，是损失设计和训练策略的核心：既要提升客观指标（如 PSNR、SSIM），也要保证主观观感自然，没有过度锐化和伪细节。
+Video super resolution has an additional key dimension compared to single-frame image super resolution: time. Simple frame-by-frame upscaling can easily lead to inconsistent details between adjacent frames, resulting in flickering and texture jitter. Therefore, mainstream methods leverage information from multiple preceding and succeeding frames, align details from neighboring frames to the target frame through optical flow estimation or feature-level alignment, and then perform detail reconstruction after alignment. Models such as EDVR, BasicVSR / BasicVSR++, and Real-ESRGAN Video Edition first align and aggregate multiple frames in the feature space, and then use deep networks to infer high-resolution details, avoiding the "blurriness" and "plasticity" caused by simple interpolation. In this process, how to balance between "physical plausibility" and "aesthetic appeal" is the core of loss design and training strategies: it is necessary to improve objective metrics (such as PSNR, SSIM) while ensuring that the subjective visual experience is natural, without excessive sharpening or false details.
 
-插帧则聚焦在时间轴上的“补帧”。传统方法依赖光流估计，先预测前后两帧之间每个像素的运动，再按照一定规则在中间位置插值生成新帧。然而在快速运动、多物体遮挡或纹理复杂区域，光流往往不够准确，容易出现拖影、重影或局部形变。深度插帧模型如 DAIN、RIFE、FILM 等，通过端到端网络同时学习光流、深度或中间特征的融合策略，直接输出插值帧，在复杂场景下的稳定性和视觉质量明显提升。对于体育赛事、动作游戏录屏和慢动作创作，插帧可以将 24/30fps 的原始视频平滑提升到 60/120fps，既保留运动细节，又减少卡顿和残影。
+Frame interpolation focuses on "frame filling" along the time axis. Traditional methods rely on optical flow estimation, first predicting the motion of each pixel between two consecutive frames, and then interpolating to generate new frames at intermediate positions according to certain rules. However, in areas with fast motion, multi-object occlusion, or complex textures, optical flow is often inaccurate, prone to trailing, ghosting, or local deformation. Deep frame interpolation models such as DAIN, RIFE, FILM, etc., learn the fusion strategies of optical flow, depth, or intermediate features simultaneously through end-to-end networks, directly outputting interpolated frames, with significantly improved stability and visual quality in complex scenarios. For sports events, action game recordings, and slow-motion creation, frame interpolation can smoothly increase the original 24/30fps video to 60/120fps, preserving motion details while reducing lag and afterimages.
 
-在工程实践中，超分和插帧常常结合使用：对低分辨率、低帧率的存量内容先做时序插帧，再进行空间超分，或两者在统一的时空网络中一体化实现。部署形态上，云端离线处理适合对画质要求极高的影视修复和平台级“画质升级”服务，而端侧实时推理则更多见于电视盒子、播放器 App 和游戏/运动相机中，需要通过模型压缩和硬件加速保证低延迟。无论以何种形态呈现，超分与插帧已经成为“高清/超高清体验”的重要基建，使旧内容在新终端上焕发“第二春”。
+In engineering practice, super resolution and frame interpolation are often used in combination: for existing content with low resolution and low frame rate, temporal frame interpolation is first performed, followed by spatial super resolution, or both are integrated and implemented in a unified spatio-temporal network. In terms of deployment forms, cloud-based offline processing is suitable for film and television restoration with extremely high image quality requirements and platform-level "image quality upgrade" services, while real-time inference on the edge side is more commonly seen in TV boxes, player apps, and gaming/action cameras, where model compression and hardware acceleration are needed to ensure low latency. Regardless of the form of presentation, super resolution and frame interpolation have become important infrastructure for the "HD/Ultra HD experience", enabling old content to have a "second spring" on new terminals.
 
-## 5.2 视频理解与结构分析（Video Understanding）
+## 5.2 Video Understanding and Structural Analysis (Video Understanding)
 
-如果说传统视频处理更多停留在“画质与稳定性”层面，那么**视频理解与结构分析**则开始回答“视频里在发生什么”这一类语义问题：谁在做什么、在哪里做、持续了多久、是否存在异常行为等。这里的目标，是在时间轴上对视频进行结构化拆解：识别动作与行为、检测与跟踪目标、分割前景与背景、划分场景与镜头，并抽取出可供下游决策、检索与告警使用的高层语义信号。
+If traditional video processing mostly stays at the level of "image quality and stability", then ** video understanding and structural analysis ** begin to answer semantic questions such as "what is happening in the video": who is doing what, where it is happening, how long it lasts, whether there are abnormal behaviors, etc. The goal here is to perform a structured decomposition of the video on the timeline: identify actions and behaviors, detect and track targets, segment the foreground and background, divide scenes and shots, and extract high-level semantic signals for downstream decision-making, retrieval, and alerting.
 
-从产品视角看，这一层能力已经深入到各类智慧安防平台、运动训练分析系统、智能行车记录仪和工业质检视频分析系统中：在监控中识别打架、摔倒、徘徊等异常；在体育和健身场景中分析动作规范性和技术细节；在交通与工业环境下追踪车辆和人员轨迹、监控生产流程是否正常。下面依然从 **场景** 、**原理**和**模型**三个角度梳理这类能力，并在后续小节中重点展开几个代表性方向。
+From a product perspective, this layer of capabilities has penetrated into various intelligent security platforms, sports training analysis systems, intelligent driving recorders, and industrial quality inspection video analysis systems: identifying abnormalities such as fighting, falling, and loitering in surveillance; analyzing action standardization and technical details in sports and fitness scenarios; tracking the trajectories of vehicles and personnel and monitoring the normalcy of production processes in transportation and industrial environments. The following will still sort out this type of capabilities from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and focus on several representative directions in the subsequent subsections.
 
-* **场景**
-  * 安防与公共安全：在城市监控、园区和楼宇中，识别打架、摔倒、聚集、奔跑、翻越围栏等行为，对徘徊、深夜逗留等异常模式提前告警。
-  * 交通与出行：对行人、车辆、自行车在路口、隧道和高速上的轨迹进行检测和追踪，分析闯红灯、逆行、占道、超速等行为，为交管和事故溯源提供依据。
-  * 体育与运动训练：分析篮球投篮、网球发球、瑜伽体式等动作的关键阶段与姿态质量，为运动员和大众用户提供技术分析和纠错建议。
-  * 工业生产与质检：监控生产线上的作业步骤是否规范，检测装配过程中是否存在漏装、错装或异常动作，为安全生产和良率提升提供基础数据。
-  * 内容结构化与检索：对长视频进行镜头拆分、场景分类和重要片段标记，为后续检索、推荐和剪辑提供结构化索引。
-* **原理**
-  视频理解与结构分析的关键，是在时间维度上对空间目标和语义进行联合建模：
-  * 动作识别与行为分析：基于 2D/3D 卷积、时序池化或 Transformer，对一段视频片段进行整体编码，识别其中发生的动作类别；进阶方法结合人体关键点序列与骨架拓扑，更细粒度地分析动作质量与模式。
-  * 目标检测与追踪：在每一帧上做检测的同时，引入跨帧关联机制（外观特征、运动轨迹等），将同一目标在不同时刻的检测框串联为连续轨迹，得到多目标跟踪结果。
-  * 视频语义分割与场景分析：在像素级别上对视频中的每一帧进行语义分割或实例分割，并利用时间连续性平滑预测；同时对镜头切换和场景边界进行检测，实现长视频的结构拆解。
-  * 高层事件与异常检测：在基础的动作与轨迹特征之上，利用时序建模和模式识别方法，对罕见事件和异常模式进行检测，往往结合无监督或弱监督学习缓解标注稀缺问题。
-* **模型**
-  在模型选择上，视频理解与结构分析通常采用“空间特征 + 时间建模”的组合架构：
-  * 基于 3D 卷积和 Two‑Stream 的经典模型，如 I3D 等，通过在空间和时间维度同时卷积，对短视频片段进行端到端动作识别。
-  * 基于多路径与多时间尺度的 SlowFast 系列模型，通过慢路径捕捉语义、快路径捕捉运动细节，在计算量和精度之间取得更好平衡。
-  * 基于 Transformer 的视频模型，如 TimeSformer、Video Swin Transformer 等，利用时空注意力机制对长时间范围的视频进行建模，更适合捕捉复杂事件和多主体互动。
-  * Tube‑based 检测器与时空卷积 / Transformer 模型，将检测框在时间上扩展为“tube”，在空间–时间联合特征上做行为检测与时空分割。
-  * 多目标跟踪（MOT）方法，如 DeepSORT 等，将帧级检测结果与外观嵌入、运动预测结合，在视频中稳定关联目标身份。
+* **Scenario**
+  * Security and Public Safety: In urban surveillance, industrial parks, and buildings, identify behaviors such as fighting, falling, gathering, running, climbing over fences, etc., and issue early warnings for abnormal patterns such as loitering and late-night stay.
+  * Traffic and Travel: Detect and track the trajectories of pedestrians, vehicles, and bicycles at intersections, tunnels, and on highways, analyze behaviors such as running red lights, driving in the wrong direction, occupying lanes, speeding, etc., to provide a basis for traffic management and accident traceability.
+  * Sports and Athletic Training: Analyze the key phases and quality of postures in actions such as basketball shooting, tennis serving, yoga poses, etc., providing technical analysis and error correction suggestions for athletes and general users.
+  * Industrial Production and Quality Inspection: Monitor whether the operation steps on the production line are standardized, detect whether there are missing installations, incorrect installations, or abnormal actions during the assembly process, and provide basic data for safe production and yield improvement.
+  * Content Structuring and Retrieval: Perform shot segmentation, scene classification, and marking of important segments on long videos to provide structured indexes for subsequent retrieval, recommendation, and editing.
+* **Principle**
+  The key to video understanding and structural analysis is to jointly model spatial targets and semantics in the temporal dimension:
+  * Action Recognition and Behavior Analysis: Based on 2D/3D convolution, temporal pooling, or Transformer, a video clip is globally encoded to identify the action categories occurring within it; advanced methods combine human key point sequences and skeletal topology to analyze action quality and patterns at a finer granularity.
+  * Object Detection and Tracking: While performing detection on each frame, introduce a cross-frame association mechanism (appearance features, motion trajectories, etc.) to connect the detection boxes of the same object at different times into a continuous trajectory, thereby obtaining multi-object tracking results.
+  * Video Semantic Segmentation and Scene Analysis: Perform semantic or instance segmentation on each frame of the video at the pixel level, and utilize temporal continuity to smooth predictions; simultaneously detect shot transitions and scene boundaries to achieve the structural decomposition of long videos.
+  * High-level Event and Anomaly Detection: Based on basic action and trajectory features, time-series modeling and Pattern Recognition methods are used to detect rare events and abnormal patterns, often combined with unsupervised or weakly supervised learning to alleviate the problem of scarce annotation.
+* **Model**
+  In model selection, video understanding and structural analysis typically adopt a combined architecture of "spatial features + temporal modeling":
+  * Classic models based on 3D convolution and Two-Stream, such as I3D, perform end-to-end action recognition on short video clips by convolving simultaneously in the spatial and temporal dimensions.
+  * The SlowFast series of models based on multi-path and multi-time scale capture semantics through the slow path and motion details through the fast path, achieving a better balance between computational cost and accuracy.
+  * Transformer-based video models, such as TimeSformer, Video Swin Transformer, etc., utilize spatio-temporal attention mechanisms to model long-range videos and are more suitable for capturing complex events and multi-agent interactions.
+  * Tube-based detectors and spatio-temporal convolution/Transformer models extend detection boxes into "tubes" over time, performing action detection and spatio-temporal segmentation on spatio-temporal joint features.
+  * Multi-object tracking (MOT) methods, such as DeepSORT, combine frame-level detection results with appearance embeddings and motion prediction to stably associate target identities in videos.
 
-整体上，这一层能力把视频从“高质量像素流”进一步抽象为“行为与事件流”，为上游的多模态理解、检索与决策奠定结构基础。下面，我们从 **动作识别与行为分析** 、 **目标检测与追踪** 、**事件与异常检测**三个方向展开。
+Overall, this layer of capabilities further abstracts videos from "high-quality pixel streams" into "behavior and event streams", laying a structural foundation for upstream multimodal understanding, retrieval, and decision-making. Next, we will elaborate on this from three directions: ** Action Recognition and Behavior Analysis ** ,  ** Object Detection and Tracking ** ,  ** Event and Anomaly Detection ** .
 
-### 5.2.1 动作识别与行为分析：从帧序列到“谁在做什么”
+### 5.2.1 Action Recognition and Behavior Analysis: From Frame Sequences to "Who is Doing What"
 
-动作识别与行为分析关注的是“在一段时间窗口内，主体在做什么事”。在安防场景中，这意味着从视频中识别出“走路、奔跑、摔倒、打架”等行为；在体育和健身中，则对应“投篮、发球、深蹲是否标准”“瑜伽体式是否到位”等更细粒度动作。技术上，早期方法主要依赖 2D 卷积 + 光流或手工特征，将若干帧堆叠后整体分类；现代方法则更多采用 3D 卷积（I3D、一系列 3D ResNet 变体）、SlowFast 这类多时间尺度结构，或 TimeSformer、Video Swin Transformer 等基于时空注意力的模型，对空间纹理与时间变化进行联合建模。
+Action Recognition and Behavior Analysis focuses on "what the subject is doing within a time window." In security scenarios, this means identifying behaviors such as "walking, running, falling, fighting" from videos; in sports and fitness, it corresponds to more fine-grained actions such as "whether shooting, serving, and squatting are standard" and "whether yoga poses are in place." Technically, early methods mainly relied on 2D convolution + optical flow or handcrafted features, stacking several frames and then performing overall classification; modern methods more often adopt multi-temporal scale structures such as 3D convolution (I3D, a series of 3D ResNet variants), SlowFast, or models based on spatio-temporal attention such as TimeSformer and Video Swin Transformer to jointly model spatial texture and temporal changes.
 
-在许多需要高精度姿态分析的场景中，直接对 RGB 片段分类并不足够，还会结合人体姿态估计和骨架序列建模：先从每一帧中提取 2D/3D 关键点，再将关键点序列送入 RNN、时序卷积或 GCN/Transformer 网络，分析动作的时序结构和空间协调性。这种“姿态先验 + 时序建模”的方式，对背景、光照和服装变化更鲁棒，适合瑜伽、健身、工业操作规范性评估等对动作细节要求较高的应用。
+In many scenarios requiring high-precision pose analysis, directly classifying RGB segments is not sufficient; instead, it combines human pose estimation and skeleton sequence modeling: first extracting 2D/3D key points from each frame, then feeding the key point sequence into RNN, temporal convolution, or GCN/Transformer networks to analyze the temporal structure and spatial coordination of actions. This approach of "pose prior + temporal modeling" is more robust to changes in background, lighting, and clothing, making it suitable for applications with high requirements for action details, such as yoga, fitness, and industrial operation compliance assessment.
 
-### 5.2.2 目标检测与追踪：从“这一帧在哪”到“整段轨迹”
+### 5.2.2 Object Detection and Tracking: From "Where is this frame" to "The entire trajectory"
 
-单帧目标检测可以告诉我们“这一帧里有哪些目标、在哪儿”，而现实中的许多任务需要的是“这辆车 / 这个人从哪里来、到哪里去、中间做了什么”。目标检测与追踪模块正是为了把帧级检测串成时间上的连续轨迹：一方面在每一帧上运行检测器，给出候选目标框；另一方面基于外观特征（ReID 嵌入）、运动预测（卡尔曼滤波）和空间重叠等线索，将相邻帧上的框进行匹配与关联，得到多目标跟踪（MOT）结果。
+Single-frame Object Detection can tell us "what objects are in this frame and where they are", while many real-world tasks require information such as "where this vehicle/person came from, where they are going, and what they did in between". The Object Detection and Tracking module is precisely designed to string together frame-level detections into continuous trajectories over time: on the one hand, it runs a detector on each frame to provide candidate object bounding boxes; on the other hand, it matches and associates the bounding boxes in adjacent frames based on cues such as appearance features (ReID embeddings), motion prediction (Kalman filtering), and spatial overlap, resulting in Multi-Object Tracking (MOT) results.
 
-在工程实践中，一个典型的流水线是：“强健的行人 / 车辆检测 + DeepSORT 一类的关联算法”，部署在监控或行车记录仪上，实时输出每个 ID 的运动轨迹。在更复杂的系统中，这些轨迹还会结合区域语义（车道、区域划分）与业务逻辑规则，进一步推断逆行、长时间逗留、频繁进出等高层行为模式，为上游安防、交通流量分析和工业流程监控提供连续时序信号。
+In engineering practice, a typical pipeline is: "Robust Pedestrian/Vehicle Detection + Association Algorithm like DeepSORT", deployed on surveillance cameras or dashcams, which outputs the motion trajectory of each ID in real time. In more complex systems, these trajectories are also combined with regional semantics (lane, area division) and business logic rules to further infer high-level behavioral patterns such as reverse driving, long-term loitering, and frequent entry and exit, providing continuous time-series signals for upstream security, traffic flow analysis, and industrial process monitoring.
 
-### 5.2.3 事件与异常检测：从“常态模式”中找出“不对劲”
+### 5.2.3 Event and Anomaly Detection: Identify "Something Wrong" from "Normal Mode"
 
-在大部分业务场景中，真正需要重点关注的往往是“少数异常”和“关键事件”：例如安防中的打架、摔倒、聚集，工业生产中的异常停机或违规操作，交通中的危险驾驶行为等。这类事件相对罕见，标注成本高、样本极不平衡，给模型建构带来了额外挑战。
+In most business scenarios, what truly needs to be focused on are often "minority anomalies" and "critical events": for example, fighting, falling, and gathering in security, abnormal shutdowns or violations in industrial production, dangerous driving behaviors in traffic, etc. Such events are relatively rare, with high annotation costs and extremely imbalanced samples, posing additional challenges to model construction.
 
-常见的做法，是在基础的动作识别、目标跟踪和场景分割之上，构建一个时序异常检测模块：要么通过有监督方式直接学习少量已标注的异常样本；要么采用无监督/弱监督方法，对“正常模式”的运动与行为分布进行建模，一旦新观测与历史分布明显偏离，就发出告警。在模型层面，会结合时序自编码器、对比学习、图神经网络或时序 Transformer，将空间关系和时间依赖统一编码，从而捕捉更复杂的群体行为模式和长程依赖。
+A common approach is to build a temporal anomaly detection module on top of basic action recognition, object tracking, and scene segmentation: either directly learn a small number of labeled anomaly samples through supervised methods; or adopt unsupervised/weakly supervised methods to model the distribution of motion and behavior in the "normal mode", and issue an alarm once new observations deviate significantly from the historical distribution. At the model level, temporal autoencoders, contrastive learning, graph neural networks, or temporal transformers will be combined to uniformly encode spatial relationships and temporal dependencies, thereby capturing more complex group behavior patterns and long-range dependencies.
 
-## 5.3 视频 + 语言多模态任务（Video‑Language）
+## 5.3 Video + Language MultiModal Machine Learning Task (Video‑Language)
 
-如果说视频理解解决的是“视频本身理解清楚了”，那么**视频 + 语言多模态任务**关注的是“如何用自然语言去描述、问答、检索视频内容”，以及“如何在长视频时间轴上，围绕文本需求快速定位关键信息”。这类任务需要同时处理视觉、语音与文本信号：一方面提取视频中的画面与声音特征，另一方面对接语言模型的推理与生成能力，把时空内容压缩成适合人类消费和机器调用的文本摘要、问答结果与语义索引。
+If video understanding addresses the issue of "fully understanding the video itself", then ** video + language MultiModal Machine Learning tasks ** focus on "how to describe, answer questions, and retrieve video content using natural language" and "how to quickly locate key information on the long video timeline based on text requirements". These tasks require simultaneous processing of visual, speech, and text signals: on one hand, extracting the visual and audio features from the video; on the other hand, leveraging the inference and generation capabilities of language models to compress spatio-temporal content into text summaries, question-answer results, and semantic indices suitable for human consumption and machine retrieval.
 
-从产品视角看，这一层能力已经深入长视频自动生成字幕与时间轴、短视频剪辑平台的“智能打点 / 关键片段抽取”、企业培训和会议视频的问答助手等场景：用户不必再“从头看到尾”，而是可以通过自然语言直接对视频内容进行检索、提问和重组。下面依然从 **场景** 、**原理**和**模型**三个角度展开。
+From a product perspective, this layer of capabilities has penetrated into scenarios such as automatic subtitle and timeline generation for long videos, "intelligent key point marking / key segment extraction" in short video editing platforms, and Q&A assistants for enterprise training and meeting videos: users no longer need to "watch from start to finish", but can directly search, query, and reorganize video content through natural language. The following will still be presented from  ** scenarios ** ,  ** principles ** , and ** models ** three perspectives.
 
-* **场景**
-  * 字幕与摘要生成：对课程、演讲、会议和长视频内容自动生成多语言字幕，并在此基础上生成章节级摘要、看点列表与时间轴。
-  * 视频问答与知识访问：对教学视频、操作演示、企业培训内容构建“视频问答助手”，支持用户用自然语言提问，如“这个步骤怎么做”“这个人最后把手机放哪了”。
-  * 视频内容检索与片段定位：在大规模视频库中支持“文字 → 视频片段”的精确检索，例如“找出提到价格的部分”“找到讲解某个公式的片段”；在单个长视频内自动打点标注精彩片段与关键信息。
-  * 内容生产与编辑辅助：结合视频内容理解与语言生成功能，自动生成标题、文案、分镜脚本，辅助创作者快速剪辑和重组素材。
-* **原理**
-  视频–语言多模态系统的核心，是在统一嵌入空间中对齐时序视觉特征与文本表示，并在这一基础上进行检索、生成与推理：
-  * 多模态特征抽取与对齐：对视频帧/片段提取时空特征（CNN/ViT/Video Transformer），对文本提取语言嵌入（预训练 LLM 或文本编码器），通过对比学习或多模态预训练对齐两种模态。
-  * 语音与文本管线：对包含语音的内容，通常先用 ASR 生成时间戳对齐的转写文本，再与视觉特征联合建模，既可以用文本直接驱动检索，也可以做跨模态对照与纠错。
-  * 时间建模与片段定位：对于长视频，需要在时间轴上学习“片段级”表示，通过注意力或时序 RAG 在局部片段和全局上下文之间动态切换，实现对问题相关区间的精确定位。
-  * 生成与推理：在对齐后的多模态表示上接入大语言模型，进行自然语言生成（字幕、摘要、解释），或进行多轮问答与逻辑推理。
-* **模型**
-  在模型形态上，视频–语言多模态任务经历了从“专用编码器 + 简单头”到“统一多模态大模型”的演进：
-  * 早期视频–语言模型：如 VideoBERT 等，在预训练阶段联合建模视觉与文本 token，通过掩码预测和对比学习获得可迁移的视频–语言表征。
-  * All‑in‑One Video‑Language Models：将视频、文本（及语音）统一纳入一个多模态 Transformer 中，通过共享或部分共享参数，实现描述生成、检索、QA 等多任务统一处理。
-  * 长视频多模态模型：如具备视频能力的 Gemini、Claude、GPT 等，通过长上下文与分层时序建模，对数十分钟乃至数小时视频进行整体理解，支持时间轴级别的摘要与问答。
-  * 时序 RAG + VLM：在视频上构建“时序向量索引”，先用 VLM 对视频片段进行编码建立数据库，再在查询时检索相关片段，结合 LLM 进行答案综合与可解释推理。
+* **Scenario**
+  * Subtitle and Summary Generation: Automatically generate multilingual subtitles for courses, lectures, meetings, and long video content, and on this basis, generate chapter-level summaries, highlight lists, and timelines.
+  * Video Q&A and Knowledge Access: Build a "Video Q&A Assistant" for teaching videos, operation demonstrations, and enterprise training content, supporting users to ask questions in natural language, such as "How to do this step" and "Where did this person finally put the phone".
+  * Video content retrieval and segment localization: Supports precise retrieval of "text → video segment" in large-scale video libraries, such as "find the part that mentions the price" and "find the segment that explains a certain formula"; Automatically marks and annotates highlights and key information within a single long video.
+  * Content Production and Editing Assistance: Combining video content understanding and language generation capabilities, it automatically generates titles, copy, and storyboard scripts to assist creators in quickly editing and recombining creatives.
+* **Principle**
+  The core of the video-language MultiModal Machine Learning system is to align temporal visual features with text representations in a unified embedding space, and perform retrieval, generation, and reasoning on this basis:
+  * MultiModal Machine Learning Feature Extraction and Alignment: Extract spatio-temporal features (CNN/ViT/Video Transformer) from video frames/segments, extract language embeddings (pre-trained LLM or text encoder) from text, and align the two modalities through contrastive learning or multi-modal pre-training.
+  * Speech and Text Pipeline: For content containing speech, ASR is typically first used to generate timestamp-aligned transcribed text, which is then jointly modeled with visual features. This allows for direct text-driven retrieval and cross-modal comparison and error correction.
+  * Temporal Modeling and Segment Localization: For long videos, it is necessary to learn "segment-level" representations on the timeline, dynamically switch between local segments and global context through attention or temporal RAG, and achieve precise localization of problem-related intervals.
+  * Generation and Inference: Connect a large language model to the aligned multi-modal representation for natural language generation (captions, summaries, explanations), or conduct multi-round Q&A and logical reasoning.
+* **Model**
+  In terms of model form, video-language MultiModal Machine Learning tasks have evolved from "dedicated encoder + simple head" to "unified large multimodal model":
+  * Early video-language models, such as VideoBERT, jointly model visual and text tokens during the pre-training phase, obtaining transferable video-language representations through masked prediction and contrastive learning.
+  * All‑in‑One Video‑Language Models: Integrate video, text (and speech) into a single MultiModal Machine Learning Transformer, and achieve unified processing of multiple tasks such as description generation, retrieval, and QA through shared or partially shared parameters.
+  * Long-video MultiModal Machine Learning models: such as Gemini, Claude, GPT with video capabilities, etc., through long context and hierarchical temporal modeling, comprehensively understand videos lasting tens of minutes or even hours, and support timeline-level summarization and Q&A.
+  * Temporal RAG + VLM: Build a "temporal vector index" on videos, first use VLM to encode video segments to establish a database, then retrieve relevant segments during query, and combine with LLM for answer synthesis and interpretable reasoning.
 
-总体来看，这一层将视频从“机器理解”进一步提升到“人机对话与协作”层面：用户可以像问人一样向视频提问，系统则在背后完成复杂的视觉、语音与语言对齐与推理。
+Overall, this layer further elevates video from "machine understanding" to the level of "human-machine dialogue and collaboration": users can ask questions to the video just as they would to a person, while the system behind the scenes completes complex visual, speech, and language alignment and reasoning.
 
-### 5.3.1 字幕、摘要与时间轴：把长视频压缩成可浏览文本
+### 5.3.1 Subtitles, Summaries, and Timelines: Compressing Long Videos into Browsable Text
 
-对于课程、讲座、会议和长内容视频，最迫切的需求往往是“快速知道讲了什么、哪里是重点”，而不是从头到尾完整观看。自动字幕与摘要系统通过“ASR + 文本处理 + 视觉辅助”的组合，将音频内容转写为时间戳对齐的文本，再在此基础上生成结构化大纲与精简摘要，实现从“小时级视频”到“分钟级阅读”的信息压缩。
+For courses, lectures, conferences, and long-form content videos, the most pressing need is often to "quickly know what was covered and where the key points are" rather than watching the entire content from start to finish. The automatic captioning and summarization system uses a combination of "ASR + text processing + visual aids" to transcribe audio content into timestamp-aligned text, and then generates a structured outline and a concise summary based on this, achieving information compression from "hour-long videos" to "minute-long readings".
 
-在实现层面，ASR 模块负责稳定、高质量地给出多语言转写和时间轴对齐；文本侧则利用大语言模型对原始转写进行纠错、分句和语义重整，提取章节标题、关键信息和问题–答案对。在一些场景中，还会结合视觉线索（如 PPT 页面变化、场景切换）来辅助划分章节边界与重点片段，保证摘要结构与真实内容节奏更加一致。
+At the implementation level, the ASR module is responsible for providing multilingual transcription and timeline alignment stably and with high quality; on the text side, large language models are used to correct errors, segment sentences, and restructure semantics of the original transcription, extracting chapter titles, key information, and question-answer pairs. In some scenarios, visual cues (such as PPT page changes and scene transitions) are also combined to assist in dividing chapter boundaries and key segments, ensuring that the summary structure is more consistent with the rhythm of the actual content.
 
-### 5.3.2 视频问答与语义检索：用自然语言“操纵”视频
+### 5.3.2 Video Question Answering and Semantic Retrieval: "Manipulating" Videos with Natural Language
 
-在字幕与摘要之上，更进一步的需求是能够针对特定视频内容进行问答和检索：例如“这个人最后把手机放在哪里”“哪一段讲到了价格策略”“演示这个步骤的是第几分钟”。这类任务需要在时间轴上对问题进行语义定位：既要理解问题本身涉及的人物、物体和动作，也要在视频时序表示中找到对应的片段。
+Beyond subtitles and summaries, a further requirement is the ability to conduct Q&A and retrieval for specific video content: for example, "Where did this person finally put the phone?", "Which segment talks about the pricing strategy?", "At which minute is this step demonstrated?" Such tasks require semantic localization of questions on the timeline: it is necessary to understand the people, objects, and actions involved in the question itself, as well as to find the corresponding segments in the video's temporal representation.
 
-具体做法上，通常会先离线为视频构建多粒度索引：对固定长度的片段提取多模态表示（画面 + 文本/语音），建立向量索引或图结构。在在线交互时，将用户问题编码为文本向量，与索引中的片段表征进行匹配，找出最相关的时间区间；随后，将这些片段的内容（关键帧截图描述、转写文本等）与问题一起送入 LLM，由模型生成自然语言答案或返回对应时间点。对于大规模视频库，可以在相同机制下支持“跨视频检索”，例如在企业培训知识库或电商商品视频中跨集合查找相关片段。
+In practice, we usually first build multi-granularity indexes for videos offline: extract multi-modal representations (image + text/voice) from fixed-length segments, and build vector indexes or graph structures. During online interaction, user questions are encoded into text vectors, which are then matched with the segment representations in the index to find the most relevant time intervals; subsequently, the content of these segments (key frame screenshot descriptions, transcribed text, etc.) is fed into the LLM along with the questions, and the model generates natural language answers or returns the corresponding time points. For large-scale video libraries, "cross-video retrieval" can be supported under the same mechanism, such as cross-collection search for relevant segments in enterprise training knowledge bases or e-commerce product videos.
 
-### 5.3.3 多模态编辑辅助：从理解到“帮你剪好”
+### 5.3.3 MultiModal Machine Learning Editing Assistance: From Understanding to "Editing for You"
 
-当系统能够稳定地理解视频中的内容和语义结构后，自然的下一步就是反向利用这些理解结果来辅助创作与编辑。视频–语言多模态模型可以根据创作者提供的脚本或提示词，在现有素材中自动选取符合语义的片段，生成粗剪时间线；也可以根据视频内容自动生成标题、封面文案、章节标签，甚至对镜头节奏和配乐提出建议。
+Once the system can stably understand the content and semantic structure of videos, the natural next step is to reverse-utilize these understanding results to assist in creation and editing. Video-language MultiModal Machine Learning models can automatically select semantically appropriate segments from existing creatives based on the script or prompt provided by the creator to generate a rough cut timeline; they can also automatically generate titles, cover copy, chapter labels based on video content, and even provide suggestions for shot rhythm and background music.
 
-在工作流中，这类能力通常以“智能推荐”和“自动粗剪”的形式出现：创作者上传素材后，系统自动完成分析、分镜、打点，并给出若干候选版本（如不同节奏、不同时长的剪辑方案）；创作者可以在此基础上微调，而无需从零开始逐帧筛选。对于企业级应用，系统还可以结合知识库和品牌规范，确保生成的文案、字幕和剪辑风格符合既定的业务要求和合规标准。
+In the workflow, this type of capability typically manifests in the form of "intelligent recommendation" and "automatic rough cut": after the creator uploads the creatives, the system automatically completes analysis, storyboarding, and keyframe marking, and provides several candidate versions (such as editing plans with different rhythms and durations); the creator can make fine adjustments on this basis without having to start from scratch and screen frame by frame. For enterprise-level applications, the system can also combine the Knowledge Base and Brand Guidelines to ensure that the generated copy, subtitles, and editing style meet the established business requirements and compliance standards.
 
-## 5.4 视频生成与编辑（Video Generation & Editing）
+## 5.4 Video Generation & Editing (Video Generation & Editing)
 
-在拥有了稳定的理解和结构分析能力之后，**视频生成与编辑**则迈向了“主动创造内容”的阶段：不再只是提升画质或做结构化分析，而是根据文本脚本、参考图像或已有视频，生成全新的镜头，或对原始视频进行结构化编辑与重组。这里既包括从无到有的文生视频（Text‑to‑Video），也包括基于已有图像/视频的风格迁移、扩展与重排，以及面向对象级别的精细编辑与替换。
+After acquiring stable comprehension and structural analysis capabilities, ** video generation and editing ** have entered the stage of "actively creating content": no longer just enhancing image quality or performing structural analysis, but generating new shots or performing structural editing and reorganization of the original video based on text scripts, reference images, or existing videos. This includes text-to-video (Text‑to‑Video) from scratch, as well as style transfer, expansion, and rearrangement based on existing images/videos, as well as object-oriented fine editing and replacement.
 
-产品上，这一层能力已经通过即梦视频、 minimax 视频、Sora、Runway Gen‑2、Pika、Kling 等一系列产品进入内容创作主流：广告片、概念片、动画、剧情分镜可以在不依赖大型拍摄团队和复杂后期的情况下快速生成；创作者可以通过自然语言脚本驱动镜头和风格；传统的视频剪辑流程则开始与结构化生成工具深度融合。下面依然从 **场景** 、**原理**和**模型**的角度进行梳理。
+In terms of products, this level of capabilities has entered the mainstream of content creation through a series of products such as Dreamina Video, Minimax Video, Sora, Runway Gen-2, Pika, Kling, etc.: Advertisements, concept videos, animations, and storyboard shots can be quickly generated without relying on large-scale filming teams and complex post-production; Creators can drive shots and styles through natural language scripts; Traditional video editing processes have begun to deeply integrate with structured generation tools. The following will still be sorted out from the perspectives of  ** scenarios ** ,  ** principles ** , and  ** models ** .
 
-* **场景**
-  * 文案、剧本到短视频：品牌广告、小剧场、剧情片段和概念动画，根据脚本自动生成或半自动生成可播放的视频草稿。
-  * 图像 / 视频到视频：为插画或角色设计生成动态版本，为现实拍摄素材进行风格迁移（现实 → 动漫 / 插画），或在时间与空间上扩展/重组已有视频。
-  * 结构化编辑与后期：在不改变整体内容语义的前提下，实现人物换脸、口型同步、对象擦除与替换、文本驱动的剪辑重排等精细操作。
-* **原理**
-  当前主流视频生成与编辑方法多以扩散模型（Diffusion）或其变体为核心，在高维的时空潜空间中逐步“去噪”生成视频：
-  * 文本条件建模：通过文本编码器（如 T5/CLIP 文本塔或专用语言模型）将脚本映射为条件向量，引导视频解码器在风格、内容和运动模式上对齐文本描述。
-  * 时空一致性与运动控制：在扩散过程或后验优化中加入时空卷积、时序注意力或 4D 表达（NeRF/GS 等），保证视频在时间轴上的连贯性与物理合理性。
-  * 图 / 视频条件生成：在输入图像或视频的特征空间上启动扩散过程，通过控制噪声注入、遮罩区域和条件通道，实现“保留已给部分 + 生成新内容”的受控编辑或扩展。
-  * 结构化控制信号：结合姿态骨架、分割掩膜、深度图、相机轨迹等结构信息，使生成视频在主体动作和视角变化上更可控。
-* **模型**
-  代表性的模型与方向包括：
-  * Diffusion‑based Text‑to‑Video 模型（Sora、Runway Gen‑2、Pika、Kling 等），通过大规模视频–文本对进行预训练，在复杂场景、多镜头运动和多样风格上具备较强生成能力。
-  * Image‑to‑Video 扩散模型：以单帧图像为条件，预测后续帧的动态演化，实现“单图 → 动画 / 动效”；或对短视频进行续写、扩展、旋转视角等操作。
-  * NeRF / 4D 表达与关键帧 + 插值方法：利用 3D 场景表示或关键帧 + 时序插值，将生成与几何、一致性建模结合，实现更稳定的视角漫游与复杂运动。
+* **Scenario**
+  * From copywriting and scripts to short videos: brand advertisements, mini-theaters, plot segments, and concept animations, automatically or semi-automatically generate playable video drafts based on scripts.
+  * Image/Video to Video: Generate dynamic versions for illustrations or character designs, perform style transfer on real-world filmed creatives (reality → anime/illustration), or expand/reorganize existing videos in time and space.
+  * Structured Editing and Post-production: On the premise of not changing the semantics of the overall content, achieve fine operations such as face swapping, lip-syncing, object erasure and replacement, and text-driven clip rearrangement.
+* **Principle**
+  Currently, most mainstream video generation and editing methods take the diffusion model (Diffusion) or its variants as the core, gradually "denoising" to generate videos in the high-dimensional spatio-temporal latent space:
+  * Text conditional modeling: Map the script to conditional vectors through text encoders (such as T5/CLIP text tower or dedicated language models), guiding the video decoder to align with the text description in terms of style, content, and motion patterns.
+  * Spatiotemporal Consistency and Motion Control: Incorporate spatiotemporal convolution, temporal attention, or 4D representation (such as NeRF/GS) into the diffusion process or posterior optimization to ensure the coherence and physical plausibility of the video along the time axis.
+  * Conditional generation of images/videos: Initiate the diffusion process in the feature space of the input image or video, and achieve controlled editing or expansion of "preserving the given part + generating new content" by controlling noise injection, masked regions, and conditional channels.
+  * Structured control signals: By combining structural information such as pose skeletons, segmentation masks, depth maps, and camera trajectories, they make the generated videos more controllable in terms of subject motion and perspective changes.
+* **Model**
+  Representative models and directions include:
+  * Diffusion-based Text-to-Video models (Sora, Runway Gen-2, Pika, Kling, etc.), pre-trained on large-scale video-text pairs, possess strong generative capabilities in complex scenarios, multi-shot motion, and diverse styles.
+  * Image-to-Video diffusion model: conditioned on a single frame image, predicts the dynamic evolution of subsequent frames to achieve "single image → animation/visual effect"; or performs operations such as continuation, expansion, and perspective rotation on short videos.
+  * NeRF / 4D Representation and Keyframe + Interpolation Method: By utilizing 3D scene representation or keyframe + temporal interpolation, it combines generation with geometric and consistency modeling to achieve more stable viewport roaming and complex motion.
 
-这些能力并非孤立存在，而是逐步渗入剪辑与后期流水线：文案到分镜、分镜到粗剪、粗剪到风格化与局部编辑，越来越多环节被“文本 + 结构化控制”所驱动。
+These capabilities do not exist in isolation but gradually permeate the editing and post-production pipeline: from copywriting to storyboarding, storyboarding to rough cut, rough cut to stylization and local editing, and more and more stages are driven by "text + structured control".
 
-### 5.4.1 文生视频：从脚本到“可看”的镜头序列
+### 5.4.1 Text-to-Video: From Script to "Watchable" Shot Sequence
 
-文生视频（Text‑to‑Video）希望实现的是：用户用自然语言描述一个场景、镜头或故事片段，系统自动生成一段连贯的视频。与图像生成相比，文生视频增加了时间维度的难题：不仅要在单帧层面保持画面质量和风格一致，还要保证跨帧的主体身份、光照、背景和运动轨迹的连贯性。
+Text-to-Video aims to achieve the following: users describe a scene, shot, or story segment in natural language, and the system automatically generates a coherent video. Compared with image generation, Text-to-Video adds the challenge of the time dimension: it not only needs to maintain consistent image quality and style at the single-frame level but also ensure the coherence of the subject's identity, lighting, background, and motion trajectory across frames.
 
-典型的扩散式文生视频模型会先在大规模视频–文本配对数据上预训练：文本编码器提取语义条件，视频解码器在潜空间中对一段“噪声视频”反复去噪，逐渐收敛到与文本一致的时空信号。在此过程中，会通过时序注意力、3D 卷积或 4D 表达等结构，将时间依赖显式建入网络，以避免出现“帧间跳变”“角色重置”等问题。部分系统还支持对镜头运动（推拉摇移）和构图节奏进行控制，使生成结果更接近真实拍摄语言。
+A typical diffusion-based text-to-video model first pre-trains on large-scale video-text paired data: the text encoder extracts semantic conditions, and the video decoder repeatedly denoises a "noisy video" in the latent space, gradually converging to a spatio-temporal signal consistent with the text. During this process, structures such as temporal attention, 3D convolution, or 4D representation are used to explicitly incorporate temporal dependencies into the network to avoid issues such as "inter-frame jumps" and "character resets". Some systems also support control over camera movements (push, pull, pan, tilt) and composition rhythm, making the generated results closer to real shooting language.
 
-### 5.4.2 图 / 视频到视频：在已有内容上“生长”与“变形”
+### 5.4.2 Image/Video to Video: "Growth" and "Deformation" on Existing Content
 
-另一条重要路线是基于已有图像或视频进行生成与编辑：例如，将一张插画或概念设定图“动起来”，将真人视频风格化为动漫，或在保持结构不变的前提下更换背景、调整天气和时间。技术上，这类方法往往在扩散过程上增加“参考通道”：将输入图像或视频编码为特征，作为条件或初始状态参与去噪，同时通过遮罩、显式几何约束等机制控制“哪些区域可以被改变、哪些必须保持”。
+Another important route is to generate and edit based on existing images or videos: for example, animating an illustration or concept art, stylizing a live-action video into an anime, or changing the background, adjusting the weather and time while keeping the structure unchanged. Technically, such methods often add a "reference channel" to the diffusion process: encoding the input image or video into features, which participate in denoising as conditions or initial states, while controlling "which regions can be changed and which must remain" through mechanisms such as masks and explicit geometric constraints.
 
-对于风格迁移场景，模型会在保留原始运动和构图的前提下，重绘纹理和光影，使其匹配目标风格；对于视频扩展与重组，则通过在时间两端或中间“续写”新帧，实现水平/垂直场景扩展、视角绕行或情节补充。这类能力非常适合与传统剪辑流程结合：剪辑师先给出关键镜头和节奏，模型再在这些“锚点”之间自动生成过渡和变体。
+For style transfer scenarios, the model will redraw textures and lighting while preserving the original motion and composition to match the target style; for video extension and recombination, it achieves horizontal/vertical scene expansion, perspective rotation, or plot supplementation by "continuing" new frames at both ends or in the middle of the time. These capabilities are highly suitable for integration with traditional editing workflows: editors first provide key shots and rhythms, and then the model automatically generates transitions and variations between these "anchor points".
 
-### 5.4.3 结构化视频编辑：对象级的精细控制
+### 5.4.3 Structured Video Editing: Fine-grained Control at the Object Level
 
-在许多业务场景中，完全重生视频并非刚需，更关键的是对已有画面进行精细、可控的结构化编辑：比如换脸、改口型、擦除不需要的物体、替换广告位内容，或者根据文本脚本重排镜头顺序。结构化视频编辑正是沿着这一思路发展：在视频理解的基础上，引入对象级分割、跟踪和参数化表示，使编辑操作可以稳定绑定到特定目标和时间段。
+In many business scenarios, completely regenerating a video is not an inelastic demand; rather, the more crucial aspect is to perform fine-grained and controllable structured editing on existing footage, such as face swapping, lip-syncing, erasing unwanted objects, replacing advertising content, or rearranging shot sequences according to a text script. Structured video editing has developed along this line of thinking: on the basis of video understanding, it introduces object-level segmentation, tracking, and parametric representation, enabling editing operations to be stably bound to specific targets and time periods.
 
-人物换脸和口型同步（Lip‑sync）是这一方向中最典型的应用：模型需要在保证头部姿态与整体表情自然连贯的前提下，将目标人物的身份映射到原视频的表演上，并根据新语音信号精确控制口型运动。对象擦除 / 替换则依赖高质量的分割和时空补全：先在每一帧中分割并移除目标对象，再利用邻近帧与上下文纹理填补空洞，避免出现明显“打补丁”的痕迹。文本驱动剪辑则通过将“脚本结构”与视频时间轴对齐，自动选取和拼接符合脚本语义的片段，实现更高层的自动化编辑。
+Face swapping and lip-sync are the most typical applications in this direction: the model needs to map the identity of the target person onto the performance of the original video while ensuring the natural and coherent head pose and overall expression, and precisely control the lip movement based on the new speech signal. Object erasure/replacement relies on high-quality segmentation and spatio-temporal completion: first segment and remove the target object in each frame, then fill the holes using neighboring frames and contextual textures to avoid obvious "patching" traces. Text-driven editing aligns the "script structure" with the video timeline, automatically selects and stitches together segments that match the script semantics, achieving a higher level of automated editing.
 
-## 5.5 数字人 / 虚拟人（Digital Human / Avatar）
+## 5.5 Digital Human / Virtual Human (Digital Human / Avatar)
 
-**数字人 / 虚拟人（Digital Human / Avatar）** 可以看作是视频生成、语音合成、多模态理解和图形渲染的一次“系统级整合”：它不只是生成一段视频，而是基于文本或语音输入，持续、可控地驱动一个虚拟形象“开口说话、做表情、摆动作”，并在越来越多场景下实现准实时甚至实时的交互。相比一般的视频生成，数字人更强调三点： **身份与形象的长期一致性、语音—表情—动作的精细对齐、以及端到端系统的实时性与稳定性** 。
+**Digital Human / Virtual Human (Digital Human / Avatar)** can be regarded as a "system-level integration" of video generation, speech synthesis, MultiModal Machine Learning understanding, and graphics rendering: it is not just about generating a video, but based on text or speech input, continuously and controllably driving a virtual character to "speak, make expressions, and perform actions", and achieving quasi-real-time or even real-time interaction in an increasing number of scenarios. Compared with general video generation, digital humans emphasize three points: ** long-term consistency of identity and image, fine alignment of speech-expression-action, and real-time and stability of the end-to-end system** .
 
-从产品视角看，数字人已经广泛出现在**内容生产平台、虚拟客服 / 智能前台 / 虚拟导览、教育培训与在线课堂、品牌虚拟 IP / 虚拟偶像、为创作者提供的虚拟主播 / 数字分身工具**等场景：企业可以批量生产带有固定形象和风格的视频内容，政府和企业服务可以用虚拟前台 7×24 小时接待用户，个人创作者可以完全不露脸但持续产出“有人出镜”的视频。下面依然从 **场景** 、**原理**和**模型**三个维度来梳理，并在后续小节展开驱动与表达、形象与视频生成、实时交互与系统集成三个方向。
+From a product perspective, digital humans have already widely appeared in **scenarios such as content production platforms, virtual customer service / intelligent front desk / virtual tour guides, education and training and online classrooms, brand virtual IPs / virtual idols, and virtual LIVE creators / digital avatar tools for creators** : enterprises can mass-produce video content with fixed images and styles, government and enterprise services can use virtual front desks to serve users 24/7, and individual creators can continuously produce "on-camera" videos without showing their faces. The following will still be sorted out from three dimensions of **scenarios** , **principles** , and **models** , and three directions of driving and expression, image and video generation, and real-time interaction and system integration will be expanded in the subsequent sections.
 
-* **场景**
-  * 内容生产与在线传播：企业宣传片、产品功能讲解、课程录制、新闻播报，使用数字人替代真人上镜，大量减少拍摄场地、灯光设备和人力成本。
-  * 虚拟客服与导览：在银行网点、政务大厅、景区、博物馆等场所，用数字人承担迎宾、问询、业务咨询和路线指引，兼顾形象统一与 7×24 小时服务。
-  * 品牌虚拟 IP / 虚拟偶像：围绕某一虚拟形象长期运营短视频、直播、电商内容，在不同平台上保持统一人设和视觉风格。
-  * 虚拟主播与数字分身：为不愿出镜或需要多身份运营的创作者，提供可配置的虚拟主播 / 数字分身，与真实声音或合成声音绑定，实现“只用说话 / 打字，就能稳定出镜”。
-* **原理**
-  数字人系统本质上是一个“语音 / 文本驱动 + 形象建模 + 视频 / 渲染输出”的多模态流水线，在离线与实时场景下略有差异，但核心组件相似：
-  * 语音与语言驱动：根据脚本直接用 TTS 合成语音，或接入 ASR + LLM，从用户语音 / 文本中生成回复文本，再用 TTS 输出语音；语音特征（如 mel 频谱）作为驱动信号控制嘴型与表情时间轴。
-  * 形象与动作空间建模：为虚拟形象构建可控的几何与外观表示，例如 2D 人像 / 插画、基于骨骼和 Blendshape 的 3D Avatar、或基于 NeRF / 4D 高斯的可渲染体积表示；并定义一组“驱动参数”（如关键点、姿态骨架、Blendshape 系数），用来编码表情与姿态。
-  * 语音 → 表情 / 动作映射：通过专门的“语音驱动”模型，将语音特征映射为人脸和上半身的驱动参数，实现口型同步（Lip‑sync）、表情细节和头肩动作；实时数字人会要求这一映射端到端低延迟且稳定。
-  * 渲染与合成：根据当前帧驱动参数，对虚拟形象进行图像或 3D 渲染，输出连续视频流或实时画面；可叠加背景、道具、字幕等元素，与传统视频剪辑流程结合。
-* **模型**
-  在具体模型上，数字人系统往往综合使用多类专用模型与通用多模态模型：
-  * Audio‑driven Talking Head 模型：如 Wav2Lip 一类的口型同步模型，通过学习语音与口腔区域像素 / 几何之间的对齐关系，在保证身份一致的前提下生成自然的嘴部运动。
-  * 实时 / 轻量级数字人模型：如 Ultralight‑Digital‑Human、轻量级 Talking Head 模型等，在结构上大幅压缩参数与计算量，使得在 CPU / 移动端 / WebGPU 上也能实现接近实时的驱动与渲染。
-  * NeRF / 4D 表达模型：如 ER‑NeRF（Explicit / Efficient / Editable 方向的数字人 NeRF 方案）等，通过在 3D 空间中建模人物形象与表情变化，使视角、光照和动作更自然连贯，适合高保真和多机位场景。
-  * 语音驱动与多模态对齐模型：如 MuseTalk 一类“语音 → 面部表情 / 说话头”模型，将音频特征和视觉特征对齐，在不依赖大量 3D 标注的情况下实现逼真的讲话表情与头部动作。
-  * 语音与对话模型：高自然度多说话人 TTS、端到端语音对话模型（ASR + LLM + TTS 一体化），为数字人提供多风格、多语种的声音和对话能力。
+* **Scenario**
+  * Content production and online dissemination: corporate promotional videos, product feature explanations, course recordings, news broadcasts. Using digital humans to replace real people on camera significantly reduces costs associated with shooting locations, lighting equipment, and human resources.
+  * Virtual Customer Service and Tour Guide: In places such as bank branches, government service halls, scenic spots, and museums, digital humans are used to undertake tasks such as greeting guests, answering inquiries, providing business consultation, and route guidance, while ensuring unified image and 7×24-hour service.
+  * Brand Virtual IP / Virtual Idol: Continuously operate short videos, LIVE, and e-commerce content around a virtual character, maintaining a consistent persona and visual style across different platforms.
+  * Virtual LIVE Creators and Digital Avatars: Provide configurable virtual LIVE creators / digital avatars for creators who are reluctant to appear on camera or need to operate multiple identities, which can be bound to real voices or synthetic voices to achieve "stable on-camera appearance just by speaking / typing".
+* **Principle**
+  The digital human system is essentially a "voice/text-driven + image modeling + video/rendering output" MultiModal Machine Learning pipeline, which varies slightly between offline and real-time scenarios but has similar core components:
+  * Speech and Language Driven: Directly synthesize speech using TTS according to the script, or connect to ASR + LLM to generate response text from user speech/text, and then output speech using TTS; speech features (such as mel spectrogram) serve as driving signals to control the lip-sync and facial expression timeline.
+  * Modeling of Appearance and Motion Space: Construct controllable geometric and appearance representations for virtual avatars, such as 2D portraits/illustrations, 3D avatars based on skeletons and Blendshapes, or renderable volume representations based on NeRF/4D Gaussians; and define a set of "driving parameters" (e.g., key points, pose skeletons, Blendshape coefficients) to encode expressions and poses.
+  * Speech → Facial Expression / Motion Mapping: Through a dedicated "speech-driven" model, map speech features to the driving parameters of the face and upper body to achieve lip-sync, facial expression details, and head and shoulder movements; real-time digital humans require this mapping to be end-to-end low-latency and stable.
+  * Rendering and Composition: Based on the current frame driving parameters, perform image or 3D rendering on the virtual avatar, output continuous video streams or real-time images; can overlay elements such as backgrounds, props, subtitles, etc., and integrate with traditional video editing workflows.
+* **Model**
+  In specific models, digital human systems often comprehensively use multiple types of specialized models and general MultiModal Machine Learning models:
+  * Audio-driven Talking Head Model: A lip-sync model such as Wav2Lip, which generates natural mouth movements while ensuring identity consistency by learning the alignment relationship between speech and pixels/geometry in the oral region.
+  * Real-time / lightweight digital human models: such as Ultralight‑Digital‑Human, lightweight Talking Head models, etc., significantly compress parameters and computational load in their structure, enabling near real-time driving and rendering on CPU / mobile devices / WebGPU.
+  * NeRF / 4D Representation Model: Such as ER‑NeRF (a digital human NeRF solution in the Explicit / Efficient / Editable direction), etc., which models the character's appearance and expression changes in 3D space to make the perspective, lighting, and movement more natural and coherent, suitable for high-fidelity and multi-camera scenarios.
+  * Speech-driven and MultiModal Machine Learning alignment models: Models like MuseTalk, which are "speech → facial expression / talking head" models, align audio features with visual features to achieve realistic speaking expressions and head movements without relying on a large amount of 3D annotation.
+  * Speech and Dialogue Models: High-naturalness multi-speaker TTS, end-to-end speech dialogue models (integrated ASR + LLM + TTS), provide digital humans with multi-style, multilingual voice and dialogue capabilities.
 
-综合来看，数字人既是一组模型，也是一套完整系统：它将语言理解、语音、视觉生成与实时推理整合起来，从而在“屏幕前”呈现出一个可交互的虚拟角色。下面，我们从 **驱动与表达** 、**形象与视频生成**和**实时交互与系统集成**三个方向展开。
+Overall, a digital human is both a set of models and a complete system: it integrates language understanding, speech, visual generation, and real-time reasoning to present an interactive virtual character "in front of the screen". Next, we will explore from  **driving and expression** ,  **image and video generation** , and **real-time interaction and system integration**in three directions.
 
-### 5.5.1 驱动与表达：从脚本 / 语音到“会说话、会表情”的人
+### 5.5.1 Driving and Expression: From Script / Speech to a "Talking and Expressive" Person
 
-在数字人流水线中，**驱动与表达**负责回答一个核心问题：在给定脚本或语音的前提下，虚拟形象在每一帧应该呈现什么样的嘴型、表情和头肩动作。这里既包括离线批量生产的场景，也包括对实时对话的响应。
+In the digital human pipeline, ** driving and expression ** are responsible for answering a core question: given a script or speech, what mouth shapes, expressions, and head and shoulder movements should the virtual avatar present in each frame. This includes both offline batch production scenarios and responses to real-time conversations.
 
-在离线内容生产中，常见链路是“文本脚本 → TTS → 语音驱动”：业务侧提供播报文案，TTS 模块生成目标音色（如品牌虚拟代言人）的语音，再将语音特征输入到“语音 → 动作”模型。**Wav2Lip 类模型**就是这一环节的重要代表：
+In offline content production, the common pipeline is "text script → TTS → voice-driven": the business side provides the broadcast copy, the TTS module generates the voice of the target timbre (such as the brand virtual spokesperson), and then inputs the voice features into the "voice → motion" model. ** Wav2Lip-like models ** are important representatives of this stage:
 
-* 它以参考人像帧和对应语音片段为输入，通过一个卷积 / 注意力网络预测出与语音精细对齐的嘴部区域，再与原始人像进行融合，从而在保持身份和大部分表情不变的前提下，精确修改嘴型。
-* 训练时，通过语音–视频对齐数据监督网络学会不同音素对应的口腔形态，并在时间上保持连续性，避免嘴型跳变或延迟感。
+* It takes a reference portrait frame and the corresponding speech segment as inputs, predicts the mouth region precisely aligned with the speech through a convolution/attention network, and then fuses it with the original portrait, thereby precisely modifying the mouth shape while keeping the identity and most expressions unchanged.
+* During training, the network learns the oral morphology corresponding to different phonemes through supervision of speech-video alignment data, maintains temporal continuity, and avoids mouth shape jumps or delays.
 
-相比早期纯口型同步方案，新一代的语音驱动模型（如 MuseTalk 一类的方法）进一步扩展到了 **全脸表情和头部姿态** ：
+Compared to the early pure lip-syncing schemes, the new generation of speech-driven models (such as methods like MuseTalk) have further extended to  ** full-face expressions and head poses ** :
 
-* 这类模型通常将语音特征映射到一个低维的“情绪 / 表达潜空间”，再通过解码器生成关键点、Blendshape 系数或直接生成图像特征，带动眉毛、眼睛、颊部等区域的细微变化，使“说话表情”更生动。
-* 有的模型还会将语音内容的语义信息（如疑问、强调、感叹）编码进去，结合 LLM 分析的句法 / 语用信号，在语调变化处增加点头、皱眉、手势等动作，提升表达的自然度和感染力。
+* This type of model typically maps speech features to a low-dimensional "emotion/expression latent space", and then generates key points, Blendshape coefficients, or directly generates image features through a decoder, driving subtle changes in areas such as the eyebrows, eyes, and cheeks, making the "talking expression" more vivid.
+* Some models also encode semantic information of speech content (such as questions, emphasis, exclamations), combine syntactic/pragmatic signals analyzed by LLM, and add actions such as nodding, frowning, and gestures at intonation changes to enhance the naturalness and expressiveness of the presentation.
 
-在更高维度上，**驱动与表达**也可以结合外部控制信号：例如将姿态骨架、手势轨迹、视线方向等作为附加输入，使数字人可以模仿特定演讲者的风格，或根据脚本中的“指示动作”（如“指向屏幕”“双手张开”）执行预定义的动作模板。无论是 Wav2Lip 这样的局部口型驱动，还是 MuseTalk / 实时骨架驱动等更全身的表达建模，它们共同实现了从语音 / 文本到面部与上半身动作的连续映射，是数字人“看起来像在认真说话”的关键一环。
+At higher dimensions,**driving and expression**can also incorporate external control signals: for example, using pose skeletons, gesture trajectories, gaze directions, etc. as additional inputs, enabling digital humans to imitate the style of specific speakers or execute predefined action templates based on "directed actions" (such as "pointing at the screen" or "spreading hands") in the script. Whether it is local lip-sync driving like Wav2Lip or more full-body expression modeling such as MuseTalk / real-time skeleton driving, they jointly achieve a continuous mapping from speech / text to facial and upper body movements, which is a crucial part of making digital humans "look like they are speaking seriously".
 
-### 5.5.2 形象与视频生成：从“一个模型”到“一个可塑的角色”
+### 5.5.2 Image and Video Generation: From "One Model" to "One Mutable Character"
 
-驱动链路解决了“怎么动”，而**形象与视频生成**则决定了“谁在动、在哪里动、以什么风格动”。这里既包含高保真写实数字人，也包含二次元、卡通和低多边形 Avatar 等风格化形象，以及面向实时和离线渲染的不同技术选型。
+The driving chain addresses "how to move", while ** image and video generation ** determines "who is moving, where they are moving, and in what style they are moving". This includes high-fidelity realistic digital humans, as well as stylized images such as anime, cartoon, and low-polygon Avatars, as well as different technical selections for real-time and offline rendering.
 
-在 2D 人像与插画场景中，典型做法是基于少量参考图像和短视频训练一个 **Talking Head 生成模型** ：
+In 2D portrait and illustration scenarios, the typical approach is to train a **Talking Head generation model ** based on a small number of reference images and short videos:
 
-* 模型将人物的身份信息编码为一个“外观向量”或风格特征，将驱动参数（如语音隐向量、关键点、表情编码）作为条件输入，在图像空间中合成新的帧。
-* 与纯 Wav2Lip 只改口型不同，这类模型可以在姿态上做小幅度摆动、在表情上叠加情绪变化，从而让数字人看起来不那么“僵硬”。
+* The model encodes the identity information of a person into an "appearance vector" or style feature, takes driving parameters (such as speech latent vectors, key points, and expression encodings) as conditional inputs, and synthesizes new frames in the image space.
+* Unlike pure Wav2Lip, which only modifies lip movements, this type of model can make small swings in posture and overlay emotional changes in expression, thus making the digital human appear less "stiff".
 
-在追求更高真实感、更自由视角和多机位切换的场景中，越来越多方案采用基于 **NeRF / 4D 表达**的数字人建模（如 ER‑NeRF 一类方法）：
+In scenarios where higher realism, more flexible viewpoints, and multi-camera switching are pursued, an increasing number of solutions adopt digital human modeling based on **NeRF/4D representation** (such as methods like ER-NeRF):
 
-* 通过多视角拍摄或视频，先重建人物头部 / 上半身的 3D 体积或高斯场，将不同表情和嘴型对应的状态编码为可插值的隐空间；
-* 驱动时，将语音 / 表情参数映射到这一隐空间，在 3D 中进行体积渲染或高斯渲染，再投影到屏幕上。
-* 这种做法的优势在于：视角、光照和背景更自然，可以支持“环绕视角”“虚拟摄影机”运动，对 VR/AR、虚拟直播间和高端广告制作尤为友好。
+* Through multi-viewpoint shooting or video, first reconstruct the 3D volume or Gaussian field of the human head/upper body, and encode the states corresponding to different expressions and mouth shapes into an interpolatable latent space;
+* During driving, map the voice/expression parameters to this latent space, perform volumetric rendering or Gaussian rendering in 3D, and then project it onto the screen.
+* The advantages of this approach are that the perspective, lighting, and background are more natural, it can support "surround perspective" and "virtual camera" movement, and it is particularly friendly to VR/AR, virtual LIVE studios, and high-end advertising production.
 
-在强调跨端部署与实时性的业务中，还会采用 **Ultralight‑Digital‑Human** 这类轻量化方案：
+In business scenarios that emphasize cross - platform deployment and real - time performance, lightweight solutions such as ** Ultralight - Digital - Human ** are also adopted:
 
-* 通过结构剪枝、算子重构和模型蒸馏，将 Talking Head 或 Avatar 渲染网络压缩到移动端 / WebGPU 也能运行的规模；
-* 在几毫秒级别完成从驱动参数到一帧图像的生成，与实时语音流或控制信号对齐，实现“低延迟数字人”，适合互动终端、自助机和 Web 前端应用。
+* Compress the Talking Head or Avatar rendering network to a scale that can also run on mobile devices / WebGPU through structural pruning, operator reconstruction, and model distillation;
+* Completes the generation of a frame of image from driving parameters within a few milliseconds, aligns with real-time audio stream or control signals, realizes "low-latency digital human", and is suitable for interactive terminals, self-service machines, and web front-end applications.
 
-在完整视频生产层面，形象与视频生成还要与背景、道具和镜头语言结合：一个常见的工作流是：
+At the level of full video production, image and video generation also need to be combined with background, props, and shot language: a common workflow is:
 
-* 先为品牌或个人定制一个数字人形象（2D 或 3D）；
-* 预设若干虚拟场景（演播厅、办公室、教室、展厅等）；
-* 在生产内容时，系统根据脚本自动选择合适场景和机位，生成数字人画面，并与 PPT、演示视频、产品画面进行多画面编排。
-  这使得数字人不只是一个“说话头”，而是可以自然融入各种节目和内容形态的“角色”。
+* First, customize a digital human image (2D or 3D) for a brand or individual;
+* Preset several virtual scenarios (studio, office, classroom, exhibition hall, etc.);
+* When producing content, the system automatically selects appropriate scenes and camera positions based on the script, generates digital human footage, and arranges multi-screen layouts with PPTs, demonstration videos, and product images.
+  This enables the digital human to be not just a "talking head" but a "character" that can naturally integrate into various program and content formats.
 
-### 5.5.3 实时数字人与系统集成：从离线视频到“屏幕里的同事”
+### 5.5.3 Real-time Digital Human and System Integration: From Offline Video to "Colleague on Screen"
 
-随着 ASR、TTS、LLM 和轻量级视频生成模型的成熟，越来越多数字人系统开始从**离线批量出片**走向 **实时交互** ：用户在终端开口说话或输入文本，屏幕上的数字人在几百毫秒到几秒内“听懂—思考—回应—开口说话”，形成类似真人客服 / 导览 / 主持的体验。这里的关键不只是模型本身，还包括如何把多模态链路 **压缩到可接受的端到端延迟** 。
+With the maturity of ASR, TTS, LLM, and lightweight video generation models, more and more digital human systems are starting to move from **offline batch production **to  **real-time interaction ** : when users speak or input text at the terminal, the digital human on the screen "understands - thinks - responds - speaks" within a few hundred milliseconds to a few seconds, creating an experience similar to that of a real human customer service / tour guide / host. The key here is not just the model itself, but also how to  **compress the MultiModal Machine Learning link to an acceptable end-to-end latency ** .
 
-在一个典型的实时数字人闭环中：
+In a typical real-time digital human closed-loop:
 
-* **前端输入** ：ASR 模块将用户语音实时转为文本，或直接接收用户文本输入。
-* **语义理解与决策** ：LLM 结合业务知识库和工具（RAG、数据库查询、流程编排）生成回复文本，以及必要的结构化指令（如需要展示哪一页 PPT、播放哪个视频片段）。
-* **语音与驱动** ：TTS 将回复文本转换为目标音色的语音，语音流一边生成、一边被 Wav2Lip / MuseTalk / 实时骨架驱动模型消费，逐段输出对应的口型与表情参数。
-* **渲染输出** ：Ultralight‑Digital‑Human 类型的轻量渲染网络或基于 GPU 的 NeRF / Avatar 渲染引擎，将驱动参数实时转换成视频帧，通过 WebRTC、RTMP 或本地渲染直接输出到屏幕。
+* **Front-end Input ** : The ASR module converts user speech into text in real time or directly receives user text input.
+* **Semantic Understanding and Decision Making** : LLM combines business Knowledge Base and tools (RAG, database query, process orchestration) to generate response text and necessary structured instructions (such as which page of PPT to display, which video clip to play).
+* **Voice and Driving ** : TTS converts the response text into speech with the target timbre. The speech stream is generated and consumed by the Wav2Lip / MuseTalk / real-time skeleton driving model simultaneously, outputting the corresponding lip-sync and expression parameters segment by segment.
+* **Render Output** : A lightweight rendering network of the Ultralight‑Digital‑Human type or a GPU-based NeRF / Avatar rendering engine that converts driving parameters into video frames in real time and outputs them directly to the screen via WebRTC, RTMP, or local rendering.
 
-为了在多终端上提供一致体验，系统还需要在**延迟、带宽与算力**之间做细致权衡：
+To provide a consistent experience across multiple terminals, the system also needs to make a careful trade-off between  ** latency, bandwidth, and computing power ** :
 
-* 在云端渲染方案中，绝大部分计算（LLM、TTS、驱动与渲染）在服务器完成，终端只负责播放视频流，适合算力有限的 Web / App 和线下大屏，但对网络稳定性有依赖；
-* 在“云 + 端混合”方案中，ASR 和部分 LLM 推理在云端完成，轻量化驱动与渲染在本地进行，可以显著降低音画交互延迟，适合移动设备与自助终端；
-* 在强算力终端（如高性能 PC、专用工作站）上，还可以将大部分链路下沉本地，实现弱网环境下的稳定互动。
+* In the cloud rendering solution, most of the computations (LLM, TTS, driving, and rendering) are completed on the server, while the terminal is only responsible for playing the video stream. This is suitable for Web / App with limited computing power and offline large screens, but it relies on network stability;
+* In the "cloud + edge hybrid" solution, ASR and some LLM inference are completed in the cloud, while lightweight driving and rendering are performed locally, which can significantly reduce audio-visual interaction latency and is suitable for mobile devices and self-service terminals;
+* On high-performance computing terminals (such as high-performance PCs and dedicated workstations), most of the links can also be offloaded locally to achieve stable interaction in weak network environments.
 
-在模型侧，**实时数字人**也对结构设计提出了额外要求：
+On the model side,** real-time digital humans ** also impose additional requirements on structural design:
 
-* 语音驱动模型需要具备流式推理能力，能够在获得一小段语音后就给出口型与表情预测，而不是等整句结束；
-* 渲染网络需要尽可能减少依赖大卷积核和全局注意力，采用局部卷积、轻量自注意力、分辨率金字塔等结构控制计算量；
-* 对于基于 NeRF / 4D 的高保真方案，则需要通过网格缓存、视锥裁剪、稀疏体积和 GPU 优化等手段，把每帧渲染控制在几毫秒到几十毫秒内。
+* The speech-driven model needs to have streaming inference capabilities, being able to provide mouth shape and expression predictions after receiving a short segment of speech, rather than waiting until the end of the entire sentence;
+* The rendering network needs to minimize its reliance on large convolution kernels and global attention as much as possible, and adopt structures such as local convolution, lightweight self-attention, and resolution pyramid to control the computational load;
+* For high-fidelity solutions based on NeRF/4D, it is necessary to control the rendering of each frame within a few milliseconds to a few dozen milliseconds through means such as mesh caching, frustum culling, sparse volume, and GPU optimization.
 
-在系统集成层面，实时数字人往往还要与**业务知识、人格设定与对话策略**紧密绑定：
+At the system integration level, real-time digital humans often need to be closely bound with  ** business knowledge, personality settings, and dialogue strategies ** :
 
-* 通过知识库和 RAG 管理行业知识、业务流程和 FAQ，确保“说得对、说得全”；
-* 通过人设配置和话术模板控制说话风格和表达边界，确保“说得像这个人（或这个品牌）”；
-* 通过多轮对话策略与会话状态管理，使数字人可以记住用户上下文、在合适时机确认和追问，呈现出“像一个真正的同事 / 导游 / 讲师”的交互感。
+* Manage industry knowledge, business processes, and FAQs through the Knowledge Base and RAG to ensure "correct and comprehensive narratives";
+* Control the speaking style and expression boundaries through persona configuration and narrative templates to ensure that it "sounds like this person (or this brand)".
+* Through multi-round dialogue strategy and conversation state management, the digital human can remember user context, confirm and follow up at appropriate times, presenting an interactive experience "like a real colleague / tour guide / lecturer".
 
-总体而言，加入了 Wav2Lip、MuseTalk、ER‑NeRF、Ultralight‑Digital‑Human 等专门为口型同步、表情驱动与实时渲染设计的模型之后，数字人正从“离线视频模板工具”加速演化为 **可实时响应、有稳定人格和专业知识的虚拟实体** ，成为视频技术体系中最具综合性和应用张力的一环。
+Overall, after incorporating models such as Wav2Lip, MuseTalk, ER‑NeRF, and Ultralight‑Digital‑Human, which are specifically designed for lip synchronization, expression driving, and real‑time rendering, digital humans are accelerating their evolution from "offline video template tools" into  ** virtual entities that can respond in real time, have stable personalities, and possess professional knowledge ** , becoming the most comprehensive and application‑oriented component in the video technology system.
 
-# 6. 时间序列与时序决策（Time Series & Sequential Decision）
+# 6. Time Series & Sequential Decision
 
-在前面的视觉和结构化建模中，我们更多是在“静态”空间下思考问题：一张图、一条记录、一段文本。而在真实业务中，极大一部分核心指标都是随时间演化的：销售量和流量每天在波动，服务器负载和传感器读数每秒在变化，金融价格与宏观指标则在政策和事件驱动下不断调整。**时间序列与时序决策**这层，关注的就是：在时间轴上预测未来、识别异常、刻画结构突变，并在此基础上做出有前瞻性的决策与控制。
+In previous visual and structural modeling, we have mostly thought about problems in a "static" space: a single image, a single record, or a single text. In real business scenarios, a significant portion of core metrics evolve over time: sales volume and traffic fluctuate daily, server load and sensor readings change every second, and financial prices and macroeconomic indicators are continuously adjusted under the influence of policies and events. ** Time Series and Temporal Decision-Making ** This layer focuses on predicting the future, identifying anomalies, and characterizing structural mutations along the time axis, and making forward-looking decisions and controls based on these.
 
-从产品视角看，这类能力贯穿运营、规划、风控和调度等关键环节：传统 BI / 报表系统中嵌入的指标预测模块、财务与供应链规划工具中的需求预测和安全库存建议、量化研究分析软件中的宏观关联分析和因果关系挖掘、电商和出行平台上的流量与运力预测、运维 AIOps 中的指标异常检测与告警，都是这一层的典型落地形态。下面我们从 **经典统计方法** 、 **深度学习时间序列建模** 、**异常与变点检测**以及**时空序列建模**四个方向展开。
+From a product perspective, this type of capability runs through key processes such as operations, planning, risk control, and scheduling: the indicator prediction module embedded in traditional BI/reporting systems, demand forecasting and safety stock recommendations in financial and supply chain planning tools, macro correlation analysis and causal relationship mining in quantitative research and analysis software, traffic and capacity forecasting on e-commerce and travel platforms, and indicator anomaly detection and alerting in operational AIOps are all typical implementation forms at this level. Next, we will expand from  **classical statistical methods** ,  **deep learning time series modeling** , **anomaly and change point detection** and **spatiotemporal sequence modeling** in four directions.
 
-## 6.1 经典时间序列建模（Statistical TS Modeling）
+## 6.1 Classical Time Series Modeling (Statistical TS Modeling)
 
-在很多业务里，“时间”是天然的主线：销售量按日/周变化、网站流量随活动波动、设备负载跟着用户行为起伏、传感器读数反映着系统状态的细微变化。**经典统计时间序列建模**就是在这种时序结构上，利用相对可解释、可分析的统计模型去回答三个核心问题：**未来会怎样？变量之间如何关联？系统当前所处的状态是什么？** 尽管深度学习已经在许多场景中崭露头角，但 ARIMA、协整分析、卡尔曼滤波等传统方法，仍然在金融、供应链、运营、风控等领域长期服役，并常常作为更复杂系统的“基线”和解释工具。
+In many business scenarios, "time" serves as a natural main thread: sales volume changes daily/weekly, website traffic fluctuates with activities, device load rises and falls with user behavior, and sensor readings reflect subtle changes in system state. ** Classical statistical time series modeling ** addresses three core questions on this time series structure by using relatively interpretable and analyzable statistical models: ** What will the future look like? How are variables related? What is the current state of the system? ** Although deep learning has shown promise in many scenarios, traditional methods such as ARIMA, cointegration analysis, and Kalman filtering still play long-term roles in fields such as finance, supply chain, operations, and risk control, and often serve as the "base line" and interpretive tools for more complex systems.
 
-从应用视角看，经典时间序列模型广泛存在于传统 BI/报表系统的指标预测模块、财务与供应链规划工具、以及各类量化研究软件中。它们可以直接对单个或多个时间序列给出未来预测区间，也可以用来分析宏观指标之间的协同变化与长期均衡关系，并通过状态空间建模对轨迹和隐藏状态进行估计。下面，我们从 **场景** 、**原理**和**模型**三个维度来梳理这类方法的典型用法，再分别展开具体方向。
+From an application perspective, classical time series models are widely used in the indicator prediction modules of traditional BI/reporting systems, financial and supply chain planning tools, and various quantitative research software. They can directly provide future prediction intervals for single or multiple time series, and can also be used to analyze the co-variation and long-term equilibrium relationships among macro indicators, and estimate trajectories and hidden states through state space modeling. Next, we will sort out the typical usage of this type of method from three dimensions:  ** scenario ** ,  ** principle ** , and  ** model ** , and then expand on specific directions respectively.
 
-* **场景**
-  * 指标预测：对销售量、网站流量、CPU 负载、传感器读数等按时间变化的数值进行短期或中期预测，用于库存备货、产能安排、运维调度等决策。
-  * 宏观经济与金融分析：研究 GDP、通胀率、利率、汇率、资产价格等宏观和市场指标之间的长期关联和短期动态，辅助政策研究与量化策略开发。
-  * 过程与轨迹估计：在定位、导航、目标跟踪和设备监控中，对随时间变化的轨迹、速度、状态进行估计与平滑，并在噪声环境中尽可能还原“真实过程”。
-* **原理**
-  经典时间序列方法普遍基于“ **统计假设 + 参数化结构** ”的思路：
-  * 假定时间序列满足一定的平稳性或弱平稳性条件，通过自相关结构（自相关函数 ACF、偏自相关函数 PACF）刻画“当前值由过去多少阶的历史决定”。
-  * 在多变量情形中，通过协整与向量自回归（VAR）模型，刻画多个时间序列之间的长期均衡关系与短期偏离修正。
-  * 对于噪声严重、状态不可直接观测的系统，引入隐含状态（latent state）与观测方程组成状态空间模型，用贝叶斯推断或递推滤波（如卡尔曼滤波）进行在线估计与预测。
-* **模型**
-  这类方法的模型族相对明确、结构清晰，便于解释和调参：
-  * 单变量与多变量 AR/MA/ARIMA/SARIMA 系列，用于平稳/季节性时间序列建模，是 BI 系统和传统预测模块的“常驻成员”。
-  * VAR/协整模型，用于多维宏观和金融时间序列的联合建模和因果关系检验，适合政策和策略层面的关联分析。
-  * 状态空间模型与卡尔曼滤波、隐马尔可夫模型（HMM）等，用于轨迹估计、设备状态估计以及隐藏状态的推断，是工程控制与信号处理中的基础工具。
+* **Scenario**
+  * Indicator Prediction: Conduct short-term or medium-term prediction on time-varying numerical values such as sales volume, website traffic, CPU load, sensor readings, etc., for decision-making in inventory stocking, production capacity planning, operation and maintenance scheduling, etc.
+  * Macroeconomic and Financial Analysis: Studies the long-term relationships and short-term dynamics among macro and market indicators such as GDP, inflation rate, interest rate, exchange rate, and asset prices, to assist policy research and quantitative strategy development.
+  * Process and Trajectory Estimation: In positioning, navigation, object tracking, and device monitoring, estimate and smooth the time-varying trajectory, velocity, and state, and restore the "true process" as much as possible in a noisy environment.
+* **Principle**
+  Classical time series methods are generally based on the idea of " **statistical assumptions + parametric structure** ":
+  * Assuming that the time series satisfies certain stationarity or weak stationarity conditions, the autocorrelation structure (autocorrelation function ACF, partial autocorrelation function PACF) is used to characterize "how many past orders of history determine the current value".
+  * In the multivariate case, the long-term equilibrium relationship and short-term deviation correction among multiple time series are characterized through cointegration and vector autoregressive (VAR) models.
+  * For systems with severe noise and states that cannot be directly observed, a latent state and an observation equation are introduced to form a state-space model, and Bayesian inference or recursive filtering (such as Kalman filtering) is used for online estimation and prediction.
+* **Model**
+  The model family of this type of method is relatively well-defined, with a clear structure, facilitating interpretation and parameter tuning:
+  * Univariate and multivariate AR/MA/ARIMA/SARIMA series, used for stationary/seasonal time series modeling, are the "resident members" of BI systems and traditional forecasting modules.
+  * VAR/Cointegration Model, used for joint modeling and causality testing of multi-dimensional macro and financial time series, suitable for correlation analysis at the policy and strategy levels.
+  * State space models, Kalman filters, Hidden Markov Models (HMM), etc., are used for trajectory estimation, device state estimation, and inference of hidden states, and are fundamental tools in engineering control and signal processing.
 
-综合来看，经典时间序列建模的优势在于 **可解释性、可诊断性和工程可控性** ：建模流程、假设检验、残差分析都有成熟规范，很容易融入现有 BI 与规划系统。下面，我们从单/多变量预测、协整与因果、状态空间三个方向展开。
+Overall, the advantages of classical time series modeling lie in  ** interpretability, diagnosability, and engineering controllability ** : the modeling process, hypothesis testing, and residual analysis all have mature specifications and can easily be integrated into existing BI and planning systems. Next, we will explore three directions: single/multivariate forecasting, cointegration and causality, and state space.
 
-### 6.1.1 单变量/多变量时间序列预测：从 ARIMA 到 VAR
+### 6.1.1 Univariate/Multivariate Time Series Forecasting: From ARIMA to VAR
 
-在最典型的业务场景中，我们首先面对的是一条或若干条按时间排序的指标曲线：例如某商品每日销量、站点每小时 PV、机房每分钟 CPU 使用率、设备传感器每秒读数。目标是根据历史走势对未来的短期或中期区间给出预测，并给出合理的置信区间。**AR/MA/ARMA/ARIMA/SARIMA** 系列模型正是为此设计的标准工具。
+In the most typical business scenarios, what we first encounter are one or several time-ordered indicator curves: for example, the daily sales volume of a certain commodity, the hourly PV of a website, the CPU utilization rate per minute in a data center, and the readings per second from device sensors. The goal is to provide predictions for future short-term or medium-term intervals based on historical trends and give reasonable confidence intervals. ** The AR/MA/ARMA/ARIMA/SARIMA ** series of models are precisely the standard tools designed for this purpose.
 
-对单变量序列来说，ARIMA 类模型假设“当前值由过去若干期的历史值和随机扰动线性决定”，通过对序列做差分、季节差分来消除趋势和季节性，使其趋于平稳：
+For univariate time series, ARIMA models assume that "the current value is linearly determined by the historical values of the past periods and random disturbances", and eliminate trends and seasonality by taking differences and seasonal differences of the series to make it stationary:
 
-* AR（自回归）部分刻画“自身滞后对当前值的影响”；
-* MA（滑动平均）部分捕捉“历史误差项对当前值的影响”；
-* I（差分）部分负责去除趋势；
-* 加上季节项后得到 SARIMA，可以显式描述周度、月度等周期性结构。
+* The AR (Autoregressive) component characterizes "the impact of its own lags on the current value";
+* The MA (Moving Average) component captures "the impact of historical error terms on the current value";
+* The I (Difference) part is responsible for removing trends;
+* Adding seasonal terms results in SARIMA, which can explicitly describe periodic structures such as weekly and monthly cycles.
 
-在工程使用中，通常会先做平稳性检验（如 ADF）、观察 ACF/PACF 图，再通过信息准则（AIC/BIC）和残差诊断选取合理的阶数。对于具有明显季节性的指标（如电商日销量、节假日流量）尤其适合 SARIMA 建模，配合假日特征或外生变量可以进一步改善预测性能。
+In engineering applications, it is common to first conduct stationarity tests (such as ADF), observe ACF/PACF plots, and then select a reasonable order through information criteria (AIC/BIC) and residual diagnostics. For indicators with obvious seasonality (such as daily e-commerce sales volume, holiday traffic), SARIMA modeling is particularly suitable, and incorporating holiday features or exogenous variables can further improve forecasting performance.
 
-当我们希望一次性建模多条相关时间序列时，可以引入 **多变量时间序列模型** 。代表方法是 VAR（向量自回归）与其变体。VAR 将多个序列视为一个联合向量，用自身及彼此的滞后项共同解释当前值，从而捕捉不同指标之间的相互影响。例如，在宏观经济分析中，可以将 GDP 增速、通胀率、利率、汇率等纳入同一个 VAR 模型，研究冲击响应和传导路径；在业务运营中，也可以用 VAR 描述“一个渠道的流量变化如何影响其他渠道”“促销强度与销量之间的动态关系”，为资源调配提供参考。
+When we want to model multiple related time series simultaneously, we can introduce  ** multivariate time series models ** . The representative method is VAR (Vector Autoregression) and its variants. VAR treats multiple series as a joint vector and uses their own and each other's lagged terms to jointly explain the current value, thereby capturing the mutual influence between different indicators. For example, in macroeconomic analysis, GDP growth rate, inflation rate, interest rate, exchange rate, etc. can be included in the same VAR model to study shock responses and transmission paths; in business operations, VAR can also be used to describe "how the traffic change in one channel affects other channels" and "the dynamic relationship between promotion intensity and sales volume", providing a reference for resource allocation.
 
-在产品化形态上，这一类单/多变量预测能力通常嵌入在**传统 BI / 报表系统的预测功能、财务与供应链规划工具**中：用户选定某条或若干条时间序列，系统自动完成建模与预测，并提供预测区间、残差分析和模型诊断报告，用于辅助决策，而不必深入理解决策背后的所有数学细节。
+In terms of product form, this type of single/multivariate forecasting capability is typically embedded in  ** the forecasting function of traditional BI/reporting systems, financial and supply chain planning tools ** : users select one or several time series, and the system automatically completes modeling and forecasting, providing forecasting intervals, residual analysis, and model diagnostic reports to assist decision-making without the need to delve into all the mathematical details behind the decision.
 
-### 6.1.2 协整与因果关系：宏观指标之间的长期均衡
+### 6.1.2 Cointegration and Causality: Long-Term Equilibrium among Macroeconomic Indicators
 
-在经济与金融领域，很多时间序列表面看似随机游走，但在更长的时间尺度上存在某种 **稳定的长期均衡关系** 。典型例子包括汇率与利差、股指与宏观盈利、商品价格与成本指数等。单独看每条序列，可能都是非平稳的；但某种线性组合却在长期内围绕一个稳定水平波动。这种现象被称为 **协整（cointegration）** ，它为我们理解宏观指标之间的结构性关系提供了重要线索。
+In the fields of economics and finance, many time series appear to be random walks on the surface, but there exists a certain ** stable long-term equilibrium relationship ** on a longer time scale. Typical examples include exchange rates and interest rate differentials, stock indices and macroeconomic earnings, commodity prices and cost indices, etc. Each individual series may be non-stationary; however, a certain linear combination fluctuates around a stable level in the long term. This phenomenon is known as  ** cointegration ** , which provides important clues for our understanding of the structural relationships among macroeconomic indicators.
 
-在工程实践中，协整分析通常包括几个步骤：
+In engineering practice, cointegration analysis typically involves several steps:
 
-1. 对各个时间序列进行单位根检验，确认其为同阶单整（例如都为 I(1)）；
-2. 进行协整检验（如 Engle-Granger 两步法、Johansen 检验等），判断是否存在非平凡的线性组合使得该组合平稳；
-3. 若发现协整关系，可以构建误差修正模型（ECM），刻画“短期偏离长期均衡时，系统如何逐步修正回到平衡状态”。
+1. Conduct unit root tests on each time series to confirm that they are integrated of the same order (e.g., all I(1));
+2. Conduct cointegration tests (such as the Engle-Granger two-step method, Johansen test, etc.) to determine whether there exists a non-trivial linear combination that makes the combination stationary;
+3. If a cointegration relationship is found, an Error Correction Model (ECM) can be constructed to describe "how the system gradually corrects itself and returns to the equilibrium state when there is a short-term deviation from the long-term equilibrium".
 
-与协整相关的，是 **Granger 因果关系检验** 。它并不是严格意义上的哲学“因果”，而是一种基于预测能力的统计定义：如果变量 X 的历史信息可以显著提高对变量 Y 的预测精度，则称“X Granger 导致 Y”。通过在 VAR 或回归框架下比较有/无某个变量滞后项时的预测误差，可以评估不同宏观或市场指标之间的方向性影响。在量化研究和宏观分析中，这种检验常用于甄别潜在的领先指标、构建因子、或者验证策略假说。
+Related to cointegration is the  **Granger causality test** . It is not strictly the philosophical "causality" but a statistical definition based on predictive power: if the historical information of variable X can significantly improve the prediction accuracy of variable Y, then it is said that "X Granger causes Y". By comparing the prediction errors with/without the lagged terms of a certain variable in the VAR or regression framework, the directional impact between different macro or market indicators can be evaluated. In quantitative research and macro analysis, this test is often used to identify potential leading indicators, construct factors, or validate strategic hypotheses.
 
-从产品视角看，协整与因果分析更多出现在**量化研究分析软件、宏观经济分析平台和金融研究工具**中。它们帮助研究者从成堆的时间序列中抽取出相对稳健的结构关系，并将这些关系映射到更高层次的业务概念（如“利率对汇率的长期约束”“不同资产之间的价差回归”），成为策略设计与风险管理的重要依据。
+From a product perspective, cointegration and causality analysis are more commonly found in  ** quantitative research and analysis software, macroeconomic analysis platforms, and financial research tools ** . They help researchers extract relatively robust structural relationships from piles of time series and map these relationships to higher-level business concepts (such as "long-term constraints of interest rates on exchange rates" and "spread regression between different assets"), serving as important bases for strategy design and risk management.
 
-### 6.1.3 状态空间模型与隐状态估计：卡尔曼滤波与 HMM
+### 6.1.3 State Space Model and Hidden State Estimation: Kalman Filtering and HMM
 
-在许多真实系统中，我们观测到的时间序列只是 **噪声污染后的表象** ，而真正感兴趣的是背后随时间演化的“系统状态”：例如车辆的真实位置和速度、设备的健康状态、用户的潜在行为模式等。此时，如果仍然只在观测序列上做 ARIMA 式建模，就很难充分利用对系统结构的理解。**状态空间模型（State Space Models）**正是为这种“隐状态 + 噪声观测”的问题而提出。
+In many real systems, the time series we observe is only  ** the appearance after noise contamination ** , while what we are truly interested in is the "system state" evolving over time behind it: for example, the real position and speed of a vehicle, the health status of equipment, the potential behavior patterns of users, etc. At this time, if we still only perform ARIMA-style modeling on the observed sequence, it will be difficult to fully utilize the understanding of the system structure. **State Space Models** are precisely proposed for this type of "hidden state + noisy observation" problem.
 
-状态空间模型通常由两部分构成：
+State space models typically consist of two parts:
 
-* 状态转移方程：描述隐藏状态如何随时间演化，可以是线性的也可以是非线性的；
-* 观测方程：描述隐藏状态如何生成带噪声的观测值。
+* State Transition Equation: Describes how the hidden state evolves over time, which can be either linear or nonlinear;
+* Observation Equation: Describes how the hidden state generates noisy observations.
 
-在线性高斯假设下，这个框架可以通过**卡尔曼滤波（Kalman Filter）和平滑器（Smoother）** 实现对状态的递推估计与预测：每一步分为“预测”和“更新”两大阶段，将上一时刻的状态分布与当前观测结合，得到新的状态估计。这在导航与定位（如轨迹估计、目标跟踪）、金融时间序列（如波动率估计）、设备状态估计（如健康监控、剩余寿命预测）中极其常见。
+Under the linear Gaussian assumption, this framework can implement recursive estimation and prediction of the state through ** Kalman Filter and Smoother ** : each step is divided into two major stages, "prediction" and "update", which combines the state distribution at the previous time step with the current observation to obtain a new state estimate. This is extremely common in navigation and positioning (such as trajectory estimation, object tracking), financial time series (such as volatility estimation), and equipment state estimation (such as health monitoring, remaining useful life prediction).
 
-与连续状态空间模型相邻的，是 **隐马尔可夫模型（HMM）** 。HMM 假设系统在若干个离散的隐状态之间随时间转移，每个隐状态下生成观测数据的概率分布不同。通过前向–后向算法和 Viterbi 算法，HMM 可以估计隐状态序列、计算观察序列概率，并对下一步状态与观测做预测。HMM 早期广泛用于语音识别、文本标注，也常用于简单的行为模式识别与事件序列建模，在某些工业与金融场景中仍有其优势——结构可解释、训练稳定、与领域经验易于结合。
+Adjacent to the continuous state space model is  ** the Hidden Markov Model (HMM) ** . The HMM assumes that the system transitions between several discrete hidden states over time, with different probability distributions for generating observed data under each hidden state. Through the forward-backward algorithm and the Viterbi algorithm, the HMM can estimate the hidden state sequence, calculate the probability of the observation sequence, and make predictions about the next state and observation. The HMM was widely used in speech recognition and text annotation in its early days, and is also commonly used in simple behavior pattern recognition and event sequence modeling. It still has advantages in certain industrial and financial scenarios - its structure is interpretable, training is stable, and it is easy to combine with domain experience.
 
-在系统层面，状态空间建模、卡尔曼滤波和 HMM 常作为**轨迹估计、设备状态估计、金融与工程控制系统**的底层模块，被封装在更大的工具链中。它们不一定直接暴露给终端用户，但在导航、目标跟踪、工业控制、风险计量等产品背后，长期扮演着“隐形引擎”的角色。
+At the system level, state space modeling, Kalman filtering, and HMM are often used as**underlying modules for trajectory estimation, device state estimation, financial and engineering control systems**and are encapsulated in larger toolchains. They are not necessarily directly exposed to end-users, but have long played the role of "invisible engines" behind products such as navigation, object tracking, industrial control, and risk measurement.
 
-## 6.2 深度学习时间序列建模（Deep TS Forecasting）
+## 6.2 Deep Learning Time Series Modeling (Deep TS Forecasting)
 
-随着数据规模和场景复杂度的持续上升，单纯依赖线性、平稳性假设的经典模型在很多应用中开始显得“力不从心”：大量非线性模式、长跨度依赖、复杂的多变量交互、突发行为与周期叠加等特点，使得我们需要更灵活、更高容量的模型结构。**深度学习时间序列建模**正是在这一背景下发展起来的：从 RNN/LSTM/GRU，到 Temporal CNN/TCN，再到时序专用 Transformer、混合与分层模型，它们共同构成了现代时序预测与建模的主力工具箱。
+With the continuous increase in data scale and scenario complexity, classical models that simply rely on linear and stationarity assumptions have begun to appear "inadequate" in many applications: characteristics such as a large number of nonlinear patterns, long-span dependencies, complex multivariate interactions, and the superposition of sudden behaviors and cycles have made it necessary for us to have more flexible and higher-capacity model structures.**Deep learning time series modeling**has precisely developed against this backdrop: from RNN/LSTM/GRU, to Temporal CNN/TCN, and then to time-series-specific Transformer, hybrid and hierarchical models, they together constitute the main toolbox for modern time series forecasting and modeling.
 
-从应用视角来看，深度时序模型已经广泛部署在**电商流量 & 销量预测平台、供需/运力/排班预测系统、云资源负载预测与容量规划工具**中，用于在多品类、多门店、多城市、甚至多业务线的复杂结构下，给出统一而灵活的预测方案。与经典模型相比，它们更强调“端到端表示学习”和“全局模式建模”，更擅长处理长序列、高维、多变量场景。下面，我们同样从 **场景** 、**原理**和**模型**三个维度展开。
+From an application perspective, deep temporal models have been widely deployed in** e-commerce traffic & sales forecasting platforms, supply-demand/capacity/scheduling forecasting systems, and cloud resource load forecasting and capacity planning tools** to provide unified and flexible forecasting solutions under complex structures involving multiple categories, multiple stores, multiple cities, and even multiple lines of business. Compared with classical models, they place greater emphasis on "end-to-end representation learning" and "global pattern modeling" and are better at handling long sequences, high-dimensional, and multi-variable scenarios. Next, we will also expand from the three dimensions of  **scenarios** ,  **principles** , and  **models** .
 
-* **场景**
-  * 大规模多序列预测：成千上万条商品、门店、城市维度的销量/流量序列，需要在一个统一模型下同时建模，并支持冷启动与长尾序列。
-  * 复杂运营与调度：供电/供水/运力/排班等系统中，需求受多维特征影响（天气、节假日、价格、活动），且存在多层级结构（门店/城市/全国），需要同时兼顾全局模式与局部差异。
-  * 云资源与基础设施：大规模服务器集群、容器平台、网络与存储负载，呈现高度非线性和多峰结构，需要高频预测与容量规划支撑 SLO。
-* **原理**
-  深度时序模型的核心在于 **自动从历史序列与协变量中学习多尺度模式与长期依赖** ：
-  * RNN/LSTM/GRU 通过循环结构显式地在时间维度上传递“记忆”，适合捕获顺序依赖与局部时间结构。
-  * Temporal CNN / TCN 使用一维卷积和膨胀卷积，在保证因果性的前提下扩大感受野，实现并行训练与稳定梯度传播。
-  * 时序 Transformer 与专门设计的变体（Informer、Autoformer、TimesNet 等）利用自注意力机制，在长序列、多变量设置下建模复杂依赖和周期性模式。
-  * 混合与分层模型进一步引入“全局 + 局部”“多层级时间序列”的结构假设，在统一框架中同时学习全局模式与个体特征。
-* **模型**
-  在具体实现上，深度时序建模涌现出一系列具有代表性的架构：
-  * 经典深度序列模型：RNN/LSTM/GRU 以及基于它们的 DeepAR 等自回归概率预测模型。
-  * 分解与预测一体化模型：N‑BEATS 等通过显式趋势/季节分解模块增强可解释性。
-  * 基于注意力的时序模型：Temporal Fusion Transformer（TFT）等结合注意力、门控、变量选择，适用于多变量、有丰富协变量的业务场景。
-  * 长序列 Transformer 模型：Informer、Autoformer、TimesNet、PatchTST 等，围绕长序列效率与多尺度建模做出专门设计。
+* **Scenario**
+  * Large-scale multi-series forecasting: Thousands of sales/traffic series at the dimensions of products, stores, and cities need to be simultaneously modeled under a unified model, and support cold start and long-tail series.
+  * Complex Operations and Scheduling: In systems such as power supply, water supply, transportation capacity, and shift scheduling, demand is influenced by multi-dimensional features (weather, holidays, prices, events) and has a multi-level structure (stores/cities/nationwide), requiring simultaneous consideration of both global patterns and local differences.
+  * Cloud resources and infrastructure: large-scale server clusters, container platforms, network and storage loads exhibit highly non-linear and multi-peak structures, requiring high-frequency prediction and capacity planning to support SLOs.
+* **Principle**
+  The core of the deep temporal model lies in  **automatically learning multi-scale patterns and long-term dependencies from historical sequences and covariates** :
+  * RNN/LSTM/GRU explicitly pass "memory" in the time dimension through a recurrent structure, making them suitable for capturing sequential dependencies and local temporal structures.
+  * Temporal CNN / TCN uses one-dimensional convolution and dilated convolution to expand the receptive field while ensuring causality, enabling parallel training and stable gradient propagation.
+  * Temporal Transformer and specially designed variants (Informer, Autoformer, TimesNet, etc.) leverage self-attention mechanisms to model complex dependencies and periodic patterns in long-sequence, multi-variable settings.
+  * The hybrid and hierarchical model further introduces the structural assumptions of "global + local" and "multi-level time series", simultaneously learning global patterns and individual features within a unified framework.
+* **Model**
+  In terms of specific implementation, deep temporal modeling has given rise to a series of representative architectures:
+  * Classical deep sequential models: autoregressive probabilistic forecasting models such as RNN/LSTM/GRU and DeepAR based on them.
+  * Integrated Decomposition and Forecasting Model: N-BEATS and others enhance interpretability through explicit trend/seasonal decomposition modules.
+  * Attention-based Temporal Models: Temporal Fusion Transformer (TFT), etc., combine attention, gating, and variable selection, suitable for business scenarios with multiple variables and rich covariates.
+  * Long sequence Transformer models: Informer, Autoformer, TimesNet, PatchTST, etc., are specifically designed around long sequence efficiency and multi-scale modeling.
 
-下面，我们从深度序列模型、卷积与 Transformer、以及混合与分层建模三个方向展开。
+Next, we will proceed from three directions: deep sequence models, convolution and Transformer, as well as hybrid and hierarchical modeling.
 
-### 6.2.1 深度 RNN/LSTM/GRU：从单序列到 DeepAR
+### 6.2.1 Deep RNN/LSTM/GRU: From Single Sequence to DeepAR
 
-在深度学习进入时间序列领域初期，**RNN/LSTM/GRU** 是最自然的选择。与文本和语音建模类似，它们通过在时间步之间传递隐状态来“记忆”历史信息，允许捕捉比传统线性模型更复杂的非线性和长期依赖。对于单条或少量时间序列，简单的 LSTM/GRU 在有足够数据时就可以取得不错的预测效果；而在大规模多序列场景中，则可以采用 **共享参数的 RNN/LSTM/GRU 模型** ，在所有序列上进行联合训练，从而学习到通用的时序模式。
+In the early days of deep learning entering the time series domain, ** RNN/LSTM/GRU ** was the most natural choice. Similar to text and speech modeling, they "memorize" historical information by passing hidden states between time steps, allowing them to capture more complex nonlinear and long-term dependencies than traditional linear models. For single or a small number of time series, simple LSTM/GRU can achieve good prediction results when there is sufficient data; while in large-scale multi-series scenarios, ** RNN/LSTM/GRU models with shared parameters ** can be used, jointly trained on all series to learn general temporal patterns.
 
-在此基础上，类似 **DeepAR** 的自回归概率模型为深度时序建模提供了一个标准框架：它将历史观测和协变量输入一个共享的 RNN/LSTM/GRU 网络，在每个时间步上输出序列值的条件分布参数（如高斯、负二项分布等），并通过最大似然训练实现端到端的概率预测。这样的设计使模型能够自然生成预测区间、处理不规则的尺度和多序列混合，有利于在电商销量、需求预测等场景中落地。
+On this basis, autoregressive statistical models similar to **DeepAR** provide a standard framework for deep time series modeling: they input historical observations and covariates into a shared RNN/LSTM/GRU network, output the conditional distribution parameters (such as Gaussian, negative binomial distribution, etc.) of sequence values at each time step, and achieve end-to-end probabilistic prediction through maximum likelihood training. Such a design enables the model to naturally generate prediction intervals, handle irregular scales, and mix multiple sequences, which is conducive to implementation in scenarios such as e-commerce sales volume and demand forecasting.
 
-然而，RNN 类模型存在典型问题：长序列上的梯度衰减，以及在训练阶段无法完全并行化。虽然门控机制（LSTM/GRU）缓解了部分问题，但在特别长的时间跨度和高频数据下，训练与推理效率仍然是需要权衡的因素。这也促使业界和学术界探索更加并行友好的结构，如 TCN 和 Transformer。
+However, RNN models have typical problems: gradient vanishing on long sequences and the inability to be fully parallelized during the training phase. Although gating mechanisms (LSTM/GRU) alleviate some of these issues, training and inference efficiency still remain factors to be weighed under extremely long time spans and high-frequency data. This has also prompted the industry and academia to explore more parallel-friendly architectures, such as TCN and Transformer.
 
-### 6.2.2 Temporal CNN 与 Transformer：从局部卷积到长序列注意力
+### 6.2.2 Temporal CNN and Transformer: From Local Convolution to Long Sequence Attention
 
-为了解决 RNN 在长序列上的效率和稳定性问题，**Temporal CNN / TCN** 引入了一维卷积和膨胀卷积来建模时间依赖：通过堆叠多层因果卷积、逐层扩大感受野，它在不破坏时间因果性的前提下，实现了对远距离历史的建模。相比 RNN，TCN 在训练时可以高度并行，梯度传播路径更短，因此在训练稳定性和效率上表现突出，适合用在高频数据、需要较大感受野的工业时序预测场景中。
+To address the efficiency and stability issues of RNNs in long sequences, ** Temporal CNN / TCN ** introduces one-dimensional convolution and dilated convolution to model temporal dependencies: by stacking multiple layers of causal convolution and gradually expanding the receptive field layer by layer, it enables the modeling of long-range history without violating temporal causality. Compared to RNNs, TCN can be highly parallelized during training, with shorter gradient propagation paths, and thus excels in training stability and efficiency, making it suitable for industrial time series prediction scenarios involving high-frequency data and requiring a large receptive field.
 
-在更高的复杂度层级上，**Transformer 与时序专用结构**成为近年来长序列、多变量时间序列建模的主角。直接使用标准 Transformer 会遇到计算复杂度随序列长度平方级增长的问题，因此涌现出一系列面向时序的改造方案：
+At a higher level of complexity,**Transformer and time-series-specific architectures**have become the protagonists in long-sequence, multi-variable time-series modeling in recent years. Directly using the standard Transformer encounters the problem of computational complexity growing quadratically with sequence length, so a series of time-series-oriented modification schemes have emerged:
 
-* **Informer** 通过概率稀疏自注意力等机制，降低长序列上的计算负担，并针对预测任务优化结构。
-* **Autoformer** 将趋势与季节性分解融入自注意力框架，试图在保持长序列建模能力的同时提升可解释性和稳定性。
-* **TimesNet** 通过在时间–频率域或多尺度展开中增强对周期与模式的感知，更好地处理复杂、多周期的长序列。
-* **PatchTST** 借鉴 Vision Transformer 的“patch”思想，将连续子序列视作补丁，提高长序列时的建模效率与泛化能力。
+* **Informer ** reduces the computational burden on long sequences through mechanisms such as probabilistic sparse self-attention and optimizes the structure for prediction tasks.
+* **Autoformer** integrates trend and seasonal decomposition into the self-attention framework, aiming to enhance interpretability and stability while maintaining long-sequence modeling capabilities.
+* **TimesNet** better handles complex, multi-period long sequences by enhancing the perception of cycles and patterns in the time-frequency domain or multi-scale expansion.
+* **PatchTST** draws on the "patch" concept of Vision Transformer, treating continuous subsequences as patches to improve the modeling efficiency and generalization ability for long sequences.
 
-这类模型往往特别适合**长序列、多变量、高维协变量**的复杂时序场景，如大规模云资源负载、多区域能源需求、多渠道流量预测等。它们可以在一个统一架构中同时建模多维输入、静态特征和时间相关变量，并通过注意力权重为后续解释与诊断提供一定线索。
+This type of model is often particularly suitable for  ** complex time series scenarios with long sequences, multiple variables, and high-dimensional covariates ** , such as large-scale cloud resource load, multi-regional energy demand, multi-channel traffic forecasting, etc. They can simultaneously model multi-dimensional inputs, static features, and time-dependent variables within a unified architecture, and provide certain clues for subsequent interpretation and diagnosis through attention weights.
 
-### 6.2.3 混合与分层模型：全局 + 局部、多层级时间序列
+### 6.2.3 Hybrid and Hierarchical Models: Global + Local, Multi-level Time Series
 
-在实际业务中，时间序列很少是“孤立”的：它们往往具有明显的 **层级结构与共享模式** ——例如门店/城市/区域/全国的销售层级，SKU/品类/品牌的商品层级，或业务线/产品/渠道的组织结构。如果简单地为每条序列单独建模，很难利用到这一层次结构；而直接把所有序列混在一起，又会忽略各自的个性化差异。**混合与分层模型**正是为解决这类问题而设计。
+In actual business, time series are rarely "isolated": they often exhibit distinct ** hierarchical structures and shared patterns ** - such as the sales hierarchy of stores/cities/regions/nationwide, the merchandise hierarchy of SKUs/categories/brands, or the organizational structure of lines of business/products/channels. If we simply model each series separately, it is difficult to leverage this hierarchical structure; while directly mixing all series together would ignore their individual differences. ** Hybrid and hierarchical models ** are precisely designed to address such issues.
 
-一类常见思路是 **全局 + 局部模型** ：通过一个共享的“全局模型”学习所有序列的共性模式（如总体趋势、节假日效应、季节性），同时为每条序列或每个子群体引入局部参数或嵌入向量，捕捉个体特性。这种结构既避免了为长尾序列单独训练模型导致的数据稀疏问题，又保留了在热门序列上进行精细建模的能力。
+A common approach is  ** the global + local model ** : learning the common patterns of all sequences (such as overall trends, holiday effects, and seasonality) through a shared "global model", while introducing local parameters or embedding vectors for each sequence or sub - population to capture individual characteristics. This structure not only avoids the data sparsity problem caused by separately training models for long - tail sequences but also retains the ability to perform fine - grained modeling on popular sequences.
 
-另一类是 **多层级时间序列（hierarchical TS）建模** ：在预测过程中显式考虑层级约束（如子层级之和需要与上层级预测一致），通过自顶向下、自底向上或中间层级的联合优化，使各层级预测在数值和结构上保持一致。在深度时序框架下，这通常表现为在输入编码中加入层级特征、为不同层级设计多头输出，或使用分层损失函数进行训练。
+Another category is  **hierarchical time series (hierarchical TS) modeling** : explicitly considering hierarchical constraints during the forecasting process (e.g., the sum of sub-levels needs to be consistent with the forecast of the upper level), and ensuring the numerical and structural consistency of forecasts at all levels through top-down, bottom-up, or joint optimization of intermediate levels. In the deep time series framework, this usually manifests as incorporating hierarchical features into input encoding, designing multi-head outputs for different levels, or using hierarchical loss functions for training.
 
-从产品视角看，这类混合与分层建模广泛应用于**电商销量预测平台、供需/运力/排班预测系统**等场景：系统需要同时给出“单店单品”“城市级别”“全国总量”等不同粒度的预测，并在资源规划和 KPI 拆解过程中保持上下层的一致性。深度模型的灵活结构，使得这类约束可以通过端到端方式嵌入建模过程，而不必完全依赖事后修正。
+From a product perspective, this type of hybrid and hierarchical modeling is widely used in ** e-commerce sales forecasting platforms, supply-demand/capacity/scheduling forecasting systems ** and other scenarios: the system needs to simultaneously provide forecasts at different granularities such as "single store, single product", "city level", and "national total", and maintain consistency between upper and lower levels during resource planning and KPI decomposition. The flexible structure of deep models allows such constraints to be embedded into the modeling process in an end-to-end manner, rather than relying entirely on post hoc corrections.
 
-## 6.3 异常检测与变点检测（Anomaly & Change Point Detection）
+## 6.3 Anomaly & Change Point Detection
 
-在时间序列场景中，“预测未来”只是问题的一部分，另一部分同样关键的是： **实时发现异常与结构变化** 。无论是设备运行、业务指标、交易行为，还是运维监控，异常检测与变点检测都是保障系统稳定、识别风险机会的核心能力。传统上，统计阈值法、EWMA、CUSUM 等方法广泛使用；随着数据维度和复杂度提升，各类机器学习与深度学习方法（孤立森林、One‑Class SVM、AutoEncoder/VAE、时序 GAN、GNN + 时序模型）也开始扮演重要角色。
+In time series scenarios, "predicting the future" is only part of the problem; the other equally crucial part is:  ** detecting anomalies and structural changes in real time ** . Whether it's equipment operation, business metrics, transaction behavior, or operation and maintenance monitoring, anomaly detection and change point detection are core capabilities for ensuring system stability and identifying risk opportunities. Traditionally, methods such as statistical thresholding, EWMA, and CUSUM have been widely used; as data dimensionality and complexity increase, various Machine Learning and Deep learning methods (Isolation Forest, One-Class SVM, AutoEncoder/VAE, Time Series GAN, GNN + Time Series Model) have also begun to play important roles.
 
-从产品形态来看，这类能力往往内嵌在**设备故障预警系统、业务指标异常报警平台（如转化率突降）、安全攻击与欺诈检测系统、运维 AIOps 告警引擎**中，通过实时监控多维时序信号，自动标记可疑点和结构变更，并与规则、知识库和人工决策流程结合。下面继续从 **场景** 、**原理**和**模型**三个角度展开。
+From the perspective of product form, this type of capability is often embedded in  ** equipment failure early warning systems, business indicator anomaly alarm platforms (such as sudden drops in conversion rates), security attack and fraud detection systems, and operation and maintenance AIOps alarm engines ** , by monitoring multi-dimensional time series signals in real time, automatically marking suspicious points and structural changes, and combining with rules, knowledge bases, and manual decision-making processes. Next, we will continue to expand from  ** scenarios ** , ** principles ** and ** models ** from three perspectives.
 
-* **场景**
-  * 设备与工业系统：监控温度、振动、电流、压力等传感器数据，提前发现故障与退化趋势，减少停机和损失。
-  * 业务与运营指标：监控 PV/UV、转化率、订单量、延迟、错误率等关键指标，快速发现突降、突升、异常波动，为运营和技术团队提供告警。
-  * 安全与风控：分析登录行为、交易序列、访问模式等时间序列，识别潜在攻击、作弊和欺诈行为。
-* **原理**
-  异常与变点检测本质上是在“正常模式”上寻找显著偏离和结构突变：
-  * 对于点异常和序列异常，可以通过统计分布拟合、密度估计或边界学习，判断当前观测是否落在“正常区域”之外。
-  * 对于变点，则关注时间序列统计特性（均值、方差、相关结构、分布等）在时间轴上的突变，并尝试定位变化发生的时间位置。
-  * 在高维和多点网络中，需要将多条时间序列之间的依赖结构（如拓扑、相关性）纳入建模，避免将局部异常与整体趋势混淆。
-* **模型**
-  从方法族来看，可以大致分为统计方法、单类/孤立学习方法、重构式深度模型和图 + 时序组合模型：
-  * 统计异常检测：阈值、EWMA、CUSUM 等，对单变量或简单场景极其高效，是传统监控系统的基础。
-  * 机器学习方法：Isolation Forest、One‑Class SVM 等，用于在多维特征空间中刻画“正常区域”，对异常样本进行孤立。
-  * 深度重构模型：AutoEncoder / VAE / 时序 GAN，通过学习重构正常序列，在重构误差较大时标记异常。
-  * 图神经网络 + 时序模型：在传感器网络、微服务指标等场景中，引入图结构和时序模型共同学习正常模式，强化对拓扑相关异常的识别。
+* **Scenario**
+  * Equipment and Industrial Systems: Monitor sensor data such as temperature, vibration, current, and pressure to detect faults and degradation trends in advance, reducing downtime and losses.
+  * Business and Operational Metrics: Monitor key metrics such as PV/UV, conversion rate, order volume, latency, error rate, etc., quickly detect sudden drops, sudden increases, and abnormal fluctuations, and provide alerts for the operations and technology teams.
+  * Security Department: Analyze time series such as login behavior, transaction sequences, and access patterns to identify potential attacks, cheating, and fraud.
+* **Principle**
+  Anomaly and change point detection essentially involves searching for significant deviations and structural mutations from the "normal pattern":
+  * For point anomalies and sequence anomalies, it is possible to determine whether the current observation falls outside the "normal region" through statistical distribution fitting, density estimation, or boundary learning.
+  * For change points, we focus on abrupt changes in the statistical properties (mean, variance, correlation structure, distribution, etc.) of time series on the time axis and attempt to locate the time position where the change occurs.
+  * In high-dimensional and multi-point networks, it is necessary to incorporate the dependency structure (such as topology and correlation) among multiple time series into the modeling to avoid confusing local anomalies with overall trends.
+* **Model**
+  From the perspective of method families, it can be roughly divided into statistical methods, one-class/isolation learning methods, reconstruction-based deep models, and graph + time series combination models:
+  * Statistical anomaly detection: Threshold, EWMA, CUSUM, etc., are extremely efficient for univariate or simple scenarios and are the foundation of traditional monitoring systems.
+  * Machine Learning methods: Isolation Forest, One-Class SVM, etc., are used to characterize the "normal region" in the multi-dimensional feature space and isolate abnormal samples.
+  * Deep reconstruction models: AutoEncoder / VAE / Temporal GAN, which learn to reconstruct normal sequences and mark anomalies when the reconstruction error is large.
+  * Graph Neural Network + Temporal Model: In scenarios such as sensor networks and microservice metrics, introduce graph structure and temporal model to jointly learn normal patterns, strengthening the identification of topology-related anomalies.
 
-下面，我们围绕点/序列异常、变点检测、多维与图结构三个方向展开。
+Next, we will focus on three directions: point/sequence anomaly, change point detection, and multi-dimensional and graph structure.
 
-### 6.3.1 点异常与序列异常：从统计阈值到重构式模型
+### 6.3.1 Point Anomalies and Sequence Anomalies: From Statistical Thresholds to Reconstructive Models
 
-最直观的异常检测形式是 **点异常** ：某个时间点的观测值远离历史正常范围（如 CPU 使用率突然飙到 100%、交易金额异常增大、传感器读数瞬间跳变）。传统方法中，最常见的做法是对历史正常数据拟合一个统计分布或滑动统计量（均值、方差、分位数），在此基础上设定阈值或控制图（如 EWMA、CUSUM），当当前观测超出可接受区间时发出告警。优点是实现简单、计算代价低、易于解释，因此在大量运维监控和工业系统中仍然广泛使用。
+The most intuitive form of anomaly detection is  ** point anomaly ** : the observed value at a certain time point deviates far from the historical normal range (e.g., CPU usage suddenly spikes to 100%, transaction amount increases abnormally, sensor reading jumps instantaneously). In traditional methods, the most common approach is to fit a statistical distribution or sliding statistics (mean, variance, quantile) to historical normal data, and then set thresholds or control charts (e.g., EWMA, CUSUM) based on this. When the current observation exceeds the acceptable range, an alarm is issued. The advantages are simple implementation, low computational cost, and easy interpretation, so it is still widely used in a large number of operation and maintenance monitoring and industrial systems.
 
-当维度提升或模式变得更复杂时，可以引入**孤立森林（Isolation Forest）、One‑Class SVM** 等单类/孤立学习方法：它们通过在“正常样本”上学习一个聚合区域（或边界），将落在该区域之外的点视为异常。通过在序列的滑动窗口上提取统计特征（如窗口均值、方差、频域特征等），这类方法也可以用于识别局部“序列异常”（即一段时间内行为偏离正常模式），适用于多维指标和难以精确定义分布形态的场景。
+When the dimensionality increases or the patterns become more complex, one can introduce  ** one-class/isolation learning methods such as Isolation Forest, One-Class SVM ** : these methods learn an aggregation region (or boundary) on "normal samples" and consider points outside this region as anomalies. By extracting statistical features (such as window mean, variance, frequency domain features, etc.) from sliding windows of sequences, these methods can also be used to identify local "sequence anomalies" (i.e., behavior deviating from the normal pattern over a period of time), and are suitable for scenarios with multi-dimensional metrics and where it is difficult to precisely define the distribution shape.
 
-在深度学习框架下，**基于重构误差的 AutoEncoder / VAE / 时序 GAN** 等方法则提供了更灵活的选择：
+Under the deep learning framework,** methods such as AutoEncoder/VAE/temporal GAN based on reconstruction error ** provide more flexible options:
 
-* 使用 AutoEncoder 或 VAE 在大量正常序列上训练“压缩–重建”模型，使其学会重构正常模式；
-* 在在线监控时，将新的时间窗口输入模型，如果重构误差显著增大，则认为该区间存在异常；
-* 时序 GAN 类方法则通过学习生成正常序列，在判别器的判定结果或生成误差中寻找异常信号。
+* Train a "compression - reconstruction" model using AutoEncoder or VAE on a large number of normal sequences to enable it to learn to reconstruct normal patterns;
+* During online monitoring, input a new time window into the model. If the reconstruction error increases significantly, it is considered that an anomaly exists in this interval;
+* Temporal GAN-based methods, on the other hand, learn to generate normal sequences and search for abnormal signals in the discriminator's decision results or generation errors.
 
-这些方法可以适应高度非线性的模式和复杂的协变量结构，特别适合在**多维业务指标、复杂设备传感器数据**上构建统一异常检测引擎。
+These methods can adapt to highly nonlinear patterns and complex covariate structures, and are particularly suitable for constructing a unified anomaly detection engine on  ** multi-dimensional business metrics and complex device sensor data ** .
 
-### 6.3.2 变点检测：结构突变与事件生效
+### 6.3.2 Change Point Detection: Structural Break and Event Effectiveness
 
-与点异常和局部异常不同，**变点检测（Change Point Detection）**关注的是时间序列在结构上的突变：例如均值从一个水平跃迁到另一个水平、波动率发生改变、周期和相关结构出现调整。这类变化往往对应现实世界中的某种事件或状态切换，如配置变更、生效新策略、政策调整、生产工艺改变、市场 regime 切换等，对业务诊断和因果分析极为关键。
+Unlike point anomalies and local anomalies, **Change Point Detection** focuses on abrupt structural changes in time series, such as a mean shifting from one level to another, changes in volatility, and adjustments to periodic and correlation structures. Such changes often correspond to certain events or state transitions in the real world, such as configuration changes, implementation of new strategies, policy adjustments, changes in production processes, market regime shifts, etc., and are extremely crucial for business diagnosis and causal analysis.
 
-传统统计方法中，变点检测常借助似然比检验、CUSUM、Bayesian Online Change Point Detection（BOCPD）等技术：
+In traditional statistical methods, change point detection often relies on techniques such as likelihood ratio test, CUSUM, Bayesian Online Change Point Detection (BOCPD), etc.
 
-* 通过在不同时间点前后拟合不同参数的模型（如不同均值/方差），比较“无变点假设”和“有变点假设”的拟合优度；
-* 在在线场景中，对每个时间点递推更新“当前段落为止是否出现变点”的后验概率，一旦超过设定阈值则触发告警。
+* By fitting models with different parameters (such as different means/variances) before and after different time points, compare the goodness of fit between the "no change point hypothesis" and the "change point hypothesis";
+* In online scenarios, the posterior probability of "whether a change point has occurred up to the current paragraph" is recursively updated at each time point, and an alarm is triggered once it exceeds the set threshold.
 
-在更复杂的设置下，可以结合深度表示学习与分段模型，将变点检测视作 **序列分段问题** ：用神经网络提取特征，再在特征空间中寻找段落边界，或者直接训练模型预测某一时间点属于“变点”的概率。这对于存在多种形态变化（不仅是均值/方差变化）、且难以用简单统计假设刻画的业务指标尤其有用。
+Under more complex settings, deep representation learning can be combined with segmentation models to treat change point detection as  **a sequence segmentation problem** : extract features using neural networks, then find segment boundaries in the feature space, or directly train a model to predict the probability that a certain time point belongs to a "change point". This is particularly useful for business metrics that exhibit multiple forms of change (not just mean/variance changes) and are difficult to characterize using simple statistical assumptions.
 
-在产品体系中，变点检测通常被集成在**业务指标分析平台、A/B 实验分析系统、配置与策略变更监控工具**中：当关键指标呈现结构性变化时，系统可以自动标记潜在变点，并关联相应的变更事件（如版本发布、参数调整、政策落地），为后续根因分析提供线索。
+In the product system, change point detection is usually integrated into  ** business indicator analysis platforms, A/B experiment analysis systems, and configuration and policy change monitoring tools ** : when key indicators exhibit structural changes, the system can automatically mark potential change points and associate them with corresponding change events (such as version releases, parameter adjustments, and policy implementations), providing clues for subsequent root cause analysis.
 
-### 6.3.3 多维时序与图结构：GNN + 时序模型的联合建模
+### 6.3.3 Multidimensional Time Series and Graph Structure: Joint Modeling of GNN + Time Series Model
 
-在现代分布式系统和物联网场景中，我们往往面对的是 **多点、多维、具有关联拓扑结构的时间序列** ：例如传感器网络中的多个测点、微服务架构中的各个服务指标、配电网/交通网中的多个节点和边。此时，单独、逐条地对每个时间序列做异常检测，很容易误判局部波动或忽略整体模式——真正的异常往往是“局部–整体不一致”或“拓扑结构中不协调”的表现。
+In modern distributed systems and Internet of Things scenarios, we often face  ** multi-point, multi-dimensional time series with associated topological structures ** : for example, multiple measurement points in sensor networks, various service metrics in microservice architectures, and multiple nodes and edges in power distribution networks/transportation networks. At this time, performing anomaly detection on each time series individually and one by one can easily lead to misjudgment of local fluctuations or overlook the overall pattern - true anomalies are often manifestations of "local - global inconsistency" or "incoordination in the topological structure".
 
-为此，近年来出现了大量**图神经网络（GNN） + 时序模型**的组合方法：
+To this end, in recent years, a large number of ** combined methods of graph neural networks (GNN) + time series models ** have emerged:
 
-* 首先根据现实拓扑（物理连接、网络拓扑）或基于数据估计出的相关图，构建一个表示多点之间关系的图结构；
-* 在每个时间步上，用 GNN 对节点特征（各点的时序值及其局部上下文）进行消息传递，学习空间关联特征；
-* 再将图编码后的表示输入 RNN、TCN 或 Transformer 等时序模型，捕捉时间维度上的动态模式；
-* 最终在联合表示上进行异常评分或变点检测，实现 **时空联合的异常识别** 。
+* First, based on the real topology (physical connections, network topology) or a correlation graph estimated from data, construct a graph structure that represents the relationships between multiple points;
+* At each time step, GNN is used to perform message passing on node features (the time-series values of each point and its local context) to learn spatial correlation features;
+* Then, input the encoded representation of the graph into a temporal model such as RNN, TCN, or Transformer to capture dynamic patterns in the time dimension;
+* Finally, anomaly scoring or change point detection is performed on the joint representation to achieve  **spatiotemporal joint anomaly identification** .
 
-这种框架在**传感器网络监控、微服务指标异常检测、城市计算中的时空异常检测**等场景中尤其适用：它能够分辨“全局性变化”（如整个系统负载上升）与“局部异常”（如某个节点异常拥塞），也能更好地识别拓扑结构相关的异常模式（如链路级问题、区域性网络故障）。
+This framework is particularly applicable in scenarios such as  ** sensor network monitoring, anomaly detection of microservice metrics, and spatio-temporal anomaly detection in urban computing ** : it can distinguish between "global changes" (such as an increase in the overall system load) and "local anomalies" (such as abnormal congestion at a certain node), and can also better identify topology-related anomaly patterns (such as link-level issues and regional network failures).
 
-在工程层面，这类方法通常作为**运维 AIOps 告警系统、安全与风控平台、设备群监控系统**的高阶能力出现，结合基础统计监控、规则系统和专家知识，为复杂系统提供更智能、更上下文感知的异常发现机制。
+At the engineering level, this type of method typically appears as  ** a high-level capability of the AIOps alarm system for operation and maintenance, the Security Department platform, and the equipment group monitoring system ** , combining basic statistical monitoring, rule systems, and expert knowledge to provide a more intelligent and context-aware anomaly discovery mechanism for complex systems.
 
-## 6.4 时空序列（Spatio-Temporal Modeling）
+## 6.4 Spatio-Temporal Modeling
 
-在很多关键业务场景里，仅仅建模“时间”是不够的： **“什么时候”与“在哪里”并行存在** ，而且二者高度耦合。城市交通流量受路网结构和时间规律共同影响，气象与空气质量既依赖时间演化，也依赖地理邻近与大气流场；物流、共享单车与网约车调度则需要同时考虑需求的时空分布和道路/区域结构。**时空序列建模（Spatio‑Temporal Modeling）** 正是针对这类“时间 + 空间”联合建模问题的系统方法。
+In many critical business scenarios, simply modeling "time" is not enough:  ** "when" and "where" coexist in parallel ** , and the two are highly coupled. Urban traffic flow is jointly influenced by road network structure and temporal patterns, while meteorology and air quality depend on both temporal evolution and geographical proximity and atmospheric flow fields; logistics, shared bicycles, and ride-hailing dispatching require simultaneous consideration of the spatio-temporal distribution of demand and road/regional structure. ** Spatio-Temporal Modeling ** is precisely a systematic approach to such "time + space" joint modeling problems.
 
-与纯时间序列模型相比，时空模型需要显式把**空间依赖结构**纳入考虑：相邻路段的交通流量、邻近监测站的空气质量、相连节点的负载与状态，通常比相隔较远的点更具相关性。为此，图神经网络（GNN）、卷积 LSTM（ConvLSTM）等结构被广泛用于结合空间与时间两个维度的特征学习。对应到产品层面，这类能力支撑着**城市计算平台（交通/人流预测）、气象/环境预测系统、物流路径规划与共享单车/网约车调度平台**等大量关键应用。
+Compared with pure time series models, spatio-temporal models need to explicitly incorporate**spatial dependency structure**into consideration: the traffic flow of adjacent road segments, the air quality of neighboring monitoring stations, and the load and status of connected nodes are usually more correlated than points that are farther apart. For this reason, structures such as graph neural networks (GNN) and convolutional LSTM (ConvLSTM) are widely used for feature learning that combines both spatial and temporal dimensions. At the product level, this type of capability supports **a large number of critical applications such as urban computing platforms (traffic/pedestrian flow prediction), meteorological/environmental prediction systems, logistics route planning, and shared bike/ride-hailing dispatch platforms** .
 
-* **场景**
-  * 交通流量与人流预测：在路网或地铁网结构上，对不同时段的车流、人流进行预测，辅助信号灯优化、拥堵管理和调度决策。
-  * 气象与环境监测：在地理网格或监测站网络上，预测未来的温度、降雨、风力、空气质量等时空分布，为预报和决策提供支撑。
-  * 物流与出行调度：在城市区域或路网结构上预测订单需求、车辆分布、仓库/站点的负载情况，为路径规划、车辆调度和运力分配提供依据。
-* **原理**
-  时空序列建模的核心是 **在统一框架中同时学习空间相关性与时间动态** ：
-  * 在空间维度上，通过图结构或卷积结构刻画“谁与谁相关”，并基于此进行消息传递与特征聚合；
-  * 在时间维度上，利用 RNN、TCN、Transformer 或特化的时序结构刻画动态变化；
-  * 两者可以串联（先做空间，再做时间），也可以交织或同时作用（如时空卷积、时空注意力）。
-* **模型**
-  典型时空模型大多采用“GNN + 时序模型”或“卷积 + LSTM”的组合形态：
-  * 图神经网络 + 时序模型：ST‑GCN、DCRNN、Graph WaveNet、ST‑Transformer 等，通过图卷积或图注意力捕捉空间依赖，再用时序结构捕捉时间动态。
-  * 卷积 LSTM 类模型：ConvLSTM、Conv‑TT‑LSTM 等，在时序递推中嵌入空间卷积门控，实现对时空局部特征的联合建模。
+* **Scenario**
+  * Traffic flow and pedestrian flow prediction: Based on the structure of road networks or subway networks, predict vehicle and pedestrian flows at different time periods to assist in traffic signal optimization, congestion management, and dispatching decision-making.
+  * Meteorological and environmental monitoring: On geographical grids or monitoring station networks, predict the spatio-temporal distribution of future temperature, rainfall, wind, air quality, etc., to provide support for forecasting and decision-making.
+  * Logistics and Mobility Scheduling: Predict order demand, vehicle distribution, and the load status of warehouses/stations in urban areas or road network structures, providing a basis for route planning, vehicle scheduling, and capacity allocation.
+* **Principle**
+  The core of spatio-temporal sequence modeling is  **to simultaneously learn spatial correlations and temporal dynamics within a unified framework** :
+  * In the spatial dimension, the graph structure or convolution structure is used to characterize "who is related to whom", and based on this, message passing and feature aggregation are performed;
+  * In the time dimension, RNN, TCN, Transformer, or specialized temporal structures are used to characterize dynamic changes;
+  * The two can be cascaded (first perform spatial operations, then temporal operations), or intertwined or operate simultaneously (such as spatio-temporal convolution, spatio-temporal attention).
+* **Model**
+  Most typical spatio-temporal models adopt the combined form of "GNN + temporal model" or "convolution + LSTM":
+  * Graph Neural Networks + Temporal Models: ST-GCN, DCRNN, Graph WaveNet, ST-Transformer, etc., capture spatial dependencies through graph convolution or graph attention, and then capture temporal dynamics using a temporal structure.
+  * Convolutional LSTM models: ConvLSTM, Conv-TT-LSTM, etc., embed spatial convolutional gating in temporal recursion to jointly model spatio-temporal local features.
 
-下面，我们从时空任务与数据表示、GNN + 时序模型、卷积 LSTM 与时空卷积三个方向展开。
+Next, we will proceed from three directions: spatio-temporal tasks and data representation, GNN + temporal models, and convolution LSTM and spatio-temporal convolution.
 
-### 6.5.1 时空任务与数据表示：从路网到地理网格
+### 6.5.1 Spatiotemporal Tasks and Data Representation: From Road Networks to Geographic Grids
 
-在进入具体模型之前，时空序列建模首先要解决的是 **如何表示空间结构** 。与一维时间轴不同，空间结构可以是规则网格（grid）、不规则图（graph）、或者混合形式。
+Before delving into specific models, the primary issue to be addressed in spatio-temporal sequence modeling is  ** how to represent spatial structure ** . Unlike the one-dimensional time axis, spatial structure can take the form of regular grids, irregular graphs, or hybrid forms.
 
-* 在交通场景中，道路与交叉口天然构成一个有向或无向图：节点表示路段或路口，边表示道路连接与行驶方向；每个节点在每个时间步上有一组特征，如车流量、平均速度、拥堵指数等。
-* 在气象与空气质量预测中，可以使用规则地理网格（如经纬度网格），或将监测站点之间的邻接关系构建为图结构，基于地理距离、风向或相关性定义边权。
-* 在物流与共享出行场景中，可以将城市划分为网格或区域单元，每个单元在时间上具有订单量、活跃车辆数等特征，同时在空间上通过邻接关系或实际道路距离相连。
+* In traffic scenarios, roads and intersections naturally form a directed or undirected graph: nodes represent road segments or intersections, and edges represent road connections and driving directions; each node has a set of features at each time step, such as traffic flow, average speed, congestion index, etc.
+* In meteorological and air quality forecasting, regular geographical grids (such as latitude and longitude grids) can be used, or the adjacency relationships between monitoring stations can be constructed into a graph structure, with edge weights defined based on geographical distance, wind direction, or correlation.
+* In logistics and shared mobility scenarios, cities can be divided into grids or regional units, each of which has characteristics such as the number of orders and the number of active vehicles over time, and is connected spatially through adjacency relationships or actual road distances.
 
-这种“ **空间结构 + 时间序列** ”的统一表示，使得很多不同场景可以被建模为类似的问题：给定历史时空序列，预测未来若干时间步上每个节点或网格的状态。后续模型设计（无论是 GNN + 时序模型，还是 ConvLSTM）都是在这一统一视角上展开。
+This unified representation of ** spatial structure + time series ** enables many different scenarios to be modeled as similar problems: given historical spatio-temporal sequences, predict the state of each node or grid over a number of future time steps. Subsequent model design (whether GNN + time series model or ConvLSTM) is carried out from this unified perspective.
 
-在产品层面，这一层的抽象往往封装在**城市计算平台、气象/环境预测系统、路径规划与调度平台**的数据层与建模层：业务方只需要知道“我们在路网/网格上预测未来流量/需求如何”，而底层的数据表达与时空融合由建模框架统一处理。
+At the product level, the abstraction of this layer is often encapsulated in **the data layer and modeling layer of urban computing platforms, meteorological/environmental prediction systems, and path planning and scheduling platforms** : business parties only need to know "how we predict future traffic/demand on road networks/grids", while the underlying data representation and spatio-temporal fusion are uniformly handled by the modeling framework.
 
-### 6.5.2 图神经网络 + 时序模型：ST‑GCN、DCRNN、Graph WaveNet 等
+### 6.5.2 Graph Neural Networks + Temporal Models: ST-GCN, DCRNN, Graph WaveNet, etc.
 
-在图结构上建模时空序列，目前最主流的路线是“ **图神经网络（GNN） + 时序模型** ”的组合。代表模型包括 **ST‑GCN、DCRNN、Graph WaveNet、ST‑Transformer** 等，它们的共同特点是：
+When modeling spatio-temporal sequences on graph structures, the most mainstream approach currently is the combination of  ** graph neural networks (GNN) + temporal models ** . Representative models include  ** ST-GCN, DCRNN, Graph WaveNet, ST-Transformer ** , etc., and their common characteristics are:
 
-* 在空间维度上使用图卷积（GCN）、图注意力（GAT）或谱域卷积等方法，对每个时间步的节点特征进行“邻域聚合”，从而捕捉空间依赖与拓扑结构的影响；
-* 在时间维度上，通过 RNN（如 GRU/LSTM）、TCN、或 Transformer 对节点级特征进行序列建模，捕捉时间趋势和周期性；
-* 通过交替堆叠或联合设计，使得模型能够在多个时空尺度上学习局部与全局模式。
+* In the spatial dimension, methods such as graph convolution (GCN), graph attention (GAT), or spectral domain convolution are used to perform "neighborhood aggregation" on the node features at each time step, thereby capturing the influence of spatial dependencies and topological structures;
+* In the time dimension, sequence modeling of node-level features is performed through RNN (such as GRU/LSTM), TCN, or Transformer to capture temporal trends and periodicity;
+* Through alternating stacking or joint design, the model can learn local and global patterns at multiple spatio-temporal scales.
 
-例如，**DCRNN（Diffusion Convolutional RNN）** 将图卷积与门控循环单元结合起来，使用扩散卷积来模拟信息在路网上的传播，再通过 RNN 捕捉时间维度的动态，非常适合交通流量预测等任务。**Graph WaveNet** 则在图卷积和时间卷积的基础上，引入自适应图结构学习和多尺度建模，提高对复杂路网和非规则拓扑的适应性。**ST‑Transformer** 等模型则把自注意力机制引入时空建模，通过时空注意力模块同时考虑不同时间和空间位置之间的相关性。
+For example, **DCRNN (Diffusion Convolutional RNN) **combines graph convolution with gated recurrent units, uses diffusion convolution to simulate the propagation of information on road networks, and then captures the dynamics of the time dimension through RNN, making it highly suitable for tasks such as traffic flow prediction. **Graph WaveNet **introduces Self-Adaptation graph structure learning and multi-scale modeling on the basis of graph convolution and temporal convolution to improve adaptability to complex road networks and irregular topologies. **ST-Transformer **and other models introduce self-attention mechanisms into spatio-temporal modeling, simultaneously considering the correlations between different time and spatial positions through spatio-temporal attention modules.
 
-在实际系统中，这一类 GNN + 时序模型广泛部署在**城市交通与人流预测平台、共享出行调度系统、复杂 IoT 网络监控**等产品中。它们通常作为核心预测引擎之一，与规则系统、仿真模型和业务策略共同组成闭环，使得调度与规划既能考虑全局结构，又能响应局部变化。
+In real-world systems, this type of GNN + temporal model is widely deployed in ** urban traffic and pedestrian flow prediction platforms, shared mobility scheduling systems, complex IoT network monitoring ** and other products. They typically serve as one of the core prediction engines, forming a closed loop with rule systems, simulation models, and business strategies, enabling scheduling and planning to consider both the global structure and respond to local changes.
 
-### 6.5.3 卷积 LSTM 与时空卷积：ConvLSTM、Conv‑TT‑LSTM 等
+### 6.5.3 Convolutional LSTM and Spatiotemporal Convolution: ConvLSTM, Conv‑TT‑LSTM, etc.
 
-另一条重要路线是基于**卷积 LSTM（ConvLSTM）**及其变体的时空建模。与标准 LSTM 在时间步之间传递一维向量不同，ConvLSTM 在门控结构中使用卷积算子，使得隐藏状态和输入都保持为多维张量（如空间网格上的特征图）。这样，在每个时间步的状态更新中，既包含了时间上的递推，也在空间维度上进行了局部卷积聚合，实现了对时空局部模式的自然建模。
+Another important route is spatio-temporal modeling based on **Convolutional LSTM (ConvLSTM)** and its variants. Unlike standard LSTM, which passes one-dimensional vectors between time steps, ConvLSTM uses convolutional operators in its gating structure, allowing both the hidden state and input to remain multi-dimensional tensors (such as feature maps on a spatial grid). In this way, the state update at each time step includes both temporal recurrence and local convolutional aggregation in the spatial dimension, enabling natural modeling of spatio-temporal local patterns.
 
-在此基础上，**Conv‑TT‑LSTM 等改进模型**尝试通过张量分解、参数分享、多尺度卷积等机制，提升模型的表达能力和效率，适应更大规模、更复杂的时空数据。例如，在气象预测中，可以使用 ConvLSTM 堆叠多层，对多通道气象要素图（温度、湿度、风向等）进行时空递推，从历史若干帧预测未来几小时或数天的空间分布；在交通和环境监测中，也可以将路网或监测点映射到规则网格上，使用 ConvLSTM 等模型进行预测。
+On this basis,**improved models such as Conv-TT-LSTM**attempt to enhance the model's expressive power and efficiency through mechanisms such as tensor decomposition, parameter sharing, and multi-scale convolution, to adapt to larger-scale and more complex spatio-temporal data. For example, in weather forecasting, ConvLSTM can be stacked in multiple layers to perform spatio-temporal recursion on multi-channel meteorological element maps (temperature, humidity, wind direction, etc.), predicting the spatial distribution of the next few hours or days from several historical frames; in traffic and environmental monitoring, road networks or monitoring points can also be mapped onto regular grids, and models such as ConvLSTM can be used for prediction.
 
-与 GNN + 时序模型相比，ConvLSTM 系列在**规则网格结构、局部空间平滑性明显**的场景中使用较多，如气象雷达回波预测、空气质量网格预报、视频帧级预测等。其优势在于实现相对直接、易于利用现有卷积网络基础设施进行加速和部署，也容易与 CNN/ViT 等视觉模型协同使用，如在遥感影像时空建模中结合卷积特征和时序递推。
+Compared with GNN + time series models, the ConvLSTM series is more commonly used in **scenarios with regular grid structures and obvious local spatial smoothness** , such as meteorological radar echo prediction, air quality grid forecasting, video frame-level prediction, etc. Its advantages lie in relatively straightforward implementation, ease of leveraging existing convolutional network infrastructure for acceleration and deployment, and ease of collaborative use with visual models such as CNN/ViT, such as combining convolutional features and time series recursion in remote sensing image spatio-temporal modeling.
 
-在产品形态上，这一方向的模型多用于**气象/环境预测系统、遥感时空分析平台、视频与影像时空预测**等，常常以“未来时空场景预测图”的形式向上游暴露能力，成为业务决策与可视化分析的重要输入。
+In terms of product form, models in this direction are mostly used in  ** meteorological/environmental prediction systems, remote sensing spatio-temporal analysis platforms, video and image spatio-temporal prediction ** , etc., often exposing their capabilities to upstream in the form of "future spatio-temporal scenario prediction maps" and becoming an important input for business decision-making and visual analysis.
 
-# 7. Agent 与工具调用层（Agents & Tool Use）
+# 7. Agents & Tool Use Layer (Agents & Tool Use)
 
-在前面的视觉、语言等能力层中，模型大多还是“被动回答”的形态——接收输入、给出输出。而在很多真实业务里，我们需要的是一个 **可以主动规划、调用外部工具、串联工作流的智能体（Agent）** ：它不仅能看懂/读懂/听懂，还能自己“决定下一步做什么”，比如去查资料、跑代码、读写文件、调用内部系统，然后再把结果整合、解释并反馈给用户。
+In the previous layers of capabilities such as vision and language, models mostly still take the form of "passive response" - receiving input and providing output. In many real-world business scenarios, what we need is an  ** intelligent agent (Agent) that can actively plan, call external tools, and string together workflows ** : it can not only understand/ read/ listen, but also "decide what to do next" on its own, such as looking up information, running code, reading and writing files, calling internal systems, and then integrating, explaining, and feeding back the results to the user.
 
-这一层可以被理解为“把基础模型变成可行动系统”的关键粘合层：通过 **结构化工具调用接口、工作流编排、多 Agent 协作以及人类在环机制** ，把 LLM 从一个强大的“认知内核”扩展为能够完成端到端任务的“数字员工”。
+This layer can be understood as the key glue layer that "transforms the foundation model into an actionable system": through  ** structured tool invocation interfaces, workflow orchestration, multi-Agent collaboration, and human-in-the-loop mechanisms ** , it expands the LLM from a powerful "cognitive kernel" into a "digital employee" capable of completing end-to-end tasks.
 
-## 7.1 工具调用与执行（Tool Calling / Function Calling）
+## 7.1 Tool Calling / Function Calling
 
-在只读不写、只说不做的纯文本时代，LLM 更像一个“超级对话者”：可以理解问题、给出建议、写代码、列方案，但所有“真正执行”的工作——查数据库、跑脚本、生成文件、调云服务——仍然要人工接手完成。而**工具调用 / Function Calling** 的出现，让模型第一次可以在安全边界内“动手”：根据自然语言自动生成结构化参数，去调用搜索引擎、数据库、计算引擎、图像/音频/视频生成服务等外部能力，再把执行结果整理返回，从而形成“理解 → 决策 → 执行”的闭环。
+In the era of pure text where there was only reading without writing and only talking without doing, LLM was more like a "super conversationalist": it could understand questions, give advice, write code, and list plans, but all the "actual execution" tasks - querying databases, running scripts, generating files, and invoking cloud services - still had to be taken over and completed manually. And ** Tool Calling / Function Calling ** has for the first time enabled the model to "take action" within the safety boundary: automatically generating structured parameters based on natural language to call external capabilities such as search engines, databases, computing engines, and image/audio/video generation services, then organizing and returning the execution results, thus forming a closed loop of "understanding → decision-making → execution".
 
-从产品角度看，工具调用是绝大多数 Agent 系统的“底盘能力”：OpenAI Assistants API、LangChain、LlamaIndex、AutoGen、各类云厂商的 Agent 平台，实质上都是在 LLM 之上，围绕**如何定义工具、如何让模型正确选工具、如何处理出错与重试**搭建一层运行时。下面同样从 **场景** 、**原理**和**模型**三个角度梳理这一层能力，并在后续小节中分别展开“工具调用接口设计”“工具选择与策略”“典型工具类型”三个方向。
+From a product perspective, tool invocation is the "chassis capability" of most Agent systems: OpenAI Assistants API, LangChain, LlamaIndex, AutoGen, and Agent platforms of various cloud providers are essentially building a layer of runtime on top of LLMs, focusing on  ** how to define tools, how to enable models to correctly select tools, and how to handle errors and retries ** . The following also organizes this layer of capabilities from three perspectives:  ** scenarios ** ,  ** principles ** , and  ** models ** , and expands on the three directions of "tool invocation interface design", "tool selection and strategy", and "typical tool types" in the subsequent sections.
 
-* **场景**
-  * 智能问答与检索增强：模型根据用户问题自动决定是否调用检索工具（向量/关键词搜索）、查企业内部知识库或公网搜索，并将查到的文档、FAQ 整合进最终回答。
-  * 数据与报表自动化：面对“帮我查这段时间的销售额并画图”“给我算一下这个投资组合的风险指标”之类请求，模型自动生成 SQL 或分析参数，调用数据库和计算引擎，返回图表与结论。
-  * 文档与文件操作：自动读取 PDF/Word/Excel/数据库表，抽取和汇总关键信息，或按指令生成新文件（如报表、合同、方案），并通过工具上传/存储到指定位置。
-  * 媒体生成与处理：根据文本指令调用图像/音频/视频/3D 生成服务，或对现有媒体做剪辑、压缩、转码、水印等操作，形成一键“文案 + 设计 + 导出”的内容流水线。
-* **原理**
-  工具调用的核心是： **用自然语言驱动结构化函数调用** 。
-  * 首先以 JSON Schema 或函数签名的形式，将外部工具的名称、说明、参数结构（类型、必填项、枚举值等）暴露给 LLM。
-  * 当用户发出请求时，LLM 不仅要理解语义，还要判断“是否需要调用某个工具”“需要哪个（些）工具”“这些工具的参数应该怎么填”。
-  * 一旦模型决定调用某个工具，就生成一段结构化参数（通常是 JSON），由运行时去真正执行外部 API / 程序，并把执行结果以结构化形式返回给模型，让模型基于结果继续推理或生成最终回答。
-  * 为保证安全与鲁棒性，系统需要在这一过程中处理参数校验、超时、错误返回、重试与回退，并对可能涉及安全/隐私的调用做权限与审计控制。
-* **模型**
-  支撑这一能力的模型与框架主要包括三类：
-  * 支持 Function Calling 的 LLM：如 GPT‑4.1 / o 系列等，原生在解码层面理解“工具签名 + JSON Schema”，能够在合适时机主动或被动地产生结构化调用参数。
-  * 工具增强推理范式：如 ReAct、Toolformer，将“思考 + 工具调用”编织进同一推理链条，将工具使用视作中间步骤的一部分，而不是简单的前/后处理。
-  * 工程框架与运行时：OpenAI Assistants API、LangChain、LlamaIndex、AutoGen、各云厂商 Agent 平台等，为工具定义、调用路由、状态管理、错误处理与日志审计提供基础设施，让开发者可以聚焦在“暴露哪些工具”和“抽象怎样的业务 API”上，而不必从零搭建运行时。
+* **Scenario**
+  * Intelligent Question Answering and Retrieval Enhancement: The model automatically decides whether to call retrieval tools (vector/keyword search), query the enterprise's internal Knowledge Base, or conduct public network searches based on user questions, and integrates the retrieved documents and FAQs into the final answer.
+  * Data and Report Automation: In response to requests such as "Help me check the sales volume during this period and create a chart" and "Calculate the risk indicators for this portfolio for me", the model automatically generates SQL or analysis parameters, invokes the database and computing engine, and returns charts and conclusions.
+  * Document and File Operations: Automatically read PDF/Word/Excel/database tables, extract and summarize key information, or generate new files (such as reports, contracts, plans) as instructed, and upload/store them to the specified location via tools.
+  * Media Generation and Processing: Invoke image/audio/video/3D generation services based on text instructions, or perform operations such as clipping, compression, transcoding, and watermarking on existing media, forming a content pipeline for one-click "copywriting + design + export".
+* **Principle**
+  The core of tool invocation is:  **using natural language to drive structured function calls** .
+  * First, expose the name, description, and parameter structure (type, required fields, enum values, etc.) of external tools to the LLM in the form of JSON Schema or function signature.
+  * When a user makes a request, the LLM not only needs to understand the semantics but also determine "whether a tool needs to be invoked", "which tool(s) are needed", and "how to fill in the parameters of these tools".
+  * Once the model decides to call a tool, it generates a set of structured parameters (usually JSON), which are then used by the runtime to actually execute the external API / program. The execution result is returned to the model in a structured form, allowing the model to continue reasoning based on the result or generate the final answer.
+  * To ensure safety and robustness, the system needs to handle parameter validation, timeout, error return, retry, and fallback during this process, and perform permission and audit control on calls that may involve security/privacy.
+* **Model**
+  The models and frameworks that support this capability mainly fall into three categories:
+  * LLMs that support Function Calling, such as GPT-4.1 / o series, natively understand "tool signature + JSON Schema" at the decoding level and can actively or passively generate structured call parameters at appropriate times.
+  * Tool-Augmented Reasoning Paradigm: For example, ReAct and Toolformer, weave "thinking + tool invocation" into the same reasoning chain, treating tool use as part of an intermediate step rather than simple pre/post-processing.
+  * Engineering Framework and Runtime: OpenAI Assistants API, LangChain, LlamaIndex, AutoGen, Agent platforms of various cloud providers, etc., provide infrastructure for tool definition, invocation routing, state management, error handling, and log auditing, enabling developers to focus on "which tools to expose" and "how to abstract business APIs" without having to build the runtime from scratch.
 
-### 7.1.1 工具调用接口：从自然语言到结构化函数调用
+### 7.1.1 Tool Invocation Interface: From Natural Language to Structured Function Invocation
 
-一个可用的工具调用系统，首先需要一个清晰、规范、对 LLM 友好的“工具接口层”。它承担着把外部世界的 API、脚本、服务包装成模型可理解、可安全调用的“函数”的职责，让模型可以像写伪代码一样“说出”自己希望调用的工具及其参数。
+An available tool invocation system first requires a clear, standardized, and LLM-friendly "tool interface layer". It is responsible for wrapping APIs, scripts, and services from the external world into "functions" that the model can understand and safely invoke, enabling the model to "state" the tools it wishes to invoke and their parameters as if writing pseudocode.
 
-* **工具定义与参数模式**
-  在接口层，通常会用类似 JSON Schema 或函数签名的结构定义每个工具：包括名称（name）、说明（description）、参数字段（properties）、类型（string / number / boolean / array / object）、是否必填（required）、取值范围或枚举等。
-  这些信息一方面被用来驱动前端/SDK 的类型检查，另一方面也直接提供给 LLM，帮助模型“学会”如何正确填写参数。描述越清晰、约束越合理，模型生成的调用就越规范，出错率越低。
-* **LLM 生成结构化参数**
-  当用户提出“帮我查 2024 年 Q3 的营收并画一张按地区拆分的柱状图”这类请求时，模型需要先推理出：这至少需要一个“报表查询工具”（访问数据）、可能还需要一个“图表生成工具”（画图）。对每个工具，它要从原始语言中抽取并映射结构化参数，如时间范围（start_date/end_date）、维度（region）、指标（revenue）、图表类型（bar）、输出格式等，然后以 JSON 输出交给运行时。
-  这个过程中，模型本质上在做“自然语言 → 任务规划 → 参数抽取 / 填充”的一体化推理，因此工具描述的自然语言提示、参数示例和 few‑shot 样例都非常关键。
-* **工具执行与结果回传**
-  运行时接收到模型产出的 JSON 调用后，会先进行参数校验与安全检查，再去真正调用后端 API 或程序。执行完成之后，将结果封装为结构化对象（如查询结果表格、文件 URL、媒体资源 ID 等）返回给模型。
-  随后，模型会把这些原始结果转化为用户可读的解释或进一步加工，如总结报表、生成自然语言分析、嵌入图表标注说明等。对于模型而言，工具结果只是中间信息的一部分，它仍然要负责“理解结果 + 解释结果”。
+* **Tool Definition and Parameter Mode**
+  At the interface layer, each tool is typically defined using a structure similar to JSON Schema or function signature, including name, description, parameter fields (properties), type (string / number / boolean / array / object), whether it is required (required), value range or enumeration, etc.
+  On the one hand, this information is used to drive type checking in the front-end/SDK; on the other hand, it is directly provided to the LLM to help the model "learn" how to correctly fill in parameters. The clearer the description and the more reasonable the constraints, the more standardized the calls generated by the model and the lower the error rate.
+* **LLM Generates Structured Parameters**
+  When a user makes a request like "Help me look up the revenue for Q3 2024 and draw a bar chart split by region", the model first needs to infer that this requires at least a "report query tool" (to access data) and possibly also a "chart generation tool" (to draw the chart). For each tool, it must extract and map structured parameters from the original language, such as time range (start_date/end_date), dimension (region), metric (revenue), chart type (bar), output format, etc., and then output them in JSON to the runtime.
+  In this process, the model is essentially performing integrated reasoning of "natural language → task planning → parameter extraction/filling", so the natural language prompts, parameter examples, and few-shot samples in the tool description are all crucial.
+* **Tool Execution and Result Postback**
+  Upon receiving a JSON call output by the model during runtime, parameter validation and security checks will be performed first, followed by the actual invocation of the backend API or program. After execution is completed, the results will be encapsulated into structured objects (such as query result tables, file URLs, media resource IDs, etc.) and returned to the model.
+  Subsequently, the model will transform these raw results into user-readable explanations or further process them, such as generating summary reports, performing natural language analysis, embedding chart annotation descriptions, etc. For the model, tool results are only part of the intermediate information, and it still has to be responsible for "understanding the results + explaining the results".
 
-### 7.1.2 工具选择与策略：在多工具世界里做决策
+### 7.1.2 Tool Selection and Strategy: Making Decisions in a Multi-Tool World
 
-当系统中只有一个工具时，“要不要用工具”是唯一的问题。但在现实 Agent 应用中，往往会有几十甚至上百个工具：不同数据源的检索、不同部门的业务 API、不同技术域的生成/分析能力，这就引出了一个新的挑战： **模型如何在多工具环境下做合理的选择和编排** 。
+When there is only one tool in the system, "whether to use the tool" is the only question. However, in real-world Agent applications, there are often dozens or even hundreds of tools: retrieval from different data sources, business APIs from different departments, and generation/analysis capabilities from different technical domains, which leads to a new challenge:  ** how the model makes reasonable choices and orchestrations in a multi-tool environment ** .
 
-* **工具选择与路由**
-  首先，模型需要判断“当前请求是否需要调用工具”，以及“需要调用哪一个（或哪几个）工具”。这通常通过在系统提示中列出可用工具的说明，并提供典型示例，让模型学会根据用户意图选择合适工具。
-  对于工具数量较多、描述相似度较高的场景，很多框架会引入“工具路由器”（如基于向量检索或规则的前置筛选），先从大列表中筛出若干候选工具，再暴露给 LLM 选择，从而降低模型负担和误选概率。
-* **多工具顺序与组合**
-  复杂任务往往需要多个工具协同完成。例如“调研某行业主要上市公司，并生成一份包含财务对比图表的报告”，可能涉及搜索引擎、财报数据库、计算引擎、图表生成工具、文档导出工具等。
-  在这种情况下，模型需要做一个轻量级的任务规划：先用哪个工具获取列表，再对列表逐个查询详细信息，之后合并数据、做计算与可视化，最后调用导出工具生成报告。典型实践包括 ReAct/Planner‑Executor 思路，让模型在“思考（Plan）—调用（Act）—反思（Reflect）”的循环中，逐步完成工具组合调用。
+* **Tool Selection and Routing**
+  First, the model needs to determine "whether the current request requires tool invocation" and "which tool (or tools) to invoke". This is typically achieved by listing descriptions of available tools in the system prompt and providing typical examples, enabling the model to learn to select appropriate tools based on user intent.
+  For scenarios with a large number of tools and high similarity in descriptions, many frameworks introduce a "tool router" (such as pre-filtering based on vector retrieval or rules) to first screen out several candidate tools from a large list and then expose them to the LLM for selection, thereby reducing the model's burden and the probability of misselection.
+* **Multi-Tool Sequencing and Combination**
+  Complex tasks often require multiple tools to work together. For example, "researching major listed companies in a certain industry and generating a report containing financial comparison charts" may involve search engines, financial report databases, calculation engines, chart generation tools, document export tools, etc.
+  In this case, the model needs to perform a lightweight task planning: first use which tool to obtain a list, then query detailed information for each item in the list one by one, then merge data, perform calculations and visualization, and finally call the export tool to generate the report. Typical practices include the ReAct/Planner-Executor approach, which allows the model to gradually complete the combined invocation of tools in the cycle of "Plan—Act—Reflect".
 
-### 7.1.3 典型工具类型：从检索到媒体生成的能力拼图
+### 7.1.3 Typical Tool Types: The Capability Jigsaw from Retrieval to Media Generation
 
-不同类型的工具，为 Agent 系统提供了不同维度的“外接大脑”。从工程实践来看，以下几类工具几乎是所有复杂应用的“标配”。
+Different types of tools provide the Agent system with "external brains" in different dimensions. From an engineering practice perspective, the following types of tools are almost "standard equipment" for all complex applications.
 
-* **检索工具：向量与关键词搜索**
-  检索工具负责把“记忆”扩展到外部世界：
-  * 关键词搜索适合结构化较好、字段清晰的传统文档和业务数据库。
-  * 向量搜索则通过嵌入（embedding）为非结构化文本、代码、对话记录、甚至多模态数据建立语义索引，支持“模糊但语义相关”的检索。
-    在 RAG 场景中，LLM 通过检索工具拉取与用户问题相关的上下文，再在此基础上进行推理与生成，大幅提升回答的时效性和准确性。
-* **代码执行与计算引擎**
-  代码执行类工具（如 Python/JS 沙箱、Notebook 执行器）让 LLM 可以“写一段代码并立即跑起来”，解决复杂计算、数据处理、数值模拟、可视化等问题。
-  模型负责产出代码与输入参数，执行环境负责安全隔离、资源限制与结果收集。这类工具在数据分析、量化研究、自动化报表、科学计算以及 Agent 自我验证（模型生成答案后用代码校验）等场景中非常关键。
-* **文件与数据源访问**
-  文件读写工具负责将外部文件系统和数据源引入到 Agent 视野中：读取 PDF/Word/Excel、访问数据库表、调用内部业务 API 等。模型通过这些工具获取真实业务数据，再进行归纳、对比和报告生成。
-  与之配套的还有文件写入与管理工具：将生成的报告、图表、PPT、代码等持久化存储，并返回链接或 ID，方便用户后续访问与集成。
-* **媒体生成与处理工具**
-  媒体生成工具则为 Agent 增添了“创作”和“设计”的手臂：
-  * 图像/视频生成与编辑：根据文案自动生成配图、海报、分镜，或对已有媒体进行裁剪、上字幕、加水印等。
-  * 音频生成与处理：TTS、配音、音乐生成、音频增强与剪辑。
-  * 3D / 工程类工具：生成简单 3D 场景、CAD 草图、UI 原型等。
-    在内容生产、营销设计、教育培训、游戏与多媒体应用中，这类工具让“从想法到成品”更接近一条自动化流水线。
+* **Retrieval Tools: Vector and Keyword Search**
+  Retrieval tools are responsible for extending "memory" to the external world:
+  * Keyword search is suitable for traditional documents and business databases with good structure and clear fields.
+  * Vector search, on the other hand, builds semantic indexes for unstructured text, code, conversation records, and even MultiModal Machine Learning data through embedding, supporting "fuzzy but semantically relevant" retrieval.
+    In the RAG scenario, the LLM pulls context relevant to the user's question through retrieval tools, and then conducts reasoning and generation on this basis, significantly improving the timeliness and accuracy of responses.
+* **Code Execution and Computing Engine**
+  Code execution tools (such as Python/JS sandboxes, Notebook executors) enable LLMs to "write a piece of code and run it immediately", solving complex problems such as computation, data processing, numerical simulation, and visualization.
+  The model is responsible for generating code and input parameters, while the execution environment is responsible for security isolation, resource limitation, and result collection. These tools are crucial in scenarios such as Data Analysis, quantitative research, automated reporting, scientific computing, and Agent self-verification (using code to verify answers generated by the model).
+* **File and Data Source Access**
+  File read and write tools are responsible for bringing external file systems and data sources into the Agent's view: reading PDF/Word/Excel, accessing database tables, invoking internal business APIs, etc. The model uses these tools to obtain real business data, and then performs induction, comparison, and report generation.
+  There are also supporting file writing and management tools: they persistently store generated reports, charts, PPTs, code, etc., and return links or IDs for users' subsequent access and integration.
+* **Media Generation and Processing Tools**
+  Media generation tools add the "creation" and "design" arms to the Agent:
+  * Image/Video Generation and Editing: Automatically generate accompanying images, posters, and storyboards based on text, or perform operations such as cropping, adding subtitles, and watermarking on existing media.
+  * Audio Generation and Processing: TTS, Dubbing, Music Generation, Audio Enhancement, and Editing.
+  * 3D/Engineering Tools: Generate simple 3D scenes, CAD sketches, UI prototypes, etc.
+    In content production, marketing design, education and training, games, and multimedia applications, these tools bring "from idea to finished product" closer to an automated assembly line.
 
-综合来看，工具调用与执行把 LLM 从“语言模型”扩展为“具备行动接口的通用控制器”：模型通过语言理解需求与环境，通过工具执行真实操作，通过反馈不断修正策略。搭配合适的工作流编排与多 Agent 协作（见 7.2），就构成了新一代智能应用的基础架构。
+Overall, tool invocation and execution expand LLM from a "language model" to a "general-purpose controller with action interfaces": the model understands requirements and the environment through language, performs real operations through tools, and continuously refines strategies through feedback. When combined with appropriate workflow orchestration and multi-Agent collaboration (see 7.2), it forms the infrastructure for a new generation of intelligent applications.
 
-## 7.2 工作流编排与多 Agent 协作（Workflow & Orchestration）
+## 7.2 Workflow Orchestration and Multi-Agent Collaboration (Workflow & Orchestration)
 
-有了工具调用能力，LLM 不再只是一个“回答问题的人”，而可以成为面向具体任务的“执行单元”。但现实业务往往远比单次对话复杂：一个完整的诉讼分析、一次市场调研、一轮 A/B 实验配置、一次端到端运维处理流程，通常都需要多步操作、多种工具、甚至多方角色长期参与。这时，单一 LLM + 工具的模式就显得吃力，需要进一步的 **工作流编排与多 Agent 协作** 。
+With the ability to call tools, LLMs are no longer just "question answerers" but can become "execution units" for specific tasks. However, real-world business operations are often far more complex than single conversations: a complete litigation analysis, a market research project, a round of A/B experiment configuration, or an end-to-end operation and maintenance process usually require multiple steps, multiple tools, and even long-term participation from multiple parties. In such cases, the single LLM + tool model becomes strained and requires further  ** workflow orchestration and multi-agent collaboration ** .
 
-从系统视角看，这一层的职责是： **把一个复杂的、多步骤、多参与方的业务流程，抽象成可被 LLM 理解与操控的工作流图** ，然后在这个图上调度一个或多个 Agent，配合人类干预，共同完成任务。典型实现包括 Planner‑Executor 型 Agent 架构、具备反思 / 自我修正能力的 Agent、以及基于图结构的 Workflow Orchestrator；相应的产品形态则是各类自动报告生成与运营自动化平台、低代码工作流 + LLM 集成、复杂业务流程机器人、自动运维系统等。
+From a system perspective, the responsibilities of this layer are:  ** to abstract a complex, multi-step, multi-party business process into a workflow graph that can be understood and manipulated by LLMs ** , and then schedule one or more Agents on this graph, in conjunction with human intervention, to jointly complete tasks. Typical implementations include the Planner-Executor type Agent architecture, Agents with reflection/self-correction capabilities, and graph-based Workflow Orchestrators; the corresponding Product Forms are various types of automated report generation and operational automation platforms, low-code workflow + LLM integration, complex business process robots, automated operation and maintenance systems, etc.
 
-* **场景**
-  * 报告与内容流水线：从“接收需求 → 检索与数据拉取 → 分析和可视化 → 撰写报告 → 审核修改 → 导出与分发”，将多步内容生产流程自动化或半自动化。
-  * 业务流程自动化：如电商运营中的“商品分析 → 竞品监控 → 活动策略生成 → 落地配置”，运维场景中的“监控告警 → 根因分析 → 缓解措施执行 → 复盘报告”等。
-  * 跨角色协作：让不同领域 Agent（法律、财务、技术、运营）围绕一个复杂项目协同工作，例如并购尽调、投融资材料准备、大型项目标书编制。
-* **原理**
-  工作流与多 Agent 协作的核心，是在 LLM 之上再加一层 **结构化控制与状态管理** ：
-  * 将复杂任务拆分为若干有依赖关系的子任务，用 DAG / 状态机 / 有向图等结构表示，并为每个节点配置触发条件、输入输出和所需 Agent/工具。
-  * 由 Planner 型 Agent 或上层 orchestrator 决定何时触发哪个节点、用哪个 Agent 或工具，并根据执行结果动态调整后续路径（条件分支、循环、错误回退）。
-  * 在关键环节引入人类在环（Human‑in‑the‑loop），对高风险决策和关键输出进行人工确认与编辑，并将人类反馈回流到系统，用于更新策略或微调模型。
-* **模型**
-  支撑这一层的主要技术方向包括：
-  * Planner‑Executor 型 Agent 架构：由一个“规划 Agent”负责任务分解与路径设计，一个或多个“执行 Agent”负责具体步骤的落地实施。
-  * 反思 / 自我修正 Agent：在执行过程中不断回顾自己的表现，对不合理的中间结果进行反思和修正，减少“自信错误”的静默扩散。
-  * Graph‑based Workflow Orchestrator：将整个任务流程建模为图结构，引入节点状态、边条件、并行/串行控制等机制，使 LLM 调用变成图中的一个或多个节点，而不是唯一的控制中心。
+* **Scenario**
+  * Report and Content Pipeline: Automate or semi-automate the multi-step content production process from "Receiving Requirements → Retrieving and Data Pulling → Analysis and Visualization → Report Writing → Review and Revision → Export and Distribution".
+  * Business process automation: such as "product analysis → competing product monitoring → activity strategy generation → implementation configuration" in e-commerce operations, and "monitoring and alerting → root cause analysis → mitigation measure execution → review report" in operation and maintenance scenarios, etc.
+  * Cross-role collaboration: Enables Agents from different domains (legal, finance, technology, operations) to work together on a complex project, such as M&A due diligence, investment and financing material preparation, and large project bid document compilation.
+* **Principle**
+  The core of workflow and multi-Agent collaboration is to add an additional layer on top of the LLM  **for structured control and state management** :
+  * Break down complex tasks into several sub-tasks with dependencies, represent them using structures such as DAGs, finite-state machines, or directed graphs, and configure trigger conditions, inputs and outputs, and required agents/tools for each node.
+  * The Planner-type Agent or the upper-level orchestrator determines when to trigger which node, with which Agent or tool, and dynamically adjusts the subsequent path (conditional branches, loops, error fallback) based on the execution results.
+  * Introduce Human-in-the-loop at critical junctures to manually confirm and edit high-risk decisions and critical outputs, and feed human feedback back into the system for updating strategies or fine-tuning models.
+* **Model**
+  The main technical directions supporting this layer include:
+  * Planner-Executor Agent Architecture: A "planning agent" is responsible for task decomposition and path design, and one or more "execution agents" are responsible for the implementation of specific steps.
+  * Reflection / Self-correction Agent: Continuously review its own performance during execution, reflect on and correct unreasonable intermediate results, and reduce the silent spread of "confidence errors".
+  * Graph-based Workflow Orchestrator: Models the entire task process as a graph structure, introduces mechanisms such as node states, edge conditions, parallel/serial control, etc., to transform LLM calls into one or more nodes in the graph rather than the sole control center.
 
-### 7.2.1 任务分解与规划：从“一句话需求”到可执行流程
+### 7.2.1 Task Decomposition and Planning: From "One-Sentence Requirement" to Executable Process
 
-用户给 Agent 的通常是一句高度压缩的自然语言需求，例如“帮我做一个关于新能源车行业的市场调研并输出 PPT”，背后实际包含了检索、筛选、分析、可视化、排版、多轮修改等大量步骤。如何从这句话出发，自动构建一条清晰、可执行的工作流，是工作流编排的第一步。
+What users usually give to agents is a highly compressed natural language requirement, such as "Help me conduct a market research on the new energy vehicle industry and output a PPT", which actually encompasses a large number of steps such as retrieval, screening, analysis, visualization, typesetting, and multiple rounds of revisions. How to automatically construct a clear and executable workflow based on this sentence is the first step in workflow orchestration.
 
-* **从自然语言到子任务图**
-  Planner 型 Agent 首先需要把需求“展开”：结合内置模板、历史案例、以及工具清单，识别出关键阶段（如信息收集、数据分析、结构设计、内容撰写、审校与导出），并进一步细化为可执行子任务（如“检索 5 篇近一年权威行业报告”“拉取近 3 年销量数据并按车型细分”“生成 3 张对比图表”等）。
-  这些子任务之间的依赖关系和调度逻辑，会被显式表示为一张图或一个状态机：哪些可以并行、哪些必须顺序执行、在哪些节点需要人工确认、在什么条件下需要回退或重试。
-* **条件分支、循环与异常路径**
-  真实流程往往并不是线性流水线，而是包含 **条件分支** （如“如果检索不到足够高质量报告则换关键词或换数据源”）、 **循环** （如“持续尝试改写和压缩，直到报告长度满足限制”）和 **异常路径** （如“某个数据源不可达时，切换到备选源或采用估算方法”）。
-  这要求工作流编排层能够在图结构上表达 if/else、while/for、try/catch 等控制流语义，并允许 Planner Agent 或上层 orchestrator 在运行过程中根据实时结果做决策，而不仅仅在开始时一次性规划好所有步骤。
-* **与工具调用的衔接**
-  任务分解与规划与 7.1 中的工具调用是紧密相连的：Planner 在生成子任务时，往往会同时指定“该任务需要用到哪些工具/Agent”和“该节点的输入输出格式”，为后续自动参数填充和工具执行打基础。
-  一些系统会采用“Plan + Execute”显式两阶段：先由 Planner 输出一个机器可读的计划（如 JSON 工作流描述），再由 Executor 严格按计划调用工具与 Agent；也有系统采用 ReAct 风格，将“思考–工具调用–观察–再思考”编织在同一对话中，以获得更灵活的自适应执行。
+* **From Natural Language to Subtask Graph**
+  Planner-type Agents first need to "unfold" the requirements: by combining built-in templates, historical cases, and tool lists, identify key stages (such as Information Gathering, Data Analysis, Structural Design, Content Writing, Review and Export), and further refine them into executable subtasks (such as "Retrieve 5 authoritative industry reports from the past year", "Pull sales data from the past 3 years and segment by vehicle model", "Generate 3 comparison charts", etc.).
+  The dependencies and scheduling logic among these subtasks will be explicitly represented as a graph or a finite-state machine: which can be executed in parallel, which must be executed sequentially, at which nodes human confirmation is required, and under what conditions rollback or retry is needed.
+* **Conditional branches, loops, and exception paths**
+  Real-world processes are often not linear pipelines but instead include **conditional branches** (e.g., "if no reports of sufficient quality are retrieved, change the keyword or switch the data source"), **loops** (e.g., "continuously attempt to rewrite and compress until the report length meets the limit"), and **exception paths** (e.g., "when a data source is unreachable, switch to an alternative source or use an estimation method").
+  This requires the workflow orchestration layer to be able to express control flow semantics such as if/else, while/for, try/catch on the graph structure, and allow the Planner Agent or the upper-level orchestrator to make decisions based on real-time results during the execution process, rather than simply planning all steps at the beginning once and for all.
+* **Connection with Tool Invocation**
+  Task decomposition and planning are closely linked to tool invocation in 7.1: When generating subtasks, the Planner often specifies both "which tools/agents are required for this task" and "the input and output formats of this node" simultaneously, laying the foundation for subsequent automatic parameter filling and tool execution.
+  Some systems adopt an explicit two-phase approach of "Plan + Execute": First, the Planner outputs a machine-readable plan (such as a JSON workflow description), and then the Executor strictly invokes tools and agents according to the plan; other systems adopt the ReAct style, weaving "think - tool invocation - observe - think again" into the same conversation to achieve more flexible Self-Adaptation execution.
 
-### 7.2.2 多 Agent 协作：让“虚拟团队”各司其职
+### 7.2.2 Multi-Agent Collaboration: Enabling the "Virtual Team" to Perform Their Respective Duties
 
-单个大模型固然强大，但在复杂业务场景中，不同领域往往需要不同的知识结构、风格偏好和安全策略。**多 Agent 协作**的思路，是把一个“大而全”的智能拆解为多个“专而精”的角色：有人负责规划，有人负责执行，有人负责审校，有人负责领域专业判断，形成一个由 Agent + 工具 + 人类共同组成的虚拟团队。
+While a single large model is powerful, in complex business scenarios, different domains often require different knowledge structures, style preferences, and security policies. ** The concept of multi-Agent collaboration ** involves breaking down a "large and comprehensive" intelligence into multiple "specialized and refined" roles: some are responsible for planning, some for execution, some for review, and some for domain-specific professional judgment, forming a virtual team composed of Agents + tools + humans.
 
-* **角色分工：规划、执行与审校**
-  在一个典型的多 Agent 流程中，常见角色包括：
-  * 规划 Agent：负责理解用户需求、设计整体计划、拆分子任务，并在执行过程中根据结果动态调整路径。
-  * 执行 Agent：围绕某些工具或子领域进行深度优化（如检索 Agent、数据分析 Agent、内容撰写 Agent），按规划要求完成具体步骤。
-  * 审校 Agent：从结构性、逻辑性、风格一致性和风险控制等角度，对中间和最终产出进行检查和修订，类似“虚拟编辑/Reviewer”。
-* **领域专家 Agent 协同**
-  对于法律、金融、技术、运营等专业性极强的领域，可以进一步细分出领域专家 Agent：如“法律顾问 Agent”“投研分析 Agent”“云原生运维 Agent”“广告投放优化 Agent”等。
-  它们可以基于领域专用知识库、工具、甚至专门微调模型，参与项目式协作：例如在一份投融资材料中，由技术 Agent 负责技术可行性部分，财务 Agent 负责财务模型与估值，法律 Agent 负责合规与风险披露，运营 Agent 负责市场与增长策略，再由总控 Agent 汇总和统一风格。
-* **协作协议与消息路由**
-  多 Agent 协作的关键，还在于“谁在什么时候跟谁说话”。系统需要一个消息路由与协调机制：
-  * 决定某条用户请求或中间结果应当被哪个 Agent 处理。
-  * 维护共享上下文与各自的私有记忆。
-  * 控制并行与串行执行，以及冲突解决（如不同 Agent 提出相互矛盾的建议时如何仲裁）。
-    这类能力通常由上层 orchestrator 或“管理 Agent”提供，而 LangChain、AutoGen 等框架则在工程层面提供了对话路由、多 Agent 会话、角色设定等基础设施。
+* **Role Division: Planning, Execution, and Review**
+  In a typical multi-Agent process, common roles include:
+  * Planning Agent: Responsible for understanding user requirements, designing the overall plan, breaking down sub-tasks, and dynamically adjusting the path based on results during the execution process.
+  * Execution Agent: Conduct in-depth optimization around certain tools or sub-domains (such as Retrieval Agent, Data Analysis Agent, Content Writing Agent), and complete specific steps as required by the plan.
+  * Review Agent: Checks and revises intermediate and final outputs from perspectives such as structural integrity, logical consistency, style uniformity, and risk control, similar to a "virtual editor/Reviewer".
+* **Domain Expert Agent Collaboration**
+  For highly specialized domains such as law, finance, technology, and operations, domain expert Agents can be further segmented: for example, "Legal Counsel Agent", "Investment Research Analysis Agent", "Cloud Native Operations Agent", "Advertising Optimization Agent", etc.
+  These Agents can participate in project-based collaboration based on domain-specific Knowledge Bases, tools, and even specialized fine-tuned models: for instance, in an investment and financing document, the Technology Agent is responsible for the technical feasibility section, the Finance Agent for the financial model and valuation, the Legal Agent for compliance and risk disclosure, the Operations Agent for market and growth strategies, and the Master Control Agent for summarizing and unifying the style.
+* **Collaboration Protocol and Message Routing**
+  The key to multi-agent collaboration also lies in "who talks to whom and when". The system requires a message routing and coordination mechanism:
+  * Determines which Agent should handle a user request or intermediate result.
+  * Maintain shared context and respective private memories.
+  * Controls parallel and serial execution, as well as conflict resolution (such as how to arbitrate when different Agents propose conflicting suggestions).
+    This type of capability is typically provided by an upper-level orchestrator or a "management Agent", while frameworks such as LangChain and AutoGen provide infrastructure at the engineering level, including dialogue routing, multi-Agent conversations, role setting, etc.
 
-### 7.2.3 人类在环（Human‑in‑the‑loop）：把风险关口握在手里
+### 7.2.3 Human-in-the-loop: Keeping the risk gateway in hand
 
-即便工作流与多 Agent 协作再智能，真实业务中仍然无法完全脱离人类判断，尤其在**高风险、高成本、高敏感度**的场景下，如法律合规、金融决策、医疗建议、大规模生产变更、舆情响应等。**人类在环（Human‑in‑the‑loop）** 的设计，正是要在自动化与可控性之间找到平衡：该自动的自动，该人工确认的一定要停下来让人看一眼。
+Even if workflows and multi-agent collaboration are highly intelligent, human judgment is still indispensable in real business operations, especially in ** high-risk, high-cost, and high-sensitivity ** scenarios, such as legal compliance, financial decision-making, medical advice, large-scale production changes, and public opinion response. ** The design of Human-in-the-loop ** aims to strike a balance between automation and controllability: automate what can be automated, and pause for human confirmation when necessary.
 
-* **关键步骤人工确认**
-  在工作流图中，通常会显式标记若干“人工审批/确认节点”：
-  * 例如在自动生成合同时，在签发前需要法务和业务负责人双重确认；
-  * 在自动运维系统中，对涉及生产环境变更、批量重启、配置修改的操作，必须有值班工程师点击确认；
-  * 在内容生成场景中，对大量公开发布或品牌敏感的内容，需要人工审稿。
-    Orchestrator 会在这些节点暂停自动执行，将中间结果发送给对应人类角色，并在收到反馈后再继续后续流程。
-* **反馈驱动的策略更新**
-  人类不仅在某一时刻“按下通过或驳回”，更重要的是反馈的内容可以被系统吸收：
-  * 将人工修改后的版本与原始输出对比，作为“正负样例”记录下来，用于后续的提示优化或模型微调。
-  * 基于统计分析，识别出哪些类型的任务/步骤最容易被人工反复修改，进而优化对应 Agent 的提示词、工具组合或工作流设计。
-  * 在极端或异常案例中，人工可以添加“黑名单 / 白名单 / 特殊规则”，直接影响系统在类似情况中的策略选择。
-* **风险分级与可观测性**
-  最后，人类在环还需要一套清晰的风险分级和可观测性机制：
-  * 根据任务类型、影响面、金额规模、涉及的敏感信息等维度，将流程分为不同风险等级，对应不同强度的人类介入（如只读审阅、强制审批、多级审批）。
-  * 通过日志、审计、可视化看板等方式，让运营/管理人员能够随时追踪哪些任务在跑、跑到哪一步了、哪些地方触发了人工介入、历史上出现过哪些失败与人工修正。
-    这些能力不仅提高了系统在企业内的可接受度，也为后续的合规审查和责任划分提供了基础。
+* **Manual Confirmation of Key Steps**
+  In the workflow diagram, several "manual approval/confirmation nodes" are usually explicitly marked:
+  * For example, when automatically generating a contract, dual confirmation from legal and business leaders is required before issuance;
+  * In the automated operation and maintenance system, for operations involving production environment changes, batch restarts, and configuration modifications, a duty engineer must click to confirm;
+  * In content generation scenarios, manual review is required for a large amount of publicly released or brand-sensitive content. The Orchestrator will pause automatic execution at these nodes, send intermediate results to the corresponding human roles, and continue the subsequent process after receiving feedback.
+* **Feedback-driven strategy update**
+  Humans not only "press approve or reject" at a certain moment, but more importantly, the content of the feedback can be absorbed by the system:
+  * Compare the manually modified version with the original output, record them as "positive and negative examples", and use them for subsequent prompt optimization or model fine-tuning.
+  * Based on statistical analysis, identify which types of tasks/steps are most likely to be repeatedly modified manually, and then optimize the corresponding Agent's prompts, tool combinations, or workflow design.
+  * In extreme or exceptional cases, humans can add "blocklist / allowlist / special rules", directly influencing the system's strategy selection in similar situations.
+* **Risk Classification and Observability ** Finally, human-in-the-loop also requires a clear set of risk classification and observability mechanisms:
+  * Based on dimensions such as task type, impact scope, amount scale, and sensitive information involved, processes are classified into different risk levels, corresponding to different intensities of human intervention (such as read-only review, mandatory approval, multi-level approval).
+  * Through logs, audits, visual dashboards, and other means, enable operations/management personnel to track at any time which tasks are running, where they are in the process, where manual intervention has been triggered, and what failures and manual corrections have occurred historically.
+    These capabilities not only enhance the system's acceptance within the enterprise but also provide a foundation for subsequent compliance reviews and responsibility allocation.
 
-综合来看，工具调用与执行（7.1）解决的是“单步行动”的问题，而工作流编排与多 Agent 协作（7.2）则试图回答“如何把很多步串起来，让不同角色长期协作并可控运行”。两者叠加，再加上人类在环与良好的工程实践，构成了面向真实业务场景的新一代智能应用底座。
+Overall, Tool Invocation and Execution (7.1) addresses the issue of "single-step actions", while Workflow Orchestration and Multi-Agent Collaboration (7.2) attempt to answer the question of "how to string together multiple steps, enable long-term collaboration among different roles, and ensure controllable operation". The combination of these two, along with Human-in-the-Loop and good engineering practices, forms the foundation of a new generation of intelligent applications for real-world business scenarios.
 
-# 8. 检索增强与知识层（Retrieval & Knowledge）
+# 8. Retrieval Augmentation and Knowledge Layer (Retrieval & Knowledge)
 
-在前面的视觉与理解层中，模型主要依赖“自身参数里学到的知识”来理解和生成内容。但在真实业务里，很多问题并不能只靠“记忆”解决：企业内部制度每天在变、法规和行业标准持续更新、某个客户的历史记录只存在于内部数据库。这时，仅靠模型“背过”的知识远远不够，更关键的是能否在 **外部知识库、结构化数据和图谱上进行高效检索与推理** 。
+In the previous Visual and Understanding layer, the model mainly relies on "knowledge learned from its own parameters" to understand and generate content. However, in real business scenarios, many problems cannot be solved solely by "memory": internal enterprise regulations change daily, laws and industry standards are continuously updated, and the historical records of a particular customer only exist in the internal database. At this time, relying solely on the knowledge "memorized" by the model is far from sufficient; what is more crucial is the ability to perform efficient retrieval and reasoning on  ** external Knowledge Bases, Structured Data, and Knowledge Graphs ** .
 
-可以把这一层理解为：在模型能力之上，再加一层“会查资料、会用数据库的外脑”。当用户提出问题时，系统不再直接生成答案，而是先去合适的数据源里“翻资料”：文档库、数据库、搜索引擎、知识图谱、日志与业务系统……然后再让模型基于真实检索到的内容来给出回答与决策。这样不仅能显著提升准确性和时效性，还能在很大程度上提升可解释性和合规性（例如可引用出处、保留执行 SQL 记录等）。
+This layer can be understood as adding an additional layer of "external brain capable of researching information and using databases" on top of the model's capabilities. When a user poses a question, the system no longer directly generates an answer but first "searches for information" in appropriate data sources: document libraries, databases, search engines, Knowledge Graphs, logs, and business systems... Then, it allows the model to provide answers and make decisions based on the actually retrieved content. This not only significantly improves accuracy and timeliness but also greatly enhances interpretability and compliance (e.g., citing sources, retaining SQL execution records, etc.).
 
-围绕这一层，常见能力大致可以分为两个方向：一是 **检索增强生成（RAG）** ，主要面向“自然语言问答 + 文档/知识库检索”；二是 **结构化数据与知识图谱（Structured Data & KG）** ，负责对数据库、图数据库和领域知识中台进行更精准、可控的访问与推理。下面分别展开。
+Around this layer, common capabilities can be broadly divided into two directions: one is  ** Retrieval Augmented Generation (RAG) ** , mainly targeting "natural language Q&A + document/knowledge base retrieval"; the other is ** Structured Data & ****Knowledge Graph**** (Structured Data & ** **KG**  **) ** , responsible for more precise and controllable access and reasoning of databases, ByteGraph, and domain knowledge mid-platforms. The following will expand on them separately.
 
-## 8.1 检索增强生成（RAG）
+## 8.1 Retrieval Augmented Generation (RAG)
 
-RAG（Retrieval‑Augmented Generation）可以看作是“会查资料的 LLM”。与纯粹依赖模型内部参数不同，RAG 在回答每一个问题前，都会先去外部知识库做检索，把与问题最相关的若干段文档片段（chunk）找出来，然后再把这些检索到的内容作为“上下文”喂给 LLM，让它在“看过资料”的基础上生成答案。对于企业知识库问答、行业报告搜索、法律/医疗/金融专业问答、内部文档搜索机器人等场景，RAG 已经成为默认范式。
+RAG (Retrieval-Augmented Generation) can be regarded as an "LLM that can consult materials". Different from purely relying on the internal parameters of the model, before answering each question, RAG will first conduct a search in an external Knowledge Base to find several document chunks most relevant to the question, and then feed these retrieved contents as "context" to the LLM, enabling it to generate answers based on "having consulted the materials". For scenarios such as enterprise Knowledge Base Q&A, industry report search, legal/medical/financial professional Q&A, and internal document search robots, RAG has become the default paradigm.
 
-在系统架构上，典型 RAG 可以拆解为三层： **索引构建层、检索层、生成层** 。前两层主要是“查得准”，后一层则负责“说得清”。下面从这三层来展开，并在二级小节中进一步细化核心设计与实践。
+In terms of system architecture, a typical RAG can be broken down into three layers:  ** Index Building Layer, Retrieval Layer, and Generation Layer ** . The first two layers are mainly about "finding accurately", while the last layer is responsible for "explaining clearly". The following will expand on these three layers and further refine the core design and practice in the secondary subsections.
 
-* **场景**
-  * 企业内部知识问答：员工用自然语言提问制度流程、技术文档、项目资料，系统基于内部文档与 Wiki 检索相关内容后，由 LLM 生成清晰回答并附带引用。
-  * 行业报告与研究搜索：在大量 PDF、报告和论文中检索某个行业问题的相关内容（如“新能源车补贴政策变化”），并自动总结、对比和列出处。
-  * 法律 / 医疗 / 金融领域问答：基于法规条文、判决文书、临床指南、产品说明书等权威材料进行检索增强，降低“胡编乱造”的风险。
-  * 内部文档 / 工单搜索机器人：帮助运营、客服、研发快速在知识库、工单和变更记录中定位答案，并以自然语言总结结果。
-* **原理**
-  RAG 的核心思想是把“知识存贮在外部，推理交给模型”：
-  * 将非结构化文档（PDF、网页、Word、技术文档等）拆成适合检索的文档块（chunk），用 Embedding 模型将其映射到向量空间，并构建向量索引（如 FAISS、Milvus、PGVector 等）。
-  * 在用户查询时，同时利用语义向量检索与关键词检索（Hybrid Search），找到与问题最相关的若干文档块，并根据相关性和覆盖度做重排序（Re‑ranking）。
-  * 将检索到的上下文、用户提问、以及必要的系统指令/格式约束一起输入 LLM，由模型在“可见证据”的约束下进行回答，并在输出中引用出处（source citation），以提升可解释性和可审计性。
-* **模型**
-  典型 RAG 系统往往是一个 **模型组合架构** ：
-  * Embedding 模型：用于将查询和文档块编码到同一个语义空间，是向量检索效果的关键（包括通用 Embedding 和领域定制 Embedding）。
-  * 检索与重排模型：Hybrid Search（如 BM25 + Vector）负责第一轮召回，Cross‑Encoder Re‑ranker 或 LLM 本身用于对召回结果做更精细的重排序。
-  * 生成模型：LLM 在给定检索上下文的前提下进行回答；在更复杂的 RAG / HyDE / ReAct + RAG 中，LLM 还会参与“伪文档生成”“多轮工具调用”“思考 + 检索交替”等过程，以提高召回、减少遗忘和增强推理能力。
+* **Scenario**
+  * Enterprise internal knowledge Q&A: Employees ask questions about institutional processes, technical documents, and project materials in natural language. After the system retrieves relevant content based on internal documents and Wiki, the LLM generates clear answers with citations.
+  * Industry Report and Research Search: Retrieve relevant content on a specific industry issue (e.g., "changes in new energy vehicle subsidy policies") from a large number of PDFs, reports, and papers, and automatically summarize, compare, and list the sources.
+  * Q&A in the legal, medical, and financial fields: Conduct retrieval enhancement based on authoritative materials such as regulations, judgment documents, clinical guidelines, product manuals, etc., to reduce the risk of "fabrication".
+  * Internal Document / Ticket Search Bot: Helps operations, customer service, and R&D quickly locate answers in the Knowledge Base, tickets, and change records, and summarizes the results in natural language.
+* **Principle**
+  The core idea of RAG is to "store knowledge externally and delegate reasoning to the model":
+  * Break unstructured documents (PDF, web pages, Word, technical documents, etc.) into document chunks suitable for retrieval, map them to a vector space using an Embedding model, and build vector indexes (such as FAISS, Milvus, PGVector, etc.).
+  * When a user queries, it simultaneously utilizes semantic vector retrieval and keyword retrieval (Hybrid Search) to find several document blocks most relevant to the question, and performs re-ranking (Re-ranking) based on relevance and coverage.
+  * Input the retrieved context, user questions, and necessary system instructions/format constraints into the LLM together. The model will provide answers under the constraints of "visible evidence" and cite the source (source citation) in the output to enhance interpretability and auditability.
+* **Model**
+  A typical RAG system is often a  **model combination architecture** :
+  * Embedding Model: Used to encode queries and document chunks into the same semantic space, it is the key to the effectiveness of vector retrieval (including general Embedding and domain-specific Embedding).
+  * Retrieval and Re-ranking Model: Hybrid Search (e.g., BM25 + Vector) is responsible for the first round of retrieval, and the Cross-Encoder Re-ranker or the LLM itself is used to perform more refined re-ranking on the retrieved results.
+  * Generative Model: LLM answers given the retrieved context; in more complex RAG / HyDE / ReAct + RAG, LLM also participates in processes such as "pseudo-document generation", "multi-round tool invocation", and "alternating thinking + retrieval" to improve recall, reduce forgetting, and enhance reasoning ability.
 
-### 8.1.1 索引构建与知识资产整理
+### 8.1.1 Index Construction and Knowledge Asset Organization
 
-在任何 RAG 系统中，索引构建都是基础。没有高质量的索引，后续再强大的 LLM 也只是“巧妇难为无米之炊”。索引构建的目标，是把杂乱无章的文档资源转化为“可检索、可维护、可扩展的知识资产”。
+In any RAG system, index construction is fundamental. Without high-quality indexes, even the most powerful subsequent LLMs are like "skilled housewives unable to cook without rice." The goal of index construction is to transform disorganized document resources into "searchable, maintainable, and scalable knowledge assets."
 
-从流程上看，典型索引构建包括以下几个关键步骤：
+From a process perspective, typical index construction includes the following key steps:
 
-1. **文档分块与预处理**
-   文档往往是长篇 PDF、PPT、Word 或网页，如果直接对整篇文档做向量化，既容易造成“稀释”（一篇文档包含多个主题），也不利于高效检索。因此需要：
-   1. 按段落、标题、页码、章节结构进行分块，平衡“语义完整度”和“块大小”；
-   2. 处理格式问题（表格、公式、图片中的文字 OCR）、去噪（页眉页脚、目录、版权信息等）；
-   3. 为每个块生成“上下文标签”（如所属文档、章节标题、页码），为后续解释与引用做好准备。
-2. **Embedding 与向量索引**
-   在分块基础上，对每个文档块生成语义向量：
-   1. 选择合适的 Embedding 模型（如通用语义 Embedding、领域微调模型），确保对目标语言和领域术语有良好表达能力；
-   2. 使用 FAISS、Milvus、PGVector 等构建高维向量索引，支持大规模数据下的近似最近邻检索；
-   3. 处理多版本与增量更新：当文档更新时，需要支持增量重建索引、版本记录和旧版本清理策略。
-3. **元信息索引与过滤**
-   单纯的语义向量并不足以应对复杂过滤需求，通常还需要构建 **元信息索引** ：
-   1. 为每个文档块补充时间、作者、来源、文档类型、业务线、敏感级别等元数据；
-   2. 支持在检索时基于元信息进行预过滤（如时间范围、部门、权限等级），减少无关结果；
-   3. 为权限控制与审计打下基础，避免 RAG 在回答中泄露用户无权访问的内容。
+1. **Document Chunking and Preprocessing**
+   Documents are often long PDF, PPT, Word files, or web pages. If vectorization is directly applied to the entire document, it can easily lead to "dilution" (a document containing multiple topics) and is also not conducive to efficient retrieval. Therefore, the following steps are required:
+   1. Partition by paragraph, title, page number, and chapter structure to balance "semantic integrity" and "block size".
+   2. Handle formatting issues (OCR of text in tables, formulas, and images), denoise (headers, footers, table of contents, copyright information, etc.);
+   3. Generate "context labels" (such as the document it belongs to, chapter title, page number) for each block, preparing for subsequent explanation and reference.
+2. **Embedding and Vector Indexing**
+   Based on chunking, generate semantic vectors for each document chunk:
+   1. Select appropriate Embedding models (such as general semantic Embedding, domain fine-tuning models) to ensure good expressive ability for the target language and domain terms;
+   2. Build high-dimensional vector indexes using FAISS, Milvus, PGVector, etc., supporting approximate nearest neighbor search under large-scale data;
+   3. Handling multiple versions and incremental updates: When a document is updated, it is necessary to support incremental index reconstruction, version recording, and old version cleanup strategies.
+3. **Metadata Indexing and Filtering**
+   Simple semantic vectors are not sufficient to meet complex filtering requirements, and usually it is necessary to build  **metadata indexes** :
+   1. Supplement metadata such as time, author, source, document type, Line of Business, and sensitivity level for each document block;
+   2. Supports pre-filtering based on meta-information (such as time range, department, permission level) during retrieval to reduce irrelevant results;
+   3. lays the foundation for permission control and auditing, preventing RAG from leaking content that users do not have permission to access in its responses.
 
-### 8.1.2 检索与重排序：从“召回相关”到“找到最合适的证据”
+### 8.1.2 Retrieval and Re-ranking: From "Recalling Relevant" to "Finding the Most Appropriate Evidence"
 
-在索引构建完成后，当用户发起查询，就进入检索与重排序阶段。这里的关键不只是“找一些相关文档”，而是要尽可能找到 **既相关又覆盖充分、且支持推理的证据组合** 。
+After the index construction is completed, when a user initiates a query, it enters the retrieval and re-ranking phase. The key here is not just "finding some relevant documents", but rather finding  ** combinations of evidence that are both relevant and fully covered, and support reasoning ** .
 
-1. **Hybrid 检索：向量 + 关键词的互补**
-   纯向量检索擅长捕捉语义相似度，但对于精确术语、代号、表格字段等，关键词检索（如 BM25）往往更稳健。因此工程实践中普遍采用 Hybrid Search：
-   1. 首先对查询分别进行向量检索和关键词检索，得到两组候选文档块；
-   2. 使用加权打分或学习到的融合策略，将两路候选合并；
-   3. 在一些场景中，可根据查询类型（FAQ 问答 vs. 法条定位）动态调节向量与关键词检索的权重。
-2. **重排序（Re‑ranking）：更精细地挑选“证据集”**
-   初始检索结果往往包含不少“边缘相关”或“冗余”文档块，需要重排序来提升最终 Top‑K 的质量：
-   1. 使用 Cross‑Encoder（交叉编码器）对“查询–文档块”对进行双向编码和相关性打分，相比双塔 Embedding 模型精度更高，但开销较大，适合作为二阶段重排；
-   2. 在性能允许时，引入 LLM 进行轻量级重排，让模型基于更丰富的语义和上下文信息来判断哪些块真正“有用”；
-   3. 同时考虑覆盖度与多样性，避免所有检索块都集中在同一文档或同一段落，从而导致回答视野过窄。
-3. **检索–生成闭环优化**
-   更高级的实践中，检索和生成不再是单向流程，而是形成闭环：
-   1. 利用 LLM 对检索结果的“使用情况”进行分析（哪些块被引用、哪些块总是被忽略），反向指导索引和分块策略的优化；
-   2. 利用对话日志中的“追问/纠错”信号，对召回失败、误召回的样本进行标注和再训练，提高系统对模糊查询、长尾问题的鲁棒性。
+1. **Hybrid Search: Complementary of Vector + Keyword**
+   Pure vector search excels at capturing semantic similarity, but for precise terms, codes, table fields, etc., keyword search (such as BM25) is often more robust. Therefore, Hybrid Search is commonly used in engineering practice:
+   1. First, perform vector retrieval and keyword retrieval on the query respectively to obtain two sets of candidate document blocks;
+   2. Merge the two candidate paths using weighted scoring or a learned fusion strategy;
+   3. In some scenarios, the weights of vector and keyword retrieval can be dynamically adjusted based on the query type (FAQ Q&A vs. legal provision location).
+2. **Re-ranking: More refined selection of the "evidence set"**
+   Initial retrieval results often contain many "marginally relevant" or "redundant" document blocks, requiring re-ranking to improve the quality of the final Top-K:
+   1. Using Cross-Encoder to perform bidirectional encoding and relevance scoring on "query-document block" pairs has higher accuracy than the dual-tower Embedding model, but incurs higher costs, making it suitable for use as a second-stage reranker;
+   2. When performance permits, introduce LLM for lightweight re-ranking, enabling the model to determine which blocks are truly "useful" based on richer semantic and contextual information;
+   3. Simultaneously consider coverage and diversity to avoid all retrieval blocks being concentrated in the same document or paragraph, which could lead to a narrow scope of answers.
+3. **Retrieval-Generation Closed-Loop Optimization**
+   In more advanced practices, retrieval and generation are no longer one-way processes but form a closed loop:
+   1. Analyze the "usage" of retrieval results (which blocks are referenced and which are always ignored) using LLM, and use this to guide the optimization of indexing and chunking strategies in reverse;
+   2. Utilize the "follow-up/correction" signals in the conversation logs to annotate and retrain samples with recall failures or false recalls, thereby enhancing the system's robustness against ambiguous queries and long-tail questions.
 
-### 8.1.3 生成与引用：在“证据约束下”回答问题
+### 8.1.3 Generation and Reference: Answering Questions "Under Evidence Constraints"
 
-最后一环是生成层，它直接决定了用户体验。这里的目标不是让模型“随心所欲”地发挥，而是让它在 **检索证据的约束下，给出清晰、有边界、有引用的回答** 。
+The last link is the generation layer, which directly determines the User Experience. The goal here is not to let the model "do as it pleases", but to have it  ** provide clear, bounded, and referenced answers under the constraints of retrieved evidence ** .
 
-1. **基于检索上下文的受控生成**
-   在 RAG 架构中，LLM 接收到的不只是用户问题，还包括多段检索到的文档块以及系统指令。系统通常会：
-   1. 通过 Prompt 约束模型“只根据给定文档回答”“如果文档中找不到答案就明确说明缺失”；
-   2. 对检索上下文进行结构化组织（分段、编号、标注来源），方便模型理解与引用；
-   3. 控制输出格式（列表、表格、分点说明等），适配下游系统或前端展示。
-2. **引用与可解释性（Source Citation）**
-   为了便于审计与追溯，尤其在法律、医疗、金融、企业内部制度等高风险领域，回答中往往需要附带明确引用：
-   1. 在输出中标注引用来源，如“[文档 A，第 3 章，第 2 节]”“[法规 X 第 12 条]”；
-   2. 在前端界面中支持一键跳转到原文位置，便于用户核查和进一步阅读；
-   3. 在后台保存“问题–检索结果–引用块–最终回答”的完整链路日志，为后续风控和模型改进提供数据。
-3. **先进 RAG 变体：HyDE / ReAct + RAG 等**
-   为进一步提升难题场景下的效果，实践中还会使用更复杂的 RAG 变体：
-   1. HyDE：由 LLM 先根据问题生成一个“假想答案文档”，再用该文档向量去检索真实文档，从而提高召回质量；
-   2. ReAct + RAG：LLM 以“思考（Reasoning）+ 行动（Action）”的方式，在推理中多次调用检索工具，逐步细化问题、补充证据，类似“边思考边查资料”；
-   3. 多轮 RAG：在对话过程中，保留历史检索结果和回答，形成上下文感知的长期知识会话，而不仅是“单问单检索”。
+1. **Controlled Generation Based on Retrieved Context**
+   In the RAG architecture, the LLM receives not only the user's question but also multiple retrieved document chunks and system instructions. The system typically:
+   1. Constrain the model via Prompt to "answer only based on the given document" and "clearly state the absence if the answer cannot be found in the document";
+   2. Structured organization of the retrieval context (segmentation, numbering, and source annotation) is carried out to facilitate model understanding and reference;
+   3. Control the output format (list, table, point-by-point description, etc.) to adapt to downstream systems or front-end display.
+2. **Source Citation and Explainability (Source Citation)**
+   To facilitate auditing and traceability, especially in high-risk areas such as law, healthcare, finance, and internal corporate systems, answers often need to include clear citations:
+   1. Mark the source of references in the output, such as "[Document A, Chapter 3, Section 2]" "[Article 12 of Regulation X]";
+   2. Supports one-click jump to the original text location in the front-end interface, facilitating users to verify and further read;
+   3. Save the complete link log of "question - retrieval result - reference block - final answer" in the background to provide data for subsequent risk control and model improvement.
+3. **Advanced RAG Variants: HyDE / ReAct + RAG, etc.**
+   To further enhance performance in challenging scenarios, more complex RAG variants are also used in practice:
+   1. HyDE: First, the LLM generates a "hypothetical answer document" based on the question, and then uses the vector of this document to retrieve real documents, thereby improving the quality of recall;
+   2. ReAct + RAG: The LLM, in the manner of "Reasoning + Action", repeatedly invokes retrieval tools during reasoning, gradually refining the problem and supplementing evidence, similar to "thinking while consulting materials";
+   3. Multi-round RAG: During the conversation, retain historical retrieval results and responses to form a context-aware long-term knowledge session, rather than simply "single-question single-retrieval".
 
-## 8.2 结构化数据与知识图谱（Structured Data & KG）
+## 8.2 Structured Data & Knowledge Graph (Structured Data & KG)
 
-如果说 RAG 主要解决“如何在大规模非结构化文档中查资料”，那么结构化数据与知识图谱这一层，则更多面向“如何优雅地用好数据库、报表系统和图数据库中的结构化知识”。
+If RAG mainly addresses "how to search for information in large-scale unstructured documents", then the layer of Structured Data and Knowledge Graph is more oriented towards "how to elegantly utilize structured knowledge in databases, reporting systems, and ByteGraph".
 
-在企业环境中，真正关键的业务数据——订单、客户、合同、库存、行为日志——往往以关系数据库、数据仓库、OLAP 引擎或图数据库的形式存在。这些系统在查询能力、计算效率和审计方面已经非常成熟，但对于业务人员而言，直接写 SQL / DSL 仍然门槛较高。**Text‑to‑SQL / Text‑to‑DSL** 与  **知识图谱问答与推理** ，就是要让 LLM 在不破坏这些系统稳定性的前提下，作为“自然语言界面”和“推理协作伙伴”插入进来。
+In enterprise environments, truly critical business data - orders, customers, contracts, inventory, and behavior logs - often exists in the form of relational databases, data warehouses, OLAP engines, or ByteGraph. These systems are already highly mature in terms of query capabilities, computational efficiency, and auditing, but for business personnel, directly writing SQL/DSL still has a relatively high threshold. ** Text - to - SQL/Text - to - DSL ** and ** Knowledge Graph Question Answering and Reasoning ** aim to enable LLMs to be inserted as "natural language interfaces" and "reasoning collaboration partners" without disrupting the stability of these systems.
 
-* **场景**
-  * BI 智能问答与自助分析：业务人员用自然语言发问（如“帮我看看最近 3 个月华东地区新客的复购率趋势”），系统自动生成 SQL，查询数据仓库，然后用自然语言和可视化图表返回结果。
-  * 运营 / 销售分析助手：运营同学可以用对话的方式探索数据（“这个活动转化率为什么下降”“哪些渠道贡献了最多高价值用户”），在多轮对话中逐步细化条件和维度。
-  * 领域知识中台：将实体、概念、规则和案例组织为知识图谱，支持围绕某个实体进行上下游关系探索和合规性检查。
-  * 图数据库问答与推理系统：在风险控制、反洗钱、供应链分析等场景中，通过图数据库与 LLM 联合，对“关系链条”和“多跳推理”类问题进行回答与解释。
-* **原理**
-  这一层的核心，是把 LLM 从“直接给答案的人”变成“会调用数据库与图数据库的助手”：
-  * 在数据库问答中，模型需要理解用户的自然语言意图，结合数据库 schema（表结构、字段含义、约束等），生成正确的 SQL / GraphQL / 内部 DSL，再对执行结果进行解释与可视化。
-  * 在知识图谱场景中，系统需要先从文档和日志中抽取实体和关系，构建结构化图谱；然后在问答时由 LLM 负责把自然语言问题转译为图查询（如 Cypher），并基于查询结果进行多跳推理和解释。
-  * 与 RAG 不同，这里强调的是 **对结构化数据与图结构的精确访问** ，一方面要保证语义正确、语法严谨，另一方面要控制侧写攻击、敏感数据暴露和高成本查询。
-* **模型**
-  典型方案通常是“LLM + 专用组件”的多模块架构：
-  * Text‑to‑SQL 模型：在大规模 SQL 语料上预训练或微调的模型（如 PICARD、DIN‑SQL 等），侧重语法正确性与 schema 对齐，有时会搭配执行反馈进行自我修正。
-  * 信息抽取与图谱构建 pipeline：通过实体识别（NER）、关系抽取、事件抽取等模块，从文本和日志中构建和更新知识图谱；LLM 可以参与难例抽取、边界模糊关系的辅助判断。
-  * LLM + 图数据库联合问答：LLM 负责问题解析、查询生成与结果解释，图数据库（如 Neo4j 等）负责高效执行与多跳关系搜索，两者通过工具调用协议或中间 DSL 对接。
+* **Scenario**
+  * BI Intelligent Q&A and Self-service Analysis: Business personnel ask questions in natural language (e.g., "Help me check the trend of the Re-purchase Rate of new customers in East China in the past 3 months"), and the system automatically generates SQL, queries the data warehouse, and then returns results in natural language and visual charts.
+  * Operations / Sales Analysis Assistant: Operations staff can explore data through conversations ("Why did the conversion rate of this campaign decline?" "Which channels contributed the most high-value users?"), gradually refining conditions and dimensions in multi-round conversations.
+  * Domain Knowledge Mid-Platform: Organizes entities, concepts, rules, and cases into a Knowledge Graph, supporting exploration of upstream and downstream relationships and compliance checks around a specific entity.
+  * ByteGraph Question Answering and Reasoning System: In scenarios such as risk control, anti-money laundering, and supply chain analysis, it answers and explains questions related to "relationship chains" and "multi-hop reasoning" through the combination of ByteGraph and LLM.
+* **Principle**
+  The core of this layer is to transform the LLM from a "person who directly provides answers" into an "assistant who can call databases and ByteGraph":
+  * In database question answering, the model needs to understand the user's natural language intent, combine it with the database schema (table structure, field meaning, constraints, etc.), generate the correct SQL / GraphQL / internal DSL, and then interpret and visualize the execution results.
+  * In the Knowledge Graph scenario, the system first needs to extract entities and relationships from documents and logs to build a structured graph; then, during question answering, the LLM is responsible for translating natural language questions into graph queries (such as Cypher), and performing multi-hop reasoning and explanation based on the query results.
+  * Different from RAG, what is emphasized here is  ** precise access to Structured Data and graph structures ** , which on the one hand ensures semantic correctness and grammatical rigor, and on the other hand controls profiling attacks, sensitive data exposure, and high-cost queries.
+* **Model**
+  Typical solutions usually adopt a multi-module architecture of "LLM + dedicated components":
+  * Text-to-SQL Model: A model pre-trained or fine-tuned on large-scale SQL corpora (such as PICARD, DIN-SQL, etc.), focusing on grammatical correctness and schema alignment, and sometimes accompanied by execution feedback for self-correction.
+  * Information Extraction and Knowledge Graph Construction Pipeline: Through modules such as Named Entity Recognition (NER), Relation Extraction, and Event Extraction, it constructs and updates the Knowledge Graph from text and logs; LLMs can participate in difficult case extraction and assist in the judgment of relations with fuzzy boundaries.
+  * LLM + ByteGraph Joint Question Answering: LLM is responsible for question parsing, query generation, and result interpretation, while ByteGraph (such as Neo4j) is responsible for efficient execution and multi-hop relationship search, and the two are connected through tool invocation protocols or intermediate DSLs.
 
-### 8.2.1 数据库问答（Text‑to‑SQL / DSL）实践
+### 8.2.1 Database Q&A (Text‑to‑SQL / DSL) Practice
 
-数据库问答的目标，是让业务人员“用自然语言问数据”，而系统在背后自动完成查询语句生成、执行与解释。要把这件事做好，关键在于兼顾 **语义准确性、语法正确性和执行安全性** 。
+The goal of database Q&A is to enable business personnel to "query data in natural language", while the system automatically completes the generation, execution, and interpretation of query statements in the background. To do this well, the key lies in balancing  ** semantic accuracy, syntactic correctness, and execution security ** .
 
-1. **自然语言到 SQL / DSL 的转换**
-   在最基础的链路中，系统需要：
-   1. 解析用户意图：识别出查询对象（如“华东地区新客”）、过滤条件（时间、地区、渠道）、聚合方式（总数、平均值、同比/环比）和展示需求（趋势、排行、Top‑N）；
-   2. 结合数据库 schema：理解哪些表与字段可以表达上述概念，如何进行关联（join）、分组（group by）和排序；
-   3. 生成可执行的 SQL / GraphQL / 内部 DSL，并通过语法校验器或专门的 Text2SQL 模型（PICARD、DIN‑SQL 等）确保结构合法。
-2. **执行结果的自然语言解释与可视化**
-   查询执行后，系统还需把“冷冰冰的结果集”变成“可理解的洞察”：
-   1. 对简单结果进行文本解释，如“过去 3 个月华东地区新客的复购率整体呈上升趋势，从 15% 提升到 21%”；
-   2. 对复杂结果选择合适的可视化形式（折线图、柱状图、饼图、分布图等），并给出简要分析；
-   3. 支持用户基于当前结果继续追问（如“这波增长主要来自哪些渠道？”），自动在历史 SQL 和上下文的基础上构造新的查询。
-3. **安全与控制：防止“乱查”和“越权”**
-   由于 LLM 生成的 SQL 具有高度灵活性，必须有一层安全与治理机制：
-   1. 基于用户角色与权限，对可查询的库、表、字段和时间范围做严格限制；
-   2. 为模型生成的 SQL 配备静态/动态审查规则，过滤危险操作（如大范围扫描、高成本 join、跨租户查询等）；
-   3. 将“自然语言问题–生成 SQL–执行结果–最终回答”完整记录，用于审计与异常分析。
+1. **Natural Language to SQL/DSL Conversion**
+   In the most basic link, the system needs to:
+   1. Parse user intent: identify the query object (e.g., "new customers in East China"), filter (time, region, channel), aggregation method (total, average, year-on-year/quarter-on-quarter), and display requirements (trend, ranking, Top-N);
+   2. Combine with the database schema: understand which tables and fields can express the above concepts, and how to perform joins, groupings, and sorting;
+   3. Generate executable SQL / GraphQL / internal DSL, and ensure its structural legality through a syntax validator or a dedicated Text2SQL model (such as PICARD, DIN‑SQL, etc.).
+2. **Natural language interpretation and visualization of execution results**
+   After query execution, the system also needs to transform the "cold result set" into "understandable insights":
+   1. Provide a text explanation for simple results, such as "Over the past 3 months, the overall Re-purchase Rate of new customers in East China has shown an upward trend, increasing from 15% to 21%";
+   2. Select appropriate visualization forms (line chart, bar chart, pie chart, distribution chart, etc.) for complex results, and provide a brief analysis;
+   3. Supports users to continue asking follow-up questions based on the current results (e.g., "Which channels did this wave of growth mainly come from?"), and automatically constructs new queries based on historical SQL and context.
+3. **Security and Control: Prevent "random queries" and "exceeding authority"**
+   Due to the high flexibility of SQL generated by LLMs, a layer of security and governance mechanism must be in place:
+   1. Based on User Persona and permissions, strictly restrict the queryable libraries, tables, fields, and time ranges;
+   2. Equip the SQL generated by the model with static/dynamic review rules to filter out dangerous operations (such as large-scale scans, high-cost joins, cross-tenant queries, etc.);
+   3. Completely record "natural language question - generated SQL - execution result - final answer" for auditing and anomaly analysis.
 
-### 8.2.2 知识图谱构建与查询
+### 8.2.2 Knowledge Graph Construction and Query
 
-知识图谱试图把散落在文本、表格、日志中的知识，组织成“实体–关系–属性–事件”的结构化网络，从而更好地支持 **关系探索、多跳推理和复杂问答** 。在这一方向上，LLM 与传统信息抽取、图数据库形成了良好的互补。
+Knowledge Graph attempts to organize the knowledge scattered in text, tables, and logs into a structured network of "entity - relationship - attribute - event", thereby better supporting  **relationship exploration, multi-hop reasoning, and complex question answering** . In this direction, LLM and traditional information extraction, ByteGraph form a good complement.
 
-1. **从文档中抽取实体和关系构建图谱**
-   构建知识图谱通常采用多阶段 pipeline：
-   1. 信息抽取：利用 NER、关系抽取、事件抽取等模型，从文本中识别实体（人、机构、产品、地名、概念等）、它们之间的关系（隶属、合作、依赖、因果）以及关键事件（交易、风险、变更）；
-   2. 规范化与对齐：将同一实体的不同表述（简称、别名、拼写变体）进行归一，对齐到统一 ID；
-   3. 图谱更新与版本管理：支持增量更新、冲突解决和错误纠正，确保图谱在长期演化中保持质量与一致性。LLM 可以在歧义消解、关系类型细化、规则归纳等环节辅助传统算法。
-2. **LLM + 图数据库（Neo4j 等）的查询与推理**
-   当图谱构建完毕，图数据库负责高效存储和检索，而 LLM 则可以扮演“自然语言入口 + 推理控制器”的角色：
-   1. 问题解析与图查询生成：将自然语言问题转译为图查询语句（如 Neo4j 的 Cypher），包括确定起点实体、关系类型、路径长度与过滤条件；
-   2. 多跳推理：通过图查询得到的路径和局部子图，再由 LLM 进行解释与归纳，如“客户 A 与高风险实体 B 之间通过三家公司间接相连”；
-   3. 结果可视化与可解释性：将图查询结果以可视化网络形式呈现，同时由 LLM 给出口头说明，帮助用户理解复杂关系结构。
-3. **领域知识中台与统一服务**
-   在更大规模的企业或行业级应用中，知识图谱往往作为“领域知识中台”存在：
-   1. 为上层业务系统（风控、合规、客户 360 视图、供应链分析等）提供统一的实体和关系视角；
-   2. 与 RAG、数据库问答共同构成统一的知识服务层，由统一的 LLM 编排逻辑决定当前问题该访问文档索引、关系数据库还是图数据库；
-   3. 在安全和合规要求下，通过图谱层面的访问控制和脱敏策略，进一步降低敏感信息泄露的风险。
+1. **Extract entities and relationships from documents to build a Knowledge Graph**
+   Building a Knowledge Graph typically employs a multi-stage pipeline:
+   1. Information Extraction: Utilize models such as NER, relation extraction, and event extraction to identify entities (people, organizations, products, place names, concepts, etc.), relationships between them (affiliation, cooperation, dependence, causality), and key events (transactions, risks, changes) from text;
+   2. Normalization and Alignment: Normalize different expressions (abbreviations, aliases, spelling variants) of the same entity and align them to a unified ID;
+   3. Knowledge Graph Update and Version Management: Supports incremental updates, conflict resolution, and error correction to ensure the Knowledge Graph maintains quality and consistency during long-term evolution. LLM can assist traditional algorithms in disambiguation, relationship type refinement, rule induction, and other processes.
+2. **Query and Inference of LLM + ByteGraph (e.g., Neo4j)**
+   Once the Knowledge Graph is constructed, ByteGraph is responsible for efficient storage and retrieval, while LLM can play the role of "natural language entry + inference controller":
+   1. Problem Analysis and Graph Query Generation: Translate natural language questions into graph query statements (such as Cypher for Neo4j), including determining the starting entity, relationship type, path length, and filter conditions;
+   2. Multi-hop reasoning: Based on the paths and local subgraphs obtained through graph queries, LLM then performs interpretation and induction, such as "Customer A is indirectly connected to high-risk entity B through three companies".
+   3. Result Visualization and Interpretability: Present graph query results in the form of a visualized network, while LLM provides verbal explanations to help users understand complex relationship structures.
+3. **Domain Knowledge Mid-Platform and Unified Services**
+   In large-scale enterprise or industry-level applications, the Knowledge Graph often exists as a "Domain Knowledge Mid-Platform":
+   1. Provides a unified perspective on entities and relationships for upper-level business systems (risk control, compliance, customer 360 view, supply chain analysis, etc.);
+   2. Together with RAG and database Q&A, it forms a unified knowledge service layer, where the unified LLM orchestration logic determines whether the current question should access the document index, relational database, or ByteGraph;
+   3. Under security and compliance requirements, further reduce the risk of sensitive information leakage through access control and desensitization strategies at the graph level.
 
-这一层的共同目标，是把“模型会说话”升级为“模型既会说话，又真正接上了企业的真实数据与知识资产”。当 RAG、Text‑to‑SQL、知识图谱与传统数据基础设施有效结合之后，AI 系统才能在复杂业务环境中既保持智能和灵活性，又具备可控性、可解释性和长期演化能力。
+The common goal of this layer is to upgrade "the model can talk" to "the model can talk and is truly connected to the enterprise's real data and knowledge assets". Only after the effective combination of RAG, Text-to-SQL, Knowledge Graph, and traditional data infrastructure can AI systems maintain both intelligence and flexibility while also possessing controllability, interpretability, and long-term evolution capabilities in complex business environments.
 
-# 9. 安全、对齐与评估（Safety / Alignment / Evaluation）
+# 9. Safety / Alignment / Evaluation
 
-在前面的章节里，我们更多从“模型能做什么”出发：能看图、能写代码、能和用户对话。但在真实的大模型系统中，仅仅“有能力”远远不够：**怎么证明这些能力是稳定、可靠、可控的？怎么确保输出符合价值观和合规要求？在长周期运营中如何持续监控、迭代与回归？**
- 这一层关注的就是： **能力评估与基准测试、价值对齐与训练、内容安全与合规、以及鲁棒性与幻觉控制** ，共同构成一个可持续运营的大模型“基础设施层”。
+In the previous chapters, we started more from "what the model can do": it can view images, write code, and converse with users. But in a real large model system, merely "having the ability" is far from enough: ** How can we prove that these abilities are stable, reliable, and controllable? How can we ensure that the output complies with values and compliance requirements? How can we continuously monitor, iterate, and regress during long-term operation? ** What this layer focuses on is:  ** ability assessment and benchmark testing, value alignment and training, content security and compliance, as well as robustness and hallucination control ** , which together form the "infrastructure layer" of a sustainable large model.
 
-从产品视角看，这些能力贯穿模型全生命周期：模型在实验室阶段需要标准 Benchmark 与专业评估；上线前要通过对齐训练与安全审查；上线后依赖内容安全网关、日志审计与 A/B 测试持续监控；面对新场景与新威胁时，又要回到评估与对齐环节重新训练和验证。下面我们从**能力评估与基准测试、价值对齐与训练、内容安全与合规、鲁棒性与幻觉控制**四个方向展开。
+From a product perspective, these capabilities span the entire lifecycle of the model: during the laboratory phase, the model requires standard benchmarks and professional evaluations; before going live, it must undergo alignment training and security reviews; after going live, it relies on content security gateways, log audits, and A/B testing for continuous monitoring; when facing new scenarios and threats, it must return to the evaluation and alignment phases for retraining and validation. Next, we will expand from ** capability assessment and benchmark testing, value alignment and training, content security and compliance, robustness and hallucination control ** four directions.
 
-## 9.1 能力评估与基准测试（Capability Evaluation & Benchmarks）
+## 9.1 Capability Evaluation & Benchmarks
 
-在大模型研发和落地过程中，**能力评估与基准测试**是把“模型能力”转化为“可观测信号”的关键一环：既要回答“这个模型总体水平怎么样”，也要回答“在某个专业领域、某种真实业务场景下表现如何”。一方面，我们通过标准化的基准集与自动评测体系，去衡量模型在**语言理解与生成、推理与数学、知识与事实性**等通用维度上的表现；另一方面，还需要针对**医疗、法律、金融、教育**等专业领域构建专门评测，并在**真实用户对话、AB 测试和业务指标（Task Success Rate、CSAT、工单关闭率等）中不断验证与修正。整体上，这一层最终会沉淀为内部的能力评估平台**与对外的“ **能力说明书** ”，并为多版本、多租户、多场景的模型选型提供统一决策依据。下面从 **场景** 、 **原理** 、**模型**三个角度展开。
+During the research, development, and implementation of large models,**capability assessment and benchmark testing**are a crucial step in transforming "model capabilities" into "observable signals": it must answer both "what is the overall level of this model" and "how does it perform in a specific professional domain or real business scenario". On the one hand, we use standardized benchmark sets and automated evaluation systems to measure the model's performance in**language understanding and generation, reasoning and mathematics, knowledge and factuality**and other general dimensions; on the other hand, we also need to construct specialized evaluations for**medical, legal, financial, educational**and other professional domains, and continuously validate and correct them through**real user conversations, A/B testing, and business metrics (Task Success Rate, CSAT, ticket closure rate, etc.). Overall, this layer will ultimately precipitate into an internal capability assessment platform**and an external " **capability specification** ", providing a unified decision-making basis for model selection across multiple versions, multiple tenants, and multiple scenarios. The following will be elaborated from three perspectives: **scenario** ,  **principle** ,  **model** .
 
-* **场景**
-  * **通用能力评估场景** ：在基础模型或大版本更新时，需要系统性地评估其在阅读理解、摘要、翻译、对话质量等**语言理解与生成**任务上的表现，以及在算术、多步推理、代码/逻辑题等**推理与数学**任务中的能力，同时通过事实问答、开放域 QA、知识覆盖度任务衡量其**知识与事实性**水平，用于判断“新模型是否整体抬升”。
-  * **专业领域评估场景** ：对于医疗、法律、金融、教育等细分领域，需要设计专业问答与决策模拟，比如疾病问答与分诊建议、法律条文理解与案例归类、投融资分析与风控判断、教学答疑与作业辅导，并在**多语言、多文化环境**下测试模型的一致性与稳定性，确认其能否在高风险环境中“说对话、说适当的话”。
-  * **真实场景与业务指标评估场景** ：在产品上线和持续运营阶段，通过用户对话日志回放、线上 AB 测试等方式，将模型表现映射到 **任务完成率（Task Success Rate）** 、 **用户满意度（CSAT）** 、**工单关闭率**等业务指标；此时评估对象实际是“模型 + 策略 + 产品流程”的整体系统，用于指导版本回滚、策略调优和新功能放量。
-* **原理**
-  能力评估体系可以看作一个分层的“测量系统工程”，其核心原理包括：
-  * **标准基准集：公共刻度与可复现实验**
-    * 语言 / 推理：使用  **MMLU** 、**BIG-Bench** 等综合性任务，配合  **GSM8K** 、**MATH** 等数学与逻辑题目，构建对语言理解、知识掌握、多步推理的统一刻度。
-    * 编程：通过  **HumanEval** 、 **MBPP** 、**Codeforces** 题库等，量化代码生成、程序修复与问题求解能力。
-    * 多模态：利用  **VQA** 、 **MMBench** 、 **ScienceQA** 、**MathVista** 等基准测试图文理解、视觉问答和图像中的数学推理。
-      这些基准强调 **标准化、可复现、可对比** ，便于跨模型、跨机构进行横向对比和对外披露。
-  * **自动评测：规模化与持续回归**
-    * **LLM-as-a-Judge** ：用更强或专门训练的模型对回答进行打分/排序，评价正确性、完整性、风格和安全性，实现大规模自动主观评测。
-    * **基于规则的度量** ：如 BLEU / ROUGE / BERTScore 衡量文本相似度，Pass@k 衡量代码题通过率等，使得在固定数据集上可以快速比较不同版本的差异。
-      自动评测的关键在于 **稳定性与一致性** ，即便不完美，只要“偏差一致”，就可以在持续集成（CI）中可靠地反映模型相对变化。
-  * **人工评测：对齐人类感知与业务目标**
-    * **Pairwise 对比与打分标注** ：由标注员对 A/B 两个模型回答做 pairwise 选择或多维度打分（helpful / honest / harmless 等），是训练 RLHF / RLAIF 奖励模型的重要数据来源。
-    * **线上用户实验** ：通过对话助手、搜索/推荐等落地场景做 AB 测试，直接观察不同模型 / 策略对用户满意度、转化率等指标的影响。
-      人工评测既用于 **校准自动评测** ，也是对外“解释模型行为”时的重要依据。
-* **模型**
-  在工程实践中，能力评估会沉淀为一套相对完整的“平台 + 流程 + 指标体系”：
-  * **内部能力评估平台与 CI 流水线** ：统一管理各类基准集、评测脚本、LLM-as-a-Judge 配置与人工标注工具，支持新模型或新策略提交后一键触发 Benchmark 回归；自动汇总不同任务和维度的指标变化，提供可视化 Dashboard 与回归告警。
-  * **对外“能力说明书”与模型画像** ：将内部评估结果整理为对外可消费的“能力说明书”，包括代表性基准成绩、推荐适用场景（如通用对话、代码辅助、多模态理解等）、已知局限与不适用场景，帮助客户形成正确预期，也为合规和责任划分提供依据。
-  * **多租户 / 多版本模型统一评测与选型工具** ：在同一套评估体系下，统一比较不同尺寸、不同对齐策略或不同架构的模型，支持按行业、地区、SLA 要求配置权重，自动生成“性能–成本–延迟”综合评分，帮助产品和业务方做模型选型与灰度发布决策。
+* **Scenario**
+  * **General Capability Assessment Scenario** : When a foundational model or major version is updated, it is necessary to systematically evaluate its performance on tasks such as reading comprehension, summarization, translation, and dialogue quality in  **language understanding and generation** , as well as its capabilities in tasks such as arithmetic, multi-step reasoning, and code/logic problems in  **reasoning and mathematics** . At the same time, measure its **knowledge and factuality** level through tasks such as factual Q&A, open-domain QA, and knowledge coverage, which is used to determine whether the "new model has overall improvement".
+  * **Professional Domain Assessment Scenario** : For subdomains such as healthcare, law, finance, and education, it is necessary to design professional Q&A and decision-making simulations, such as disease Q&A and triage advice, legal provision understanding and case classification, investment and financing analysis and risk control judgment, teaching Q&A and homework tutoring, and test the consistency and stability of the model in the**multilingual and multicultural environment**to confirm whether it can "speak appropriately" in high-risk environments.
+  * **Real-world Scenarios and Business Metric Evaluation Scenarios** : During the product launch and continuous operation phases, through methods such as user conversation log replay and online A/B testing, map the model performance to  **Task Success Rate** ,  **Customer Satisfaction Score (CSAT)** , **ticket closure rate** and other business metrics; at this time, the actual evaluation object is the overall system of "model + strategy + product process", which is used to guide version rollback, strategy optimization, and new feature rollout.
+* **Principle**
+  The Competency Assessment System can be regarded as a hierarchical "measurement system engineering", and its core principles include:
+  * **Standard Benchmark Set: Common Scale and Reproducible Experiments **
+    * Language / Reasoning: Use  **MMLU** , **BIG-Bench** and other comprehensive tasks, combined with  **GSM8K** , **MATH** and other mathematical and logical problems, to construct a unified scale for language understanding, knowledge mastery, and multi-step reasoning.
+    * Programming: Quantify code generation, program repair, and problem-solving abilities through  ** HumanEval ** ,  ** MBPP ** , ** Codeforces ** question banks, etc.
+    * MultiModal Machine Learning: Utilize  **VQA** ,  **MMBench** ,  **ScienceQA** , **MathVista** and other benchmarks to test image-text understanding, visual question answering, and mathematical reasoning in images.
+      These benchmarks emphasize  **standardization, reproducibility, and comparability** , facilitating horizontal comparison across models and institutions and external disclosure.
+  * **Automated Evaluation: Scalability and Continuous Regression**
+    * **LLM-as-a-Judge** : Use a stronger or specially trained model to score/rank responses, evaluate correctness, completeness, style, and security, and achieve large-scale automatic subjective evaluation.
+    * **Rule-based metrics ** : such as BLEU / ROUGE / BERTScore for measuring text similarity, Pass@k for measuring the passing rate of coding problems, etc., enabling quick comparison of differences between different versions on a fixed dataset. The key to automatic evaluation lies in  ** stability and consistency ** , and even if it is not perfect, as long as the "bias is consistent", it can reliably reflect the relative changes of the model in continuous integration (CI).
+  * **Human Evaluation: Aligning Human Perception with Business Objectives**
+    * **Pairwise Comparison and Scoring Annotation** : Annotators perform pairwise selection or multi-dimensional scoring (helpful / honest / harmless, etc.) on the responses of two models A and B, which is an important data source for training RLHF / RLAIF reward models.
+    * **Online User Experiment** : Conduct AB testing through application scenarios such as conversation assistants, search/recommendation, etc., to directly observe the impact of different models/strategies on indicators such as customer satisfaction score and conversion rate. Manual evaluation is used for both **calibrating automatic evaluation** and is also an important basis for "explaining model behavior" externally.
+* **Model**
+  In engineering practice, capability assessment will precipitate into a relatively complete "platform + process + indicator system":
+  * **Internal C****ap** **ability Assessment Platform and CI Pipeline** : Unified management of various benchmark sets, evaluation scripts, LLM-as-a-Judge configurations, and manual annotation tools, supporting one-click triggering of Benchmark regression after the submission of new models or new strategies; automatically aggregating indicator changes across different tasks and dimensions, providing a visual Dashboard and regression alerts.
+  * **External "Capability Specification" and Model Portrait** : Organize internal evaluation results into an externally consumable "Capability Specification", including representative benchmark scores, recommended application scenarios (such as general conversation, code assistance, multi-modal understanding, etc.), known limitations, and inapplicable scenarios, to help customers form correct expectations and provide a basis for compliance and liability allocation.
+  * **Unified Evaluation and Selection Tool for Multi-Tenant/Multi-Vers****ion** ** Models** : Under the same evaluation system, it uniformly compares models of different sizes, different alignment strategies, or different architectures, supports configuring weights according to industry, region, and SLA requirements, automatically generates a comprehensive score of "performance-cost-latency", and helps product and business teams make decisions on model selection and canary release.
 
-### 9.1.1 通用与专业能力评估：从 Benchmark 到场景验证
+### 9.1.1 General and Professional Competence Assessment: From Benchmark to Scenario Validation
 
-通用与专业能力评估是整个评估体系的“第一层地基”，重点在于：先用统一刻度衡量模型的 **基础能力** ，再在专业场景中验证其 **可用性与风险** 。
+General and professional competence assessment is the "first layer of foundation" of the entire assessment system, with the focus on: first measuring the model's **basic capabilities** using a unified scale, and then verifying its **usability and risks** in professional scenarios.
 
-在通用能力评估中，通常会将任务拆分为语言理解与生成、推理与数学、知识与事实性三个维度：前者通过阅读理解、摘要、翻译、对话质量任务，检查模型是否能准确理解上下文、控制风格并输出连贯文本；中者通过算术、多步推理、代码 / 逻辑题，评估模型在复杂推理链和程序结构上的能力；后者则通过事实问答和开放域 QA 度量知识覆盖度和事实性水平。在专业领域评估中，则需要邀请行业专家参与数据设计：如医疗问答中设定病史、化验结果等上下文，要求模型在回答中给出风险提示和就医建议边界；法律任务中设计条文检索、案例比对、法律适用分析；金融与教育中则聚焦合规披露与教学引导。这一层评估往往结合标准基准集与自建数据集，既追求可对比性，也兼顾业务相关性。
+In general ability assessment, tasks are typically divided into three dimensions: language understanding and generation, reasoning and mathematics, and knowledge and factuality. The former examines whether the model can accurately understand context, control style, and output coherent text through tasks such as reading comprehension, summarization, translation, and dialogue quality; the middle assesses the model's capabilities in complex reasoning chains and program structures through arithmetic, multi-step reasoning, and code/logic problems; the latter measures knowledge coverage and factuality levels through factual Q&A and open-domain QA. In professional domain assessment, Subject-Matter Experts need to be invited to participate in data design: for example, in medical Q&A, context such as medical history and test results is set, requiring the model to provide risk warnings and boundaries for medical advice in its answers; in legal tasks, provisions retrieval, case comparison, and legal application analysis are designed; in finance and education, the focus is on compliance disclosure and teaching guidance. This level of assessment often combines standard benchmark sets with self-built datasets, pursuing both comparability and business relevance.
 
-### 9.1.2 自动评测与 LLM-as-a-Judge：让评估可扩展
+### 9.1.2 Automated Evaluation and LLM-as-a-Judge: Making Evaluation Scalable
 
-当任务规模和模型版本数迅速增长后，仅依赖人工已经难以支撑评估需求，此时需要通过自动评测体系实现 **规模化与高频回归** 。
+When the scale of the task and the number of model versions grow rapidly, it is difficult to support the evaluation needs only by manual work. At this time, it is necessary to achieve **scale and high-frequency regression **through the automatic evaluation system.
 
-一类做法是利用传统的基于规则度量：在翻译、摘要等任务上，用 BLEU / ROUGE / BERTScore 与参考答案对比，在代码任务上用 Pass@k 测试在多个生成样本中是否至少有一个通过单测。这类指标实现简单、可高度自动化，但对答案多样性与风格细节不敏感。另一类更具代表性的做法是  **LLM-as-a-Judge** ：将更强或专门训练的模型用作“打分裁判”，根据预定义的评分 Rubric，对被测模型输出进行维度化打分或 Pairwise 排序。这允许我们在没有标准答案、回答多样的开放问答和对话任务中也进行高效自动评估。实际工程中，LLM-as-a-Judge 的评分标准和 Prompt 需要经过人工标注数据校准与迭代，以确保其与人类评委的一致性。
+One approach is to use traditional rule-based metrics: in tasks such as translation and summarization, BLEU / ROUGE / BERTScore are used to compare with reference answers, and in code tasks, Pass@k is used to test whether at least one of multiple generated samples passes unit tests. These metrics are simple to implement and highly automated, but they are insensitive to answer diversity and style details. Another more representative approach is  **LLM-as-a-Judge** : using a stronger or specially trained model as a "scoring judge" to perform dimensional scoring or pairwise ranking on the outputs of the model under test according to a predefined scoring rubric. This allows us to conduct efficient automatic evaluation even in open-ended question-answering and dialogue tasks where there are no standard answers and responses are diverse. In practical engineering, the scoring criteria and prompts of LLM-as-a-Judge need to be calibrated and iterated through manually annotated data to ensure consistency with human judges.
 
-### 9.1.3 人工评测与业务指标：闭环到真实用户体验
+### 9.1.3 Manual Evaluation and Business Metrics: Closed Loop to Real User Experience
 
-再完备的离线指标，也只能近似真实用户体验。为了把能力评估闭环到业务，需要引入人工评测与线上实验两类手段。
+No matter how complete offline metrics are, they can only approximate the real User Experience. To close the loop of capability evaluation to business, it is necessary to introduce two types of methods: manual evaluation and online experiments.
 
-人工评测侧，常见的是 Pairwise 对比：让标注员在看不到模型身份的前提下，基于 helpful / honest / harmless 等维度，对 A/B 两个回答做偏好选择或打分，从而得到高质量偏好数据，一方面用于直接评估，另一方面可以为 RLHF / RLAIF 训练奖励模型提供数据。在业务侧，则通过线上 AB 测试，对比不同模型、提示词、策略配置版本对任务完成率、用户满意度（CSAT）、工单关闭率等关键指标的影响，辅以用户对话日志回放和人工抽检，持续监控模型上线后的真实表现。这一层评估的输出又会反过来指导能力评估平台的重点方向和权重调整，形成“离线指标—人工评测—线上指标”的闭环。
+On the manual evaluation side, the commonly used method is Pairwise comparison: annotators are asked to make preference selections or assign scores to two responses A and B based on dimensions such as helpful, honest, and harmless without knowing the identity of the models, thereby obtaining high-quality preference data. On the one hand, this data is used for direct evaluation; on the other hand, it can provide data for training reward models in RLHF/RLAIF. On the business side, through online A/B testing, the impacts of different models, prompts, and strategy configuration versions on key indicators such as task completion rate, Customer Satisfaction Score (CSAT), and ticket closure rate are compared, supplemented by user conversation log replay and manual spot checks, to continuously monitor the real performance of the model after it goes live. The output of this level of evaluation, in turn, guides the key directions and weight adjustments of the capability evaluation platform, forming a closed loop of "offline metrics - manual evaluation - online metrics".
 
-## 9.2 价值对齐与训练（Value Alignment & Training）
+## 9.2 Value Alignment & Training
 
-在拥有强大基础能力之后，大模型要成为“安全、可靠、可控”的产品，还必须经历 **价值对齐与训练** 。这一层关注的不再是模型“能不能回答”，而是“ **回答得是否有用、诚实、无害** ”以及“在不同角色和行业中应该如何说话”。从工程角度看，对齐过程大致包括三步：首先通过文档与规范明确 **对齐目标定义（What to Align）** ，将有用（Helpful）、诚实（Honest）、无害（Harmless）拆解为可标注、可训练的标准；其次构建覆盖广泛的 **指令数据与安全数据** ，涵盖正常任务、灰区案例与不合适回答；最后通过 **SFT、RLHF / RLAIF、拒答/重定向策略建模** 等方法，将这些偏好与规则“写进”模型行为中，并辅以上游对话管理与策略引擎，实现端到端的安全对齐。下面同样从 **场景** 、 **原理** 、**模型**三个角度展开。
+After having strong foundational capabilities, for large models to become "safe, reliable, and controllable" products, they must also undergo  ** value alignment and training ** . This layer no longer focuses on whether the model "can answer", but rather on ** wh****e****ther**** the answers are useful, honest, and harmless ** and "how to speak in different roles and industries". From an engineering perspective, the alignment process generally includes three steps: First, clearly define ** the alignment target definition (What to Align) ** through documents and specifications, breaking down useful (Helpful), honest (Honest), and harmless (Harmless) into annotatable and trainable standards; Second, build extensive  ** instruction data and safety data ** , covering normal tasks, gray area cases, and inappropriate answers; Finally, through  ** methods such as SFT, RLHF / RLAIF, and refusal / retargeting strategy modeling ** , "write" these preferences and rules into the model behavior, supplemented by upstream dialog management and strategy engines, to achieve end-to-end safety alignment. The following also expands from  ** scenarios ** ,  ** principles ** , ** models ** three perspectives.
 
-* **场景**
-  * **通用 C 端助手场景** ：面向大众用户的聊天助手、信息检索助手，需要在广谱话题下保持“ **友好、有帮助、不越界** ”：既要回答得专业、聚焦任务，又要在不确定时坦诚表达局限，对明显不当需求进行拒答或柔性引导。
-  * **专业行业助手场景** ：在医疗、法律、金融、教育等领域，除了基础安全，还要叠加行业规范：例如医疗助手需要反复强调“非诊断性质 + 风险提示 + 建议就医”，法律助手要避免提供违法规避建议，金融助手要遵守投资合规披露要求，教育助手要考虑未成年保护与适龄内容。
-  * **B 端可配置对齐层场景** ：企业往往希望在通用安全基线之上，进一步嵌入自身的行业要求、品牌语气和内部政策，因此需要一个 **可配置的对齐层** ，允许客户自行配置安全阈值、敏感类别和话术风格，而不必重训底层大模型。
-* **原理**
-  价值对齐可以理解为“用人类和组织的价值观约束模型的行为空间”，其核心原理包括：
-  * **对齐目标定义（What to Align）**
-    * **有用（Helpful）** ：回答应高质量、专业、结构清晰、聚焦任务目标，不过度发散和闲聊。
-    * **诚实（Honest）** ：尽量不胡编乱造，在知识缺失或理解不清时主动承认不确定性、给出估计范围或建议查证渠道。
-    * **无害（Harmless）** ：遵守法律与平台政策，避免生成仇恨、歧视、自残鼓励、违法犯罪指导等内容，并尊重用户的尊严与边界。
-      这些目标会被写入标注指南与策略文档，成为后续数据构建、奖励建模和评测的统一标准。
-  * **对齐训练数据构建**
-    * **指令数据（Instruction）** ：设计覆盖广泛的任务指令与理想回答，涵盖问答、写作、总结、代码、规划等多种场景，教会模型在“正常请求”下的最佳行为。
-    * **安全数据（Safety）** ：构建“好的回答 vs 不合适回答”对照样本，特别注重灰色边界（gray zone），如科普信息 vs 具体操作、情绪支持 vs 自残鼓励、合法辩论 vs 仇恨煽动等，为模型提供细粒度的边界示例。
-  * **对齐训练方法**
-    * **SFT（Supervised Fine-Tuning）** ：在高质量对话 / 指令数据上进行有监督微调，是塑造模型基准行为和语气的第一步。
-    * **RLHF / RLAIF** ：通过人类或模型打分构建偏好数据，训练奖励模型，然后进行策略优化，让模型在生成时倾向于被“偏好”的回答（更有用、更安全、更诚实）。
-    * **拒答 / 重定向策略建模** ：针对高风险或不适当请求，训练模型不仅会拒答，还能给出合理解释并引导用户到安全替代方案（例如提供求助资源、鼓励咨询专业人士等）。
-* **模型**
-  在系统设计上，价值对齐通常体现为“ **底层对齐训练 + 上层策略护栏** ”的组合：
-  * **SFT + RLHF / RLAIF 对齐模型** ：SFT 阶段让模型学会理想回答的基本模式；RLHF / RLAIF 阶段则通过偏好学习进一步“收紧”行为，使其更贴近人类偏好与安全标准。在安全维度上，可以单独为有害性构建奖励头或分类器，用于在策略优化中施加惩罚。
-  * **Constitutional AI / Policy-based Alignment** ：通过先撰写一套“宪法（Constitution）”或 Policy 文档，再让模型根据这套规则进行自我批评与重写，生成大量“自监督批改数据”，在减少人工成本的同时强化模型对规则的内化。
-  * **对话管理与意图检测协同** ：在产品管线中，将安全 / 对齐逻辑部分上移到对话管理层，通过意图识别、槽位填充、任务路由决定请求是否交给大模型、是否需要额外的安全过滤或模板化回复。这样可以形成“模型对齐 + 策略护栏”的双重保险。
-  * **内部对齐平台与角色配置** ：建设内部对齐平台，提供标注 / 打分工具、策略版本管理和训练流水线；同时支持为不同角色（客服、医疗建议、教育辅导等）配置差异化对齐目标和话术风格，使同一底座模型在不同产品中展现出截然不同但可控的一致人格。
+* **Scenario**
+  * **General C-end assistant ****scen** **ario ** : Chat assistants and information retrieval assistants for the general public need to maintain "  **friendly, helpful, and not crossing the line ** " under broad-spectrum topics: both to answer professionally and focus on tasks, and to express limitations candidly when uncertain, and to refuse or flexibly guide obvious inappropriate needs.
+  * **Professional Industry Assistant Scenarios** : In fields such as healthcare, law, finance, and education, in addition to basic security, industry regulations must also be added. For example, healthcare assistants need to repeatedly emphasize "non-diagnostic nature + risk warning + advice to seek medical treatment"; legal assistants should avoid providing advice on evading laws; financial assistants must comply with investment compliance disclosure requirements; and education assistants should consider the protection of minors and age-appropriate content.
+  * **B-side configurable alignment layer scenario ** : Enterprises often hope to further embed their own industry requirements, brand tone, and internal policies on top of the general security baseline. Therefore, they need a ** configurable alignment layer ** that allows customers to configure security thresholds, sensitive categories, and narrative styles on their own without having to retrain the underlying large model.
+* **Principle**
+  Value alignment can be understood as "constraining the behavioral space of models with the values of humans and organizations," and its core principles include:
+  * **Alignment Target Definition (What to Align)**
+    * **Helpful** : Responses should be of high quality, professional, well-structured, and focused on the task objective, without excessive digression or idle chat.
+    * **Honest** : Try not to fabricate information. When knowledge is lacking or understanding is unclear, proactively acknowledge uncertainty, provide an estimated range, or suggest verification channels.
+    * **Harmless (Harmless) ** : Comply with laws and platform policies, avoid generating content such as hate, discrimination, self-harm encouragement, and criminal guidance, and respect users' dignity and boundaries.
+      These goals will be incorporated into annotation guidelines and strategy documents, becoming the unified standard for subsequent data construction, reward modeling, and evaluation.
+  * **Al****ignm****ent Training Data Construction**
+    * **In** **struction Data (Instruction)** : Design a wide range of task instructions and ideal responses, covering various scenarios such as Q&A, writing, summarization, code, planning, etc., to teach the model the best behavior under "normal requests".
+    * **Safet****y Data** ** (Safety) ** : Construct control samples of "good responses vs. inappropriate responses", with particular emphasis on the gray zone (gray zone), such as popular science information vs. specific operations, emotional support vs. self-harm encouragement, legal debate vs. hate incitement, etc., to provide the model with fine-grained boundary examples.
+  * **Alignment Training Method**
+    * **SFT (Supervised Fine-Tuning) ** : Supervised fine-tuning on high-quality dialogue/instruction data is the first step in shaping the baseline behavior and tone of the model.
+    * **RLHF** ** / RLAIF** : Build preference data by human or model scoring, train a reward model, and then perform policy optimization to make the model tend to generate "preferred" responses (more useful, safer, and more honest) during generation.
+    * **Refusal / Retargeting Strategy Modeling** : For high-risk or inappropriate requests, the trained model will not only refuse to answer but also provide reasonable explanations and guide users to safe alternatives (such as providing help resources, encouraging consultation with professionals, etc.).
+* **Model**
+  In system design, value alignment is usually manifested as a combination of  **bottom-level alignment training + upper-level strategic guardrails** :
+  * **SFT**** + ****RLHF** ** / RLAIF Alignment Model** : The SFT phase enables the model to learn the basic patterns of ideal responses; the RLHF / RLAIF phase further "tightens" behavior through preference learning, making it closer to human preferences and safety standards. In the safety dimension, a reward head or classifier can be separately constructed for harmfulness to impose penalties during policy optimization.
+  * **Constitutional AI / Policy-based Alignment** : By first writing a set of "Constitution" or Policy documents, and then having the model conduct self-criticism and rewriting based on these rules, a large amount of "self-supervised correction data" is generated, which reduces labor costs while strengthening the model's internalization of the rules.
+  * **Dialog Management and Intent Detection Collaboration** : In the product pipeline, move the security/ alignment logic part up to the dialog management layer, and determine whether to hand over the request to the large model, whether additional security filtering or templated responses are needed through intent recognition, slot filling, and task routing. This can form a double insurance of "model alignment + policy guardrails".
+  * **Internal Alignment Platform and Role Configuration** : Build an internal alignment platform to provide annotation/scoring tools, strategy version management, and training pipelines; at the same time, support configuring differentiated alignment goals and narrative styles for different roles (customer service, medical advice, educational tutoring, etc.), enabling the same base model to exhibit distinct yet controllable and consistent personalities across different products.
 
-### 9.2.1 对齐目标与训练数据：把价值变成可学习信号
+### 9.2.1 Aligning Objectives with Training Data: Transforming Values into Learnable Signals
 
-价值对齐的第一步，是把“抽象价值观”转译成模型可以学习的信号，而这离不开对齐目标定义和训练数据构建。
+The first step in value alignment is to translate "abstract values" into signals that the model can learn, which is inseparable from the definition of alignment objectives and the construction of training data.
 
-在对齐目标层面，团队通常会输出一套详细的行为规范文档，将 Helpful / Honest / Harmless 拆解为具体条款，如：禁止给出某类高危操作的具体步骤、对于医疗/法律建议必须附带免责声明和风险提示、在涉及争议话题时保持中立与多视角呈现等。接着，在指令数据阶段，会围绕这些指标构建多样化任务与理想回答，涵盖聊天、写作、代码、问答等场景，并融合多语言、多文化背景；在安全数据阶段，则针对有害内容、高风险领域与灰色地带，构建成对的“好 / 坏回答”示例，为后续偏好学习和安全分类器提供训练素材。通过这种方式，价值目标被“翻译”为实际数据分布，成为模型训练可以直接感知的信号。
+At the alignment target level, the team typically outputs a detailed set of behavioral guidelines, breaking down Helpful / Honest / Harmless into specific clauses, such as: prohibiting the provision of specific steps for certain high-risk operations, attaching disclaimers and risk warnings to medical / legal advice, and maintaining neutrality and multi-perspective presentation when dealing with controversial topics. Then, during the instruction data phase, diverse tasks and ideal responses are constructed around these metrics, covering scenarios such as chatting, writing, coding, and Q&A, and integrating multilingual and multicultural backgrounds; during the safety data phase, paired "good / bad response" examples are constructed for harmful content, high-risk areas, and gray areas, providing training creatives for subsequent preference learning and safety classifiers. In this way, value targets are "translated" into actual data distributions, becoming signals that Model Training can directly perceive.
 
-### 9.2.2 SFT、RLHF / RLAIF 与拒答策略：塑形模型行为
+### 9.2.2 SFT, RLHF / RLAIF, and Refusal Strategy: Shaping Model Behavior
 
-有了对齐目标和数据之后，下一步是通过多阶段训练过程将这些目标写入模型行为。
+After having alignment objectives and data, the next step is to incorporate these objectives into model behavior through a multi-stage training process.
 
-在 SFT 阶段，模型在高质量人类示范数据上进行有监督微调，这类似于“教科书式学习”：它决定了模型在绝大多数正常请求下的语气、结构和解决问题的标准范式。随后，通过 **RLHF**** / RLAIF** 进行偏好优化：先利用人类标注或更大 LLM 产生的偏好标签训练奖励模型，再使用策略优化算法（如 PPO 等）调整模型，使其在生成中倾向于获得更高奖励。这样，模型不仅“知道正确答案长什么样”，还知道“哪种答案更符合人类偏好和安全要求”。在此基础上，还会专门建模各种 **拒答与重定向策略** ：对于明显违法、极高风险或不适合由 AI 回答的问题，模型应该学会给出清晰的拒绝与解释，并提供安全的替代路径（如求助热线、专业咨询等），而不是简单沉默或随意搪塞。
+During the SFT phase, the model undergoes supervised fine-tuning on high-quality human demonstration data, which is similar to "textbook-style learning": it determines the tone, structure, and standard problem-solving paradigms of the model under the vast majority of normal requests. Subsequently, preference optimization is carried out through  **RLHF** ** / RLAIF** : first, a reward model is trained using preference labels generated by human annotations or larger LLMs, and then a policy optimization algorithm (such as PPO, etc.) is used to adjust the model so that it tends to obtain higher rewards during generation. In this way, the model not only "knows what the correct answer looks like" but also "knows which answer better meets human preferences and safety requirements". On this basis, various **refusal and retargeting strategies** are also specifically modeled: for questions that are clearly illegal, extremely high-risk, or not suitable for AI to answer, the model should learn to give clear refusals and explanations, and provide safe alternative paths (such as helplines, professional consultations, etc.), rather than simply remaining silent or casually evading.
 
-### 9.2.3 策略层与对齐平台：让对齐可配置、可演进
+### 9.2.3 Strategy Layer and Alignment Platform: Making Alignment Configurable and Evolvable
 
-即便底层模型已经进行了充分对齐训练，在实际系统中仍需要**策略层与对齐平台**来实现更细粒度的可控性和可演进性。
+Even if the underlying model has undergone sufficient alignment training, in the actual system, it is still necessary to ** have a policy layer and an alignment platform ** to achieve finer-grained controllability and evolvability.
 
-策略层通常包含意图识别、风险评估与路由逻辑：当用户输入到达系统时，先由轻量模型判断其意图、领域和风险等级，再决定是否直接调用大模型、是否需要额外安全过滤、是否落入模板回复或转人工渠道。对于不同行业和客户，策略层可以加载不同的 Policy 配置，实现对敏感类别、拒答风格和品牌语气的定制。与此同时，内部对齐平台会管理所有对齐相关资产：标注/打分工具、奖励模型版本、策略变更记录、在线 A/B 结果等，使团队可以在不频繁重训底座模型的前提下，对对齐策略进行快速迭代和灰度发布，从而保持对模型行为的持续掌控。
+The strategy layer typically includes intent recognition, risk assessment, and routing logic: when user input reaches the system, a lightweight model first determines its intent, domain, and risk level, and then decides whether to directly invoke the large model, whether additional security filtering is required, whether it falls into template responses, or whether to transfer to human channels. For different industries and customers, the strategy layer can load different Policy configurations to customize sensitive categories, refusal styles, and brand tones. Meanwhile, the internal alignment platform manages all alignment-related assets: annotation/scoring tools, reward model versions, strategy change records, online A/B results, etc., enabling the team to quickly iterate and perform canary releases on alignment strategies without frequently retraining the base model, thereby maintaining continuous control over model behavior.
 
-## 9.3 内容安全与合规（Content Safety & Compliance）
+## 9.3 Content Safety & Compliance
 
-随着大模型被嵌入到搜索、对话、内容创作、社交平台乃至企业内部系统中，**内容安全与合规**从“附加功能”变成了“准入门槛”。这一层关注的是：模型在生成文本、图像、音视频时，是否会产生违法有害内容；系统在处理用户数据时，是否符合所在国家/地区和所属行业的法律法规；以及在面对审计与监管时，能否给出清晰可追溯的证据链。为此，我们需要构建覆盖**多模态内容审核、区域与行业合规、本地隐私与数据保护**的完整技术与治理体系，并将其封装为 SaaS 内容安全服务、企业合规中台和行业安全网关等产品形态。下面同样从 **场景** 、 **原理** 、**模型**三个角度展开。
+As large models are embedded into search, conversation, content creation, social platforms, and even enterprise internal systems, ** content security and compliance ** have transformed from "additional features" into "entry requirements". This layer focuses on: whether the model generates illegal and harmful content when generating text, images, audio, and video; whether the system complies with the laws and regulations of the country/region and industry when processing user data; and whether it can provide a clear and traceable evidence chain when facing audits and regulations. To this end, we need to build a complete technology and governance system covering  ** multi-modal content moderation, regional and industry compliance, and local privacy and data protection ** , and encapsulate it into product forms such as SaaS content security services, enterprise compliance mid-platforms, and industry security gateways. The following also unfolds from  ** scenarios ** ,  ** principles ** , ** models ** three perspectives.
 
-* **场景**
-  * **多模态内容审核与过滤场景** ：在对话产品、UGC 平台、社区与社交应用中，大模型会生成或接收大量文本、图像、音视频内容，需要通过统一的**多模态审核**能力，实时识别并拦截涉及个人隐私、违法犯罪指导、仇恨煽动、极端暴力、色情与未成年人不当内容等高风险输出。
-  * **合规约束与本地化场景** ：不同国家/地区的法律法规对数据保护、未成年人保护、内容监管等有不同要求；不同行业（医疗、金融、教育、广告等）也有细化的合规规范。因此系统必须支持按**地区与行业**加载不同策略模板，以符合当地监管要求。
-  * **用户隐私与数据保护场景** ：在模型训练和在线服务过程中，需要处理大量用户对话和业务数据，如何实现数据匿名化、脱敏和最小采集，同时在训练和推理阶段通过技术和制度手段保护隐私，是内容安全与合规体系的另一根支柱，尤其在金融、医疗等高敏感行业。
-* **原理**
-  内容安全与合规的底层原理可以分为策略、过滤和隐私三个层面：
-  * **安全策略系统（Policy Engine）**
-    * 将法律法规、平台规则、行业规范 **形式化为可执行策略** ，通过规则引擎结合模型打分，对内容进行风险分级（安全 / 灰区 / 高危）。
-    * 支持按场景和客户选择不同策略模板，例如为青少年产品、专业社区或跨国企业配置不同的敏感类别与阈值。
-  * **多级内容过滤：事前–事中–事后**
-    * **事前** ：对用户 Prompt 做拦截与重写（Prompt Shielding），在请求进入大模型前阻断明显违法或高度敏感的意图，或将其引导为较为安全的表达方式。
-    * **事中** ：在模型生成输出时，利用安全分类模型与规则对内容进行实时审查（Real-time Safety Filter），对高风险内容进行截断、替换、打码或触发拒答。
-    * **事后** ：对对话和生成日志做抽样审计与人审复核，对发现的问题进行溯源分析，进而更新策略和模型，并为外部监管提供可追溯的记录。
-  * **隐私保护技术与****数据治理**
-    * 在数据存储和训练前，对用户对话数据进行 **匿名化与脱敏处理** ，移除或替换姓名、身份证号、手机号、地址等敏感字段，并遵循**最小采集原则**只保留必要信息。
-    * 在某些场景中采用**差分隐私（DP）**限制单个样本对模型参数的影响，或者通过**联邦学习（FL）**将训练留在本地数据域，避免原始数据上云。
-    * 利用 **RBAC**** / ****ABAC** 等访问控制机制，严格限制谁可以访问什么级别的日志与敏感数据，并配合审计日志保证访问路径可追踪。
-* **模型**
-  从产品与系统设计角度看，内容安全与合规最终会演化为一系列可复用的“安全服务与中台”：
-  * **SaaS 内容安全服务** ：将文本 / 图像 / 音视频审核能力封装为统一 API，对接上游应用；输入内容，输出风险类型、分级和处理建议（放行、拦截、人审），帮助开发者快速集成安全模块。
-  * **企业内部合规中台** ：为大型企业提供集中管理的合规策略配置、审计报表和风险告警能力，对接内部的业务系统和人审团队，使各业务线在统一策略下执行自定义规则，并满足外部监管报告需求。
-  * **高风险行业专用安全网关与日志审计系统** ：在金融、医疗等高风险行业，通过专用安全网关代理所有大模型调用，对流量进行实时检查与脱敏，将关键日志留存在本地或合规区域，提供详尽的访问审计和事件追溯能力，满足严格的监管要求。
+* **Scenario**
+  * **MultiModal Machine L****ear****ning Content ****Mod** **eration and Filtering Scenarios** : In conversation products, UGC platforms, communities, and social applications, large models generate or receive a large amount of text, image, audio, and video content, which requires unified**MultiModal Machine Learning moderation**capabilities to identify and intercept high-risk outputs involving personal privacy, criminal guidance, hate incitement, extreme violence, pornography, and inappropriate content for juveniles in real time.
+  * **Compliance Constraints and Localization Scenarios** : Laws and regulations in different countries/regions have different requirements for data protection, juvenile protection, content moderation, etc.; different industries (medical, finance, education, advertising, etc.) also have detailed compliance specifications. Therefore, the system must support loading different policy templates according to**region and industry**to meet local regulatory requirements.
+  * **User Privacy and Data Protection Scenario** : During Model Training and online service processes, a large amount of user conversations and business data need to be processed. How to achieve data anonymization, desensitization, and minimal collection, while protecting privacy through technical and institutional means during the training and inference phases, is another pillar of the content security and compliance system, especially in highly sensitive industries such as finance and healthcare.
+* **Principle**
+  The underlying principles of content security and compliance can be divided into three levels: strategy, filtering, and privacy:
+  * **Security Policy System (Policy Engine)**
+    * Formalize laws, regulations, platform rules, and industry standards  ** into executable policies ** , and use a rules engine combined with model scoring to classify content risks (safe / gray area / high risk).
+    * Supports selecting different policy templates based on scenarios and clients, such as configuring different sensitive categories and thresholds for youth products, professional communities, or multinational enterprises.
+  * **Multi-level content filtering: pre-event – in-event – post-event**
+    * **Pre-event** : Intercept and rewrite user prompts (Prompt Shielding), block obvious illegal or highly sensitive intentions before the request enters the large model, or guide them into a relatively safe expression.
+    * **During the process ** : When the model generates output, use the safety classification model and rules to conduct real-time review (Real-time Safety Filter) of the content, and truncate, replace, censor, or trigger a rejection response for high-risk content.
+    * **After the fact ** : Conduct sampling audits and human review of dialogue and generation logs, trace and analyze the identified issues, then update strategies and models, and provide traceable records for external supervision.
+  * **Privacy Protection Technology and **** ****Data Governance**
+    * Before data storage and training, user conversation data is subjected to  **anonymization and desensitization ** , removing or replacing sensitive fields such as names, ID numbers, mobile phone numbers, addresses, etc., and adhering to the **principle of minimal collection **to retain only necessary information.
+    * In some scenarios, differential privacy (DP) is used to **limit the impact of a single sample on model parameters, or through **FL (FL) training is left in the local data domain to avoid the original data source going to the cloud.
+    * Utilize**RBAC** ** / ** **ABAC** and other access control mechanisms to strictly limit who can access what level of logs and sensitive data, and cooperate with audit logs to ensure that access paths are traceable.
+* **Model**
+  From the perspective of product and system design, content security and compliance will ultimately evolve into a series of reusable "Security Services and Mid-Platform":
+  * **SaaS Content Security Service** : Encapsulates text/image/audio-video auditing capabilities into a unified API for integration with upstream applications; takes content as input and outputs risk types, classifications, and handling suggestions (release, block, manual review), helping developers quickly integrate security modules.
+  * **Enterprise Internal Compliance Mid-Platform** : Provides large enterprises with centralized management capabilities for compliance strategy configuration, audit reports, and risk alerts, connects to internal business systems and human audit teams, enables each Line of Business to execute custom rules under a unified strategy, and meets external regulatory reporting requirements.
+  * **Specialized Security ****Gateway**** and ****Log** ** Audit System for High-Risk Industries** : In high-risk industries such as finance and healthcare, all large model calls are proxied through a specialized security gateway, which conducts real-time inspection and desensitization of traffic, retains critical logs locally or in compliant regions, provides detailed access auditing and event traceability capabilities, and meets strict regulatory requirements.
 
-### 9.3.1 多模态审核与策略引擎：把规则变成“可执行的代码”
+### 9.3.1 MultiModal Machine Learning Review and Policy Engine: Transforming Rules into "Executable Code"
 
-实际的内容安全系统，首先要能“看懂”来自不同渠道与模态的内容，然后才能将策略落地到每一次请求与响应上。
+An actual content security system must first be able to "understand" content from different channels and modalities, and then implement policies for each request and response.
 
-在多模态审核方面，系统通常会构建文本、图像、视频等多种检测模型：文本侧模型识别敏感关键词、上下文语境和隐晦表达；图像和视频侧则检测暴力、色情、未成年人、仇恨符号和违法物品等内容，并在必要时结合 OCR、ASR 和视觉特征进行联合判断。策略引擎则把这些模型输出与法规要求绑定在一起：例如，在某一地区对赌博或政治内容有更严格限制，就可以在对应策略模板中提高相关检测类别的敏感度，或对命中这些分类的内容强制转人工复核。通过把抽象规则转化为规则链、阈值和动作（放行/拦截/人审/打码），Policy Engine 让合规要求真正“跑起来”。
+In MultiModal Machine Learning auditing, the system typically constructs multiple detection models for text, images, videos, etc.: the text-side model identifies sensitive keywords, contextual information, and veiled expressions; the image and video sides detect content such as violence, pornography, juveniles, hate symbols, and illegal items, and combine OCR, ASR, and visual features for joint judgment when necessary. The Policy Engine binds the outputs of these models with regulatory requirements: for example, if a region has stricter restrictions on gambling or political content, it can increase the sensitivity of relevant detection categories in the corresponding policy template or enforce manual review for content that hits these classifications. By transforming abstract rules into rule chains, thresholds, and actions (release/block/manual review/censoring), the Policy Engine makes compliance requirements truly "operational".
 
-### 9.3.2 多级过滤与日志审计：构建端到端安全闭环
+### 9.3.2 Multi-level Filtering and Log Auditing: Building an End-to-End Secure Closed Loop
 
-单一环节的拦截很难覆盖所有风险，因此内容安全体系普遍采用**事前–事中–事后**三层防线的设计。
+Interception at a single stage can hardly cover all risks, so content security systems generally adopt the design of**pre-event, in-event, and post-event**three-tier defense lines.
 
-在事前阶段，系统会对用户输入进行快速检测，对明显违规或高度敏感的 Prompt 直接拒绝或重写，引导用户以安全方式提问；对于边界尝试和模糊请求，也可以主动补充声明和风险提示。在事中阶段，模型输出会经过实时安全过滤组件：该组件会利用文本分类和规则匹配，对潜在高危输出进行剪裁、替换或触发拒答流程，确保最终呈现给用户的内容落在可接受范围内。事后阶段，则通过日志审计与抽检机制，由安全团队或可信的自动系统定期回放与检查会话，分析误判、漏判和新型风险样式，并据此更新策略、训练数据和检测模型。这样形成一个持续演进的安全闭环，而不是“一次性配置”。
+During the pre-event stage, the system will quickly detect user input, directly reject or rewrite obvious violations or highly sensitive prompts, and guide users to ask questions in a safe manner; for boundary attempts and ambiguous requests, it can also proactively supplement statements and risk warnings. During the in-event stage, model outputs will pass through a real-time security filtering component: this component will use text classification and rule matching to trim, replace, or trigger a rejection process for potentially high-risk outputs, ensuring that the content ultimately presented to users falls within an acceptable range. During the post-event stage, through a log auditing and random inspection mechanism, the security team or a trusted automated system will regularly replay and check conversations, analyze misjudgments, missed judgments, and new risk patterns, and update strategies, training data, and detection models accordingly. This forms a continuously evolving security closed-loop, rather than a "one-time configuration".
 
-### 9.3.3 隐私保护与行业安全网关：让数据安全“可证明”
+### 9.3.3 Privacy Protection and Industry Security Gateway: Making Data Security "Proven"
 
-在高敏感行业中，仅仅“不输出有害内容”还远远不够，还要证明“内部对用户数据的使用同样安全、合规、可追踪”。
+In highly sensitive industries, simply "not outputting harmful content" is far from enough; it is also necessary to prove that "the internal use of user data is equally safe, compliant, and traceable."
 
-隐私保护从数据进入系统开始：在采集和存储阶段就尽量进行匿名化和脱敏，确保即使日志泄露也难以直接关联到具体个人；在训练阶段，则通过差分隐私、采样策略或联邦学习减少单个用户数据对最终模型的影响和外泄风险。对于模型推理流量，则通过**安全网关**进行统一接入管控：所有请求与响应都要经过网关的内容检查、权限校验和审计记录，必要时根据业务线和用户角色应用不同的访问策略与数据视图。最终，这些日志和策略变更记录会沉淀为可供内部审计和外部监管查看的“证据链”，使企业不仅在事实上合规，而且在形式上“可证明自己合规”。
+Privacy protection starts from the data entering the system: during the collection and storage stages, anonymization and desensitization are carried out as much as possible to ensure that even if the log is leaked, it is difficult to directly associate it with specific individuals; during the training stage, differential privacy, sampling policies, or FL are used to reduce the impact of individual user data on the final model and the risk of leakage. For model inference traffic, unified access control is carried out through the  **Security Gateway ** : all requests and responses must go through the content check, permission verification, and audit records of the gateway, and different access policies and data views are applied according to Line of Business and User Persona when necessary. Ultimately, these logs and policy change records will precipitate into a "chain of evidence" that can be viewed by internal audit and external supervision, enabling enterprises to not only comply in fact, but also "prove compliance in form".
 
 # 10. AI for Science（AI4Science）
 
-当深度学习和大模型从“推荐广告、理解自然语言”走向 **科学问题本身** ，目标不再只是预测一个指标或做一个分类，而是要真正参与到**发现规律、设计实验、加速仿真与推理**之中。AI4Science 试图把“统计模式识别”与“物理定律 / 生物化学规律 / 数学结构”结合起来，让模型在分子设计、蛋白工程、材料发现、物理仿真、数学推理等环节中充当“可编程的科学助手”。
+When deep learning and large models move from "recommended advertising, natural language understanding" to  ** scientific problems themselves ** , the goal is no longer just to predict an indicator or perform a classification, but to truly participate in  ** discovering laws, designing experiments, accelerating simulation and reasoning ** . AI4Science attempts to combine "statistical pattern recognition" with "physical laws / biochemical laws / mathematical structures" to enable models to act as "programmable scientific assistants" in molecular design, protein engineering, material discovery, physical simulation, mathematical reasoning and other processes.
 
-在工程实践中，这一层一端连接量子化学软件、分子动力学（MD）、CFD/FEA 仿真器、自动定理证明器、文献数据库和自动化实验室（Robotic Lab）等“传统科学基础设施”，另一端连接制药公司、材料企业、能源公司、科研机构的真实科研工作流。下面从 **场景** 、 **原理** 、**模型**三个角度展开，并在若干关键方向上进一步细分。
+In engineering practice, one end of this layer connects to "traditional scientific infrastructure" such as quantum chemistry software, molecular dynamics (MD), CFD/FEA simulators, automated theorem provers, literature databases, and robotic laboratories, while the other end connects to the real scientific research workflows of pharmaceutical companies, materials enterprises, energy companies, and research institutions. The following will be expanded from three perspectives:  ** scenarios ** ,  ** principles ** ,  ** models ** , and further subdivided in several key directions.
 
-* **场景**
-  * 分子与药物设计：从海量小分子 / 片段出发，预测性质与 ADMET，设计针对特定靶点的候选药物，并通过虚拟筛选和多目标优化缩小实验空间。
-  * 蛋白质与生物结构建模：预测蛋白及复合物的三维结构，辅助抗体、酶、蛋白药物设计，评估突变对功能与稳定性的影响。
-  * 物理仿真与工程设计：用深度替代模型加速 CFD / FEA / 分子动力学等高成本仿真，为航空航天、汽车、能源等领域提供快速评估与优化工具。
-  * 材料发现与晶体设计：在庞大化学 / 材料空间中进行虚拟筛选和逆设计，加速电池、光伏、催化剂、合金等关键材料的研发。
-  * 数学与符号推理：在形式系统中做自动定理证明、符号计算和方程求解，增强大模型在数学题、工程推导中的严谨推理能力。
-  * 科学工作流与自动化实验：对接文献、数据库与自动化实验平台，构建“自驱动实验室（Self‑Driving Lab）”，让模型参与实验设计、执行与结果分析。
-* **原理**
-  * 结构化表示与图建模：用图（Graph）、晶体图（Crystal Graph）、分子图等结构表征复杂对象，在图神经网络或 E(3)-等变网络上建模几何与拓扑关系。
-  * 物理 / 化学归纳偏置：通过守恒定律、对称性（平移 / 旋转 / 反射）、PDE 约束（PINN）、能量势函数等方式，将物理先验融入模型结构与损失函数。
-  * 生成与逆设计：利用 VAE、GAN、Diffusion、RL 等生成式建模方法，支持从“目标性质 / 约束条件”反推结构，实现分子 / 材料 / 结构的逆设计。
-  * 代理模型与多尺度耦合：用深度代理模型近似昂贵的量子化学 / 连续介质 / 结构力学仿真，并将微观–中观–宏观模型拼接起来，实现多尺度建模。
-  * 工具增强与 Agent 工作流：将 LLM 与模拟器、符号计算器、自动定理证明器、文献检索系统和实验机器人组合，构建可自动规划和执行科学任务的 Agent。
-* **模型**
-  * 分子与材料表征模型：SchNet、DimeNet、PhysNet、CGCNN、MEGNet、ALIGNN 等 E(3)-等变网络与图网络，ChemBERTa、MolBERT、MoleculeSTM 等分子语言模型。
-  * 结构生物学模型：AlphaFold / AlphaFold2 / AlphaFold3、RoseTTAFold、OpenFold、ProteinMPNN、ESM‑IF、ESM 系列蛋白语言模型与结构生成模型。
-  * 物理仿真与算子学习：PINN、DeepONet、Fourier Neural Operator (FNO) 及 Neural Operator 家族、DeepMD、NequIP 等势能面与算子学习模型。
-  * 数学与符号推理模型：Minerva、Gödel、GPT‑f、Lean‑Dojo 等数学 / 证明专用模型，以及 LLM + SymPy/Mathematica/Lean/Coq 的工具增强系统。
-  * 科学 Agent 与工作流系统：结合检索、代码生成、仿真调用与实验控制接口，为制药、材料、物理、化学等领域封装的“AI 科学助手”和自驱动实验平台。
+* **Scenario**
+  * Molecular and Drug Design: Starting from a vast number of small molecules/fragments, predict properties and ADMET, design candidate drugs targeting specific targets, and narrow down the experimental space through virtual screening and multi-objective optimization.
+  * Protein and Biological Structure Modeling: Predict the three-dimensional structures of proteins and complexes, assist in the design of antibodies, enzymes, and protein drugs, and evaluate the impact of mutations on function and stability.
+  * Physical Simulation and Engineering Design: Accelerate high-cost simulations such as CFD/FEA/Molecular Dynamics with deep surrogate models, providing rapid evaluation and optimization tools for fields such as aerospace, automotive, and energy.
+  * Materials Discovery and Crystal Design: Conduct virtual screening and inverse design in the vast chemical/material space to accelerate the research and development of key materials such as batteries, photovoltaics, catalysts, and alloys.
+  * Mathematics and Symbolic Reasoning: Perform automated theorem proving, symbolic computation, and equation solving in formal systems to enhance the rigorous reasoning capabilities of large models in mathematical problems and engineering derivations.
+  * Scientific Workflow and Automated Experiment: Connecting literature, databases, and automated experimental platforms to build a "Self-Driving Lab", enabling models to participate in experimental design, execution, and result analysis.
+* **Principle**
+  * Structured Representation and Graph Modeling: Represent complex objects using structures such as graphs, crystal graphs, and molecular graphs, and model geometric and topological relationships on graph neural networks or E(3)-equivariant networks.
+  * Physical/Chemical Inductive Bias: Incorporate physical priors into the model structure and loss function through conservation laws, symmetries (translation/rotation/reflection), PDE constraints (PINN), energy potential functions, etc.
+  * Generation and Inverse Design: Utilize generative modeling methods such as VAE, GAN, Diffusion, and RL to support inferring structures from "target properties / constraints" and achieve inverse design of molecules / materials / structures.
+  * Surrogate Model and Multiscale Coupling: Approximate expensive quantum chemistry/continuum/structural mechanics simulations using deep surrogate models, and stitch together micro–meso–macro models to achieve multiscale modeling.
+  * Tool Enhancement and Agent Workflow: Combine LLM with simulators, symbolic calculators, automated theorem provers, literature retrieval systems, and experimental robots to build an Agent capable of automatically planning and executing scientific tasks.
+* **Model**
+  * Molecular and Material Characterization Models: E(3)-equivariant networks and graph networks such as SchNet, DimeNet, PhysNet, CGCNN, MEGNet, ALIGNN, etc., and molecular language models such as ChemBERTa, MolBERT, MoleculeSTM, etc.
+  * Structural Biology Models: AlphaFold / AlphaFold2 / AlphaFold3, RoseTTAFold, OpenFold, ProteinMPNN, ESM-IF, ESM Series Protein Language Models and Structure Generation Models.
+  * Physical Simulation and Operator Learning: PINN, DeepONet, Fourier Neural Operator (FNO) and the Neural Operator family, DeepMD, NequIP, and other potential energy surface and operator learning models.
+  * Mathematics and Symbolic Reasoning Models: Specialized mathematics/proof models such as Minerva, Gödel, GPT‑f, Lean‑Dojo, etc., as well as tool-enhanced systems of LLM + SymPy/Mathematica/Lean/Coq.
+  * Scientific Agent and Workflow System: An "AI Scientific Assistant" and self-driven experimental platform encapsulated for fields such as pharmaceuticals, materials, physics, and chemistry, integrating retrieval, code generation, simulation invocation, and experimental control interfaces.
 
-从这一层开始，传统科学计算与深度学习、大模型深度交织：既要尊重物理 / 化学 / 生物 / 数学的严格约束，又要利用数据驱动的强拟合能力提升效率，最终目标是让 AI 成为科研中的“合作者”，而不仅仅是一个预测黑盒。
+Starting from this level, traditional scientific computing is deeply intertwined with deep learning and large models: it is necessary to respect the strict constraints of physics, chemistry, biology, and mathematics, while also leveraging the strong fitting capabilities of data-driven methods to improve efficiency. The ultimate goal is to make AI a "collaborator" in scientific research, rather than just a predictive black box.
 
 ---
 
-## 10.1 分子与药物设计（Molecular Modeling & Drug Discovery）
-
-在传统药物研发中，从靶点发现到临床试验往往需要 10+ 年和数十亿美元成本，而极大一部分时间与资金耗费在早期的分子设计、性质预测和虚拟筛选阶段。AI 驱动的分子建模与药物设计，旨在用**数据驱动 + 生成式建模**加速这一过程：从结构或文本描述出发，预测分子性质与 ADMET，设计针对特定靶点的候选化合物，并通过多目标优化与虚拟筛选显著减少湿实验负担。
-
-这一方向一端连接量子化学软件（DFT、ab initio）、生物活性实验、HTS（High‑Throughput Screening）等数据来源，另一端连接药企内部的 Small Molecule Design 平台、性质预测 SaaS、材料 / 化学品设计工具。下面从 **场景** 、 **原理** 、**模型**三个维度展开。
-
-* **场景**
-  * 早期虚拟筛选与 Hit 发现：面对数百万到数十亿规模的虚拟分子库，通过 AI 快速预测活性 / ADMET，对候选分子排序，筛出少量高价值 Hit 进入实验环节。
-  * 分子性质与 ADMET 评估：在先导化合物优化（Lead Optimization）阶段，持续预测溶解度、毒性、代谢稳定性以及口服生物利用度等指标，为药代动力学和安全性评估提供参考。
-  * 靶点导向分子生成：给定蛋白靶点信息（口袋特征、已知配体）或目标性质约束，自动生成结构多样、具有高活性且可合成的候选小分子。
-  * 材料与化学品分子设计：面向非药物场景，如涂料、溶剂、电解液、界面活性剂等分子，设计满足特定物性（黏度、极性、界面能等）的配方分子。
-* **原理**
-  * 分子表征与性质预测：
-    * **结构表示** ：常见有 SMILES 序列、分子图（原子为节点、键为边）、3D 坐标及量子特征等；模型需要从这些表示中抽取可泛化的语义与几何信息。
-    * **性质预测** ：通过 GNN（GCN、GAT、MPNN）或 3D‑等变网络（SchNet、DimeNet、PhysNet 等），从分子图或 3D 结构中学习到能量、偶极矩、轨道能级等量子性质，以及溶解度、LogP、毒性、代谢稳定性等 ADMET 属性。
-    * **表征学习与预训练** ：基于大规模分子库（如 ZINC、ChEMBL、PubChem）进行掩码预测、对比学习或自回归预训练，得到可迁移的通用分子表示，为下游 QSAR / ADMET 提供特征。
-  * 结构生成与分子优化：
-    * **生成建模** ：利用 VAE、GAN、Flow、Diffusion 等生成式模型，在 SMILES 或分子图空间中采样新分子，要求保证化学结构合法性（价态、环结构等）与多样性。
-    * **条件生成** ：引入条件向量（目标活性、理化性质、结构片段、靶点口袋描述等），在给定约束下生成候选分子，实现性质导向或片段补全式的设计。
-    * **多目标优化与 RL** ：通过强化学习（如 MolDQN 等）在分子空间中进行“编辑”操作（加原子、改键、替换片段），从而在活性、毒性、合成可行性、专利避让等多个目标之间权衡。
-  * 蛋白 – 小分子相互作用建模：
-    * **结合位点与打分函数** ：通过 3D 卷积 / 图网络 / 互作图建模蛋白口袋与配体的空间关系，预测结合位点及结合亲和力（Binding Affinity）。
-    * **对接与 Binding Pose 预测** ：将 Docking 中的构象搜索与深度模型结合，用深度打分函数或 Diffusion 式生成预测稳定构象，提高对接准确率并降低计算成本。
-* **模型**
-  * 分子表征模型：
-    * **GNN 与 3D 网络** ：DimeNet / DimeNet++、SchNet、PhysNet 等考虑角度 / 距离的 3D 等变模型，GCN/GAT/MPNN 等通用图神经网络，适用于性质预测与 QSAR。
-    * **基于 SMILES 的 Transformer** ：将分子视为“化学语言句子”，用 Transformer 做自回归或掩码语言建模，为生成与性质预测提供序列表示。
-  * 生成与优化模型：
-    * 图生成模型：GraphVAE、Junction Tree VAE、GraphAF 等在图 / 片段空间生成分子，强调结构合法性与可解释性（片段级构造）。
-    * 扩散模型：Diffusion for Molecules 通过在图或 3D 结构空间添加 / 去除噪声生成新分子或构象，可与条件向量结合实现定制生成。
-    * 强化学习优化：MolDQN 等基于 RL 的方法，将分子优化视作在“分子编辑”状态空间中的序列决策问题，用奖励函数编码多目标指标。
-  * 分子大模型与多模态方向：
-    * **分子语言模型** ：ChemBERTa、MolBERT 等在大规模 SMILES 语料上预训练，支持零样本或小样本转移至下游任务。
-    * **多模态分子模型** ：MoleculeSTM 等整合结构（图 / 3D）、文本描述（合成路线、文献摘要）、分子属性，实现跨模态检索与联合预测。
-  * 产品与应用形态：
-    * 面向药企的早期药物筛选平台与内部 Small Molecule Design 平台，提供虚拟筛选、分子生成、ADMET 预测等一体化能力。
-    * 面向研发人员的性质预测 SaaS：通过 Web 或 API 方式快速查询分子性质、ADMET、分子相似度等。
-    * 面向材料与化学品设计的分子级设计工具，用于涂料、溶剂、电解液等分子体系的定制开发。
-
-从这一子方向开始，药物设计流程正在从“专家 + 高通量实验”走向“专家 + 模型 + 自动化实验”的闭环，AI 不只是给出分数，而是逐渐参与从“提出想法”到“生成候选”再到“筛选与优化”的完整环节。
-
-### 10.1.1 分子表征与性质 / ADMET 预测
-
-在药物与材料研发中，一个基础能力是： **给定一个分子，快速且准确地预测其性质与行为** ，包括量子化学性质（能量、轨道、偶极矩）、理化性质（溶解度、LogP）、以及药代 / 毒性相关的 ADMET 指标。这一问题的本质，是如何从不同形式的分子表示中学习到 **既符合化学规律，又具备泛化能力的表征** 。
-
-* 在**分子表征**层面，常见的表示包括：
-  * **SMILES / SELFIES 等字符串** ：把分子视为序列，天然适合用 RNN / Transformer 进行语言建模。
-  * **分子图表示** ：原子为节点、键为边，节点和边带有类型、价态、芳香性等特征；适合用 GNN、MPNN 等建模邻域与拓扑。
-  * **3D 几何表示** ：基于量子化学或力场优化得到的 3D 坐标、键角、二面角等信息，为 E(3)-等变网络捕捉空间结构提供基础。
-* 在**性质与 ADMET 预测**层面，目标任务包括：
-  * 小分子量子性质预测：能量、偶极矩、HOMO/LUMO 能级等，用以替代昂贵的 DFT / ab initio 计算。
-  * QSAR / 活性预测：给出化合物对特定靶点的活性（IC50、Ki）、选择性等，用于筛选潜在候选。
-  * ADMET 相关指标：溶解度、渗透性、毒性、代谢稳定性、CYP 抑制等，是药物可成药性评估的关键。
-
-典型模型路径为：用 DimeNet / SchNet / PhysNet / GNN 等在分子结构上提取高维表征，再通过多任务学习同时预测多种性质；在大规模公开或企业内部数据上进行预训练，提高小数据场景的建模能力。对外则以 ADMET 预测 SaaS 或内部平台 API 的形式提供服务，为项目组提供快速的“虚拟实验”能力。
-
-### 10.1.2 结构生成与分子优化：从 SMILES / Graph 到候选药物
-
-在具备了可靠的分子表征与性质预测模型之后，更进一步的目标是 **主动生成“更好”的分子** ：不再只是评估给定化合物，而是围绕靶点与性质约束，直接设计出新的候选分子。这一方向通常被称为 **分子生成与分子优化** 。
-
-在**结构生成**方面，研究与工程实践主要围绕三类路径：
-
-1. **基于 SMILES 的序列生成**
-   将分子视作字符串，使用 VAE、GAN 或自回归 Transformer 在 SMILES 空间中采样新结构；通过语法约束（如 SELFIES）或后处理保证化学有效性。
-2. **基于图 / 片段的生成**
-   GraphVAE、Junction Tree VAE、GraphAF 等模型直接在分子图或基元片段（Fragement / Motif）层面构造结构，更贴近化学合成思维，有利于控制环、基团与骨架结构。
-3. **基于扩散与 3D 生成**
-   Diffusion for Molecules 等方法在图或 3D 坐标空间进行扩散与去噪，可同时考虑空间构象，适用于生成对 3D 形状敏感的配体或材料单元。
-
-在**分子优化**方面，关键是引入 **目标与约束** ：
-
-* **条件生成** ：把目标活性、理化性质或片段锚定作为条件向量输入模型，使其在生成时偏向满足这些条件。
-* **强化学习与多目标优化** ：以性质预测模型为“环境”，用 RL 在分子空间中做序列决策（如 MolDQN），在活性、毒性、合成可行性、专利风险等多维指标上设置奖励与惩罚，实现多目标权衡。
-* **合成可行性与化学先验** ：在生成与优化过程中融入合成路径预测模型、合成复杂度指标（如 SA score），避免产生难以合成或不稳定的结构。
-
-在产品化上，这一类模型常被封装进药企内部的“AI 药物设计平台”中：给定靶点、已知先导结构和优化方向，平台自动提出若干批次候选分子，项目组再结合实验、专利和商业考量逐步筛选与迭代，实现“模型–实验–模型”的闭环优化。
-
-## 10.2 蛋白质与生物结构建模（Protein & Structural Biology）
-
-在生命科学中，**结构决定功能** 是一条近乎教条的原则：蛋白质如何折叠成三维结构、如何与其他分子装配成复合物，直接决定了其在细胞中的功能表现。传统结构解析依赖 X‑ray 晶体学、NMR、冷冻电镜等实验手段，周期长、成本高且存在“难结晶、难解析”的巨大盲区。以 AlphaFold 为代表的深度学习模型，把“从序列直接到结构”的能力大幅推前，使得在全基因组尺度上获得高质量结构成为可能。
-
-这一方向一端连接 UniProt / PDB 等序列与结构数据库、组学实验与结构组学项目，另一端连接生物制药、合成生物学、酶工程等产业界的结构设计与分析平台。下面同样从  **场景** 、 **原理** 、**模型** 三个角度展开，并进一步拆分关键子方向。
-
-* **场景**
-  * 靶点结构注释与筛选：在基因组层面预测大量蛋白的结构，辅助靶点发现、功能注释与通路分析；结合变异信息评估潜在致病机理。
-  * 抗体 / 蛋白药物设计：对抗体可变区（CDR）、受体结合结构域等关键区域进行精细建模与设计，优化亲和力、特异性和免疫原性。
-  * 酶与生物催化设计：基于酶三维结构和活性位点环境，设计突变与变体库，提升催化效率、底物范围与稳定性。
-  * 复合物与相互作用研究：预测蛋白–蛋白、蛋白–核酸、蛋白–小分子复合物结构，解析界面互作模式，为药物设计与信号通路建模提供基础。
-  * 突变效应与耐药性分析：评估自然变异或人工突变对结构稳定性、功能和配体结合的影响，分析耐药突变的结构基础。
-* **原理**
-  * 蛋白质结构预测：
-    * **序列 → 结构** ：从氨基酸序列（单序列或包含多序列对齐 MSA）出发，建模残基两两之间的几何约束（距离、角度、接触图），再通过几何重建模块生成全原子 3D 结构。
-    * **协同进化信号** ：利用同源序列之间的协同突变模式（co‑evolution），推断潜在的残基接触关系，为折叠约束提供强先验。
-    * **结构精修与不确定性估计** ：对预测结构进行局部精修（relax、repack），并输出置信度评分（如 pLDDT、PAE），指导后续应用中的“可信区域”选择。
-  * 复合物与分子装配建模：
-    * **多链联合建模** ：将多个蛋白链或蛋白 + 核酸序列作为输入，引入链识别与接口约束，直接输出完整复合物结构。
-    * **界面预测与装配** ：基于已知单体结构，通过图模型或扩散模型预测最可能的界面构型与装配方式。
-  * 蛋白设计与突变效应预测：
-    * **反向折叠（Inverse Folding）** ：给定三维骨架结构或拓扑约束，生成能稳定折叠成该结构的氨基酸序列，实现 de novo 蛋白设计。
-    * **突变效应建模** ：结合蛋白语言模型与结构模型，预测特定突变对稳定性（ΔΔG）、活性或结合亲和力的影响，辅助定向进化与变体筛选。
-* **模型**
-  * 结构预测：
-    * AlphaFold / AlphaFold2 / AlphaFold3：以注意力机制和几何模块为核心，从 MSA、模板结构与序列特征中预测高精度蛋白结构，并输出不确定性估计。
-    * RoseTTAFold、OpenFold：采用多轨道（sequence / pair / structure）表示与多尺度注意力机制，为开源与产业化落地提供基础实现。
-  * 复合物与界面建模：
-    * AlphaFold‑Multimer：在多链场景下直接建模蛋白–蛋白复合物结构，兼顾单体折叠与界面互作。
-    * RFdiffusion：基于扩散模型在 3D 空间生成或优化蛋白骨架与复合物接口，实现复杂装配与对称体设计。
-    * DiffDock 等方法：在蛋白–小分子系统中，用扩散或深度打分函数预测 Binding Pose 与结合模式。
-  * 设计与突变模型：
-    * ProteinMPNN：在给定结构的条件下生成兼容的序列，用于稳定骨架与界面设计。
-    * ESM‑IF、ESMFold / ESM‑2 系列：基于大规模蛋白序列预训练的语言模型，具备从序列推断结构、功能与突变效应的能力。
-  * 产品与应用：
-    * 公有云上的蛋白结构预测服务与数据库（如 AlphaFold DB），为科研提供大规模结构注释与下载接口。
-    * 生物制药公司内部结构设计平台：集成蛋白结构预测、抗体设计、酶工程、蛋白–配体对接等模块。
-    * 生物技术 SaaS：提供结合位点预测、界面热力学评估、亲和力与免疫原性评估工具，服务于抗体药物、生物制剂开发。
-
-从这一子方向开始，AI 不仅在“解读”自然存在的蛋白结构，更在“创造”全新的蛋白与复合物架构，使结构生物学从“被动测量时代”进入“主动设计时代”。
-
-### 10.2.1 蛋白质结构预测与复合物装配
+## 10.1 Molecular Modeling & Drug Discovery
+
+In traditional drug development, it often takes more than 10 years and billions of dollars from target discovery to clinical trials, with a significant portion of time and funds spent on the early stages of molecular design, property prediction, and virtual screening. AI-driven molecular modeling and drug design aim to use ** data-driven + generative modeling ** to accelerate this process: starting from structural or textual descriptions, predicting molecular properties and ADMET, designing candidate compounds for specific targets, and significantly reducing the burden of wet experiments through multi-objective optimization and virtual screening.
+
+One end of this direction is connected to data sources such as quantum chemistry software (DFT, ab initio), biological activity experiments, and HTS (High-Throughput Screening), while the other end is connected to the Small Molecule Design platform within pharmaceutical companies, property prediction SaaS, and material/chemical design tools. The following will be elaborated from three dimensions:  **scenario** ,  **principle** , and  **model** .
+
+* **Scenario**
+  * Early virtual screening and Hit discovery: Facing virtual molecular libraries ranging from millions to billions in scale, AI is used to quickly predict activity/ADMET, rank candidate molecules, and screen out a small number of high-value Hits for experimental validation.
+  * Molecular Properties and ADMET Evaluation: During the Lead Optimization stage, continuously predict indicators such as solubility, toxicity, metabolic stability, and oral bioavailability to provide references for pharmacokinetic and safety evaluations.
+  * Target-directed molecular generation: Given protein target information (pocket features, known ligands) or target property constraints, automatically generate structurally diverse, highly active, and synthesizable candidate small molecules.
+  * Molecular Design of Materials and Chemicals: For non-drug scenarios, such as molecules in coatings, solvents, electrolytes, surfactants, etc., design formulated molecules that meet specific physical properties (viscosity, polarity, interfacial energy, etc.).
+* **Principle**
+  * Molecular Characterization and Property Prediction:
+    * **Structural Representations ** : Commonly include SMILES sequences, molecular graphs (atoms as nodes, bonds as edges), 3D coordinates, and quantum features; models need to extract generalizable semantic and geometric information from these representations.
+    * **Property Prediction ** : Through GNN (GCN, GAT, MPNN) or 3D-equivariant networks (SchNet, DimeNet, PhysNet, etc.), learn quantum properties such as energy, dipole moment, orbital energy levels, as well as ADMET properties such as solubility, LogP, toxicity, and metabolic stability from molecular graphs or 3D structures.
+    * **Representation Learning and Pretraining ** : Perform masked prediction, contrastive learning, or autoregressive pretraining based on large-scale molecular libraries (such as ZINC, ChEMBL, PubChem) to obtain transferable general molecular representations, providing features for downstream QSAR/ADMET.
+  * Structure Generation and Molecular Optimization:
+    * **Generative Modeling** : Utilize generative models such as VAE, GAN, Flow, and Diffusion to sample new molecules in the SMILES or molecular graph space, ensuring the chemical structure's legality (valence state, ring structure, etc.) and diversity.
+    * **Conditional Generation ** : Introduce conditional vectors (target activity, physicochemical properties, structural fragments, target pocket description, etc.) to generate candidate molecules under given constraints, achieving property-guided or fragment-completion design.
+    * **Multi-objective Optimization and RL** : Perform "editing" operations (adding atoms, modifying bonds, replacing fragments) in the molecular space through reinforcement learning (such as MolDQN, etc.), thereby making trade-offs among multiple objectives such as activity, toxicity, synthetic feasibility, and patent avoidance.
+  * Protein - Small Molecule Interaction Modeling:
+    * **Binding Sites and Scoring Functions** : Model the spatial relationship between protein pockets and ligands through 3D convolution/graph network/interaction graph, and predict binding sites and binding affinity.
+    * **Docking and Binding Pose Prediction ** : Combining conformational search in Docking with deep models, using deep scoring functions or Diffusion-style generation to predict stable conformations, improving docking accuracy and reducing computational costs.
+* **Model**
+  * Molecular Representation Model:
+    * **GNN and 3D Networks ** : 3D equivariant models such as DimeNet / DimeNet++, SchNet, PhysNet, etc., which consider angles / distances, and general graph neural networks such as GCN / GAT / MPNN, etc., are suitable for property prediction and QSAR.
+    * **SMILES-based Transformer** : Treating molecules as "chemical language sentences", using Transformer for autoregressive or masked language modeling to provide sequence representations for generation and property prediction.
+  * Generate and Optimize Model:
+    * Graph generation models: GraphVAE, Junction Tree VAE, GraphAF, etc., generate molecules in the graph/fragment space, emphasizing structural validity and interpretability (fragment-level construction).
+    * Diffusion Model: Diffusion for Molecules generates new molecules or conformations by adding/removing noise in the graph or 3D structure space, and can be combined with conditional vectors to achieve customized generation.
+    * Reinforcement Learning Optimization: RL-based methods such as MolDQN treat molecular optimization as a sequential decision-making problem in the "molecular editing" state space, encoding multi-objective metrics with a reward function.
+  * Molecular Large Model and MultiModal Machine Learning Direction:
+    * **Molecular Language Models ** : ChemBERTa, MolBERT, etc., are pre-trained on large-scale SMILES corpora and support zero-shot or few-shot transfer to downstream tasks.
+    * **MultiModal Machine Learning Molecular Model** : MoleculeSTM and others integrate structure (graph/3D), text description (synthesis route, literature abstract), and molecular properties to achieve cross-modal retrieval and joint prediction.
+  * Product and Application Forms:
+    * The early drug screening platform for pharmaceutical companies and the internal Small Molecule Design platform provide integrated capabilities such as virtual screening, molecular generation, and ADMET prediction.
+    * Property Prediction SaaS for R&D Personnel: Quickly query molecular properties, ADMET, molecular similarity, etc. via Web or API.
+    * Molecular-level design tools for materials and chemical design, used for the customized development of molecular systems such as coatings, solvents, and electrolytes.
+
+Starting from this sub-direction, the drug design process is moving from "expert + high-throughput experiment" to a closed loop of "expert + model + automated experiment", where AI not only provides scores but also gradually participates in the entire process from "idea generation" to "candidate generation" and then to "screening and optimization".
+
+### 10.1.1 Molecular Characterization and Properties / ADMET Prediction
+
+In drug and material R&D, a fundamental ability is:  ** given a molecule, to quickly and accurately predict its properties and behavior ** , including quantum chemical properties (energy, orbitals, dipole moment), physical and chemical properties (solubility, LogP), and ADMET indicators related to pharmacokinetics/toxicity. The essence of this problem is how to learn from different forms of molecular representation  ** a representation that conforms to chemical laws and has generalization ability ** .
+
+* At ** molecular characterization ** level, common representations include:
+  * **Strings such as SMILES / SELFIES** : Treating molecules as sequences, they are naturally suitable for language modeling using RNN / Transformer.
+  * **Molecular Graph Representation ** : Atoms are nodes, bonds are edges, and nodes and edges carry features such as type, valence, and aromaticity; suitable for modeling neighborhoods and topologies using GNN, MPNN, etc.
+  * **3D Geometric Representation** : Information such as 3D coordinates, bond angles, and dihedral angles obtained based on quantum chemistry or force field optimization provides a foundation for E(3)-equivariant networks to capture spatial structures.
+* At the ** property and ADMET prediction ** level, the target tasks include:
+  * Prediction of small molecule quantum properties: energy, dipole moment, HOMO/LUMO energy levels, etc., to replace expensive DFT/ab initio calculations.
+  * QSAR / Activity Prediction: Provides the activity (IC50, Ki), selectivity, etc., of compounds against specific targets, used for screening potential candidates.
+  * ADMET-related indicators, such as solubility, permeability, toxicity, metabolic stability, CYP inhibition, etc., are crucial for drug developability assessment.
+
+The typical model path is as follows: Extract high-dimensional representations from molecular structures using DimeNet, SchNet, PhysNet, GNN, etc., and then simultaneously predict multiple properties through multi-task learning; pre-train on large-scale public or enterprise internal data to improve the modeling ability in small-data scenarios. Externally, services are provided in the form of ADMET prediction SaaS or internal platform APIs, providing project teams with rapid "virtual experiment" capabilities.
+
+### 10.1.2 Structure Generation and Molecular Optimization: From SMILES/Graph to Candidate Drugs
+
+After establishing reliable molecular characterization and property prediction models, the next step is to  ** actively generate "better" molecules ** : instead of merely evaluating given compounds, directly design new candidate molecules based on target and property constraints. This direction is commonly referred to as  ** molecular generation and molecular optimization ** .
+
+In  ** structure generation ** , research and engineering practice mainly revolve around three types of paths:
+
+1. **SMILES-based Sequence Generation**
+   Treat molecules as strings, and use VAE, GAN, or autoregressive Transformer to sample new structures in the SMILES space; ensure chemical validity through grammar constraints (such as SELFIES) or post-processing.
+2. **Graph/Fragment-based Generation**
+   Models such as GraphVAE, Junction Tree VAE, and GraphAF directly construct structures at the molecular graph or primitive fragment (Fragment/Motif) level, which is closer to the thinking of chemical synthesis and conducive to controlling ring, group, and backbone structures.
+3. **Based on diffusion and 3D generation**
+   Methods such as Diffusion for Molecules perform diffusion and denoising in graph or 3D coordinate space, which can simultaneously consider spatial conformations and are suitable for generating ligands or material units sensitive to 3D shapes.
+
+In  ** molecular optimization ** , the key is to introduce  ** objectives and constraints ** :
+
+* **Conditional Generation** : Input the target activity, physicochemical properties, or fragment anchoring as a conditional vector into the model, causing it to be biased towards satisfying these conditions during generation.
+* **Reinforcement Learning and Multi-Objective Optimization ** : Using the property prediction model as the "environment", RL is used to make sequential decisions in the molecular space (such as MolDQN), setting rewards and penalties on multi-dimensional indicators such as activity, toxicity, synthetic feasibility, and patent risk to achieve multi-objective trade-offs.
+* **Synthesis Feasibility and Chemical Priors ** : Incorporate synthetic pathway prediction models and synthetic complexity metrics (such as SA score) into the generation and optimization process to avoid generating structures that are difficult to synthesize or unstable.
+
+In productization, this type of model is often encapsulated into the "AI Drug Design Platform" within pharmaceutical companies: given a target, known lead structures, and optimization directions, the platform automatically proposes several batches of candidate molecules, and the project team then gradually screens and iterates based on experimental, patent, and commercial considerations to achieve closed-loop optimization of "model - experiment - model".
+
+## 10.2 Protein & Structural Biology Modeling (Protein & Structural Biology)
+
+In life sciences, ** structure determines function ** is an almost dogmatic principle: how proteins fold into three-dimensional structures and assemble into complexes with other molecules directly determines their functional performance in cells. Traditional structure determination relies on experimental methods such as X-ray crystallography, NMR, and cryo-electron microscopy, which have long cycles, high costs, and significant blind spots of "difficult to crystallize and difficult to resolve". Deep learning models represented by AlphaFold have greatly advanced the ability to "go directly from sequence to structure", making it possible to obtain high-quality structures on a whole-genome scale.
+
+One end of this direction connects to sequence and structure databases such as UniProt/PDB, omics experiments, and structural omics projects, while the other end connects to structural design and analysis platforms in industries such as biopharmaceuticals, synthetic biology, and enzyme engineering. Similarly, the following will be expanded from three perspectives:  **scenarios** ,  **principles** , and  **models** , and key sub-directions will be further broken down.
+
+* **Scenario**
+  * Target Structure Annotation and Screening: Predict the structures of a large number of proteins at the genomic level to assist in target discovery, functional annotation, and pathway analysis; evaluate potential pathogenic mechanisms in combination with variant information.
+  * Antibody/Protein Drug Design: Conducts fine-grained modeling and design of key regions such as antibody variable regions (CDRs) and receptor binding domains to optimize affinity, specificity, and immunogenicity.
+  * Enzyme and Biocatalyst Design: Based on the three-dimensional structure of the enzyme and the environment of the active site, design mutation and variant libraries to improve catalytic efficiency, substrate scope, and stability.
+  * Complex and Interaction Studies: Predict the structures of protein–protein, protein–nucleic acid, and protein–small molecule complexes, analyze the interaction patterns at the interfaces, and provide a foundation for drug design and signaling pathway modeling.
+  * Analysis of Mutation Effects and Drug Resistance: Evaluate the impact of natural variations or artificial mutations on structural stability, function, and ligand binding, and analyze the structural basis of drug-resistant mutations.
+* **Principle**
+  * Protein Structure Prediction:
+    * **Sequence → Structure** : Starting from the amino acid sequence (single sequence or containing multiple sequence alignment MSA), model the geometric constraints (distance, angle, contact map) between pairs of residues, and then generate the full-atom 3D structure through the geometric reconstruction module.
+    * **Co-evolution Signal** : By leveraging the co-evolutionary mutation patterns (co-evolution) among homologous sequences, potential residue contact relationships are inferred, providing strong priors for folding constraints.
+    * **Structure Refinement and Uncertainty Estimation** : Perform local refinement (relax, repack) on the predicted structure, and output confidence level scores (such as pLDDT, PAE) to guide the selection of "reliable regions" in subsequent applications.
+  * Modeling of Complexes and Molecular Assembly:
+    * **Multi-chain Joint Modeling** : Taking multiple protein chains or protein + nucleic acid sequences as input, introducing chain identification and interface constraints, and directly outputting the complete complex structure.
+    * **Interface Prediction and Assembly** : Based on the known monomer structure, predict the most likely interface configuration and assembly method through graph models or diffusion models.
+  * Protein Design and Mutation Effect Prediction:
+    * **Inverse Folding ** : Given a three-dimensional backbone structure or topological constraints, generate an amino acid sequence that can stably fold into this structure, achieving de novo protein design.
+    * **Modeling of Mutation Effects ** : Combining protein language models and structural models to predict the impact of specific mutations on stability (ΔΔG), activity, or binding affinity, and to assist in directed evolution and variant screening.
+* **Model**
+  * Structure Prediction:
+    * AlphaFold / AlphaFold2 / AlphaFold3: Centered around attention mechanisms and geometric modules, it predicts high-precision protein structures from MSA, template structures, and sequence features, and outputs uncertainty estimates.
+    * RoseTTAFold, OpenFold: Adopt multi-track (sequence / pair / structure) representation and multi-scale attention mechanism, providing a fundamental implementation for open source and industrialization.
+  * Complex and Interface Modeling:
+    * AlphaFold-Multimer: Directly models the structure of protein-protein complexes in multi-chain scenarios, taking into account both monomer folding and interface interactions.
+    * RFdiffusion: Based on diffusion models, it generates or optimizes protein backbones and complex interfaces in 3D space, enabling the design of complex assemblies and symmetric bodies.
+    * Methods such as DiffDock: In protein-small molecule systems, use diffusion or deep scoring functions to predict Binding Pose and binding modes.
+  * Design and Mutation Model:
+    * ProteinMPNN: Generate compatible sequences given a structure for stable backbone and interface design.
+    * ESM-IF, ESMFold / ESM-2 Series: Language models pre-trained on large-scale protein sequences, capable of inferring structure, function, and mutation effects from sequences.
+  * Products and Applications:
+    * Protein structure prediction services and databases (such as AlphaFold DB) on the Public Cloud provide large-scale structural annotation and download interfaces for scientific research.
+    * Biopharmaceutical Company Internal Structure Design Platform: Integrates modules such as protein structure prediction, antibody design, enzyme engineering, and protein-ligand docking.
+    * Biotech SaaS: Provides tools for binding site prediction, interface thermodynamics evaluation, affinity and immunogenicity assessment, serving the development of antibody drugs and biologics.
+
+Starting from this sub-direction, AI is not only "interpreting" naturally occurring protein structures, but also "creating" entirely new protein and complex architectures, propelling structural biology from the "passive measurement era" into the "active design era".
+
+### 10.2.1 Protein Structure Prediction and Complex Assembly
 
-蛋白质结构预测是结构生物学与 AI 结合最具代表性的突破之一。其核心问题是：**能否从序列出发，在不依赖或少依赖实验数据的情况下，预测出接近实验分辨率的 3D 结构？** 而在真实应用中，单体结构往往只是起点，更关键的是蛋白如何与其他分子装配成复合物。
-
-在 **单体结构预测** 中，典型流程包括：
+Protein structure prediction is one of the most representative breakthroughs in the combination of structural biology and AI. Its core question is:** Can we predict a 3D structure close to experimental resolution starting from the sequence, without relying on or with minimal reliance on experimental data?** In real-world applications, the monomeric structure is often just the starting point, and more critically, how proteins assemble into complexes with other molecules.
+
+In  ** monomer structure prediction ** , the typical process includes:
 
-1. **序列 / MSA 编码** ：通过序列特征提取和多序列对齐挖掘协同进化信号。
-2. **几何约束推断** ：预测残基对之间的距离分布、接触概率与相对取向，形成“伪测量”的几何场。
-3. **结构构建与迭代精修** ：在几何约束下用结构模块（如旋转平移不变块、内坐标更新）构建 3D 结构，并多次迭代 refinement 以降低几何违背。
-4. **不确定性与质量评估** ：输出逐残基置信度（pLDDT）、残基对误差估计（PAE）等指标，为后续建模与筛选提供参考。
+1. **Seque** **nce**  **/MSA Encoding** : Mining co-evolutionary signals through sequence feature extraction and multiple sequence alignment.
+2. **Geometric Constraint Inference** : Predict the distance distribution, contact probability, and relative orientation between residue pairs to form a geometric field of "pseudo-measurements".
+3. **Structure Construction and Iterative Refinement ** : Construct 3D structures using structural modules (such as rotation-translation invariant blocks, internal coordinate updates) under geometric constraints, and perform multiple iterative refinements to reduce geometric violations.
+4. **Uncertainty and Quality Assessment** : Output indicators such as per-residue Confidence Level (pLDDT) and residue pair error estimation (PAE), providing references for subsequent modeling and screening.
 
-在 **复合物与装配预测** 中，问题进一步扩展为“多条链如何在空间中组织与相互作用”：
+In  ** complex and assembly prediction ** , the problem is further extended to "how multiple chains are organized and interact in space":
 
-* 对于  **蛋白–蛋白复合物** ，通常在多链输入的基础上，使用专门的多链建模策略（如 AlphaFold‑Multimer）直接输出装配结构。
-* 对于  **蛋白–核酸 / 蛋白–小分子体系** ，一类路径是先预测各自结构，再通过对接与界面打分函数预测装配方式；另一类则是用扩散模型或联合建模在 3D 空间内直接生成复合物构象。
-* 在多亚基、大型装配体场景中，还需要结合对称性约束、低分辨率 EM 密度图等信息，进行分层与多尺度装配。
+* For  **protein–protein complexes** , specialized multi-chain modeling strategies (such as AlphaFold‑Multimer) are typically used to directly output the assembly structure based on multi-chain input.
+* For  ** protein-nucleic acid / protein-small molecule systems ** , one approach is to first predict the respective structures and then predict the assembly mode through docking and interface scoring functions; the other is to directly generate complex conformations in 3D space using diffusion models or joint modeling.
+* In the context of multi-subunit and large assemblies, it is also necessary to combine information such as symmetry constraints and low-resolution EM density maps to perform hierarchical and multi-scale assembly.
 
-在产品实践中，结构预测与装配常被封装为云端服务或本地工具链，为蛋白功能注释、相互作用网络建模、药物靶点验证提供基础结构信息。
+In product practice, structure prediction and assembly are often encapsulated as cloud services or local toolchains, providing basic structural information for protein function annotation, interaction network modeling, and drug target validation.
 
-### 10.2.2 蛋白设计与突变效应预测：从结构到功能调控
+### 10.2.2 Protein Design and Mutation Effect Prediction: From Structure to Functional Regulation
 
-在掌握“序列 → 结构”的映射之后，下一步是反向问题：**如何在给定结构或功能需求的情况下，设计出合适的蛋白序列与突变方案？** 这就是蛋白设计与突变效应预测的核心。
+After mastering the mapping of "sequence → structure", the next step is the inverse problem: ** How to design appropriate protein sequences and mutation schemes given structural or functional requirements? ** This is the core of protein design and prediction of mutation effects.
 
-在 **蛋白设计** 中，关键任务包括：
+In  ** protein design ** , key tasks include:
 
-* **反向折叠（Inverse Folding）** ：给定目标骨架（backbone）或整体拓扑结构，生成能够稳定折叠成该结构的氨基酸序列，这一过程可通过 ProteinMPNN、ESM‑IF 等结构条件生成模型实现。
-* **功能导向设计** ：在保持整体结构稳定的前提下，针对活性位点、结合口袋、界面区域进行定向设计，优化亲和力、特异性与催化效率。
-* **可制造性与免疫原性约束** ：在序列设计过程中，引入表达可行性、翻译后修饰、免疫原性风险等约束，保证候选序列在生物制剂开发中的可落地性。
+* **Inverse Folding ** : Given a target backbone or overall topology, generate an amino acid sequence that can stably fold into this structure. This process can be achieved through structure-conditioned generative models such as ProteinMPNN and ESM-IF.
+* **Function-oriented design** : On the premise of maintaining the stability of the overall structure, targeted design is carried out for active sites, binding pockets, and interface regions to optimize affinity, specificity, and catalytic efficiency.
+* **Manufacturability and Immunogenicity Constraints** : During the sequence design process, constraints such as expression feasibility, post-translational modifications, and immunogenicity risks are introduced to ensure the feasibility of candidate sequences in biopharmaceutical development.
 
-在 **突变效应预测** 中，关注的是：
+In  ** mutation effect prediction ** , the focus is on:
 
-* **稳定性变化（ΔΔG）** ：给定野生型结构与突变位点，预测单点或多点突变对折叠稳定性的影响，用于定向进化和耐药突变分析。
-* **活性与亲和力变化** ：结合结构与蛋白语言模型，评估突变对酶学活性、配体亲和力与信号通路调控的影响。
-* **大规模变体库设计** ：在体内 / 体外筛选实验之前，用模型对庞大突变空间进行预筛选，保留高潜力变体，降低实验成本。
-
-在工程与产品层面，蛋白设计与突变效应预测常被集成为生物制药 / 合成生物学公司内部的“结构设计与优化模块”：从候选骨架结构出发，自动提出多轮突变与变体库设计方案，与高通量筛选实验形成数据驱动的闭环。
-
-## 10.3 物理仿真与加速计算（Physics Simulation & Surrogate Modeling）
-
-在航空航天、汽车、土木工程、能源、化工等领域， **高精度仿真是设计与验证的核心环节** 。然而 CFD（计算流体力学）、FEA（有限元分析）、分子动力学（MD）以及各类 PDE 求解往往计算昂贵，难以支持大规模参数扫描、实时控制或在线优化。AI 驱动的物理仿真与代理建模，试图用深度网络来近似数值求解器或算子本身，在保证物理一致性和可解释性的前提下，实现数量级的加速。
-
-这一方向一端连接传统仿真软件（ANSYS、Fluent、COMSOL、自研求解器）、实验测量与传感器数据，另一端连接工程设计平台、自动驾驶与航天气动设计、化工过程模拟与优化系统。下面从  **场景** 、 **原理** 、**模型** 三个角度展开。
-
-* **场景**
-  * 工程仿真加速：在给定几何与工况下，用深度代理模型快速预测压力场、速度场、温度场、应力 / 应变分布等，为多轮设计迭代和优化提供支持。
-  * 复杂过程模拟与工艺优化：在化工、能源等流程工业中，通过 ML 近似机理模型或黑箱过程模型，实现快速评估与实时控制。
-  * 分子 / 材料尺度模拟：用 ML 势能面（Neural Network Potential）替代高成本的 ab initio 势能与力计算，加速分子动力学与材料相行为模拟。
-  * 多尺度与跨学科耦合：通过深度代理模型把微观–中观–宏观模型拼接起来，构建端到端的多尺度仿真与优化链路。
-* **原理**
-  * 替代模型 / 代理模型（Surrogate Models）：
-    * 从数值仿真或实验数据中学习“输入参数 → 输出场 / 指标”的映射，作为高保真求解器的近似。
-    * 在高维参数空间下，结合主动学习与贝叶斯优化，自动选择最有信息量的样本点进行高保真仿真或实验，持续提高代理模型质量。
-  * 物理知晓神经网络（PINN）：
-    * 将 PDE、初始 / 边界条件与物理守恒定律写入损失函数，利用自动微分技术在连续空间上求解物理场。
-    * 支持正向问题（求解状态场）与逆问题（由稀疏观测反推源项、材料参数等），特别适用于传统数值方法难以处理的复杂几何与边界。
-  * 算子学习与 Neural Operator：
-    * 不只拟合“具体条件下的解”，而是学习从函数到函数的映射（算子），如“边界条件 / 源项 → 整个解场”。
-    * 代表方法如 Fourier Neural Operator (FNO)、DeepONet 等，通过频域变换或特定网络架构，提升对不同网格密度与几何形状的泛化能力。
-  * 多尺度建模：
-    * 在微观模拟数据上训练中观 / 宏观层级的有效参数或本构关系，由深度代理模型承担“尺度桥接层”角色。
-    * 对复杂材料、流固耦合与多相流等问题，用深度模型在不同尺度与物理模块间传递信息。
-* **模型**
-  * 通用物理神经网络：
-    * PINN 系列：通过在时空域采样点上最小化 PDE 残差来求解，适用于 Navier‑Stokes、Maxwell、弹性力学等方程。
-    * DeepONet、FNO、Neural Operator 家族：直接学习 PDE 求解器的“算子级”近似，在多工况、多几何下快速推理。
-  * 分子 / 材料尺度势能模型：
-    * DeepMD、SchNet、NequIP、SpookyNet 等：构建高精度 ML 势能面，在接近 ab initio 准确度的前提下，大幅加速力与能量计算。
-    * 与传统 MD 引擎耦合，实现大体系、长时间尺度的高精度分子动力学。
-  * CFD / 结构力学代理模型：
-    * U‑Net / UNet++ 等 Encoder‑Decoder 网络：在规则网格上从几何 / 边界条件预测流场或温度场。
-    * 图神经网络 on Mesh：在非结构化网格上对节点 / 单元进行消息传递与更新，适合复杂几何和多物理场耦合场景。
-    * Neural Operator for CFD：在不同雷诺数、来流条件、几何参数下泛化流场预测。
-  * 产品与应用：
-    * 工业仿真软件中的 AI 加速模块：在传统求解器外层提供快速预估和敏感性分析功能。
-    * 化工 / 能源过程模拟与优化平台：把机理模型 + 代理模型 + 优化算法组合成一体化工艺优化工具。
-    * 自动驾驶 / 航空航天气动设计：在气动外形设计中进行大规模设计变量扫描与自动形状优化。
-
-### 10.3.1 替代模型与物理知晓神经网络（PINN）
-
-**替代模型（Surrogate Models）** 与 **物理知晓** **神经网络** **（PINN）** 是物理仿真 AI 化的两条互补路径：前者从数据出发近似仿真映射，后者从物理出发构造学习目标。
-
-在 **替代模型** 场景中，典型流程是：
-
-1. 通过高保真数值仿真或实验采集一批样本数据（输入参数、边界条件、几何 → 输出物理量）。
-2. 训练深度网络（如 MLP、卷积网络、GNN、Neural Operator）近似这一映射函数。
-3. 在设计优化、参数扫描或实时控制中，用代理模型替代昂贵的求解器进行快速评估。
-
-在 **PINN** 场景中，模型不再以大量监督标签为主，而是通过最小化 PDE 残差与边界条件违背构建损失函数：
-
-* 在空间 / 时间采样点上，用神经网络输出物理量（如速度、压力、位移场等），自动微分得到梯度与导数。
-* 将这些导数代入 PDE 中，形成残差，并与边界条件、初始条件的误差一起构成总损失。
-* 通过优化使 PDE 残差与边界误差尽可能接近 0，从而得到满足物理方程的近似解。
-
-两者可以结合使用：在有部分高保真数据时，用数据误差 + 物理残差共同约束训练，提高精度与泛化能力。在工程应用中，PINN 特别适合处理逆问题与数据驱动建模，如从传感器观测反推材料参数、源项或缺陷位置。
+* **Stability change (ΔΔG)** : Given a wild-type structure and mutation sites, predict the impact of single or multiple mutations on folding stability, used for directed evolution and drug resistance mutation analysis.
+* **Changes in Activity and Affinity ** : Combining structural analysis with protein language models to evaluate the impact of mutations on enzymatic activity, ligand affinity, and signal pathway regulation.
+* **Design of large-scale variant libraries** : Before in vivo/in vitro screening experiments, use models to pre-screen the vast mutation space, retain high-potential variants, and reduce experimental costs.
+
+At the engineering and product levels, protein design and mutation effect prediction are often integrated into the "structural design and optimization module" within biopharmaceutical/synthetic biology companies: starting from the candidate backbone structure, automatically proposing multi-round mutation and variant library design schemes, and forming a data-driven closed loop with high-throughput screening experiments.
+
+## 10.3 Physics Simulation & Surrogate Modeling
+
+In the fields of aerospace, automotive, civil engineering, energy, chemical engineering, etc.,  ** high-precision simulation is a core part of design and verification ** . However, CFD (Computational Fluid Dynamics), FEA (Finite Element Analysis), Molecular Dynamics (MD), and various PDE solvers often incur high computational costs and struggle to support large-scale parameter scanning, real-time control, or online optimization. AI-driven physical simulation and surrogate modeling attempt to approximate numerical solvers or operators themselves using deep networks, achieving an order-of-magnitude acceleration while ensuring physical consistency and interpretability.
+
+One end of this direction is connected to traditional simulation software (ANSYS, Fluent, COMSOL, self-developed solver), experimental measurement, and sensor data, while the other end is connected to engineering design platforms, autonomous driving and aerospace aerodynamic design, and chemical process simulation and optimization systems. The following will be expanded from three perspectives:  **scenario** ,  **principle** , and  **model** .
+
+* **Scenario**
+  * Engineering simulation acceleration: Under given geometry and operating conditions, use deep surrogate models to quickly predict pressure fields, velocity fields, temperature fields, stress/strain distributions, etc., providing support for multiple rounds of design iteration and optimization.
+  * Complex Process Simulation and Process Optimization: In process industries such as chemical engineering and energy, rapid evaluation and real-time control are achieved through ML approximation of mechanism models or black-box process models.
+  * Molecular/material scale simulation: Replace high-cost ab initio potential and force calculations with ML potential energy surfaces (Neural Network Potential) to accelerate molecular dynamics and material phase behavior simulations.
+  * Multiscale and interdisciplinary coupling: By using deep surrogate models to stitch together micro–meso–macro models, an end-to-end multiscale simulation and optimization link is constructed.
+* **Principle**
+  * Surrogate Models / Proxy Models (Surrogate Models):
+    * Learn the mapping of "input parameters → output field / metrics" from numerical simulations or experimental data as an approximation of the high-fidelity solver.
+    * In high-dimensional parameter space, by combining active learning with Bayesian optimization, the most informative sample points are automatically selected for high-fidelity simulation or experiment, continuously improving the quality of the surrogate model.
+  * Physics-Informed Neural Network (PINN):
+    * Write PDEs, initial/boundary conditions, and physical conservation laws into the loss function, and use automatic differentiation techniques to solve the physical field in the continuous space.
+    * Supports forward problems (solving for the state field) and inverse problems (inferring source terms, material parameters, etc. from sparse observations), and is particularly suitable for complex geometries and boundaries that are difficult to handle using traditional numerical methods.
+  * Operator Learning and Neural Operator:
+    * Instead of merely fitting the "solution under specific conditions", it learns the mapping from function to function (operator), such as "boundary conditions / source terms → the entire solution field".
+    * Representative methods such as Fourier Neural Operator (FNO), DeepONet, etc., enhance the generalization ability to different grid densities and geometric shapes through frequency domain transformation or specific network architectures.
+  * Multiscale Modeling:
+    * The training of effective parameters or constitutive relationships at the meso/macro level on micro-simulation data is carried out by the deep surrogate model, which assumes the role of the "scale bridging layer".
+    * For problems such as complex materials, fluid-structure interaction, and multiphase flow, use deep models to transfer information between different scales and physical modules.
+* **Model**
+  * Universal Physical Neural Network:
+    * PINN Series: Solved by minimizing PDE residuals at sampling points in the spatio-temporal domain, applicable to equations such as Navier‑Stokes, Maxwell, and elasticity.
+    * DeepONet, FNO, Neural Operator Family: Directly learn the "operator-level" approximation of PDE solvers, enabling fast inference under multiple operating conditions and geometries.
+  * Molecular/Material Scale Potential Energy Model:
+    * DeepMD, SchNet, NequIP, SpookyNet, etc.: Construct high-precision ML potential energy surfaces, significantly accelerating force and energy calculations while maintaining accuracy close to ab initio.
+    * Coupled with traditional MD engines, it enables high-precision molecular dynamics for large systems and long time scales.
+  * CFD / Structural Mechanics Surrogate Model:
+    * Encoder-Decoder networks such as U-Net / UNet++: Predict flow fields or temperature fields from geometric / boundary conditions on regular grids.
+    * Graph Neural Networks on Mesh: Perform message passing and updating on nodes/elements on unstructured meshes, suitable for complex geometry and multi-physics coupling scenarios.
+    * Neural Operator for CFD: Generalizing Flow Field Prediction under Different Reynolds Numbers, Inflow Conditions, and Geometric Parameters.
+  * Products and Applications:
+    * AI Acceleration Module in Industrial Simulation Software: Provides fast prediction and sensitivity analysis functions outside the traditional solver.
+    * Chemical / Energy Process Simulation and Optimization Platform: Combines mechanism models + surrogate models + optimization algorithms into an integrated process optimization tool.
+    * Autonomous driving / Aerospace aerodynamic design: Conduct large-scale design variable scanning and automatic shape optimization in aerodynamic shape design.
+
+### 10.3.1 Surrogate Models and Physics-Informed Neural Networks (PINN)
+
+**Surrogate Models** and **Physics-I****nfor****med** **Neural Networks** **(PINN)** are two complementary paths for AI-enabled physical simulation: the former approximates the simulation mapping from data, while the latter constructs learning objectives from physics.
+
+In ** the alternative model ** scenario, the typical process is:
+
+1. Collect a batch of sample data (input parameters, boundary conditions, geometry → output physical quantities) through high-fidelity numerical simulation or experimental acquisition.
+2. Train deep networks (such as MLP, convolutional networks, GNN, Neural Operator) to approximate this mapping function.
+3. In design optimization, parameter scanning, or real-time control, surrogate models are used to replace expensive solvers for rapid evaluation.
+
+In ** PINN ** scenarios, the model no longer relies primarily on a large number of supervised labels, but constructs the loss function by minimizing the PDE residual and boundary condition violations:
+
+* At spatial/temporal sampling points, a neural network outputs physical quantities (such as velocity, pressure, displacement field, etc.), and automatic differentiation is used to obtain gradients and derivatives.
+* Substitute these derivatives into the PDE to form the residual, which, together with the errors of the boundary conditions and initial conditions, constitutes the total loss.
+* By optimizing to make the PDE residual and boundary error as close to 0 as possible, an approximate solution that satisfies the physical equation is obtained.
+
+The two can be used in combination: when there is partial high-fidelity data, data error + physical residual are used together to jointly constrain the training, improving accuracy and generalization ability. In engineering applications, PINN is particularly suitable for handling inverse problems and Data drive modeling, such as inferring material parameters, source terms, or defect locations from sensor observations.
 
-### 10.3.2 Neural Operator 与多尺度物理建模
+### 10.3.2 Neural Operator and Multiscale Physical Modeling
 
-**Neural Operator** 将物理建模从“点到点 / 参数到解”的映射提升到“函数到函数”的层面：它学习的是“给定一类 PDE 与边界条件，求解其解场”的统一算子近似，而非单一工况下的特定解。这为多工况、多几何与跨网格分辨率的泛化提供了新的可能。
+**Neural Operator** elevates physical modeling from the "point-to-point / parameter-to-solution" mapping to the "function-to-function" level: it learns the unified operator approximation of "given a class of PDEs and boundary conditions, solve their solution fields", rather than specific solutions under a single operating condition. This provides new possibilities for generalization across multiple operating conditions, multiple geometries, and cross-grid resolutions.
 
-在 **算子学习** 中，典型做法是：
+In  ** operator learning ** , the typical approach is:
 
-* 以函数（如源项、边界条件、材料参数场等）作为输入，用网络（如 FNO、DeepONet）输出整个解场函数。
-* 通过在不同网格、不同参数与不同几何上的样本训练，让模型学习到 PDE 求解器的“公共模式”。
-* 部署时，只需给出新的输入函数（如新的边界条件、几何），就能快速推理得到近似解场。
+* Taking functions (such as source terms, boundary conditions, material parameter fields, etc.) as inputs, the network (such as FNO, DeepONet) outputs the entire solution field function.
+* By training samples on different grids, different parameters, and different geometries, the model learns the "common patterns" of PDE solvers.
+* During deployment, simply providing a new input function (such as new boundary conditions or geometry) enables rapid inference to obtain an approximate solution field.
 
-在 **多尺度建模** 场景中：
+In ** multi-scale modeling ** scenarios:
 
-* 在微观尺度（如分子动力学、晶体塑性）产生的大量数据上训练 Neural Operator，学习微观结构与宏观响应之间的映射。
-* 在宏观连续介质模型中，用这一映射作为本构关系或有效参数计算模块，实现微–宏耦合。
-* 对于流固耦合、多相流、反应流等复杂系统，可以对不同物理场分别建模并通过共享接口变量（如通量、界面力等）耦合。
+* Train Neural Operator on a large amount of data generated at the microscale (e.g., molecular dynamics, crystal plasticity) to learn the mapping between microstructure and macroscopic response.
+* In the macroscopic continuum model, this mapping is used as a constitutive relation or an effective parameter calculation module to achieve micro - macro coupling.
+* For complex systems such as fluid-structure interaction, multiphase flow, and reactive flow, different physical fields can be modeled separately and coupled through shared interface variables (such as fluxes, interfacial forces, etc.).
 
-在工程实践中，Neural Operator 逐渐从研究原型走向应用，成为 CFD、地球物理、气候建模等场景中“加速求解器 + 多尺度桥接”的重要技术方向。
-
-## 10.4 材料发现与晶体设计（Materials Science & Crystal Design）
-
-在材料科学中，一个核心矛盾是： **设计空间几乎无穷大，而实验与高精度计算成本极高** 。如何在巨大的化学与结构组合空间中高效地找到满足特定性能要求的候选材料，是新能源、电子、结构、功能材料等领域的关键问题。AI 驱动的材料发现与晶体设计，通过图神经网络、生成模型与高通量虚拟筛选，将“试错式”研发逐步转向“数据驱动 + 逆设计”。
-
-这一方向一端连接 Materials Project、OQMD、AFLOW 等材料数据库与 DFT / MD 计算结果，另一端连接电池、光伏、催化、半导体、合金等应用场景的材料研发平台。下面从  **场景** 、 **原理** 、**模型** 三个角度展开。
-
-* **场景**
-  * 性能导向的材料筛选：给定晶体结构或化学式，预测能带结构、带隙、载流子迁移率、热 / 电 / 磁性质等，为材料筛选与组合优化提供依据。
-  * 新能源材料研发：面向电池电解质、电极材料、固态离子导体、光伏吸收层与催化剂等体系，预测离子电导率、稳定性、电化学窗口与活性等。
-  * 高通量虚拟筛选（HTVS）：在构建的大规模候选库中，通过 ML 模型快速评估，筛出潜力材料，再用少量 DFT / 实验验证与校准。
-  * 晶体结构与成分逆设计：从目标性质出发，反向搜索满足性能与工艺约束的晶体结构 / 成分组合。
-* **原理**
-  * 材料与晶体表示：
-    * 将周期性晶体结构表示为晶体图（Crystal Graph）：节点为原子，边为原子间近邻关系，结合晶格参数与空间群信息。
-    * 对于非晶或复杂多相材料，可通过局部环境描述符（如 SOAP）、Voronoi 特征或多尺度图结构表示其微结构。
-  * 性质预测：
-    * 在 CGCNN、MEGNet、ALIGNN 等 GNN 模型上对晶体图进行卷积 / 消息传递，预测能量、带隙、弹性模量、热导等。
-    * 利用 Mat2Vec 等基于文献和化学式的嵌入，在低数据场景下实现迁移学习与零样本估计。
-  * 高通量虚拟筛选：
-    * 构建候选库（通过组合枚举、结构生成、经验规则等） → 使用 ML 模型快速预测性质 → 筛选出少量 Top 候选进行 DFT 或实验校准 → 更新模型与筛选策略，形成主动学习闭环。
-  * 生成与逆设计：
-    * 利用扩散模型、VAE 或 GNN 生成模型在晶体结构空间采样新结构，可施加成分、空间群、密度等约束。
-    * 结合代理模型与贝叶斯优化，从目标性质出发搜索合适的结构 / 成分组合，实现 inverse design。
-* **模型**
-  * 表征与预测：
-    * CGCNN（Crystal Graph Convolutional Neural Network）：在晶体图上进行卷积，用于能量、带隙等无机材料性质预测。
-    * MEGNet、ALIGNN：融合图结构与边 / 角度信息，在多种材料家族上具备更强的泛化与精度。
-    * Mat2Vec + 轻量 ML：通过对化学式和元素信息的向量化，快速训练用于特定性质预测的小模型。
-  * 生成与逆设计：
-    * Diffusion for Crystals：在晶格参数与原子位置组成的高维空间中进行扩散 / 去噪，生成满足一定约束的晶体结构。
-    * GNN‑based Generative Models：通过逐步添加 / 修改原子和键或操作晶格，实现从随机初始化到目标性质附近的结构搜索。
-    * Surrogate + Bayesian Optimization：用 ML 模型作为“结构 → 性质”的近似黑箱，在其上做贝叶斯优化，寻找最优结构或成分。
-  * 数据平台与工具链：
-    * Materials Project、OQMD、AFLOW：提供大量结构与 DFT 计算数据，是训练与评估材料 ML 模型的基础。
-    * 企业内部材料数据库与模型：结合公司实验数据与工艺信息，构建领域特化的材料 AI 设计平台。
-  * 产品与应用：
-    * 新能源材料研发加速平台：为电池、电催化、光伏等团队提供一体化的性质预测、HTVS 与 inverse design 能力。
-    * 虚拟筛选软件与 SaaS：为合金、半导体、功能陶瓷等提供数字化筛选工具，减少早期试错成本。
-    * 材料公司内部的 AI 设计工具：与实验室信息管理系统（LIMS）与生产线数据对接，形成从“模型 → 实验 → 生产”的闭环。
+In engineering practice, Neural Operator has gradually evolved from a research prototype to application, becoming an important technological direction for "accelerated solver + multi-scale bridging" in scenarios such as CFD, geophysics, and climate modeling.
+
+## 10.4 Materials Discovery & Crystal Design (Materials Science & Crystal Design)
+
+In materials science, a core contradiction is that  ** the design space is almost infinite, while the costs of experiments and high-precision calculations are extremely high ** . How to efficiently find candidate materials that meet specific performance requirements in the vast space of chemical and structural combinations is a key issue in fields such as new energy, electronics, structural materials, and functional materials. AI-driven materials discovery and crystal design, through graph neural networks, generative models, and high-throughput virtual screening, are gradually shifting "trial-and-error" R&D towards "Data drive + inverse design".
+
+One end of this direction connects material databases such as Materials Project, OQMD, AFLOW, and DFT/MD calculation results, while the other end connects material R&D platforms for application scenarios such as batteries, photovoltaics, catalysis, semiconductors, and alloys. The following will be elaborated from three perspectives:  **scenarios** ,  **principles** ,  **models** .
+
+* **Scenario**
+  * Performance-oriented material screening: Given a crystal structure or chemical formula, predict the band structure, band gap, carrier mobility, thermal/electrical/magnetic properties, etc., providing a basis for material screening and combinatorial optimization.
+  * New energy materials R&D: Focusing on systems such as battery electrolytes, electrode materials, solid-state ionic conductors, photovoltaic absorber layers, and catalysts, predict ionic conductivity, stability, electrochemical window, and activity, etc.
+  * High-throughput virtual screening (HTVS): In the constructed large-scale candidate library, potential materials are screened out through rapid evaluation by ML models, and then verified and calibrated with a small amount of DFT/experimental data.
+  * Reverse design of crystal structure and composition: Starting from the target properties, reverse search for crystal structure/composition combinations that meet performance and process constraints.
+* **Principle**
+  * Material and Crystal Representation:
+    * Represent the periodic crystal structure as a Crystal Graph: nodes are atoms, edges are the nearest neighbor relationships between atoms, combined with lattice parameters and space group information.
+    * For amorphous or complex multi-phase materials, their microstructures can be represented by local environment descriptors (such as SOAP), Voronoi features, or multi-scale graph structures.
+  * Property prediction:
+    * Perform convolution/message passing on crystal graphs using GNN models such as CGCNN, MEGNet, and ALIGNN to predict energy, band gap, elastic modulus, thermal conductivity, etc.
+    * Utilize literature and chemical formula-based embeddings such as Mat2Vec to achieve transfer learning and zero-shot estimation in low-data scenarios.
+  * High-throughput virtual screening:
+    * Construct a candidate library (through combinatorial enumeration, structure generation, empirical rules, etc.) → Use ML models to quickly predict properties → Screen out a small number of top candidates for DFT or experimental calibration → Update the model and screening strategy to form a closed loop of active learning.
+  * Generation and inverse design:
+    * Sampling new structures in the crystal structure space using generative models such as diffusion models, VAE, or GNN allows for the imposition of constraints such as composition, space group, density, etc.
+    * Combining surrogate models with Bayesian optimization, search for suitable structure/component combinations starting from the target properties to achieve inverse design.
+* **Model**
+  * Characterization and Prediction:
+    * CGCNN (Crystal Graph Convolutional Neural Network): Performs convolution on crystal graphs for predicting properties of inorganic materials such as energy and band gap.
+    * MEGNet, ALIGNN: Integrating graph structure with edge/angle information, they exhibit stronger generalization and accuracy across multiple material families.
+    * Mat2Vec + Lightweight ML: By vectorizing chemical formulas and element information, quickly train small models for specific property prediction.
+  * Generation and inverse design:
+    * Diffusion for Crystals: Perform diffusion/denoising in the high-dimensional space composed of lattice parameters and atomic positions to generate crystal structures that satisfy certain constraints.
+    * GNN - based Generative Models: Achieve structure search from random initialization to the vicinity of target properties by gradually adding/modifying atoms and bonds or manipulating lattices.
+    * Surrogate + Bayesian Optimization: Use an ML model as an approximate black box for "structure → property", perform Bayesian optimization on it, and search for the optimal structure or composition.
+  * Data Platform and Toolchain:
+    * Materials Project, OQMD, AFLOW: Provide a large amount of structural and DFT calculation data, which are the basis for training and evaluating materials ML models.
+    * Enterprise internal material database and model: Combining the company's experimental data and process information, a domain-specific material AI design platform is constructed.
+  * Products and Applications:
+    * New Energy Materials R&D Acceleration Platform: Provides integrated property prediction, HTVS, and inverse design capabilities for teams in battery, electrocatalysis, photovoltaics, etc.
+    * Virtual screening software and SaaS: Provide digital screening tools for alloys, semiconductors, functional ceramics, etc., reducing early-stage trial-and-error costs.
+    * AI design tools within the materials company: Connect with the Laboratory Information Management System (LIMS) and production line data to form a closed loop from "model → experiment → production".
 
-### 10.4.1 材料性质预测与高通量虚拟筛选（HTVS）
+### 10.4.1 Material Property Prediction and High-Throughput Virtual Screening (HTVS)
 
-在材料研发流程中，**快速而可靠的性质预测** 是一项基础能力：给定一个候选结构或成分，能否在不做昂贵 DFT / 实验的情况下，大致判断其是否值得深入探索。基于 GNN 与材料数据库的性质预测模型，为高通量虚拟筛选提供了可能。
+In the material R&D process, ** fast and reliable ****pro****perty prediction ** is a fundamental capability: given a candidate structure or composition, can we roughly determine whether it is worth in-depth exploration without performing expensive DFT/experiments? The property prediction model based on GNN and material databases makes high-throughput virtual screening possible.
 
-在 **性质预测** 层面：
+At the ** property prediction ** level:
 
-* 使用晶体图表示周期性结构，通过 CGCNN、MEGNet、ALIGNN 等模型学习原子与邻域间的相互作用。
-* 针对不同任务（能量、带隙、弹性常数、热导、电导、磁性等）进行单任务或多任务训练，在 Materials Project 等数据集上达到接近 DFT 精度的预测性能。
-* 在工业场景中，常结合内部实验数据进行再训练或领域自适应，以提升对特定材料家族与工艺条件的适配度。
+* Use crystal graphs to represent periodic structures, and learn the interactions between atoms and their neighborhoods through models such as CGCNN, MEGNet, and ALIGNN.
+* Conduct single-task or multi-task training for different tasks (energy, band gap, elastic constants, thermal conductivity, electrical conductivity, magnetism, etc.), achieving prediction performance close to DFT accuracy on datasets such as Materials Project.
+* In industrial scenarios, retraining or domain Self-Adaptation is often combined with internal experimental data to improve the adaptability to specific material families and process conditions.
 
-在 **高通量虚拟筛选（HTVS）** 场景中，典型流程为：
+In ** High Throughput Virtual Screening (HTVS) ** scenarios, the typical process is:
 
-1. 构建大规模候选库（组合枚举、结构生成或从现有数据库扩展）。
-2. 使用 ML 模型快速预测每个候选的目标性质与辅助性质（稳定性、安全性、成本相关指标等）。
-3. 按目标性质与多约束条件筛选排名，选出 Top‑K 候选进行高保真 DFT 计算或实验验证。
-4. 将验证结果反哺模型，更新参数与不确定性估计，形成“筛选–验证–再筛选”的主动学习闭环。
+1. Build a large-scale candidate library (combination enumeration, structure generation, or expansion from existing databases).
+2. Use ML models to quickly predict the target properties and auxiliary properties (such as stability, safety, cost-related indicators, etc.) of each candidate.
+3. Screen and rank according to the target nature and multiple constraints, and select Top-K candidates for high-fidelity DFT calculations or experimental verification.
+4. Feed the verification results back into the model, update the parameters and uncertainty estimates, and form an active learning closed loop of "screening - verification - re-screening".
 
-这一工作流在电池材料、光伏吸收层、催化剂与结构材料等多个领域已进入实用阶段，成为材料研发团队的“前置筛选引擎”。
+This workflow has entered the practical stage in multiple fields such as battery materials, photovoltaic absorber layers, catalysts, and structural materials, becoming the "pre-screening engine" for material R&D teams.
 
-### 10.4.2 晶体生成与逆设计：从目标性质到候选结构
+### 10.4.2 Crystal Generation and Inverse Design: From Target Properties to Candidate Structures
 
-在具备了可靠的性质预测与 HTVS 能力之后，更进一步的目标是 **直接从目标性质与约束出发，提出新的晶体结构与成分候选** ，即材料的逆设计与生成。
+After having reliable property prediction and HTVS capabilities, the further goal is  ** to directly propose new crystal structure and composition candidates from the target properties and constraints ** , i.e., the inverse design and generation of materials.
 
-在 **晶体生成** 中，关键问题包括：
+In  ** crystal generation ** , the key issues include:
 
-* 如何在周期性约束下生成物理合理的晶格与原子排列？
-* 如何在生成过程中显式或隐式地施加成分、对称性与密度等约束？
-* 如何保证生成结构在经过简单松弛后依然稳定？
+* How to generate physically reasonable lattice and atomic arrangements under periodic constraints?
+* How to explicitly or implicitly impose constraints such as composition, symmetry, and density during the generation process?
+* How to ensure that the generated structure remains stable after simple relaxation?
 
-为此，研究与工程实践常采用：
-
-* **Diffusion for Crystals** ：在晶格参数 + 原子位置的联合空间中添加 / 去除噪声，实现从随机初始到结构样本的渐进生成，可在噪声过程或条件向量中融入目标性质与成分约束。
-* **GNN**  **‑based Generative Models** ：在图结构上逐步添加原子与连接关系，或对已有结构进行编辑，生成满足约束的候选结构。
-
-在 **逆设计** 中，通常与代理模型与优化方法结合：
-
-* 将性质预测模型视作“结构 → 性质”的黑箱函数。
-* 通过贝叶斯优化、进化算法或 RL 在结构空间中探索，使预测性质逐步逼近目标值，同时满足稳定性、安全性、成本等约束。
-* 对搜索得到的候选结构进行 DFT / 实验验证，并将结果用于更新代理模型与搜索策略。
-
-在工程应用中，逆设计模块往往被集成到材料 AI 平台中，为研发人员提供“设定目标性质 → 系统自动提出候选结构”的交互界面，显著提升新材料探索的效率。
-
-## 10.5 数学与符号推理（Mathematics & Symbolic Reasoning）
-
-数学是高度形式化、可精确验证的语言，这让它在 AI 时代同时具备“难度极高”和“潜在回报巨大”两种属性。一方面，复杂的定理证明与高阶推理对模型能力提出了极高要求；另一方面，数学推理与符号计算的结果可以被严格验证，天然适合与程序化工具协同。AI 在数学与符号推理方向的目标，是构建能够在形式系统中**进行可靠推理与计算**的模型，并将其融入教育、科研与工程应用。
-
-这一方向一端连接 Lean / Coq / Isabelle 等交互式定理证明器，SymPy / Mathematica / Maple 等计算机代数系统（CAS），以及大型数学题库与文献语料；另一端连接数学教育产品、辅助研究工具与工程 / 金融等领域的公式推导与风险分析需求。下面从  **场景** 、 **原理** 、**模型** 三个角度展开。
-
-* **场景**
-  * 自动定理证明与辅助证明：在形式化系统中自动给出定理证明，或生成可读的证明草稿，由人类进一步审阅与完善。
-  * 表达式操作与符号计算：自动化简表达式、求导、积分、级数展开、变换与方程求解，为工程建模与金融风险分析提供符号工具。
-  * 数学题理解与解题步骤生成：从自然语言或图片中的题目提取结构化表示，给出严谨、可检查的解题步骤，服务于教育与训练场景。
-  * 数学推理能力增强：通过数学专向微调与工具增强，提高大模型在算术、代数、几何、组合等领域的多步推理与严谨性。
-* **原理**
-  * 形式系统与搜索：
-    * 在 Lean / Coq / Isabelle 等系统内，数学对象与定理被形式化为项与类型，证明过程对应于在规则约束下构建证明树。
-    * 证明搜索可以视为“在极大状态空间中寻找满足约束的路径”，适合采用强化学习、MCTS（蒙特卡洛树搜索）与策略网络 / 价值网络等方法。
-  * 神经 – 符号协同：
-    * LLM 负责从自然语言或非结构化输入中提取问题结构与求解思路，将其翻译为符号表达（如 SymPy 代码、Lean 证明脚本）。
-    * 计算机代数系统与定理证明器负责执行严格的符号计算与形式验证，对 LLM 输出进行校验与纠错。
-  * 数学推理能力提升：
-    * 通过在大规模数学文本与题库上做专向预训练或微调（如 Minerva、Gödel），提升模型对数学语言的理解与推理风格的掌握。
-    * 采用 Tool‑Augmented LLM 框架，将符号求解器、数值计算库、绘图工具与证明器作为外部工具，让模型在复杂推理中学会“调用工具”而非“死记结果”。
-* **模型**
-  * 自动定理证明：
-    * AlphaZero‑style 证明器：将证明进程视为博弈过程，使用策略网络和价值网络引导搜索，逐步构造形式证明。
-    * GPT‑f、Lean‑Dojo 等：在大规模形式化定理与证明语料上训练，用于在 Lean 等系统中自动生成证明。
-  * 数学大模型与工具增强：
-    * Minerva、Gödel 等：在数学教材、论文、题库等语料上微调的大模型，在证明题、竞赛题和高阶推理任务上表现更强。
-    * LLM + SymPy / Mathematica / Lean / Coq：由 LLM 做问题解析与策略规划，调用符号计算与证明工具做精确操作与验证。
-  * 产品与应用：
-    * 教育产品中的“数学助教 / 解题助手”，提供个性化讲解与多种解法路径。
-    * 辅助研究工具：帮助研究者构造猜想、生成证明草稿、搜索相关定理与引理，加速理论探索。
-    * 工程 / 金融领域的公式推导与风险模型分析：将复杂模型形式化，进行符号敏感性分析与合规性审查。
-
-### 10.5.1 自动定理证明与形式化推理
+To this end, research and engineering practice often adopt:
+
+* **Diffusion for Crystals** : Add/remove noise in the joint space of lattice parameters + atomic positions to achieve progressive generation from random initial states to structural samples, and incorporate target properties and composition constraints into the noise process or conditional vector.
+* **GNN** ** - based Generative Models** : Gradually add atoms and connection relationships to the graph structure, or edit existing structures to generate candidate structures that satisfy the constraints.
+
+In  ** inverse design ** , it is usually combined with surrogate models and optimization methods:
+
+* Treat the property prediction model as a black-box function of "structure → property".
+* Explore the structural space through Bayesian optimization, evolutionary algorithms, or RL to gradually approach the target value of the predicted properties while satisfying constraints such as stability, safety, and cost.
+* Perform DFT/experimental validation on the candidate structures obtained from the search, and use the results to update the surrogate model and search strategy.
+
+In engineering applications, the inverse design module is often integrated into the materials AI platform, providing R&D personnel with an interactive interface of "setting target properties → the system automatically proposing candidate structures", which significantly improves the efficiency of new material exploration.
+
+## 10.5 Mathematics & Symbolic Reasoning
+
+Mathematics is a highly formalized and precisely verifiable language, which endows it with both the attributes of "extremely difficult" and "potentially highly rewarding" in the AI era. On the one hand, complex theorem proving and high-order reasoning place extremely high demands on model capabilities; on the other hand, the results of mathematical reasoning and symbolic computation can be rigorously verified, making it naturally suitable for collaboration with procedural tools. The goal of AI in the direction of mathematical and symbolic reasoning is to construct models that can**perform reliable reasoning and computation**within formal systems and integrate them into education, scientific research, and engineering applications.
+
+One end of this direction connects to interactive theorem provers such as Lean, Coq, and Isabelle, computer algebra systems (CAS) such as SymPy, Mathematica, and Maple, as well as large mathematical question banks and literature corpora; the other end connects to mathematical education products, auxiliary research tools, and the needs for formula derivation and Risk Analysis in fields such as engineering and finance. The following will be elaborated from three perspectives:  **scenarios** ,  **principles** ,  **models** .
+
+* **Scenario**
+  * Automated Theorem Proving and Proof Assistance: Automatically provide theorem proofs in formal systems, or generate readable proof drafts for further review and refinement by humans.
+  * Expression Manipulation and Symbolic Computation: Automatically simplify expressions, perform differentiation, integration, series expansion, transformation, and equation solving, providing symbolic tools for engineering modeling and financial Risk Analysis.
+  * Mathematical Problem Understanding and Solution Step Generation: Extract structured representations from problems in natural language or images, provide rigorous and verifiable solution steps, and serve educational and training scenarios.
+  * Enhanced Mathematical Reasoning Ability: Through specialized fine-tuning and tool enhancement in mathematics, improve the multi-step reasoning and rigor of large models in fields such as arithmetic, algebra, geometry, and combinatorics.
+* **Principle**
+  * Formal Systems and Search:
+    * Within systems such as Lean, Coq, and Isabelle, mathematical objects and theorems are formalized as terms and types, and the proof process corresponds to constructing proof trees under the constraints of rules.
+    * Proof search can be regarded as "finding a path that satisfies constraints in a vast state space" and is suitable for methods such as reinforcement learning, MCTS (Monte Carlo Tree Search), and policy network/value network.
+  * Neural - Symbolic Synergy:
+    * LLM is responsible for extracting problem structure and solution ideas from natural language or unstructured input, and translating them into symbolic expressions (such as SymPy code, Lean proof scripts).
+    * Computer algebra systems and theorem provers are responsible for performing rigorous symbolic computations and formal verification, as well as validating and correcting the outputs of LLMs.
+  * Improvement of Mathematical Reasoning Ability:
+    * Improve the model's understanding of mathematical language and mastery of reasoning styles by conducting targeted pre-training or fine-tuning on large-scale mathematical texts and question banks (e.g., Minerva, Gödel).
+    * By adopting the Tool-Augmented LLM framework, using symbolic solvers, numerical computation libraries, plotting tools, and provers as external tools, the model is enabled to learn to "call tools" rather than "memorize results" in complex reasoning.
+* **Model**
+  * Automated Theorem Proving:
+    * AlphaZero-style prover: Treats the proof process as a game process, uses policy networks and value networks to guide the search, and gradually constructs formal proofs.
+    * GPT-f, Lean-Dojo, etc.: Trained on large-scale formal theorem and proof corpora, used for automatically generating proofs in systems such as Lean.
+  * Mathematical Large Models and Tool Enhancement:
+    * Minerva, Gödel, etc.: Large models fine-tuned on corpora such as math textbooks, papers, and question banks perform better on proof problems, competition problems, and high-order reasoning tasks.
+    * LLM + SymPy / Mathematica / Lean / Coq: LLM performs problem analysis and strategy planning, and invokes symbolic computation and proof tools for precise operations and verification.
+  * Products and Applications:
+    * The "Math Assistant / Problem Solving Helper" in educational products provides personalized explanations and multiple solution paths.
+    * Auxiliary research tools: assist researchers in formulating conjectures, generating proof drafts, searching for relevant theorems and lemmas, and accelerating theoretical exploration.
+    * Formula derivation and risk model analysis in engineering/finance: formalize complex models, conduct symbolic sensitivity analysis and compliance review.
+
+### 10.5.1 Automated Theorem Proving and Formal Reasoning
 
-**自动定理证明（ATP）与交互式定理证明（ITP）** 是数学与计算机科学交叉的重要方向。AI 介入这一领域的核心任务，是在形式系统中自动构造或辅助构造证明，减少人类在低层次细节上的负担，使其更多地专注于高层次思路。
+**Automat****ed ****theorem proving (AT****P) an****d interactive theorem proving (ITP)** are important directions at the intersection of mathematics and computer science. The core task of AI's involvement in this field is to automatically construct or assist in constructing proofs within formal systems, reducing the human burden on low-level details and enabling humans to focus more on high-level thinking.
 
-在 **形式化系统** 中：
+In  ** formal system ** :
 
-* 定理被编码为需要构造的目标类型（goal），证明对应为构造某个项，使其类型为该目标类型。
-* 证明过程由一系列战术（tactics）或推理步骤组成，每一步都在严格的逻辑规则下推进。
+* The theorem is encoded as the goal type to be constructed, and the proof corresponds to constructing a term whose type is this goal type.
+* The proof process consists of a series of tactics or inference steps, each advancing under strict logical rules.
 
-AI 在其中可以承担多种角色：
+AI can play multiple roles in it:
 
-1. **战术选择与参数推荐** ：在当前证明状态下，预测下一步应使用的战术及其参数，减少人工尝试与回溯。
-2. **引理与定理检索** ：从庞大的库中检索与当前目标最相关的引理 / 定理，缩小搜索空间。
-3. **端到端证明生成** ：在给定定理与上下文的情况下，直接生成完整或局部证明脚本，再由证明器验证其正确性。
+1. **Tactical Selection and Parameter Recommendation ** : In the current proof state, predict the tactics and their parameters to be used in the next step, reducing manual trial and backtracking.
+2. **Lemma and Theorem Retrieval ** : Retrieve the most relevant lemmas/theorems from a large library to narrow down the search space.
+3. **End-to-end proof generation** : Given a theorem and its context, directly generate a complete or partial proof script, which is then verified for correctness by a prover.
 
-AlphaZero‑style 证明器、GPT‑f、Lean‑Dojo 等工作，通过在大规模形式化语料上训练策略与价值网络或语言模型，实现了在 Lean / Coq 等系统上自动完成相当比例定理的证明。在产品方向上，这类能力有望演化为“形式化验证助手”，用于软件 / 硬件验证、加密协议分析和高可靠系统设计。
+Works such as AlphaZero-style provers, GPT-f, and Lean-Dojo have achieved the automatic proof of a significant proportion of theorems in systems like Lean/Coq by training policy and value networks or language models on large-scale formal corpora. In the product direction, this type of capability is expected to evolve into a "formal verification assistant" for software/hardware verification, cryptographic protocol analysis, and high-reliability system design.
 
-### 10.5.2 符号计算与数学问题求解：LLM + CAS
+### 10.5.2 Symbolic Computation and Mathematical Problem Solving: LLM + CAS
 
-相比定理证明，**符号计算与数学问题求解** 更贴近工程与教育场景。其目标是： **从自然语言问题出发，自动构造符号表达、执行计算并给出可解释的解题步骤** 。
+Compared to theorem proving,** symbolic computation and mathematical problem solving ** are closer to engineering and educational scenarios. Its goal is:  ** starting from natural language problems, automatically constructing symbolic expressions, performing calculations, and providing interpretable problem-solving steps ** .
 
-在这一方向上，典型的神经 – 符号协作流程为：
+In this direction, a typical neural-symbolic collaboration process is:
 
-1. **问题理解与抽象** ：LLM 将自然语言或图片中的题目解析为结构化数学表达（方程、约束、目标函数等）。
-2. **符号表达生成** ：将抽象结果翻译为 CAS 代码（如 SymPy 表达式、Mathematica 命令）。
-3. **调用 ****CAS** ** 执行** ：使用 CAS 进行精确的代数运算、求导、积分、求解方程组、极限等。
-4. **结果解释与步骤生成** ：LLM 基于 CAS 的计算结果，生成符合人类习惯的解题步骤与解释。
+1. **Problem U****nde** **rstanding and Abstraction ** : LLM parses questions from natural language or images into structured mathematical expressions (equations, constraints, objective functions, etc.).
+2. **Symbolic Expressi****on ****Genera** **tion** : Translate abstract results into CAS code (e.g., SymPy expressions, Mathematica commands).
+3. **Invoke  **CAS ** Execution ** : Use CAS for precise algebraic operations, differentiation, integration, solving systems of equations, limits, etc.
+4. **Result Inte****rpr****etat****ion** ** and Step Generation** : Based on the calculation results of CAS, LLM generates problem-solving steps and explanations that conform to human habits.
 
-这一模式有几个关键优势：
+This model has several key advantages:
 
-* 通过 CAS 保障计算的正确性，避免 LLM 在长算式上的“错位运算”与累积错误。
-* 通过 LLM 提供自然语言理解与表达，降低 CAS 的使用门槛，使非专业用户也能调用强大的符号工具。
-* 在教育场景中，可以控制解题的详细程度与风格，生成适合不同学习阶段的讲解。
+* Ensure the correctness of calculations through CAS, avoiding "misaligned operations" and cumulative errors of LLMs in long arithmetic expressions.
+* By providing Natural-language Understanding and expression through LLM, it lowers the usage threshold of CAS, enabling non-professional users to also utilize powerful symbolic tools.
+* In educational scenarios, it can control the level of detail and style of problem-solving, generating explanations suitable for different learning stages.
 
-在工程 / 金融场景中，这一能力可以扩展到复杂模型的公式化与分析：自动从文档与代码中提取模型结构，构造符号表示，并进行敏感性分析、边界情况分析与风险识别。
+In engineering/financial scenarios, this capability can be extended to the formulation and analysis of complex models: automatically extracting model structures from documents and code, constructing symbolic representations, and performing sensitivity analysis, boundary case analysis, and risk identification.
 
-## 10.6 科学工作流与自动化实验（Scientific Workflow & Lab Automation）
+## 10.6 Scientific Workflow & Lab Automation
 
-前面的子方向大多聚焦于“单点能力”：预测一个性质、生成一个结构、证明一个定理。然而在真实的科研与工业研发中，更关键的是如何把这些能力**串联成完整的** **工作流** ，并与文献、数据库、仿真平台与自动化实验设备打通。科学工作流与自动化实验方向，旨在构建面向科学场景的 **Agent + 工具 + 机器人** 一体化系统，让 AI 从“会算”进化到“会做实验、会做研究”。
+Most of the previous sub-directions have focused on "single-point capabilities": predicting a property, generating a structure, or proving a theorem. However, in real scientific research and industrial R&D, what is more crucial is how to **connect these capabilities into a complete ****workflow**and integrate it with literature, databases, simulation platforms, and automated experimental equipment. The direction of scientific workflow and automated experimentation aims to build an integrated system of **Agent + Tools + Robots **for scientific scenarios, enabling AI to evolve from "being able to calculate" to "being able to conduct experiments and research".
 
-这一方向一端连接论文与专利数据库（如 PubMed、arXiv）、科学数据仓库、领域知识图谱与仿真平台，另一端连接自动化实验室（Robotic Lab）、高通量筛选设备与科研流程管理系统。下面从  **场景** 、 **原理** 、**模型** 三个角度展开。
+One end of this direction connects to paper and patent databases (such as PubMed, arXiv), scientific data warehouses, domain Knowledge Graphs, and simulation platforms, while the other end connects to automated laboratories (Robotic Lab), high-throughput screening equipment, and scientific research Process management systems. The following will be elaborated from three perspectives:  **scenarios** ,  **principles** ,  **models** .
 
-* **场景**
-  * 科学文献挖掘与知识库构建：从海量论文中自动提取化合物、蛋白、材料、反应条件、实验结果等信息，构建结构化知识库与知识图谱。
-  * 实验设计与 Self‑Driving Lab：在 AI 提出的实验计划指导下，由机器人实验平台自动执行配制、反应、测量与数据采集，实现“闭环”优化。
-  * 科学数据管理与可重复性保障：自动整理仿真与实验数据、元数据与代码脚本，生成标准化实验记录与报告，提高可追溯性与复现性。
-  * 领域“AI 实验助手”：为药企、材料公司与科研机构提供一站式的文献检索、方案设计、实验规划与结果分析支持。
-* **原理**
-  * 文献挖掘与领域 LLM：
-    * 利用 SciBERT、BioBERT、PubMedBERT 等领域预训练模型进行命名实体识别、关系抽取、反应式解析与实验条件抽取。
-    * 在此基础上训练 Bio‑LM、Chem‑LM、Materials‑LM 等领域 LLM，提升对专业术语、实验语句与隐含假设的理解与推理能力。
-  * 实验设计与 Self‑Driving Lab：
-    * 将实验空间（配方、温度、时间、添加顺序等）视为优化变量，由 LLM + RL 或贝叶斯优化策略提出下一组实验条件。
-    * 实验机器人与仪器按照计划执行，采集数据并实时回传，由模型更新参数与不确定性估计，形成主动学习闭环。
-  * 工作流编排与 Agent：
-    * 在 Agent & Tool Use 框架下，将文献检索、代码生成、仿真调用、数据分析、可视化与报告生成工具统一纳入。
-    * Agent 根据任务目标（如“寻找高导电电解质配方”），自动规划任务分解、调用工具顺序与结果整合。
-* **模型**
-  * 文献与知识挖掘模型：
-    * SciBERT、BioBERT、PubMedBERT 等：针对科学与生医文献进行预训练的模型，用于实体 / 关系抽取、分类与问答。
-    * Galactica、领域特化 LLM：以科学语料为主进行训练，支持综述生成、代码草稿、实验设计建议等。
-  * 实验规划与控制模型：
-    * LLM + RL / Bayesian Optimization：结合领域先验、模型不确定性与实验成本，对实验空间进行高效探索与 exploitation。
-    * 与 Robotic Lab 控制接口集成的 Agent：将自然语言实验描述转换为结构化实验步骤与仪器控制命令。
-  * 科学 Agent 与工作流系统：
-    * 在 7 章 Agent & Tool Use 能力基础上，构建面向科学场景的“多工具 Agent”：能够检索文献、生成代码、调用仿真、处理数据、绘制图表并写出报告初稿。
-  * 产品与应用：
-    * 药企 / 材料公司内部的“AI 实验助手”与自动化实验台：用于加速配方开发、工艺优化与候选筛选。
-    * 领域科学搜索引擎与知识图谱（Bio / Chem / Materials / Physics Knowledge Graph）：支持语义检索、交互式探索与知识推理。
-    * 科研流程管理平台：集成实验规划、数据记录、版本管理、可视化与报告自动生成，提高科研团队的效率与结果的可复现性。
-
-### 10.6.1 科学文献挖掘与领域知识库构建
-
-科学知识的绝大部分首先以论文与报告的形式出现。要让 AI 真正参与科研，就必须让其“读得懂论文，并从中提炼结构化知识”。 **科学文献挖掘与知识库构建** ，正是从非结构化文本出发，构建可查询、可推理的知识基础设施。
-
-在这一方向中，核心任务包括：
-
-* **实体识别与标准化** ：识别文献中的化合物、蛋白、材料、反应物、产物、实验设备与条件等实体，并与标准数据库（如 ChEMBL、Uniprot、Materials Project）对齐。
-* **关系与事件抽取** ：从文本中抽取“谁与谁如何相互作用”“什么条件下产生了什么结果”等关系与事件，例如反应方程、配方–性能对应关系等。
-* **知识图谱** **构建** ：将实体与关系组织为图结构，支持复杂查询（如“在某条件下提高某性能的所有已报道方法”）与路径推理。
-
-为实现上述目标，常采用：
-
-* SciBERT、BioBERT、PubMedBERT 等预训练模型进行 NER（实体识别）、RE（关系抽取）与文档级事件抽取。
-* 在此基础上构建领域特化 LLM（Bio‑LM、Chem‑LM、Materials‑LM），用于进行更复杂的问题回答、综述生成与知识补全。
-
-构建好的领域知识库与知识图谱不仅可以为研发人员提供更智能的检索与推荐服务，也为后续的实验设计、材料 / 药物逆设计提供数据与先验支撑。
-
-### 10.6.2 Self‑Driving Lab 与科学工作流 Agent：从“读论文”到“做实验”
-
-在具备文献挖掘、建模与优化能力之后，下一步就是把这些能力与 **自动化实验平台** 结合，构建真正意义上的 **Self‑Driving Lab（自驱动实验室）** 与科学工作流 Agent。
-
-在 Self‑Driving Lab 中，典型工作闭环为：
-
-1. **目标设定** ：研究者给出宏观目标（如“提高某材料在特定条件下的导电率”）与约束条件（成本、安全性、工艺限制等）。
-2. **文献与知识检索** ：Agent 调用文献检索与知识图谱，了解现有工作与经验规律，形成初始假设与实验设计空间。
-3. **实验规划与优化策略** ：基于 LLM + RL / 贝叶斯优化策略，提出首批实验条件（配方、温度、时间、环境等）。
-4. **机器人执行与数据采集** ：自动化实验台（Robotic Lab）执行实验，实时采集结果并回传。
-5. **模型更新与下一轮设计** ：代理模型根据新数据更新参数与不确定性估计，再提出下一轮更有信息量或更有潜力的实验条件。
-
-在更广义的 **科学****工作流**** Agent** 中，这一闭环会扩展到仿真、数据分析与报告生成等环节：
-
-* Agent 可以自动生成仿真代码或调用现有仿真工具，对某些实验条件进行前置评估；
-* 在数据分析阶段，自动完成数据清洗、可视化与统计检验；
-* 在项目阶段总结时，生成结构化的实验记录与报告草稿，附带图表与参考文献。
-
-在产品形态上，这类系统往往以平台形式落地：提供一套统一的界面与 API，对接文献库、仿真引擎与实验设备，让科学家和工程师在高层用自然语言与可视化界面制定目标，其余环节由 Agent + 工具链自动编排与执行。
-
-从这一子方向开始，AI 在科学中的角色真正从“离线分析工具”转向“在线科研合作者”：不仅能读论文、写代码、算模型，更能与机器人一起，完成一项项真实的实验与发现。
-
-# 11. 平台与工程能力（MLOps / Infra）
-
-大模型从实验室走向企业生产，绝不仅是“模型本身足够好”就可以，而是要依托一整套稳定、可扩展、可运维的 **平台与工程体系** 。这套体系需要贯穿模型的**训练与微调、部署与推理优化、数据与模型运维、监控与成本管理、安全与合规、以及中台与应用支撑能力**等环节，把原本零散的技术点串成一个可持续运转的闭环。
-
-从业务视角看，平台与工程能力往往决定了一个组织是否能“规模化地、安全且低成本地”使用大模型：同样的底层模型，如果没有良好的 MLOps 体系，很可能只能停留在 Demo 与试点阶段；而一旦具备完善的平台，企业就能在多个 BU、多个国家 / 区域、多个行业场景中快速复制与演进高质量应用。下面我们将分别从**模型训练与微调平台、部署与推理优化、数据与模型运维、监控与成本可靠性、安全与合规基础设施、以及上层应用与中台能力**六个方向展开阐述
-
-## 11.1 模型训练与微调（Training & Fine-tuning）
-
-在基础模型层面，大部分组织不会从零开始训练千亿参数模型，而是基于开源或商用基座做 **继续预训练 + 微调** 。这一层的核心问题是：如何高效利用算力和数据，把通用大模型“拉近”到具体行业、企业和任务上，同时又要保证多模型、多版本的工程可管理性。
-
-从工程视角看，这一层通常包含三块： **预训练与继续预训练** 、**微调****范式****与工具链**以及**大规模****分布式** **训练基础设施** 。
-
-* **场景**
-  * 通用大模型底座研发：云厂商 / 大厂自研通用语言 / 多模态基座模型，用于对外 API 和内部多业务共享。
-  * 行业大模型与专有模型：围绕金融、医疗、法律、制造、能源、游戏等特定领域，构建行业基座模型或“企业自有大模型”。
-  * 企业级模型定制：为单一大客户（银行、保险、政府、制造集团等）基于其内部数据定制专属微调模型或 LoRA 权重。
-  * 多租户模型市场：SaaS / 云平台为众多中小客户提供“一客一模型”的微调与托管能力，每个租户一套权重或适配层。
-  * 一键微调平台：对非算法团队开放的“上传数据 → 选择底座模型 → 自动微调 → 一键部署”全托管产品。
-* **原理**
-  * 预训练与继续预训练：
-    * 在海量通用文本、代码、多模态数据上进行大规模预训练，使模型获得 **通用语言理解、世界知识与基本推理能力** 。
-    * 对于特定行业，通过 **Domain‑adaptive Pretraining（DAPT）** 在通用模型之上继续预训练，引入行业专有术语、写作风格和知识分布。
-    * 多语言 / 多模态预训练通过共享语义空间与联合训练，使模型具备**跨语言迁移**与**图文 / 语音 / 结构化数据融合**能力。
-  * 微调范式：
-    * **全参数微调** ：在目标任务与预训练分布差异极大、且有充足算力和数据时，直接更新全部参数，获得最高上限性能。
-    * **参数高效微调（PEFT）** ：通过 Adapter、LoRA / QLoRA、Prefix / P‑Tuning 等方式，仅训练极少量“增量参数”，适合多任务、多客户、频繁更新场景。
-    * **指令** **微调与任务微调** ：用“指令 + 示例”的方式让模型学会理解自然语言任务描述；既可以面向单一垂直任务，也可以在统一模型上承载多任务。
-    * **RLHF** ** / RLAIF** ：通过人类或 AI 反馈训练奖励模型，进一步用强化学习对齐模型行为（礼貌性、安全性、拒答策略、价值观）。
-  * 分布式训练与工程体系：
-    * 使用 **数据并行、模型并行、流水线** **并行**  **、** **张量****并行**等策略，将超大模型和大规模数据拆分至集群多节点、多卡协同训练。
-    * 通过 ZeRO / FSDP 等技术**降低****显存** **占用、提升训练吞吐** ，配合高效调度（Kubernetes + Slurm / Ray）实现大规模集群训练。
-    * 依托标准化的数据 pipeline（数据集加载、清洗、去重、分片、缓存）与微调框架（Transformers Trainer、DeepSpeed、Lightning 等）减少重复造轮子。
-* **模型**
-  * 预训练与继续预训练工具链：
-    * 训练框架：PyTorch、TensorFlow、JAX。
-    * 大规模训练加速：DeepSpeed、Megatron‑LM、Colossal‑AI、Fairscale。
-    * 分布式训练策略：数据并行（DP）、模型并行（MP）、流水线并行（PP）、张量并行；ZeRO / FSDP、Megatron（TP+PP）、DeepSpeed ZeRO。
-    * 集群调度与管理：Kubernetes + Slurm / Ray / Horovod / TorchElastic。
-    * 数据 pipeline：Hugging Face Datasets、WebDataset、Petastorm、tf.data、Arrow；对象存储（S3 / OSS / GCS）+ 本地 cache；数据清洗与去重工具。
-  * 微调与 PEFT 工具：
+* **Scenario**
+  * Scientific Literature Mining and Knowledge Base Construction: Automatically extract information such as compounds, proteins, materials, reaction conditions, experimental results, etc. from a vast amount of papers to construct a structured Knowledge Base and Knowledge Graph.
+  * Experimental Design and Self-Driving Lab: Under the guidance of the experimental plan proposed by AI, the robotic experimental platform automatically performs formulation, reaction, measurement, and Data Acquisition to achieve "closed-loop" optimization.
+  * Scientific Data Management and Reproducibility Assurance: Automatically organize simulation and experimental data, metadata, and code scripts, generate standardized experimental records and reports, and improve traceability and reproducibility.
+  * Domain "AI Experiment Assistant": Provides one-stop support for literature retrieval, protocol design, experiment planning, and result analysis for pharmaceutical companies, materials companies, and research institutions.
+* **Principle**
+  * Literature Mining and Domain LLM:
+    * Utilize domain pre-trained models such as SciBERT, BioBERT, and PubMedBERT for Named Entity Recognition, Relation Extraction, Reaction Parsing, and Experimental Condition Extraction.
+    * On this basis, train domain-specific LLMs such as Bio-LM, Chem-LM, and Materials-LM to enhance the understanding and reasoning abilities regarding professional terms, experimental statements, and implicit assumptions.
+  * Experimental Design and Self‑Driving Lab:
+    * Treat the experimental space (formulation, temperature, time, addition order, etc.) as optimization variables, and let LLM + RL or Bayesian optimization strategies propose the next set of experimental conditions.
+    * The experimental robots and instruments execute according to the plan, collect data and post it back in real time, with the model updating parameters and estimating uncertainty to form a closed loop of active learning.
+  * Workflow Orchestration and Agent:
+    * Under the Agent & Tool Use framework, tools for literature retrieval, code generation, simulation invocation, Data Analysis, visualization, and report generation are unified and incorporated.
+    * The Agent automatically plans task decomposition, the order of tool invocation, and result integration based on the task objective (e.g., "find a highly conductive electrolyte formulation").
+* **Model**
+  * Literature and Knowledge Mining Model:
+    * SciBERT, BioBERT, PubMedBERT, etc.: Models pre-trained on scientific and biomedical literature, used for entity/relationship extraction, classification, and question answering.
+    * Galactica, Domain-Specialized LLM: Trained primarily on scientific corpora, it supports functions such as review generation, code drafting, and experimental design suggestions.
+  * Experimental Planning and Control Model:
+    * LLM + RL / Bayesian Optimization: Combine domain prior, model uncertainty, and experimental cost to efficiently explore and exploit the experimental space.
+    * Agent integrated with the Robotic Lab control interface: Converts natural language experiment descriptions into structured experiment steps and instrument control commands.
+  * Science Agent and Workflow System:
+    * Based on the capabilities of Chapter 7 Agent & Tool Use, build a "multi-tool Agent" for scientific scenarios: capable of retrieving literature, generating code, invoking simulations, processing data, plotting charts, and writing a first draft of reports.
+  * Products and Applications:
+    * "AI Experiment Assistant" and automated experimental platform within pharmaceutical companies/material companies: used to accelerate formulation development, process optimization, and candidate screening.
+    * Domain Science Search Engine and Knowledge Graph (Bio / Chem / Materials / Physics Knowledge Graph): Supports semantic retrieval, interactive exploration, and knowledge reasoning.
+    * Scientific Research Process Management Platform: Integrates experimental planning, data recording, version control, visualization, and automatic report generation to improve the efficiency of research teams and the reproducibility of results.
+
+### 10.6.1 Scientific Literature Mining and Domain Knowledge Base Construction
+
+The vast majority of scientific knowledge first appears in the form of papers and reports. To enable AI to truly participate in scientific research, it must be able to "read papers and extract structured knowledge from them".  ** Scientific literature mining and knowledge base construction ** , precisely starting from unstructured text, aims to build a knowledge infrastructure that is queryable and inferable.
+
+In this direction, the core tasks include:
+
+* **Entity Recognition and Standardization** : Identify entities such as compounds, proteins, materials, reactants, products, experimental equipment, and conditions in the literature, and align them with standard databases (e.g., ChEMBL, Uniprot, Materials Project).
+* **Relationship and Event Extraction** : Extract relationships and events such as "who interacts with whom and how" and "what results are produced under what conditions" from text, for example, reaction equations, formula-performance correspondence relationships, etc.
+* **Knowledge Graph**  **Construction** : Organizes entities and relationships into a graph structure, supporting complex queries (such as "all reported methods for improving a certain performance under certain conditions") and path reasoning.
+
+To achieve the above objectives, the following are commonly adopted:
+
+* Pre-trained models such as SciBERT, BioBERT, and PubMedBERT perform NER (Named Entity Recognition), RE (Relation Extraction), and document-level event extraction.
+* On this basis, domain-specific LLMs (Bio-LM, Chem-LM, Materials-LM) are constructed to perform more complex question answering, review generation, and knowledge completion.
+
+The well-constructed domain Knowledge Base and Knowledge Graph can not only provide more intelligent retrieval and recommendation services for R&D personnel, but also offer data and prior support for subsequent experimental design and material/drug inverse design.
+
+### 10.6.2 Self-Driving Lab and Scientific Workflow Agent: From "Reading Papers" to "Doing Experiments"
+
+After acquiring the capabilities of literature mining, modeling, and optimization, the next step is to combine these capabilities with ** the automated experimental platform ** to build a truly meaningful ** Self-Driving Lab ** and scientific workflow Agent.
+
+In the Self‑Driving Lab, the typical closed-loop of work is:
+
+1. **Goal Setting** : The researcher presents the macro goal (e.g., "improve the conductivity of a certain material under specific conditions") and the constraints (cost, safety, process limitations, etc.).
+2. **Literature and Knowledge Retrieval ** : Agent calls literature retrieval and Knowledge Graph to understand existing work and empirical rules, forming initial hypotheses and experimental design space.
+3. **Experimental P****lan****nin****g ** **and Optimization Strategy** : Based on LLM + RL / Bayesian optimization strategy, propose the first batch of experimental conditions (formulation, temperature, time, environment, etc.).
+4. **Robot Execution and Data Acquisition** : The Robotic Lab conducts experiments, collects results in real-time, and performs postback.
+5. **Model Update and Next Round of Design** : The surrogate model updates its parameters and uncertainty estimates based on new data, and then proposes more informative or promising experimental conditions for the next round.
+
+In the broader ** scientific work****flow** ** Agent ** , this closed loop will extend to simulation, Data Analysis, report generation, and other aspects:
+
+* The Agent can automatically generate simulation code or call existing simulation tools to pre-evaluate certain experimental conditions;
+* During the Data Analysis phase, automatically complete data cleaning, visualization, and statistical testing;
+* When summarizing the project phase, generate structured experimental records and draft reports, accompanied by charts and references.
+
+In terms of product form, this type of system often takes the form of a platform: providing a unified interface and API to connect to literature databases, simulation engines, and experimental equipment, enabling scientists and engineers to set goals using natural language and visual interfaces at a high level, while the remaining steps are automatically orchestrated and executed by Agents + toolchains.
+
+Starting from this sub-direction, the role of AI in science has truly shifted from an "offline analysis tool" to an "online research collaborator": not only capable of reading papers, writing code, and calculating models, but also able to work with robots to complete real experiments and discoveries one by one.
+
+# 11. Platform and Engineering Capabilities (MLOps / Infra)
+
+For large models to move from the laboratory to enterprise production, it is by no means sufficient that "the model itself is good enough"; instead, it must rely on a complete set of stable, scalable, and maintainable  ** platform and engineering system ** . This system needs to cover all aspects of the model, including  ** training and fine-tuning, deployment and inference optimization, data and model operation and maintenance, monitoring and cost management, security and compliance, as well as mid-platform and application support capabilities ** , etc., stringing together the originally scattered technical points into a sustainable closed loop.
+
+From a business perspective, platform and engineering capabilities often determine whether an organization can use large models "at scale, securely, and cost-effectively": for the same underlying model, without a good MLOps system, it is likely to remain at the demo and pilot stages; once a complete platform is in place, enterprises can quickly replicate and evolve high-quality applications across multiple BUs, multiple countries/regions, and multiple industry scenarios. **Below, we will elaborate on six directions respectively:** Model Training and Fine-Tuning Platform, Deployment and Inference Optimization, Data and Model Operation and Maintenance, Monitoring and Cost Reliability, Security and Compliance Infrastructure, and Upper-Level Application and Mid-Platform Capabilities
+
+## 11.1 Model Training & Fine-tuning (Training & Fine-tuning)
+
+At the foundational model level, most organizations do not train trillion-parameter models from scratch, but instead build on open-source or commercial base models to  ** continue pre-training + fine-tuning ** . The core issue at this level is: how to efficiently utilize computing power and data to "adapt" general large models to specific industries, enterprises, and tasks, while ensuring the engineering manageability of multiple models and versions.
+
+From an engineering perspective, this layer typically consists of three components:  ** pre-training and continued pre-training ** , ** fine-tuning paradigms and toolchains ** and ** large-scale **** distributed **  ** training infrastructure ** .
+
+* **Scenario**
+  * Research and Development of General Large Model Base: Cloud providers / large enterprises independently develop general language / MultiModal Machine Learning base models for external APIs and internal multi-business sharing.
+  * Industry-specific large models and proprietary models: Build industry base models or "enterprise-owned large models" around specific domains such as finance, healthcare, law, manufacturing, energy, and gaming.
+  * Enterprise-level model customization: Customize exclusive fine-tuned models or LoRA weights for large single clients (banks, insurance companies, government agencies, manufacturing groups, etc.) based on their internal data.
+  * Multi-Tenant Model Market: SaaS/Cloud Computing Platform provides fine-tuning and hosting capabilities of "one model per customer" for numerous small and medium-sized customers, with each tenant having a set of weights or adaptation layers.
+  * One-click Fine-tuning Platform: A full-service product open to non-algorithm teams, featuring a process of "upload data → select base model → automatic fine-tuning → one-click deployment".
+* **Principle**
+  * Pre-training and Continued Pre-training:
+    * Large-scale pre-training on massive amounts of general text, code, and MultiModal Machine Learning data enables the model to acquire  **general language understanding, world knowledge, and basic reasoning abilities** .
+    * For specific industries, continue pre-training on top of the general model through  ** Domain-adaptive Pretraining (DAPT) ** , introducing industry-specific terms, writing styles, and knowledge distributions.
+    * Multilingual / MultiModal Machine Learning pre-training enables the model to have**cross-lingual transfer**and**image-text / speech / Structured Data fusion**capabilities through shared semantic space and joint training.
+  * Fine-tuning Paradigm:
+    * **Full Parameter Fine-Tuning** : When the target task differs significantly from the pre-trained distribution and there is sufficient computing power and data, directly update all parameters to achieve the highest performance ceiling.
+    * **Parameter-Efficie** **nt Fine**  **-** **Tuni** **ng (PEFT) ** : By means of Adapter, LoRA / QLoRA, Prefix / P-Tuning, etc., only a very small number of "incremental parameters" are trained, making it suitable for scenarios involving multiple tasks, multiple clients, and frequent updates.
+    * **In****struction**  **Fine-tuning and Task Fine-tuning** : Teach the model to understand natural language task descriptions through the approach of "instruction + example"; it can be either for a single vertical task or support multiple tasks on a unified model.
+    * **RLHF** ** / RLAIF** : Train a reward model through human or AI feedback, and further align model behavior (politeness, safety, refusal strategy, values) using reinforcement learning.
+  * Distributed Training and Engineering System:
+    * Using strategies such as **Data Parallelism, Model Parallelism, Pipeline ** **Parallelism ** **, **  ** Tensor Parallelism ** , etc., the ultra-large model and large-scale data are split across multiple nodes and multiple cards in the cluster for collaborative training.
+    * Reduce **** GPU memory usage and improve training throughput through technologies such as ZeRO / FSDP , and achieve large-scale cluster training with efficient scheduling (Kubernetes + Slurm / Ray).
+    * Rely on standardized data pipelines (dataset loading, cleaning, deduplication, sharding, caching) and fine-tuning frameworks (Transformers Trainer, DeepSpeed, Lightning, etc.) to reduce reinventing the wheel.
+* **Model**
+  * Pre-training and Continued Pre-training Toolchain:
+    * Training Frameworks: PyTorch, TensorFlow, JAX.
+    * Large-scale training acceleration: DeepSpeed, Megatron-LM, Colossal-AI, Fairscale.
+    * Distributed training strategies: Data Parallelism (DP), Model Parallelism (MP), Pipeline Parallelism (PP), Tensor Parallelism; ZeRO / FSDP, Megatron (TP+PP), DeepSpeed ZeRO.
+    * Cluster Scheduling and Management: Kubernetes + Slurm / Ray / Horovod / TorchElastic.
+    * Data Pipeline: Hugging Face Datasets, WebDataset, Petastorm, tf.data, Arrow; Object Storage (S3 / OSS / GCS) + Local Cache; Data Cleaning and Deduplication Tools.
+  * Fine-tuning and PEFT Tools:
     * 微调框架：Hugging Face Transformers + Trainer / Accelerate、PyTorch Lightning、DeepSpeed、Colossal‑AI。
-    * PEFT 工具集：PEFT（LoRA / QLoRA / Prefix Tuning / Prompt Tuning 等）、LLaMA‑Adapter 及各类 LoRA 工具链。
-    * 指令与数据构建：Self‑Instruct、Alpaca / Dolly 风格 pipeline，各类数据增强与对话重写工具。
-  * RLHF / RLAIF 工具链：
+    * PEFT Toolkit: PEFT (LoRA / QLoRA / Prefix Tuning / Prompt Tuning, etc.), LLaMA‑Adapter, and various LoRA toolchains.
+    * Instruction and Data Construction: Self-Instruct, Alpaca / Dolly-style pipeline, various data augmentation and dialogue rewriting tools.
+  * RLHF / RLAIF Toolchain:
     * TRL（Transformers Reinforcement Learning）、trlx、DeepSpeed‑RLHF、自研 RLHF pipeline。
-    * 奖励模型训练、排序 / 评分模型、拒答策略与对齐策略模板。
+    * Reward Model Training, Ranking / Scoring Model, Rejection Strategy, and Alignment Strategy Template
 
-在产品形态上，这一层往往体现为： **模型底座研发平台、企业级“代训+定制”服务、一键微调平台与模型市场（Model Hub / Model Store）** ，支撑从“通用模型”到“千企千模”的生产化路径。
+In terms of product form, this layer often manifests as:  ** Model Base R&D Platform, Enterprise-level "Training + Customization" Service, One-click Fine-tuning Platform, and Model Market (Model Hub / Model Store) ** , supporting the production path from "general model" to "one model per enterprise".
 
-### 11.1.1 预训练与继续预训练：从通用能力到行业基座
+### 11.1.1 Pre-training and Continued Pre-training: From General Capabilities to Industry Foundation
 
-预训练是现代大模型能力的“源头工程”：通过对海量未标注文本、代码和多模态数据的自监督学习，模型逐渐获得语言建模、世界知识、基本推理与表示学习能力。在此基础上，继续预训练（特别是  **Domain‑adaptive Pretraining, DAPT** ）则承担了“把模型拉向某个垂直领域”的任务。
+Pre-training is the "source project" of the capabilities of modern large models: through self-supervised learning on massive amounts of unlabeled text, code, and MultiModal Machine Learning data, the model gradually acquires language modeling, world knowledge, basic reasoning, and representation learning capabilities. On this basis, continued pre-training (especially  **Domain-adaptive Pretraining, DAPT** ) then undertakes the task of "pulling the model towards a specific vertical domain".
 
-在**通用预训练**阶段，核心关注点包括：
+During ** the general pre-training ** phase, the core concerns include:
 
-1. **语料规模与多样性** ：混合网页文本、书籍、代码、对话、多语种内容以及图文对等多模态数据，尽可能覆盖广泛的知识与表达形式。
-2. **训练目标与多任务混合** ：除了经典的自回归语言建模外，有时会加入填空、下一句预测、对比学习、图文对齐等目标，提升模型的语义对齐与多模态理解。
-3. **多语言与对齐** ：通过共享词表或子词编码，以及跨语种平行语料或对齐任务，使模型在统一向量空间中对不同语言进行建模，实现 **跨语言迁移与翻译** 。
+1. **Corpus Scale and Diversity** : Mix web page text, books, code, conversations, multilingual content, and multimodal data such as image-text equivalence to cover as wide a range of knowledge and forms of expression as possible.
+2. **Training Objectiv****es ** **and Multi-Task Mixing** : In addition to classic autoregressive language modeling, objectives such as fill-in-the-blank, next sentence prediction, contrastive learning, and image-text alignment are sometimes added to enhance the model's semantic alignment and multi-modal understanding.
+3. **Multilingual and Alignment** : Through shared vocabulary or subword encoding, as well as cross-lingual parallel corpora or alignment tasks, the model can model different languages in a unified vector space, achieving  **cross-lingual transfer and translation** .
 
-在**行业继续预训练（DAPT）** 阶段，重点转向：
+During ** the Domain Adaptive Pre-training (DAPT) ** phase, the focus shifts to:
 
-1. **行业语料构建** ：从医疗病历与指南、法律判决书与法规条文、金融研报与交易数据、制造 / 能源 / 游戏设计文档等渠道构建专有语料。
-2. **风格与术语适配** ：通过大量领域内语料的继续预训练，使模型自然掌握行业术语、固定表达、专业写作风格与隐性知识（如临床表述习惯、法律措辞）。
-3. **企业级专有知识注入** ：对于大型企业或机构，可在通用 + 行业语料之外进一步加入企业内部文档、知识库、工单记录等，训练“企业专有大模型”作为统一智能底座。
+1. **Industry corpus construction** : Construct proprietary corpora from sources such as medical records and guidelines, legal judgments and regulations, financial research reports and transaction data, manufacturing/energy/game design documents, etc.
+2. **Style and Terminology Adaptation** : Through continued pre-training on a large amount of in-domain corpus, the model naturally acquires industry terminology, fixed expressions, professional writing styles, and implicit knowledge (such as clinical expression habits and legal wording).
+3. **Enterprise-level proprietary knowledge injection** : For large enterprises or institutions, in addition to general + industry corpora, internal enterprise documents, Knowledge Base, ticket records, etc. can be further added to train an "enterprise-specific large model" as a unified intelligent foundation.
 
-在工程实践中，预训练与继续预训练会配合大规模分布式框架（Megatron‑LM、DeepSpeed ZeRO 等）以及高效的数据 pipeline（WebDataset / HF Datasets + 对象存储）运行，形成 **稳定可复用的训练流水线** 。对于云厂商或大厂，这一流水线往往会被封装为内部平台，支持周期性增量预训练和多行业基座并行迭代。
+In engineering practice, pre-training and continued pre-training will cooperate with large-scale distributed frameworks (such as Megatron-LM, DeepSpeed ZeRO, etc.) and efficient data pipelines (WebDataset / HF Datasets + object storage) to form  ** a stable and reusable training pipeline ** . For cloud providers or large enterprises, this pipeline is often encapsulated into an internal platform to support periodic incremental pre-training and parallel iteration of multi-industry base models.
 
-### 11.1.2 微调范式与 RLHF：从“能说话”到“懂业务、守边界”
+### 11.1.2 Fine-tuning Paradigm and RLHF: From "Being Able to Speak" to "Understanding Business and Respecting Boundaries"
 
-在拥有强大的预训练基座之后，如何让模型“对业务有用”并“行为可控”，关键在于微调与对齐阶段。这里既包括传统意义上的监督微调（SFT），也包括指令微调、多任务微调和基于反馈的强化学习（RLHF / RLAIF）。
+After having a powerful pre-trained foundation, the key to making the model "useful for business" and "behaviorally controllable" lies in the fine-tuning and alignment stages. This includes both traditional supervised fine-tuning (SFT), as well as instruction fine-tuning, multi-task fine-tuning, and reinforcement learning based on feedback (RLHF / RLAIF).
 
-在**微调范式**层面，可以大致分为：
+At the**fine-tuning paradigm**level, it can be roughly divided into:
 
-1. **全参数微调（Full Fine‑tuning）**
-   在任务分布与预训练差异很大，或对极致性能有刚性要求且算力充足的场景（如特定编程语言模型、特定语言 / 行业对话模型）中，直接更新全部参数可以获得最大性能上限。但其成本高、版本管理复杂，一般只在少数核心模型上使用。
-2. **参数高效微调（PEFT）**
-   通过 Adapter、LoRA / QLoRA、Prefix / P‑Tuning 等方法，仅对插入的“小块增量参数”或权重低秩增量进行训练，原始大模型权重保持冻结。这带来了三点工程优势：
-   1. 多任务 / 多客户可以共享同一基座，只切换不同的 Adapter / LoRA 权重。
-   2. 显著降低显存与算力需求，支持在中小型 GPU 集群或单机环境中完成微调。
-   3. 更新频繁、回滚简单，便于快速试错与 A/B 实验。
-3. **指令微调与任务微调**
-   1. **指令微调（Instruction Tuning）** ：通过“自然语言指令 + 输入 + 期望输出”的样本，让模型学会理解“帮我…”“请解释…”等人类指令形式，从而摆脱任务特定模板。
-   2. **单任务微调** ：如仅针对客服问答、代码补全、法律咨询等垂直任务进行微调，最大化该任务表现。
-   3. **多任务微调** ：在统一模型上同时承载多种任务（问答、摘要、翻译、代码、推荐理由生成等），提升模型通用性和资源利用率。
+1. **Full Fine-tuning**
+   In scenarios where the task distribution differs significantly from pre-training, or there are rigid requirements for ultimate performance and sufficient computing power is available (such as specific programming language models, specific language/industry dialogue models), directly updating all parameters can achieve the maximum performance ceiling. However, it has high costs and complex version management, so it is generally only used on a few core models.
+2. **Parameter-Effici****ent Fin** **e** **-Tun****ing (PEFT) **
+   trains only the inserted "small incremental parameters" or low-rank weight increments through methods such as Adapter, LoRA/QLoRA, Prefix/P-Tuning, while keeping the weights of the original large model frozen. This brings three engineering advantages:
+   1. Multiple tasks / multiple clients can share the same base model, only switching different Adapter / LoRA weights.
+   2. Significantly reduces the requirements for video memory and computing power, supporting fine-tuning to be completed in small and medium-sized GPU clusters or single-machine environments.
+   3. Frequent updates, easy rollback, facilitating rapid trial-and-error and A/B testing.
+3. **In****struction Tuning and Task Tuning**
+   1. **In****struction Tunin** **g** : Through samples of "natural language instruction + input + expected output", the model learns to understand human instruction forms such as "Help me..." and "Please explain...", thereby breaking free from task-specific templates.
+   2. **Single-task fine-tuning** : For example, fine-tuning is performed only for vertical tasks such as customer service Q&A, code completion, legal consultation, etc., to maximize the performance of that task.
+   3. **Multi-task fine-tuning** : Simultaneously handle multiple tasks (such as question answering, summarization, translation, code generation, recommendation reason generation, etc.) on a unified model to improve model generality and resource utilization.
 
-在**行为对齐与安全性**层面，**RLHF / RLAIF** 起到关键作用：
+At the**behavi****or a****lignment and security**level,**RLHF / RLAIF**plays a key role:
 
-1. **奖励模型（Reward Model）训练** ：收集人类或 AI 对模型多种候选回答的偏好（排序 / 打分），训练一个能评估“回答好坏”的奖励模型。
-2. **强化学习（如 PPO）优化基座模型** ：在奖励模型的指导下，通过强化学习调整模型参数，使其更符合人类偏好和平台价值观，例如：
-3. 更礼貌、中立、专业；
-4. 对危险、违规、隐私相关请求进行拒答或安全改写；
-5. 在有不确定性时表明不确定，而非虚构事实。
-6. **RLAIF 与自监督对齐** ：在部分场景下，使用强基座模型作为反馈者，或结合规则与自动化评估，对微调过程进行半自动对齐，降低人工标注成本。
+1. **Reward Model Training ** : Collect human or AI preferences (ranking/scoring) for multiple candidate answers of the model, and train a reward model that can evaluate the "goodness or badness of answers".
+2. **Rein****for****cem** **ent learning (such as PPO) optimizes the base model ** : Guided by the reward model, adjust the model parameters through reinforcement learning to make it more in line with human preferences and platform values, for example:
+3. More polite, neutral, and professional;
+4. Reject or safely rewrite requests related to danger, violations, or privacy;
+5. When there is uncertainty, indicate it rather than fabricating facts.
+6. **RLAIF and Self-Supervised Alignment** : In some scenarios, using a strong base model as a feedback provider, or combining rules with automated evaluation, to perform semi-automatic alignment during the fine-tuning process, reducing the cost of manual annotation.
 
-工具链方面，Hugging Face Transformers + PEFT、TRL / trlx、DeepSpeed‑RLHF 等框架，已经基本形成了从 SFT → RM 训练 → RLHF 的**标准工业工作流** 。在产品定义上，这一层典型落地为：**模型定制 / 代训服务、一键微调平台、多租户模型市场与行业 / 企业专有大模型工程平台** 。
+In terms of toolchains, frameworks such as Hugging Face Transformers + PEFT, TRL / trlx, and DeepSpeed‑RLHF have basically formed a ** standard industrial workfl****ow ** from SFT → RM training → RLHF. In terms of product definition, this layer typically materializes into:  ** model customization / training service, one-click fine-tuning platform, multi-tenant model marketplace, and industry / enterprise-specific large model engineering platform ** .
 
-## 11.2 模型部署与推理（Serving & Optimization）
+## 11.2 Model Deployment and Inference (Serving & Optimization)
 
-在训练好大模型之后，如何以 **高可用、**  **低延迟** **、可扩展、可降本**的方式提供推理服务，是 AI 工程体系的第二根支柱。部署与推理层一端连接 GPU / NPU 等算力集群，另一端连接 API 网关、企业应用和对外开放平台，其核心职责包括： **部署架构设计、模型路由策略、推理性能优化与硬件利用** 。
+After training a large model, how to provide inference services in a ** h****igh****ly ****av****ai****lable, ** **low****la****tency ** **, scalable, and cost-effective ** manner is the second pillar of the AI engineering system. The deployment and inference layer connects to computing clusters such as GPU / NPU on one end and API gateways, enterprise applications, and Open Platform on the other end. Its core responsibilities include:  ** deployment architecture design, model routing strategy, inference Performance optimization, and hardware utilization ** .
 
-从整体来看，这一层要解决三个问题： **用什么架构对外服务** 、 **如何让推理更快更便宜** 、 **如何在多模型、多地域、多租户环境下保持高可用与可治理** 。
+Overall, this layer needs to address three issues: ** What architecture to use for external services** ,  ** How to make inference faster and cheaper** ,  ** How to maintain high availability and governance in a multi-model, multi-region, and multi-tenant environment** .
 
-* **场景**
-  * 企业内部 AI 中台 / 模型服务总线：统一为各业务线提供大模型 API，屏蔽底层模型和硬件差异。
-  * 对外开放云 API：向外部开发者与生态伙伴提供标准化的推理接口，支持多模型选择与版本管理。
-  * 高 QPS 在线业务：客服助手、搜索、推荐、办公助手等对延迟和稳定性要求极高的场景。
-  * 低成本离线生成：广告 / 游戏文案、知识库生成、代码批量重构等以吞吐与成本为主、对实时性要求不高的批处理任务。
-  * 跨地域、多集群部署：为全球或多区域用户提供就近访问，同时支持多云或混合云形态。
-* **原理**
-  * 部署架构与模型路由：
-    * **单模型服务** ：在早期或简单场景下，以一个主模型对外提供统一服务，架构简单，但难以兼顾延迟与成本。
-    * **多模型服务与路由** ：针对不同任务、延迟要求、成本约束、用户等级等维度，配置不同大小或不同专长的模型，并通过规则或 Meta‑model 进行请求路由（包括 A/B 测试、多臂老虎机 / Bandit 策略等）。
-    * **多租户隔离与 ****SLA** ** 管理** ：在多客户场景中，通过资源配额、QPS 限制、访问鉴权和 SLA 分级确保不同租户之间在性能与安全上的隔离。
-    * **弹性扩容与高可用** ：借助 Kubernetes / Service Mesh 等基础设施，实现自动扩缩容、多副本部署、灰度发布、蓝绿部署和跨区域容灾。
-  * 推理性能优化：
-    * **模型压缩与加速** ：通过量化（INT8 / INT4 / NF4 / GPTQ / AWQ）、剪枝 / 稀疏化、知识蒸馏等手段减少模型计算量与显存占用。
-    * **系统级优化** ：利用 KV Cache 缓存注意力键值，加速长对话与连续推理；通过批处理（Batching）、并行 token 生成和流式输出平衡吞吐与延迟；通过算子融合和图优化减少内存访问和内核启动开销。
-    * **异构硬件利用** ：针对 GPU、CPU、NPU、FPGA、ASIC 等不同硬件构建适配的 Runtime 与调度策略，在单机多卡、多机多卡场景下通过 NVLink / RDMA 等高速互联提升整体效率。
-  * 工程与运维：
-    * 使用 vLLM、TGI、Triton 等专用推理框架，显著降低自研成本。
-    * 通过 ONNX Runtime、TensorRT、TVM、OpenVINO 等编译器与 Runtime 进行跨平台部署与算子级优化。
-    * 借助 Kubernetes、Ray、Service Mesh 和 API 网关构建统一的 **在线推理集群与流量调度层** 。
-* **模型**
-  * Serving 框架与推理服务：
+* **Scenario**
+  * Enterprise Internal AI Mid-Platform / Model Service Bus: Uniformly provides large model APIs for each Line of Business, shielding the differences in underlying models and hardware.
+  * Open Cloud API: Provide standardized inference interfaces to external developers and ecosystem partners, supporting multi-model selection and version management.
+  * High QPS online services: scenarios with extremely high requirements for latency and stability, such as customer service assistants, search, recommendation, work assistants, etc.
+  * Low-cost offline generation: Batch processing tasks such as advertising/game copywriting, Knowledge Base generation, and code batch refactoring, which prioritize throughput and cost and have low real-time requirements.
+  * Cross-regional, multi-cluster deployment: Provides nearby access for global or multi-regional users while supporting multi-cloud or Hybrid Cloud configurations.
+* **Principle**
+  * Deployment Architecture and Model Routing:
+    * **Single Model Service** : In early or simple scenarios, a single main model is used to provide unified external services. The architecture is simple, but it is difficult to balance latency and cost.
+    * **Multi-model Service and Routing** : Configure models of different sizes or with different specializations based on dimensions such as different tasks, latency requirements, cost constraints, user levels, etc., and perform request routing through rules or Meta-model (including A/B testing, multi-armed bandit/Bandit strategies, etc.).
+    * **Multi-Tenant Isolation and **SLA ****** Ma** **nagement** : In multi-customer scenarios, isolation in performance and security between different tenants is ensured through resource quotas, QPS limits, access authentication, and SLA classification.
+    * **Elastic Scaling and High Availability** : Leveraging infrastructure such as Kubernetes/Service Mesh to achieve automatic scaling, multi-replica deployment, canary release, Blue-Green Deployment, and cross-region disaster recovery.
+  * Inference Performance Optimization:
+    * **Model Compression and Acceleration** : Reduce model computational load and memory footprint through techniques such as quantization (INT8 / INT4 / NF4 / GPTQ / AWQ), pruning / sparsification, knowledge distillation, etc.
+    * **System-lev****el** ** optimization** : Utilize KV Cache to cache attention key-value pairs, accelerating long conversations and continuous inference; balance throughput and latency through batching, parallel token generation, and streaming output; reduce memory access and kernel launch overhead through operator fusion and graph optimization.
+    * **Heterogeneo****us ****hardw****are**** utili****zati** **on ** : Build adapted Runtime and scheduling strategies for different hardware such as GPU, CPU, NPU, FPGA, ASIC, etc., and improve overall efficiency through high-speed interconnection such as NVLink / RDMA in scenarios of single-machine multi-card and multi-machine multi-card.
+  * Engineering and Operations and Maintenance:
+    * Using dedicated inference frameworks such as vLLM, TGI, and Triton significantly reduces self-developed costs.
+    * Perform cross-platform deployment and operator-level optimization through compilers and runtimes such as ONNX Runtime, TensorRT, TVM, and OpenVINO.
+    * Build a unified **online inference ****clu****s****te****r and traffic scheduling layer **using Kubernetes, Ray, Service Mesh, and API Gateway.
+* **Model**
+  * Serving Framework and Inference Service:
     * vLLM、TGI（Text Generation Inference）、Triton Inference Server。
     * Ray Serve、KServe、TorchServe、SageMaker Endpoint、Vertex AI Endpoint 等。
-  * 集群与调度：
+  * Cluster and Scheduling:
     * Kubernetes（K8s）、Kubeflow、Ray、Slurm。
-    * Service Mesh：Istio / Linkerd（支持灰度、限流、熔断、回退等流量治理）。
-  * API 网关与鉴权：
+    * Service Mesh: Istio / Linkerd (supports traffic governance such as canary release, rate limiting, circuit breaking, fallback, etc.).
+  * API Gateway and Authentication:
     * Kong、NGINX / APISIX / Envoy。
     * IAM / Keycloak / Auth0、云厂商 API Gateway、OAuth2 / OIDC 等。
-  * 模型压缩与性能库：
+  * Model Compression and Performance Library:
     * 量化：NVIDIA TensorRT‑LLM / TensorRT、Intel Neural Compressor、OpenVINO（PTQ / QAT）、BitsAndBytes、GPTQ、AWQ、AutoGPTQ。
     * 剪枝 / 稀疏：PyTorch Sparse、TensorFlow Model Optimization Toolkit、SparseML、Neural Magic。
-    * 蒸馏：DistilBERT / TinyBERT 等参考方案，或基于 Hugging Face Trainer + 自定义 distillation loss 的蒸馏 pipeline。
-  * 推理引擎 / Runtime 与图优化：
+    * Distillation: Reference solutions such as DistilBERT / TinyBERT, or a distillation pipeline based on Hugging Face Trainer + custom distillation loss.
+  * Inference Engine / Runtime and Graph Optimization:
     * ONNX Runtime、TensorRT、OpenVINO Runtime、TVM、MNN、NCNN。
-    * 大模型专用推理引擎：Sglang、vLLM、FasterTransformer、TGI、LMDeploy、DeepSpeed‑Inference。
+    * Specialized inference engines for large models: Sglang, vLLM, FasterTransformer, TGI, LMDeploy, DeepSpeed‑Inference.
     * 编译与图优化：TVM、XLA（JAX/TF）、TensorRT Graph Optimizer、TorchDynamo / TorchInductor、MLIR、Glow、ONNX Graph Optimizer、Intel NNCF 等。
-  * 硬件与异构支持：
+  * Hardware and Heterogeneous Support:
     * GPU：CUDA / cuDNN / cuBLAS、ROCm（AMD）。
-    * CPU：oneDNN（MKL‑DNN）、OpenBLAS、Eigen。
-    * NPU / 专用加速卡：Ascend CANN、Habana Gaudi、Graphcore IPU 等 SDK。
+    * CPU: oneDNN (MKL‑DNN), OpenBLAS, Eigen.
+    * NPU / Specialized Accelerator Card: SDKs such as Ascend CANN, Habana Gaudi, Graphcore IPU, etc.
 
-在产品侧，这一层常以 **企业 AI 中台 / 模型服务总线、对外云 ** **API** **、统一推理** **网关** **、高 ****QPS**** 在线推理集群、低成本****批处理****平台与****算力****利用率优化方案** 的形态出现，是支撑大模型能力规模化落地的运行时“操作系统”。
+On the product side, this layer often appears in the form of **Enterprise AI Mid-Platform / Model Service Bus, External Cloud ** **API** **, Unified Inference ** **Gateway **  **, High QPS Online Inference Cluster, Low-cost Batch Processing Platform, and Computing Power Utilization Optimization Solution ** , serving as the runtime "operating system" that supports the large-scale implementation of large model capabilities.
 
-### 11.2.1 部署架构与模型路由：从单模型到多模型服务网格
+### 11.2.1 Deployment Architecture and Model Routing: From Single Model to Multi-Model ByteMesh
 
-在早期尝试阶段，很多团队会选择以一个“大而全”的模型作为**单一入口**提供服务：所有请求都经由同一个模型处理。这种模式架构简单、维护成本低，适合 POC 与低流量场景。但随着业务扩展和成本压力上升，单模型架构的不足会迅速暴露：
+During the early experimental phase, many teams choose to use a "comprehensive" model as the**single entry point**to provide services: all requests are processed by the same model. This model architecture is simple and has low maintenance costs, making it suitable for POC and low-traffic scenarios. However, as business expands and cost pressures rise, the shortcomings of the single-model architecture will quickly become apparent:
 
-1. 不同任务对延迟 / 成本 / 质量的要求并不相同，用同一个大模型处理所有请求会造成**算力** **浪费** 。
-2. 面向不同行业、不同客户需要提供差异化能力，例如行业专有模型、客户专属微调权重，很难在“单模型”模式下统一管理。
-3. 灰度发布、A/B 测试、跨地域灾备等场景要求能够在多个模型版本之间灵活调度。
+1. Different tasks have different requirements for latency, cost, and quality. Using a single large model to handle all requests will result in ** computational resource **  ** waste ** .
+2. Providing differentiated capabilities tailored to different industries and customer needs, such as industry-specific models and customer-exclusive fine-tuning weights, is difficult to manage uniformly under the "single model" approach.
+3. Scenarios such as canary release, A/B testing, and cross-regional disaster recovery require the ability to flexibly schedule between multiple model versions.
 
-因此，成熟的大模型服务体系往往会演进为**多模型服务与智能路由**架构：
+Therefore, a mature large model service system often evolves into**Multi-Model Service and Intelligent Routing**architecture:
 
-1. **多模型池与模型目录** ：同时维护多种大小（small / base / large / ultra）、多种专长（通用 / 代码 / 多模态 / 行业专用）、多种版本（v1 / v1.1 / 客户定制等）的模型，并在服务层对其进行统一注册与管理。
-2. **路由策略** ：
-3. **规则路由** ：基于请求参数（任务类型、用户等级、延迟 / 成本偏好等）以及业务规则（某行业某区域强制使用特定模型）进行显式选择。
-4. **模型选择器（**  **Meta**  **‑model）** ：使用一个轻量级模型根据输入内容、历史效果、实时指标自动选择最优模型（如快速小模型 vs. 慢速大模型）。
-5. **A/B / Bandit 路由** ：在新旧模型或不同配置之间进行在线实验，根据 CTR、用户满意度、任务成功率等指标自动收敛到更优方案。
-6. **多租户隔离与配额管理** ：
-7. 在模型路由之上叠加租户维度的配额控制、QPS 限制、访问鉴权与 SLA 分级，确保不同客户之间的资源与数据隔离。
-8. 通过**逻辑隔离 + 物理隔离（独占集群或专用节点）** n应对金融 / 医疗 / 政务等高合规场景。
-9. **弹性扩缩容与高可用** ：
-10. 基于 Kubernetes HPA / VPA、Cluster Autoscaler 实现按流量自动扩缩容。
-11. 通过多副本部署、负载均衡、灰度发布、蓝绿部署和多区域容灾保证服务稳定性。
+1. **Multi-Model Pool and Model Catalog** : Simultaneously maintain models of various sizes (small / base / large / ultra), various specializations (general / code / MultiModal Machine Learning / industry-specific), and various versions (v1 / v1.1 / customer customization, etc.), and perform unified registration and management on them at the service layer.
+2. **Routing Policy ** :
+3. **Rule-based Routing ** : Explicit selection is made based on request parameters (task type, user level, latency/cost preference, etc.) and business rules (e.g., a specific model is mandatory for a certain industry in a certain region).
+4. **Model S****elec****tor (** **Meta**  **‑model)** : Uses a lightweight model to automatically select the optimal model (e.g., fast small model vs. slow large model) based on input content, historical performance, and real-time metrics.
+5. **A/B / Bandit Routing** : Conduct online experiments between old and new models or different configurations, and automatically converge to a better solution based on metrics such as CTR, Customer Satisfaction Score, and Task Success Rate.
+6. **Multi-tenant Isolation and Quota Management** :
+7. Overlay quota control, QPS limits, access authentication, and SLA classification at the tenant dimension on top of model routing to ensure resource and data isolation between different customers.
+8. Through ** Logical Separation + Physical Separation (Exclusive Cluster or Dedicated Node) ** n to address high-compliance scenarios such as finance, healthcare, and government affairs.
+9. **Elastic Scaling and High Availability ** :
+10. Based on Kubernetes HPA/VPA and Cluster Autoscaler, it implements automatic scaling according to traffic.
+11. Ensure service stability through multi-replica deployment, load balance, canary release, Blue-Green Deployment, and multi-region disaster recovery.
 
-技术上，往往会采用 **Kubernetes + Service Mesh（Istio / Linkerd）+ ****API** **网关** **（Kong / APISIX / ** **Envoy** **）+ 模型服务框架（vLLM / TGI / Triton / Ray Serve / KServe）** 的组合，形成一个既支持多模型、多租户，又支持流量治理与灰度发布的 **服务网格化推理平台** 。
+Technically, a combination of **Kubernetes + Service Mesh (Istio / Linkerd) + ****API** ** Ga****teway** **(Kong / APISIX / ** ** Envoy ** **) + Model Serving Framework (vLLM / TGI / Triton / Ray Serve / KServe) ** is often adopted to form a ** service mesh-based inference platform ** that supports both multi-model, multi-tenant, and traffic governance and canary release.
 
-### 11.2.2 推理性能优化与硬件加速：把“推理一次多少钱”压到最低
+### 11.2.2 Inference Performance Optimization and Hardware Acceleration: Minimize the cost per inference
 
-在大模型大规模商用场景中，推理成本往往是最大的持续支出之一。如何在保证体验的前提下，将**单位请求成本（Cost per Request / per Token）和端到端延迟**压缩到可接受范围，是部署层的核心技术挑战。
+In large model large-scale commercial scenarios, inference cost is often one of the largest ongoing expenditures. How to compress ** cost per request / per token and end-to-end latency ** to an acceptable range while ensuring the user experience is the core technical challenge at the deployment layer.
 
-在 **模型侧** ，常见手段包括：
+On the  **model side** , common measures include:
 
-1. **量化（Quantization）**
-   通过将权重和激活从 FP16 / BF16 压缩到 INT8 / INT4 / NF4 等低比特格式，显著降低显存占用和带宽开销。
-   1. 训练后量化（PTQ）：如 GPTQ、AWQ、BitsAndBytes 等，对已有模型进行离线量化。
-   2. 量化感知训练（QAT）：在训练 / 微调阶段考虑量化误差，提升量化后精度。
-2. **剪枝** **与稀疏化（** **Pruning**** & Sparsity）**
-   通过结构化 / 非结构化剪枝去除不重要的权重或通道，使模型稀疏化，并结合硬件友好的稀疏算子（如 NVIDIA 稀疏矩阵加速）提高推理速度。
-3. **蒸馏（Distillation）**
-   使用大模型作为教师，将知识蒸馏到更小的学生模型或任务特定模型上，在大幅降低参数规模的同时保持接近的任务性能，适合对延迟极敏感的在线业务或边缘部署。
+1. **Quantization**
+   significantly reduces GPU memory usage and bandwidth overhead by compressing weights and activations from FP16 / BF16 to low-bit formats such as INT8 / INT4 / NF4.
+   1. Post-Training Quantization (PTQ): Such as GPTQ, AWQ, BitsAndBytes, etc., which perform offline quantization on existing models.
+   2. Quantization Aware Training (QAT): Considers quantization error during the training/fine-tuning phase to improve post-quantization accuracy.
+2. **Pr****uning ** **and Spa****rsity ( **  **Pruning ** ** & Sparsity) **
+   Sparse the model by removing unimportant weights or channels through structured/unstructured pruning, and improve inference speed by combining hardware-friendly sparse operators (such as NVIDIA sparse matrix acceleration).
+3. **Distillation**
+   Uses a large model as a teacher to distill knowledge onto a smaller student model or task-specific model, significantly reducing the parameter scale while maintaining comparable task performance, making it suitable for online services highly sensitive to latency or edge deployment.
 
-在 **系统与 Runtime 侧** ，关键优化点包括：
+On the  **System and Runtime side** , key optimization points include:
 
-1. **KV** ** Cache 与长上下文优化** ：
-   在自回归生成中缓存历史 token 的注意力键值，避免重复计算，从而提高长对话与多轮请求的效率；结合分块计算和动态裁剪策略控制显存开销。
-2. **批处理****与****并行** **生成** ：
-   通过对多个请求进行动态批处理、分组调度和并行 token 生成，在不显著增加 P95 延迟的前提下提高整体吞吐；结合流式输出（Streaming）改善前端交互体验。
-3. **算子与图优化** ：
-   使用编译器和 Runtime（如 TensorRT、TVM、ONNX Runtime、TorchInductor）进行算子融合、内存布局优化、静态图编译，减少 kernel 启动和内存访问开销。
-4. **异构硬件调度** ：
-   根据不同任务的计算特性与延迟要求，在 GPU、CPU、NPU、FPGA 等异构资源之间做合理分配：
-5. 极度延迟敏感和高并发的对话 / 搜索请求优先调度到 GPU / NPU。
-6. 批量生成、离线评估、日志回放等任务可以调度到 CPU 或低成本 GPU / NPU。
+1. **KV** ** Cache and Long Context Optimization**:
+   In autoregressive generation, cache the attention key-value pairs of historical tokens to avoid redundant computation, thereby improving the efficiency of long conversations and multi-round requests; combine block computation and dynamic pruning strategies to control GPU memory overhead.
+2. **Bat****c****h ****Processing and Parallel**  ** Generation ** :
+   By dynamically batching multiple requests, performing grouped scheduling, and parallel token generation, overall throughput is increased without significantly increasing P95 latency; combined with streaming output to improve the front-end interactive experience.
+3. **Operator and Graph Optimization** : Use compilers and Runtimes (such as TensorRT, TVM, ONNX Runtime, TorchInductor) for operator fusion, memory layout optimization, and static graph compilation to reduce kernel launch and memory access overhead.
+4. **Heterogeneous Hardware Sched****uli** **ng ** :
+   Based on the computational characteristics and latency requirements of different tasks, make reasonable allocations among heterogeneous resources such as GPU, CPU, NPU, and FPGA:
+5. Extremely latency-sensitive and high-concurrency conversation/search requests are preferentially scheduled to GPU/NPU.
+6. Tasks such as batch generation, offline evaluation, and log replay can be scheduled to CPU or low-cost GPU/NPU.
 
-工具与框架上，TensorRT‑LLM、SgLang、vLLM、FasterTransformer、LMDeploy、DeepSpeed‑Inference 等已经形成了一套相对成熟的**大模型** **推理加速生态** 。在业务侧，这些优化最终体现为：**高 ** **QPS**  **、** **低延迟** **的在线推理集群、低成本批量生成平台、** **算力****利用率优化方案与 MaaS / ****API** ** 计费和成本核算系统** 。
+In terms of tools and frameworks, TensorRT-LLM, SgLang, vLLM, FasterTransformer, LMDeploy, DeepSpeed-Inference, etc. have formed a relatively mature **large mo****de****l ** **inference acceler****ati** **on ecosystem ** . On the business side, these optimizations are ultimately reflected in: ** high ** **QPS ** **, ** **low-latency **  **online inference cluster, low-cost batch generation platform, ** ** computing power *** utilization optimization scheme and MaaS/  **API ** billing and cost accounting system ** .
 
-## 11.3 数据与模型运维（Data / Model Ops）
+## 11.3 Data and Model Operation and Maintenance (Data / Model Ops)
 
-大模型一旦进入生产环境，就不再是“一次性交付”的静态资产，而是需要在**数据、模型、配置、版本和实验**五个维度持续迭代的动态系统。数据与模型运维层（Data / Model Ops）就是围绕这一现实构建的工程范式：从数据飞轮、模型生命周期管理到在线实验和自动化发布，为模型能力的**可持续提升与可控演进**提供基础。
+Once a large model enters the production environment, it is no longer a static asset of "one-time delivery", but a dynamic system that needs to be continuously iterated in **five dimensions: data, model, configuration, version, and experiment** . The Data / Model Operation and Maintenance layer (Data / Model Ops) is an engineering paradigm built around this reality: from data flywheel, model lifecycle management to online experiments and automated release, it provides a foundation for the**sustainable improvement and controllable evolution**of model capabilities.
 
-这一层一端连接数据湖 / 数仓、日志与采集系统，另一端连接训练平台、评估体系和在线服务网关，是打通“数据–模型–业务反馈”闭环的中枢。
+This layer connects the Data lake / data warehouse, logging and collection systems at one end, and the training platform, evaluation system, and online service gateway at the other end, serving as the central hub for closing the loop of "data - model - business feedback".
 
-* **场景**
-  * 企业级数据中台 + 模型训练一体化平台：打通数据采集、清洗、标注、管理到训练 / 微调的全链路，支撑多模型持续迭代。
-  * 面向 C 端 / B 端 AI 应用的“效果持续提升机制”：依赖用户反馈和使用数据驱动的数据飞轮。
-  * 标注团队与算法团队共用的数据管理与标注工作台：支持任务分配、质检、版本回溯。
-  * 集团级 ModelOps 平台：统一记录和管理所有模型版本、评估结果与发布状态。
-  * 在线业务实验与灰度体系：支持 A/B 测试、多模型小流量试运行和自动择优放量。
-  * 模型托管服务：为合作伙伴 / 客户提供“一处上传，多环境部署，多版本管理”的模型管理能力。
-* **原理**
-  * 数据管理与数据飞轮：
-    * **数据采集与治理** ：从业务日志、用户对话、公开数据、合作方数据中采集样本，对其进行去重、降噪、脱敏、格式统一和质量评估。
-    * **标注与反馈闭环** ：通过专家标注与众包结合、配合质检机制构建高质量标注数据；将用户的点赞 / 点踩、纠错、人工复核等反馈回流至训练样本池。
-    * **数据飞轮（Data Flywheel）** ：模型上线后，持续收集真实使用数据 → 从中挑选高价值样本（如模型错误、低信度、高收益任务）→ 再训练或微调 → 模型效果提升 → 新一轮使用，形成正反馈循环。
-  * 模型生命周期与发布：
-    * **模型版本管理** ：为每个模型维护清晰的版本号（大小版本）、训练数据版本、配置参数、评估结果、安全报告与变更记录。
-    * **CI/CD** ** 与自动化流水线** ：训练完成后自动触发评估与安全检查，通过回归测试和阈值门控，只有在关键指标不过度退化的情况下才允许灰度发布与全量上线。
-    * **实验与流量分配** ：使用 A/B 测试、多臂老虎机等在线实验方法，对多版本模型进行对比，按实时业务指标（例如任务成功率、工单解决率、用户满意度）自动择优。
-* **模型**
-  * 数据湖与数仓：
-    * Delta Lake、Apache Hudi、Iceberg、Hive、BigQuery、Snowflake 等，用于统一存储与管理大规模结构化 / 非结构化数据。
-  * 流式数据处理：
-    * Kafka、Pulsar、Flink、Spark Streaming 等，用于实时日志、用户对话和事件流接入。
-  * 特征与样本管理：
-    * Feast 等 Feature Store、自研样本仓、ML Metadata Store，用于记录样本、特征和训练元数据。
-  * 标注与质检平台：
-    * Label Studio、Scale‑like 平台、自研标注系统，支持多任务标注、质检与人员管理。
-  * MLOps / ModelOps 平台：
-    * MLflow、Kubeflow、SageMaker、Vertex AI、Azure ML、Weights & Biases 等，用于管理训练实验、参数、指标和模型 artifact。
-  * 模型注册与版本管理：
+* **Scenario**
+  * Enterprise-level Data Mid-platform + Integrated Model Training Platform: Connects the whole-link from data acquisition, cleaning, annotation, management to training/fine-tuning, supporting continuous iteration of multiple models.
+  * The "continuous effectiveness improvement mechanism" for C/B-end AI applications: relies on a data flywheel driven by user feedback and usage data.
+  * Data management and annotation workbench shared by the annotation team and the algorithm team: supports task assignment, quality inspection, and version rollback.
+  * Group-level ModelOps Platform: Unified recording and management of all model versions, evaluation results, and release status.
+  * Online business experiment and canary release system: Supports A/B testing, small-traffic trial runs of multiple models, and automatic optimal scaling.
+  * Model Hosting Service: Provides partners/customers with model management capabilities of "upload once, deploy across multiple environments, and manage multiple versions".
+* **Principle**
+  * Data Management and Data Flywheel:
+    * **Data Acquisition and Governance** : Collect samples from business logs, user conversations, public data, and partner data, and perform deduplication, noise reduction, desensitization, format standardization, and quality assessment on them.
+    * **Annotation and F****ee** **dback Closed Loop** : Build high-quality annotated data through the combination of expert annotation and crowdsourcing, and in conjunction with the quality inspection mechanism; feed back user feedback such as likes/dislikes, corrections, and manual reviews back into the training sample pool.
+    * **Data Flywheel** : After the model is launched, continuously collect real usage data → select high-value samples (such as model errors, low confidence, high-yield tasks) from it → retrain or fine-tune → improve model performance → start a new round of usage, forming a positive feedback loop.
+  * Model Lifecycle and Release:
+    * **Model Version Management** : Maintain clear version numbers (major and minor versions), training data versions, configuration parameters, evaluation results, security reports, and change logs for each model.
+    * **CI/CD** **and Automated Pipeline**: After training is completed, evaluation and security checks are automatically triggered. Through regression testing and threshold gating, canary release and full release are only allowed if key metrics do not degrade excessively.
+    * **Experiment and Traf****fic A** **llocation** : Use online experimental methods such as A/B testing and multi-armed bandits to compare multi-version models, and automatically select the best one based on real-time business metrics (e.g., task success rate, ticket resolution rate, Customer Satisfaction Score).
+* **Model**
+  * Data lake and data warehouse:
+    * Delta Lake, Apache Hudi, Iceberg, Hive, BigQuery, Snowflake, etc., are used for unified storage and management of large-scale structured/unstructured data.
+  * Streaming Data Processing:
+    * Kafka, Pulsar, Flink, Spark Streaming, etc., are used for real-time log, user conversation, and event stream ingestion.
+  * Feature and Sample Management:
+    * Feature Stores such as Feast, self-developed sample repository, and ML Metadata Store are used to record sample, feature, and training metadata.
+  * Annotation and Quality Inspection Platform:
+    * Label Studio, Scale-like platforms, and self-developed annotation systems support multi-task annotation, quality inspection, and personnel management.
+  * MLOps / ModelOps Platform:
+    * MLflow, Kubeflow, SageMaker, Vertex AI, Azure ML, Weights & Biases, etc., are used to manage training experiments, parameters, metrics, and model artifacts.
+  * Model Registration and Version Management:
     * MLflow Model Registry、SageMaker Model Registry、W&B Artifacts 等。
-  * CI/CD 工具：
-    * GitHub Actions、GitLab CI、Jenkins、Argo CD、Flux 等，用于构建模型持续交付管线。
+  * CI/CD Tools:
+    * GitHub Actions, GitLab CI, Jenkins, Argo CD, Flux, etc., are used to build the Code Pipeline for model continuous delivery.
 
-### 11.3.1 数据飞轮与训练闭环：让模型“越用越聪明”
+### 11.3.1 Data Flywheel and Training Closed Loop: Making the Model "Smarter with Use"
 
-在传统软件开发中，版本升级往往由开发计划驱动；而在大模型时代，**数据与反馈**成为迭代的主要驱动力。数据飞轮的目标，就是把“模型使用 → 数据沉淀 → 再训练 → 模型升级”变成一条自动滚动的闭环，让模型在实际业务中 **越用越好用** 。
+In traditional software development, version upgrades are often driven by development plans; while in the era of large models, ** data and feedback ** have become the main drivers of iteration. The goal of the data flywheel is to turn "model usage → data precipitation → retraining → model upgrade" into an automatically rolling closed loop, enabling the model to ** become more and more useful ** in actual business.
 
-核心环节包括：
+Core steps include:
 
-1. **在线数据采集与筛选**
-   在对话机器人、Copilot、搜索问答、代码助手等应用中，每一次用户交互都是潜在的高价值训练样本。通过日志系统和事件追踪，将请求、模型回答、用户行为（点击、采纳与否）结构化采集下来，并在采集端就进行隐私脱敏与字段裁剪，确保不额外引入合规风险。
-2. **高价值样本挖掘**
-   在海量日志中筛选出对训练最有价值的一小部分样本，例如：
-   1. 明显错误或被用户点踩的回答，用于“纠错式”再训练。
-   2. 高难度长问题、复杂工作流任务样本，用于提升模型在“长链推理 / 多步工具调用”上的能力。
-   3. 典型业务案例、高价值工单，用于构建行业 / 企业专有能力。
-3. **标注与质量控制**
-   对候选样本进行人工或半自动标注（包括期望回答、优劣排序、安全性标签等），并通过多轮质检、复核和抽检手段确保标注质量，为后续 SFT 或 RLHF 提供可靠数据。
-4. **持续****再****训练与评估上线**
-   周期性地将新样本加入训练集，进行 SFT / DAPT / RLHF 等再训练操作，并通过标准评测集和在线 A/B 实验同时评估“离线指标 + 线上效果”，确保新版本在总体上优于旧版本，避免数据飞轮“拐到错误方向”。
+1. **Online Data Acquisition and Screening**
+   In applications such as dialogue robots, Copilot, search Q&A, and code assistants, each user interaction is a potential high-value training sample. Through the logging system and event tracking, requests, model responses, and user behavior (clicks, acceptance or not) are structured and collected, and privacy desensitization and field cropping are performed at the collection end to ensure that no additional compliance risks are introduced.
+2. **High-value Sample Mining**
+   Filter out a small subset of samples that are most valuable for training from massive logs, for example:
+   1. Answers that are clearly incorrect or downvoted by users are used for "error-correction" retraining.
+   2. High-difficulty long questions and complex workflow task samples, used to enhance the model's capabilities in "long-chain reasoning / multi-step tool invocation".
+   3. Typical business cases and high-value tickets are used to build industry/enterprise-specific capabilities.
+3. **Annotation and Quality Control**
+   Manually or semi-automatically annotate candidate samples (including expected answers, ranking of pros and cons, safety labels, etc.), and ensure the annotation quality through multiple rounds of quality inspection, review, and spot checks to provide reliable data for subsequent SFT or RLHF.
+4. **Continuous Retraining**** an****d Evaluation Laun****ched**
+   Periodically add new samples to the training set, perform retraining operations such as SFT / DAPT / RLHF, and simultaneously evaluate "offline metrics + online effectiveness" through standard evaluation sets and online A/B experiments to ensure that the new version is generally superior to the old version and avoid the data flywheel "turning in the wrong direction".
 
-在成熟形态下，数据飞轮的绝大部分操作会被自动化封装进  **Data / Model Ops 平台** ：从数据采集、样本筛选、标注任务派发，到模型再训练触发、评估结果收集和上线决策，尽量减少人工操作，使模型迭代成为一个稳定可控的工程流程。
+In its mature form, most operations of the data flywheel will be automatically encapsulated into  ** the Data / Model Ops Platform ** : from data acquisition, sample screening, annotation task distribution, to model retraining triggering, evaluation result collection, and go-live decision-making, minimizing manual operations and making model iteration a stable and controllable engineering process.
 
-### 11.3.2 模型生命周期与 ModelOps：从实验模型到生产资产
+### 11.3.2 Model Lifecycle and ModelOps: From Experimental Models to Production Assets
 
-随着模型数量与版本的指数级增长，如果缺乏严谨的生命周期管理，很容易出现“模型散落各处、版本混乱、回滚困难”等问题。ModelOps 的目标，就是把模型当作**一等公民的工程资产**来管理，全程可追溯、可比较、可回滚。
+With the exponential growth of the number and versions of models, if there is a lack of rigorous lifecycle management, problems such as "models scattered everywhere, version chaos, and difficulty in rollback" are likely to occur. The goal of ModelOps is to treat models as**first-class citizen engineering assets**for management, with full traceability, comparability, and rollback capabilities.
 
-关键要点包括：
+Key points include:
 
-1. **版本化与****元数据管理**
-   为每个模型分配明确的版本号（如 `industry-legal-base-v1.2.3`），并记录：
-   1. 训练数据版本与时间范围；
-   2. 训练配置（超参数、训练脚本版本、使用的代码 Commit）；
-   3. 评估指标（通用基准 + 业务特定基准）；
-   4. 安全评估与对齐策略（如敏感话题回答策略版本）；
-   5. 上线 / 下线 / 回滚历史记录。
-2. **端到端自动化流水线（** **CI/CD**** for Models）**
-   将“模型训练完成 → 自动评估 → 安全与偏见检查 → 灰度发布 → 全量发布”的流程封装进 CI/CD 管线。
-3. 若离线评估指标未达到预设门槛，则自动阻断上线。
-4. 若在线 A/B 实验表现不佳，则自动降低流量或回滚到上一版本。
-5. **多版本共存与流量调度**
-   在生产环境中，往往会同时存在多个模型版本（如 `stable` / `canary` / `experimental`），通过流量分配策略（固定比例、用户维度、特征维度）对其进行在线对比。
-   1. A/B 测试更关注稳定统计结论；
-   2. 多臂老虎机（Multi‑armed Bandit）在探索与利用之间自动折中，加速收敛到效果更好的版本。
-6. **合规与审计支持**
-   对于金融、医疗、政务等行业，需要对每一次模型版本变更保持可追溯记录：谁在何时基于什么数据把模型从哪个版本升级到哪个版本，以及升级后的影响评估如何。这部分通常与第 11.5 节中的**安全与合规基础设施**联动。
+1. **Versioni****ng an****d **** Metadata Management**
+   Assign a clear version number to each model (e.g., `industry-legal-base-v1.2.3`) and record:
+   1. Training data version and time range;
+   2. Training configuration (hyperparameters, training script version, code commit used);
+   3. Evaluation Metrics (General Benchmark + Business-Specific Benchmark);
+   4. Security Assessment and Alignment Strategy (e.g., Sensitive Topic Response Strategy Version);
+   5. Online / Offline / Rollback History.
+2. **End-to-End ****Autom****ated Pipeline (**  **CI/CD** ** for Models)**
+   Encapsulate the process of "Model Training Completion → Automatic Evaluation → Security and Bias Check → Canary Release → Full Release" into the CI/CD pipeline.
+3. If the offline evaluation metrics fail to meet the preset threshold, the go-live will be automatically blocked.
+4. If the online A/B test performs poorly, it will automatically reduce traffic or roll back to the previous version.
+5. **Multi-version Coexistence and Traffic Scheduling**
+   In a production environment, multiple model versions (such as `stable` / `canary` / `experimental`) often coexist simultaneously, and online comparisons are conducted on them through traffic allocation strategies (fixed ratio, user dimension, feature dimension).
+   1. A/B testing focuses more on stable statistical conclusions;
+   2. Multi-armed Bandit automatically balances exploration and exploitation, accelerating convergence to a better-performing version.
+6. **Compliance and Audit Support**
+   For industries such as finance, healthcare, and government affairs, it is necessary to maintain traceable records for each model version change: who upgraded the model from which version to which version based on what data at what time, and how the impact assessment after the upgrade was. This part is usually linked with the **Security and Compliance ****Infrastructure** in Section 11.5.
 
-工程实现上，MLflow / SageMaker / Vertex AI / W&B 等工具已经提供了相对成熟的 ModelOps 能力，多数企业会在其基础上结合自身流程做二次封装，构建统一的 **内部模型注册中心与发布平台** 。
+In terms of engineering implementation, tools such as MLflow, SageMaker, Vertex AI, and W&B have already provided relatively mature ModelOps capabilities. Most enterprises will build on these capabilities and combine them with their own processes for secondary encapsulation to construct a unified  ** internal model registry and publishing platform ** .
 
-## 11.4 监控、成本与可靠性（Monitoring, Cost & Reliability）
+## 11.4 Monitoring, Cost & Reliability
 
-当大模型成为业务核心基础设施时，如何保证其 **可观测、可预警、可扩缩、**  **可控成本** ，就成为 SRE 和平台团队的核心职责。监控、成本与可靠性层将传统可观测性体系与大模型特有指标结合，构建面向运维、算法与管理层的多维度视图。
+When large models become the core infrastructure of business operations, how to ensure their ** observability, early warning capabilities, scalability, ** ** cost controllability ** becomes the core responsibility of SRE and platform teams. The monitoring, cost, and reliability layer combines the traditional observability system with the unique metrics of large models to build a multi-dimensional view for operations, algorithms, and management.
 
-这一层一端连接监控采集、日志 / 链路追踪系统，另一端连接业务 KPI 与成本分析平台，是保证模型服务“稳、快、省”的关键支柱。
+This layer connects the monitoring and collection, log/link tracing system at one end, and the business KPI and cost analysis platform at the other end, serving as a key pillar to ensure the "stability, speed, and cost-effectiveness" of model services.
 
-* **场景**
-  * 面向运维 / SRE 的运行监控大盘：统一展示 CPU / GPU 利用率、QPS、延迟、错误率、告警等。
-  * 面向算法团队的数据与模型质量监控平台：监控输入数据分布、模型漂移、提示工程效果与 RAG 命中率等。
-  * 面向管理层的服务健康看板：将业务 KPI（转化率、满意度、任务完成率）与模型指标绑定展示。
-  * AI 成本分析与优化平台：按模型、项目、业务线拆解算力成本，支持预算管理与成本优化策略。
-  * 智能调度与弹性伸缩系统：根据负载与预算自动扩缩容或切换模型规格。
-  * 对外 MaaS / API 计费与成本核算系统：支撑按调用量、token 数、算力使用量等维度计费。
-* **原理**
-  * 监控与可观测性：
-    * **多层监控** ：从基础设施层（CPU / GPU / 内存 / 网络 / 存储）到服务层（QPS、P50 / P95 / P99 延迟、错误率、超时重试），再到模型层（token 使用量、上下文长度分布、响应长度、常见错误类型）。
-    * **日志与链路追踪** ：通过结构化日志记录请求 / 响应（在脱敏前提下），并携带模型版本、路由决策、租户信息；使用分布式追踪工具记录请求从 API 网关 → 模型服务 → 下游系统的完整链路。
-    * **告警与分析** ：设置阈值告警、异常检测和趋势分析，并与业务指标、成本和安全事件联动，实现快速定位与恢复。
-  * 成本控制与弹性调度：
-    * **成本分析** ：按模型、项目、业务线维度拆解 GPU / CPU / 存储 / 带宽成本，计算单请求平均成本和不同任务 / 客户的边际成本。
-    * **弹性调度** ：运用峰谷分时策略，在高峰期自动扩容、低谷期自动缩容；将离线批量任务错峰到夜间或低负载时段。
-    * **策略性降级与按需加速** ：在资源紧张时自动切换到小模型、更短上下文或更保守的推理配置；对高价值请求自动使用更大模型或更长上下文。
-* **模型**
-  * 监控与可视化：
-    * Prometheus + Grafana、VictoriaMetrics、Thanos 等指标采集与可视化方案。
-  * 日志系统：
+* **Scenario**
+  * Operations Monitoring Dashboard for Operations / SRE: Unified display of CPU / GPU utilization, QPS, latency, error rate, alerts, etc.
+  * Data and Model Quality Monitoring Platform for Algorithm Teams: Monitors input data distribution, model drift, prompt engineering effectiveness, RAG hit rate, etc.
+  * Service Health Dashboard for Management: Displays business KPIs (conversion rate, satisfaction, task completion rate) in conjunction with model metrics.
+  * AI Cost Analysis and Optimization Platform: Disassemble computing power costs by model, project, and Line of Business, and support budget management and cost optimization strategies.
+  * Intelligent Scheduling and Elastic Scaling System: Automatically scales up or down or switches model specifications based on load and budget.
+  * External MaaS / API Billing and Cost Accounting System: Supports billing based on dimensions such as call volume, number of tokens, and computing power usage.
+* **Principle**
+  * Monitoring and Observability:
+    * **Multi-layer monitoring** : From the infrastructure layer (CPU / GPU / memory / network / storage) to the service layer (QPS, P50 / P95 / P99 latency, error rate, timeout retry), and then to the model layer (token usage, context length distribution, response length, common error types).
+    * **Logging and Tracing** : Record requests/responses (under the premise of desensitization) through structured logging, and carry model version, routing decisions, and tenant information; use distributed tracing tools to record the complete request chain from API gateway → model service → downstream system.
+    * **Alerts and Analysis** : Set threshold alerts, anomaly detection, and trend analysis, and integrate with business metrics, costs, and security events to achieve rapid location and recovery.
+  * Cost Control and Elastic Scheduling:
+    * **Cost Analysis** : Break down GPU/CPU/storage/bandwidth costs by model, project, and Line of Business dimensions, and calculate the average cost per request and the marginal costs of different tasks/customers.
+    * **Elastic Scheduling ** : Utilize peak-valley time-sharing strategy to automatically scale up during peak periods and scale down during off-peak periods; stagger offline batch tasks to nighttime or low-load periods.
+    * **Strategic Degradation and On-Demand Acceleration** : Automatically switch to smaller models, shorter contexts, or more conservative inference configurations when resources are scarce; automatically use larger models or longer contexts for high-value requests.
+* **Model**
+  * Monitoring and Visualization:
+    * Metrics collection and visualization solutions such as Prometheus + Grafana, VictoriaMetrics, Thanos, etc.
+  * Logging System:
     * ELK（Elasticsearch + Logstash + Kibana）、EFK（Fluentd / Fluent Bit）、OpenSearch 等。
-  * 链路追踪：
+  * Link Tracing:
     * OpenTelemetry、Jaeger、Zipkin 等。
-  * 模型特定监控：
-    * WhyLabs、Arize AI、Fiddler、Evidently AI 等，用于数据 / 模型漂移监控与输出质量评估。
-  * 成本统计与分摊：
+  * Model-specific monitoring:
+    * WhyLabs, Arize AI, Fiddler, Evidently AI, etc., are used for data/model drift monitoring and output quality assessment.
+  * Cost Statistics and Allocation:
     * K8s Metrics / Cost Exporter、Kubecost，以及各云厂商 Cost Management 工具（AWS Cost Explorer / GCP Billing / Azure Cost Management）。
-  * 资源调度与弹性伸缩：
+  * Resource Scheduling and Elastic Scaling:
     * K8s HPA / VPA、Cluster Autoscaler、Volcano、Ray Cluster Autoscaler。
-  * 任务编排：
+  * Task Orchestration:
     * Argo Workflows、Airflow、Prefect、Dagster 等。
 
-### 11.4.1 监控与可观测性：从基础设施到模型行为
+### 11.4.1 Monitoring and Observability: From Infrastructure to Model Behavior
 
-在大模型系统中，传统的 CPU / 内存 / QPS 指标已经不够，需要叠加一层“模型视角”的监控，才能真正看清系统健康状况。一个完整的可观测性体系通常包含：
+In large model systems, traditional CPU / memory / QPS metrics are no longer sufficient; an additional layer of monitoring from a "model perspective" is needed to truly understand the system's health. A complete observability framework typically includes:
 
-1. **基础设施与服务层监控**
-   通过 Prometheus / Grafana、VictoriaMetrics 等采集并可视化：
-   1. 节点 / Pod 级别的 CPU、GPU、内存、磁盘、网络使用情况；
-   2. 服务级别的 QPS、P50 / P95 / P99 延迟、错误率、超时重试比例、连接数；
-   3. 集群级别的资源使用率与容量预警。
-2. **模型层指标监控**
-   针对大模型服务，除了常规性能指标外，还需要专项监控：
-   1. 每次请求的 token 消耗（输入 / 输出）、上下文长度分布；
-   2. 响应长度与截断比例，以排查因上下文 / 输出长度限制导致的质量问题；
-   3. 常见错误类型统计（如超长输入、模型超时、工具调用失败等）。
-3. **日志与****分布式****链路追踪**
-   1. 使用结构化日志记录请求参数（脱敏后）、模型版本、路由决策、租户标识、返回代码等信息。
-   2. 借助 OpenTelemetry、Jaeger、Zipkin 等追踪一次请求在 API 网关 → 模型服务 → 下游系统 → 回调链路中的全程，便于定位延迟瓶颈和故障点。
-4. **异常检测与智能告警**
-   在传统阈值告警基础上，可以引入简单的统计监控或机器学习模型，对 QPS、延迟、错误率、token 分布等进行异常检测，当出现突变时自动报警，并联动自愈策略（如自动扩容、流量切换、服务降级）。
+1. **Infrastructure and Service Layer Monitoring **
+   Collect and visualize through Prometheus / Grafana, VictoriaMetrics, etc.:
+   1. CPU, GPU, memory, disk, and network usage at the node/Pod level;
+   2. QPS, P50 / P95 / P99 latency, error rate, timeout retry ratio, and number of connections at the service level;
+   3. Cluster-level resource utilization and capacity alerts.
+2. **Model laye****r m****etric monitoring**
+   For large model services, in addition to regular performance metrics, specialized monitoring is also required:
+   1. Token consumption (input/output) per request, context length distribution;
+   2. Response length and truncation ratio to troubleshoot quality issues caused by context/output length limitations;
+   3. Statistics on common error types (such as long input, model timeout, tool call failure, etc.).
+3. **Log****gin****g and Distributed Tracing**
+   1. Use structured logging to record information such as request parameters (after desensitization), model version, routing decision, tenant identifier, return code, etc.
+   2. Trace the entire process of a request in the API gateway → model service → downstream system → callback link using OpenTelemetry, Jaeger, Zipkin, etc., to facilitate the identification of latency bottlenecks and fault points.
+4. **Anomaly Detection and Intelligent Alarming**
+   Based on traditional threshold-based alarming, simple statistical monitoring or Machine Learning models can be introduced to perform anomaly detection on QPS, latency, error rate, token distribution, etc. When a sudden change occurs, an alarm is automatically triggered, and self-healing strategies (such as automatic scaling, traffic switching, and service degradation) are coordinated.
 
-对于算法团队，还可以在这一层接入 WhyLabs、Arize、Evidently AI 等工具，对输入分布、模型输出特征、漂移情况进行长期跟踪，为后续数据飞轮与再训练提供信号。
+For the algorithm team, tools such as WhyLabs, Arize, and Evidently AI can also be integrated at this layer to conduct long-term tracking of input distribution, model output features, and drift conditions, providing signals for subsequent data flywheels and retraining.
 
-### 11.4.2 成本分析与弹性调度：在“体验”和“预算”之间找平衡点
+### 11.4.2 Cost Analysis and Flexible Scheduling: Finding the Balance between "Experience" and "Budget"
 
-大模型服务最显著的运维挑战之一就是 **成本高且波动大** 。缺乏精细化的成本分析与弹性调度，很容易在业务增长时看不到“钱烧在哪儿”，也难以及时做出调整。一个成熟的成本和资源调度体系通常包括：
+One of the most prominent operational and maintenance challenges in large model services is  **high and volatile costs** . Without refined cost analysis and elastic scheduling, it is easy to lose sight of "where the money is being burned" during business growth and difficult to make timely adjustments. A mature cost and resource scheduling system typically includes:
 
-1. **成本归因****与****分摊**
-   利用 Kubecost、云厂商 Billing 工具以及自研账本，将 GPU / CPU / 存储 / 带宽成本按模型、项目、业务线、租户等维度拆解，让每个团队和客户都能看到自己对应的真实资源消耗与费用。
-2. **单位请求成本与****边际成本****分析**
-   1. 计算每个模型 / 任务的单请求平均成本（Cost per 1k tokens / per request），对比不同模型和配置下的性价比。
-   2. 分析不同客户、不同业务场景的边际成本，为定价策略（API 计费）、SLA 分级和产品打包提供依据。
-3. **弹性扩缩容与峰谷利用**
-   1. 通过 K8s HPA / VPA、Cluster Autoscaler、Ray Autoscaler 等机制实现自动扩缩容，保证在高峰期不炸服、在低谷期不闲置。
-   2. 将离线任务（如批量内容生成、日志重放、离线评估）安排在夜间或非高峰时段，以提高整体 GPU 利用率，平滑成本曲线。
-4. **策略性降级与按需加速**
-   1. 在资源紧张或成本超预算时自动触发降级策略：使用更小模型、缩短上下文或输出、降低并行度。
-   2. 对高价值请求（如付费高等级用户、关键业务流程）自动使用更大模型、更长上下文或更丰富的工具调用能力，实现“按价值分配算力”。
+1. **Cost Attribution and Allocation**
+   Using Kubecost, cloud provider billing tools, and self-developed ledger, break down GPU/CPU/storage/bandwidth costs by dimensions such as model, project, Line of Business, tenant, etc., so that each team and customer can see their corresponding real resource consumption and costs.
+2. **Analysi****s of**** Unit Request Cost and Marginal Cost**
+   1. Calculate the average cost per single request (Cost per 1k tokens / per request) for each model/task, and compare the cost-effectiveness across different models and configurations.
+   2. Analyze the marginal costs of different customers and different business scenarios to provide a basis for pricing strategies (API billing), SLA classification, and product packaging.
+3. **Elastic Scaling and Peak-Valley Utilization**
+   1. Automatic scaling is achieved through mechanisms such as K8s HPA / VPA, Cluster Autoscaler, and Ray Autoscaler to ensure that the service does not crash during peak periods and remains idle during off-peak periods.
+   2. Schedule offline tasks (such as batch content generation, log replay, and offline evaluation) during nighttime or off-peak hours to improve overall GPU utilization and smooth the cost curve.
+4. **Strategic Degradation and On-Demand Acceleration**
+   1. Automatically trigger a degradation strategy when resources are scarce or costs exceed the budget: use a smaller model, shorten the context or output, or reduce parallelism.
+   2. Automatically use larger models, longer contexts, or more powerful tool invocation capabilities for high-value requests (such as high-paying premium users and critical business processes) to achieve "computing power allocation by value".
 
-在对外 API 场景，这一层还会与计费系统深度绑定，形成  **MaaS / API 计费与成本核算平台** ：根据 token 使用量、调用次数、模型规格和请求类型进行计费，并为运营 / 销售提供成本与毛利分析。
+In the external API scenario, this layer will also be deeply integrated with the billing system to form  ** the MaaS/API Billing and Cost Accounting Platform ** : Billing is based on token usage, number of calls, model specifications, and request types, and it provides cost and gross profit analysis for operations/sales.
 
-## 11.5 安全、权限与合规基础设施（Security, Access Control & Compliance Infra）
+## 11.5 Security, Access Control & Compliance Infrastructure (Security, Access Control & Compliance Infra)
 
-大模型能力一旦进入金融、医疗、政务等高敏感行业，安全与合规不再是“附加价值”，而是进入场景的前置门槛。安全、权限与合规基础设施层负责从**访问控制、数据安全、隐私保护到合规审计**构建系统级防线，保证模型服务在法律与监管框架内可靠运行。
+Once the capabilities of large models enter high-sensitivity industries such as finance, healthcare, and government affairs, security and compliance are no longer "added value" but rather preconditions for entry into the scenario. The security, access control, and compliance infrastructure layer is responsible for ** building system-level defenses from access control, data security, privacy protection to compliance auditing ** to ensure that model services operate reliably within the legal and regulatory frameworks.
 
-这一层一端连接身份认证、权限管理、密钥与加密系统，另一端连接模型服务和日志 / 审计平台，是把“能用的模型”变成“敢用的模型”的关键。
+This layer connects the identity authentication, permission management, key and encryption system at one end, and the model service and log/audit platform at the other end. It is the key to transforming "usable models" into "trustworthy models".
 
-* **场景**
-  * 金融 / 医疗 / 政务等高合规行业的本地化大模型平台：要求数据不出域、可审计、可追溯。
-  * 企业统一 AI 访问控制与审计网关：对所有模型调用进行统一鉴权、权限管理和审计记录。
-  * 多租户 SaaS / 云平台：需要在逻辑和物理层面为不同客户提供严格的安全隔离与合规支撑。
-  * 面向合作伙伴 / 生态的开放接口：要求对 API 调用进行精细化权限控制和配额限制，并满足合规要求（如 GDPR 等）。
-* **原理**
-  * 访问控制与租户隔离：
-    * 使用 API Key / Token / OAuth / SSO 等方式进行身份认证。
-    * 通过 RBAC（基于角色的访问控制）和 ABAC（基于属性的访问控制）在模型、功能、调用频率和数据范围等维度进行精细化权限管理。
-    * 在多租户环境中实现**数据、日志、配置和模型权重**的隔离，防止跨租户访问与信息泄露。
-  * 数据安全与隐私保护：
-    * 采用 TLS 加密传输、存储加密和集中式密钥管理（KMS）保障数据在传输与存储环节的安全。
-    * 实施日志脱敏和数据最小化策略，仅保留业务与优化所必需的信息，并对访问行为进行审计。
-    * 在必要场景中引入隐私增强技术（如数据匿名化、差分隐私、联邦学习）进一步降低隐私风险。
-  * 合规与审计：
-    * 对模型发布、配置变更、权限变更、路由策略调整等关键操作进行全程留痕与审批。
-    * 为每一个请求记录可追溯的元数据：请求来源、模型版本、决策依据（如使用的知识库 / 工具调用情况）。
-    * 确保系统设计和运行符合金融、医疗、政务等行业监管要求以及本地与跨境数据合规规范。
-* **模型**
-  * 身份认证与权限管理：
+* **Scenario**
+  * Localization large model platforms for high-compliance industries such as finance, healthcare, and government affairs: Require data to remain within the domain, be auditable, and traceable.
+  * Enterprise Unified AI Access Control and Audit Gateway: Performs unified authentication, permission management, and audit logging for all model calls.
+  * Multi-tenant SaaS/Cloud Computing Platform: It is necessary to provide strict security isolation and compliance support for different customers at both logical and physical levels.
+  * Open APIs for partners/ecosystems: Require fine-grained permission control and quota limits for API calls, and meet compliance requirements (such as GDPR, etc.).
+* **Principle**
+  * Access Control and Tenant Isolation:
+    * Authenticate using methods such as API Key, Token, OAuth, SSO, etc.
+    * Implement refined permission management through RBAC (Role-Based Access Control) and ABAC (Attribute-Based Access Control) across dimensions such as model, function, invocation frequency, and data scope.
+    * Implement isolation of**data, logs, configurations, and model weights**in a multi-tenant environment to prevent cross-tenant access and information leakage.
+  * Data Security and Privacy Protection:
+    * TLS encrypted transmission, storage encryption, and centralized key management (KMS) are used to ensure data security during transmission and storage.
+    * Implement desensitization of implementation logs and data minimization strategies, retain only the information necessary for business and optimization, and audit access behavior.
+    * Introduce privacy-enhancing technologies (such as data anonymization, differential privacy, FL) in necessary scenarios to further reduce privacy risks.
+  * Compliance and Audit:
+    * Conduct full-process traceability and approval for key operations such as model release, configuration change, permission change, and routing policy adjustment.
+    * Record traceable metadata for each request: request source, model version, decision basis (such as Knowledge Base used / tool invocation status).
+    * Ensure that system design and operation comply with regulatory requirements of industries such as finance, healthcare, and government affairs, as well as local and cross-border data compliance regulations.
+* **Model**
+  * Identity Authentication and Permission Management:
     * Keycloak、Auth0、Okta、各云厂商 IAM（AWS IAM / GCP IAM / Azure AD）。
-    * OPA（Open Policy Agent）+ Rego Policy 等策略引擎，用于统一策略管理与执行。
-  * API 安全网关：
-    * Kong、Apigee、Envoy、云厂商 API Gateway 等。
-  * 数据与密钥安全：
+    * Policy engines such as OPA (Open Policy Agent) + Rego Policy are used for unified policy management and execution.
+  * API Security Gateway:
+    * Kong, Apigee, Envoy, cloud provider API Gateway, etc.
+  * Data and Key Security:
     * KMS（Key Management Service）、HashiCorp Vault。
-    * TLS 终端、机密计算（Confidential Computing）等。
+    * TLS Termination, Confidential Computing, etc.
 
-### 11.5.1 访问控制与租户隔离：保证“谁能用、能用什么、能用多少”
+### 11.5.1 Access Control and Tenant Isolation: Ensure "who can use, what can be used, and how much can be used"
 
-在多业务线、多客户、多角色共同使用的大模型平台中，若没有细粒度访问控制和租户隔离，很容易出现权限滥用、数据泄露和资源争抢等严重问题。一个完善的访问与隔离体系需要在以下几个维度配合：
+In a large model platform jointly used by multiple Lines of Business, multiple customers, and multiple roles, without fine-grained access control and tenant isolation, serious issues such as abuse of permissions, data leakage, and resource contention are likely to occur. A comprehensive access and isolation system needs to be coordinated in the following dimensions:
 
-1. **身份认证与****单点登录**
-   通过 API Key / Token、OAuth2 / OIDC、企业 SSO 等方式，对内部员工、外部合作伙伴、第三方应用进行统一身份认证。对企业用户，可与现有身份系统（如 AD / LDAP / 企业 IAM）打通，避免重复账号体系。
-2. **细粒度权限控制（** **RBAC**** / ** **ABAC** **）**
-3. RBAC：为管理员、算法工程师、业务运营、普通用户、合作伙伴等角色分别配置可访问的模型、环境（测试 / 生产）、操作（调用 / 配置 / 发布）与额度。
-4. ABAC：在角色基础上，引入租户 ID、项目 ID、数据域、时间段等属性，实现更灵活的策略（如“仅允许政务租户 A 在本地域调用本地化模型集群”）。
-5. **多租户隔离与配额管理**
-   1. 在逻辑层面，通过租户 ID 隔离不同客户的调用、数据与日志；
-   2. 在物理层面，对高合规客户（如银行 / 政府）提供专用集群或专用节点，实现更高等级的隔离；
-   3. 配置不同租户的 QPS 限制、并发连接数和 token 配额，防止“某一租户暴冲拖垮全场”。
-6. **访问审计与策略评估**
-   1. 对关键操作（如创建 / 删除 API Key、调整权限、修改配额）进行审计记录；
-   2. 借助 OPA / Rego 等策略引擎，在执行前对复杂访问策略进行统一评估与解释，减少“策略散落代码中”的风险。
+1. **Identity ****Auth****enti****cat****ion and Single Sign-On**
+   Unified identity authentication for internal employees, external partners, and third-party applications is performed through methods such as API Key / Token, OAuth2 / OIDC, and enterprise SSO. For enterprise users, it can be integrated with existing identity systems (such as AD / LDAP / enterprise IAM) to avoid duplicate account systems.
+2. **Fine-grai****ned ****Permissi****on C****ontrol (**  **RBAC** ** / ** **ABAC** **)**
+3. RBAC: Configure accessible models, environments (test / production), operations (call / configure / publish), and quotas for roles such as administrators, algorithm engineers, business operators, ordinary users, and partners respectively.
+4. ABAC: Based on roles, attributes such as tenant ID, project ID, data domain, and time period are introduced to implement more flexible policies (e.g., "Only allow government tenant A to call the Localization model cluster within the local domain").
+5. **Multi-tenant Isolation and Quota Management**
+   1. At the logical level, isolate the calls, data, and logs of different customers through the tenant ID;
+   2. At the physical level, dedicated clusters or dedicated nodes are provided to high-compliance customers (such as banks/governments) to achieve a higher level of isolation;
+   3. Configure QPS limits, concurrent connections, and token quotas for different tenants to prevent "a single tenant from overwhelming the entire system".
+6. **Access Audit and Policy Evaluation**
+   1. Conduct audit records for critical operations (such as creating/deleting API keys, adjusting permissions, and modifying quotas);
+   2. By leveraging policy engines such as OPA / Rego, complex access policies are uniformly evaluated and interpreted before execution, reducing the risk of "policies scattered in code".
 
-通过这层机制，平台可以在保证资源和数据安全的前提下，对内外部用户开放大模型能力，同时为后续合规审计和问题追责提供基础数据。
+Through this mechanism, the platform can open up the capabilities of large models to internal and external users while ensuring the security of resources and data, and at the same time provide basic data for subsequent compliance audits and problem accountability.
 
-### 11.5.2 数据安全、隐私与合规审计：让模型“好用又合规”
+### 11.5.2 Data Security, Privacy, and Compliance Audit: Making Models "Useful and Compliant"
 
-大模型往往会接触到大量敏感数据（用户对话、业务文档、交易记录等），一旦安全或合规出现问题，后果将极其严重。因此，需要在数据全生命周期和模型调用全链路上“多层防护”。
+Large models often come into contact with a large amount of sensitive data (user conversations, business documents, transaction records, etc.). Once a security or compliance issue occurs, the consequences will be extremely serious. Therefore, "multi-layered protection" is required throughout the entire data lifecycle and the whole-link of model invocation.
 
-1. **数据传输与存储安全**
-   1. 对所有外部和内部接口统一启用 TLS 加密，防止传输中被窃听或篡改；
-   2. 对敏感数据采用静态加密存储，配合云厂商或自建的 KMS 管理密钥生命周期；
-   3. 使用 Vault 等工具集中管理访问数据库、对象存储、第三方 API 所需的密钥和凭证。
-2. **最小化原则与脱敏**
-   1. 只采集业务所必需的数据字段，并在日志与训练样本中尽量移除个人身份信息（PII）与敏感字段；
-   2. 对不可避免要保留的标识符进行哈希或匿名化处理，降低泄露风险；
-   3. 在 RAG / 知识库场景，对文档访问做权限分级，确保模型不会从“不该看的文档”中检索信息。
-3. **隐私增强技术与边缘约束**
-   1. 在需要共享模型而不共享原始数据的场景中，引入差分隐私或联邦学习等方式，兼顾隐私与效能；
-   2. 对政务、金融、医疗等场景，采用“数据不出域，模型下沉 or 本地部署”的模式，将训练 / 推理能力部署在合规域内。
-4. **合规与审计机制**
-   1. 对模型发布、配置变更、权限调整等操作进行审批流与留痕，方便事后追溯；
-   2. 对每次请求记录模型版本、调用方、路由决策、数据访问范围等元信息，在出现争议或调查需求时可以复盘；
-   3. 定期输出合规报表（如数据访问审计、权限使用记录、异常事件报告），对接内部风控与外部监管要求。
+1. **Data Transmission and Storage Security**
+   1. Uniformly enable TLS encryption for all external and internal interfaces to prevent eavesdropping or tampering during transmission;
+   2. Adopt static encryption for storing sensitive data, and cooperate with cloud providers or self-built KMS to manage the key lifecycle;
+   3. Use tools such as Vault to centrally manage the keys and credentials required to access databases, object storage, and third-party APIs.
+2. **Minimization Principle and Desensitization**
+   1. Only collect data fields necessary for business operations, and remove personal identity information (PII) and sensitive fields from logs and training samples as much as possible;
+   2. Hash or anonymize identifiers that must inevitably be retained to reduce the risk of leakage;
+   3. In RAG / Knowledge Base scenarios, implement permission grading for document access to ensure that the model does not retrieve information from "documents it should not access".
+3. **Privacy-Enhancing Technologies and Edge Constraints**
+   1. In scenarios where it is necessary to share models without sharing the original data, introduce methods such as differential privacy or FL to balance privacy and efficiency;
+   2. For scenarios such as government affairs, finance, and healthcare, adopt the model of "data stays within the domain, model sinks or local deployment" to deploy training/inference capabilities within the compliance domain.
+4. **Compliance and Audit Mechanism**
+   1. Approve workflows and leave audit trails for operations such as model release, configuration change, and permission adjustment, facilitating post-event traceability;
+   2. Record meta information such as model version, caller, routing decision, and data access scope for each request, enabling review in case of disputes or investigation needs;
+   3. Regularly output compliance reports (such as data access audits, permission usage records, and abnormal event reports) to meet the requirements of internal risk control and external supervision.
 
-这部分能力与 11.3、11.4 的 Data / Model Ops 和监控平台相互配合，共同构成一个“既能持续迭代，又能安全合规”的模型运行环境。
+This part of the capabilities works in conjunction with the Data / Model Ops and monitoring platform in 11.3 and 11.4, together forming a model operating environment that is "both capable of continuous iteration and compliant with security requirements".
 
-## 11.6 上层应用与中台能力（Application Enablers）
+## 11.6 Upper Application and Mid-Platform Capabilities (Application Enablers)
 
-有了从训练到推理、安全与运维的完整基础设施，还需要一层面向业务与开发者的“能力层”，将底层大模型抽象成更易用、更贴近业务语义的组件与服务。这一层通常被称为 **AI 中台、应用使能层或 Copilot 平台** ，其职责是：把大模型 + RAG + Agent + 工作流封装成标准化能力，让业务团队与生态伙伴可以快速搭建 AI 应用。
+With a complete infrastructure spanning from training to inference, as well as security and operations, there is still a need for a "capability layer" oriented towards business and developers, which abstracts underlying large models into more user-friendly and business-semantic components and services. This layer is commonly referred to as  **AI Mid-Platform, Application Enablement Layer, or Copilot Platform** , whose responsibility is to encapsulate large models + RAG + Agent + workflows into standardized capabilities, enabling business teams and ecosystem partners to quickly build AI applications.
 
-这一层一端连接模型 API、RAG 引擎与 Agent Orchestrator，另一端连接 CRM / ERP / OA / 工单等业务系统，是“从模型能力到业务场景”的关键桥梁。
+This layer connects the model API, RAG engine, and Agent Orchestrator at one end, and business systems such as CRM/ERP/OA/ticket at the other end, serving as a key bridge from model capabilities to business scenarios.
 
-* **场景**
-  * 企业 AI 中台 / Copilot 平台：为 CRM、ERP、OA、客服、营销、研发等内部系统统一提供对话、RAG、Agent 等智能能力。
-  * 面向开发者与生态伙伴的应用开发平台：通过 SDK、模板工程、可视化编排工具，让第三方快速构建和部署 AI 应用。
-  * 行业 SaaS 产品的 AI 后端：如智能客服云、营销云、办公协同云、研发管理云等，将 AI 能力嵌入原有产品体系。
-  * 垂直场景助手：代码 Copilot、销售助手、运营助手、法务助手、医生助理等，通过中台能力迅速组合出场景化解决方案。
-* **原理**
-  * 对话与 Agent 能力：
-    * **会话管理与记忆** ：维护多轮对话状态与长期记忆，支持话题切换、上下文压缩和个性化画像。
-    * **工具调用（Tool Use）与****工作流** **编排** ：通过函数调用或插件机制，将模型与外部系统（数据库、搜索、业务 API、第三方服务）连接起来；在复杂任务中使用 Workflow / Orchestrator 将多步操作串联起来。
-    * **多 Agent 协作** ：为复杂任务拆分出不同角色（如规划者、执行者、审阅者），以协作方式完成任务分解与结果聚合。
-  * RAG 与知识库：
-    * **文档解析与预处理** ：对 PDF、Word、网页、扫描件等文档进行解析、切块、结构化。
-    * **向量化与检索** ：使用 Embedding 模型对文本 / 表格 / 代码等内容进行向量化，构建向量索引；结合关键字检索与向量检索实现高召回。
-    * **检索 + 生成（RAG）与证据链** ：在推理时先从知识库检索相关内容，再由大模型基于检索结果生成回答，并输出引用与证据链，提高准确性与可解释性。
-    * **知识图谱** **与结构化知识融合** ：将领域知识图谱、业务数据表、规则系统与 LLM 结合，提高对结构化查询与复杂约束的处理能力。
-  * 开发者接入与二次开发：
-    * **多语言 SDK 与 ****API** ** 设计** ：提供 Python / JS / Java / Go 等语言的 SDK，封装调用模式、重试与幂等处理。
-    * **模板与****低代码** ** / 无代码搭建** ：通过预制模板工程与可视化“搭积木”式工具，让非专业开发者也能搭建 RAG / Agent / Workflow。
-    * **插件与中间件** ：提供与常见业务系统（CRM / ERP / OA / 工单系统等）的插件或中间件，降低系统集成成本。
-* **模型**
-  * 对话 / Agent 框架：
+* **Scenario**
+  * Enterprise AI Mid-Platform / Copilot Platform: Provides unified intelligent capabilities such as dialogue, RAG, and Agent for internal systems including CRM, ERP, OA, customer service, marketing, R&D, etc.
+  * Application Development Platform for Developers and Ecosystem Partners: Enables third parties to quickly build and deploy AI applications through SDKs, template projects, and visual orchestration tools.
+  * AI Backend of Industry SaaS Products: Such as intelligent customer service cloud, marketing cloud, work collaboration cloud, R&D management cloud, etc., which embed AI capabilities into the existing product system.
+  * Vertical scenario assistants: Code Copilot, sales assistant, operations assistant, legal assistant, doctor assistant, etc., quickly combine to create scenario-based solutions through Mid-Platform capabilities.
+* **Principle**
+  * Dialogue and Agent Capabilities:
+    * **Conversation Manag****emen** **t and Memory** : Maintains multi-turn conversation state and long-term memory, supports topic switching, context compression, and personalized profiling.
+    * **Tool Use and Workfl****ow **  **Orchestration ** : Connect models with external systems (databases, search, business APIs, third-party services) through function calls or plugin mechanisms; use Workflow/Orchestrator to chain multiple steps in complex tasks.
+    * **Multi-Agent Collaboration** : Splits complex tasks into different roles (such as planners, executors, reviewers) to complete task decomposition and result aggregation in a collaborative manner.
+  * RAG and Knowledge Base:
+    * **Document Parsing and Preprocessing** : Parse, segment, and structure documents such as PDFs, Word files, web pages, and scanned documents.
+    * **Vectorization and Retrieval** : Use the Embedding model to vectorize text, tables, code, and other content, and build vector indexes; combine keyword retrieval and vector retrieval to achieve high recall.
+    * **Retrieval + Generation (RAG) and Evi****den** **ce Chain** : During inference, relevant content is first retrieved from the Knowledge Base, then the large model generates responses based on the retrieval results, and outputs references and evidence chains to improve accuracy and interpretability.
+    * **Know****ledge Graph** **and Structured Know****led** **ge Fusion** : Combine domain knowledge graphs, business data tables, rule systems, and LLMs to improve the ability to handle structured queries and complex constraints.
+  * Developer Access and Secondary Development:
+    * **Multilingual SDK and ** API ** Desi****gn**: Provide SDKs for languages such as Python / JS / Java / Go, encapsulating call patterns, retry, and idempotence handling.
+    * **Templat****es ****and **** Low-Code ** ** / No-Code Building **: Through prefabricated template projects and visual "building block" style tools, even non-professional developers can build RAG / Agent / Workflow.
+    * **Plugins and Middle****war** **e** : Provide plugins or middleware for common business systems (CRM / ERP / OA / ticket system, etc.) to reduce system integration costs.
+* **Model**
+  * Dialogue / Agent Framework:
     * LangChain、LlamaIndex、Haystack、Semantic Kernel 等。
-    * 自研 Orchestration 层：通常包含 Workflow Engine、Tool Router、Memory 管理模块。
-  * RAG 与向量检索：
-    * 向量数据库：FAISS、Milvus、Qdrant、Weaviate、Pinecone 等。
-    * 文档解析：unstructured、Textract、pdfplumber、Apache Tika 等。
-  * SDK / 接入层：
-    * 官方或自研 SDK、前端组件库（聊天组件、提示模板管理、对话记录视图）。
-    * 与业务系统（CRM / ERP / OA / 工单等）的中间件 / 插件。
+    * Self-developed Orchestration layer: Usually includes Workflow Engine, Tool Router, and Memory management modules.
+  * RAG and Vector Retrieval:
+    * Vector databases: FAISS, Milvus, Qdrant, Weaviate, Pinecone, etc.
+    * Document parsing: unstructured, Textract, pdfplumber, Apache Tika, etc.
+  * SDK / Access Layer:
+    * Official or self-developed SDKs, front-end component libraries (chat components, prompt template management, conversation record view).
+    * Middleware/Plugin for business systems (CRM/ERP/OA/Ticket, etc.).
 
-### 11.6.1 对话与 Agent 编排：从“问答机器人”到“任务协作体”
+### 11.6.1 Dialogue and Agent Orchestration: From "Question-and-Answer Robot" to "Task Collaboration Entity"
 
-相比早期的 FAQ 式问答机器人，现代大模型驱动的应用更像是“会用工具的智能协作者”。对话与 Agent 编排的目标，是把大模型从“语言生成器”升级为能够**调用工具、执行计划、协调多角色**的智能体。
+Compared to early FAQ-style Q&A robots, modern large model-driven applications are more like "intelligent collaborators who can use tools." The goal of dialogue and Agent orchestration is to upgrade large models from "language generators" to intelligent agents capable of **invoking tools, executing plans, and coordinating multiple roles** .
 
-1. **对话管理与记忆机制**
-   1. 维护对话上下文、用户画像和长周期记忆，在多轮交互中保持一致性与连贯性；
-   2. 对超长对话采用摘要、检索式记忆等方式进行压缩，避免上下文“爆表”；
-   3. 在企业内应用中，引入身份与权限信息到对话上下文中，使回答与操作符合用户在业务系统中的权限。
-2. **工具调用（Tool Use）与****工作流****编排**
-   1. 为模型提供结构化工具列表（如“查订单”“创建工单”“查询库存”“调用搜索引擎”等），并通过函数调用接口让模型在需要时主动调用；
-   2. 使用 Orchestrator 根据模型提出的计划，协调多个工具调用的顺序、数据流与错误处理；
-   3. 对复杂业务流程（如审批流、报销、售后处理）进行工作流建模，让 Agent 可以扮演“流程协调者”的角色。
-3. **多 Agent 协作模式**
-   1. 将复杂任务拆成多个角色：如“任务规划 Agent”“信息检索 Agent”“执行 Agent”“质检 / 审核 Agent”；
-   2. 通过消息通道或共享内存实现 Agent 间协作，提升复杂任务的鲁棒性与可解释性；
-   3. 在企业环境中，可以将人类角色也纳入协作环中，如“AI 起草–人类审核–AI 修改–系统执行”。
+1. **Dialog Management and Memory Mechanism**
+   1. Maintain conversation context, user profiles, and long-term memory, ensuring consistency and coherence in multi-turn interactions;
+   2. Compress ultra-long conversations using methods such as summarization and retrieval-based memory to avoid context "overflow";
+   3. In enterprise internal applications, introduce identity and permission information into the conversation context to ensure that responses and operations comply with the user's permissions in the business system.
+2. **Tool Use and Wo****rkf****low Orchestration**
+   1. Provide the model with a list of structured tools (such as "Check Order", "Create Ticket", "Query Inventory", "Invoke Search Engine", etc.), and allow the model to actively call them via the function call interface when needed;
+   2. Use Orchestrator to coordinate the sequence, data flow, and error handling of multiple tool calls based on the plan proposed by the model;
+   3. Workflow modeling is performed on complex business processes (such as approval flow, reimbursement, and after-sales processing), enabling the Agent to play the role of a "process coordinator".
+3. **Multi-Agent Collaboration Mode**
+   1. Break down complex tasks into multiple roles: such as "Task Planning Agent", "Information Retrieval Agent", "Execution Agent", "Quality Inspection / Audit Agent";
+   2. Achieve collaboration between Agents through message channels or shared memory, enhancing the robustness and interpretability of complex tasks;
+   3. In an enterprise environment, human roles can also be incorporated into the collaboration loop, such as "AI Draft - Human Review - AI Revision - System Execution".
 
-这一层通常借助 LangChain、Semantic Kernel、LlamaIndex 等现成框架，并配合自研的 Orchestration 服务，将对话、工具、工作流、权限和审计统一在一套“Agent 平台”内。
+This layer typically leverages off-the-shelf frameworks such as LangChain, Semantic Kernel, LlamaIndex, etc., and coordinates with self-developed Orchestration services to unify conversations, tools, workflows, permissions, and audits within a single "Agent Platform".
 
-### 11.6.2 RAG、知识库与开发者平台：把企业知识“接到模型脑子里”
+### 11.6.2 RAG, Knowledge Base, and Developer Platform: Connecting Enterprise Knowledge "to the Model's Brain"
 
-大模型再强，也不可能天然掌握每一家企业的私有知识，更无法实时知道最新的政策、产品和业务规则。RAG + 知识库 + 开发者平台，就是把这些**企业知识、行业知识和实时数据**以工程化方式接入模型能力的关键路径。
+No matter how powerful large models are, they cannot inherently master the private knowledge of every enterprise, let alone know the latest policies, products, and business rules in real time. RAG + Knowledge Base + Developer Platform is the ** enterprise knowledge, industry knowledge, and real-time data ** critical path to integrating these into model capabilities in an engineered manner.
 
-1. **文档解析与知识入库**
-   1. 通过 unstructured、Textract、pdfplumber、Tika 等组件，将 PDF、Office 文档、网页、图片扫描件解析为结构化文本；
-   2. 按章节、标题、语义块等进行“切块”，为后续向量化与检索提供合适粒度；
-   3. 对于表格数据、业务数据库、API 文档等结构化信息，构建对应的 schema 映射和访问接口。
-2. **向量化、索引与检索重排**
-   1. 使用 Embedding 模型将文本 / 代码 / 多模态内容转换为向量，存入 FAISS、Milvus、Qdrant、Weaviate、Pinecone 等向量数据库；
-   2. 同时保留关键词索引与元数据过滤能力（如按租户、部门、文档类型过滤），组合出高精度的“检索前过滤 + 语义检索 + 重排”流程；
-   3. 在查询时，将检索结果与原始问题一起喂入大模型，实现“检索增强生成（RAG）”，并返回引用与证据链。
-3. **RAG 应用模板与****低代码****搭建**
-   1. 为常见场景（知识问答、政策解读、产品说明、内部文档助手等）提供预制 RAG 模板；
-   2. 通过可视化配置界面（选择知识源、设置切块规则、选定向量模型与大模型）快速搭建专属知识助手；
-   3. 将这些能力以 SDK 形式暴露给开发者，支持在 Web、移动端、桌面端或业务系统插件中快速嵌入。
-4. **开发者平台与生态集成**
-   1. 提供 Python / JS / Java / Go 等语言 SDK，以及前端组件（聊天气泡、文档引用区、反馈按钮等），降低集成门槛；
-   2. 为主流业务系统（CRM / ERP / OA / 工单）提供插件或中间件，使其可以“勾选几项配置”就接入 AI 能力；
-   3. 对外开放应用开发平台，让生态伙伴基于底座模型、RAG 与 Agent 能力构建自己的行业应用，形成“平台–生态–终端客户”的正循环。
+1. **Document Parsing and Knowledge Storage into Knowledge Base**
+   1. Parse PDF, Office documents, web pages, scanned images into structured text through components such as unstructured, Textract, pdfplumber, Tika, etc.;
+   2. Perform "chunking" by chapter, title, semantic block, etc., to provide appropriate granularity for subsequent vectorization and retrieval;
+   3. For Structured Information such as tabular data, business databases, and API documentation, construct corresponding schema mappings and access interfaces.
+2. **Vectorization, Indexing, and Retrieval Re-ranking**
+   1. Use the Embedding model to convert text/code/MultiModal Machine Learning content into vectors and store them in vector databases such as FAISS, Milvus, Qdrant, Weaviate, Pinecone, etc.;
+   2. While retaining keyword indexing and metadata filtering capabilities (such as filtering by tenant, department, document type), combine them into a high-precision "pre-retrieval filtering + semantic retrieval + re-ranking" process;
+   3. During the query, the retrieval results are fed into the large model together with the original question to implement "Retrieval Augmented Generation (RAG)" and return references and evidence chains.
+3. **RAG Application Template and Low-Code Development**
+   1. Provides prefabricated RAG templates for common scenarios (knowledge Q&A, policy interpretation, product description, internal document assistant, etc.);
+   2. Quickly build a dedicated knowledge assistant through a visual configuration interface (selecting knowledge sources, setting chunking rules, and choosing vector models and large models);
+   3. Expose these capabilities to developers in the form of SDKs, supporting quick embedding in Web, mobile, desktop, or business system plugins.
+4. **Developer Platform and ****Ecosystem**** Integration**
+   1. Provides SDKs for languages such as Python, JS, Java, and Go, as well as front-end components (chat bubbles, document reference areas, feedback buttons, etc.), reducing the integration threshold;
+   2. Provide plugins or middleware for mainstream business systems (CRM / ERP / OA / Ticket) to enable them to access AI capabilities with just a few configuration selections;
+   3. Open up the application development platform to allow ecosystem partners to build their own industry applications based on the base model, RAG, and Agent capabilities, thus forming a positive cycle of "platform - ecosystem - end customers".
 
-这一层最终将复杂的模型与基础设施能力封装成“可复用、可拼装的业务组件”，帮助企业在**安全、合规、成本可控**的前提下，以更低门槛、更快速度，把大模型真正变成推动业务创新的生产力工具。
+This layer ultimately encapsulates complex models and infrastructure capabilities into "reusable and assemblable business components", helping enterprises ** under the premise of security, compliance, and controllable costs ** to truly transform large models into productivity tools that drive business innovation with lower barriers and at a faster pace.
