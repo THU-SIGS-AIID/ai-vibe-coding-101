@@ -18,7 +18,7 @@ A very well-known and mature "built-in IDE" is called `Vim`. On many servers, yo
 
 Modern IDEs usually have more beautiful and intuitive graphical interfaces, providing more powerful editing, running, and debugging capabilities. A typical IDE usually contains the following core components:
 
-* **Source Code Editor**: A text editor specifically designed for writing and editing code, typically featuring syntax highlighting, automatic code completion, real-time error提示, and other functions.
+* **Source Code Editor**: A text editor specifically designed for writing and editing code, typically featuring syntax highlighting, automatic code completion, real-time error hints, and other functions.
 * **Build and Run Tools (Compiler/Interpreter)**: The IDE has built-in compilers or interpreters that can convert source code written by developers into machine code that computers can execute.
 * **Debugger**: A tool for testing and troubleshooting code errors. It supports executing code line by line, viewing variable states, setting breakpoints, etc., helping developers locate and fix problems in their programs.
 

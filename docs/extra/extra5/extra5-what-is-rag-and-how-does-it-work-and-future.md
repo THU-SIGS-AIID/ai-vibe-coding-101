@@ -12,7 +12,7 @@ In this tutorial, we will systematically introduce what RAG is, trace its birth 
 
 * Core value of RAG: Deep understanding of how it solves key challenges of long context in cost, attention, and knowledge updates
 * How RAG works: See through specific cases how it completes the closed loop from retrieval to generation
-* RAG technology evolution脉络: From basic Naive RAG to Advanced RAG to modular Modular RAG
+* RAG technology evolution: From basic Naive RAG to Advanced RAG to modular Modular RAG
 * RAG model selection recommendations: Master evaluation and selection strategies for the three key models: Embedding, Rerank, and LLM
 * RAG enterprise-level practice: Learn the full-chain construction guide from data preprocessing to system deployment evaluation
 * RAG effectiveness evaluation and optimization: Understand core evaluation metrics, mainstream frameworks, and continuous optimization methods
@@ -94,8 +94,6 @@ When users ask questions, the system first retrieves relevant content from the i
 (1) User inputs question - yellow area in diagram Input – Query
 
 > "How do you evaluate the fact that OpenAI's CEO, Sam Altman, went through a sudden dismissal by the board in just three days, and then was rehired by the company, resembling a real-life version of 'Game of Thrones' in terms of power dynamics?"
->
-> "你如何评价这样一件事：OpenAI 的 CEO Sam Altman 被董事会突然解职，仅仅三天后又被公司重新聘回，在权力博弈上几乎像现实版《权力的游戏》？"
 
 This large text is the content in the "Query" box in the diagram, corresponding to "the user-initiated natural language question." The system will vectorize this text and use it to search for relevant document segments in the index in the upper right corner.
 
@@ -104,13 +102,10 @@ This large text is the content in the "Query" box in the diagram, corresponding 
 After retrieval is complete, the system obtains several document blocks most relevant to the question, displayed in the diagram as three Chunks:
 
 > "Sam Altman Returns to OpenAI as CEO, Silicon Valley Drama Resembles the 'Zhen Huan' Comedy"
-> "Sam Altman 回归担任 OpenAI CEO，这场硅谷大戏宛如一出《甄嬛传》式的宫斗喜剧。"
 >
 > "The Drama Concludes? Sam Altman to Return as CEO of OpenAI, Board to Undergo Restructuring"
-> "大戏要落幕了吗？Sam Altman 将重返 OpenAI CEO 职位，董事会则将进行重组。"
 >
 > "The Personnel Turmoil at OpenAI Comes to an End: Who Won and Who Lost?"
-> "OpenAI 的人事动荡告一段落：谁赢了，谁输了？"
 
 (3) Combine Prompt and generate answer - blue area in diagram LLM / Combine Context and Prompts
 
@@ -123,28 +118,16 @@ The system then combines "user original question + retrieved chunks" into a comp
 > Chunk 1 :
 > Chunk 2 :
 > Chunk 3 :"
->
-> "问题：
-> 你如何评价 OpenAI 的 CEO …… 这件事中的权力博弈？
->
-> 请基于下面提供的信息来回答上述问题：
-> Chunk 1：
-> Chunk 2：
-> Chunk 3："
 
 (4) Answer comparison with and without RAG - gray/yellow area in lower left of diagram Output – Answer
 
 Finally, the large model generates answers based on this information, results displayed in the "Answer" area in the lower left of the diagram. Here are shown output examples for both "without RAG" and "with RAG" cases. Without RAG, the model lacks external materials and can only give very vague responses, corresponding to that passage in the gray box:
 
 > "… I am unable to provide comments on future events. Currently, I do not have any information regarding the dismissal and rehiring of OpenAI's CEO …"
->
-> "……我无法就未来事件发表评论。目前我没有关于 OpenAI CEO 被解雇和重新聘用的任何信息……"
 
 With RAG, the model can use the news and analysis just retrieved to give more informative answers, corresponding to that text in the yellow box:
 
 > "… This suggests significant internal disagreements within OpenAI regarding the company's future direction and strategic decisions. All of these twists and turns reflect power struggles and corporate governance issues within OpenAI …"
->
-> "……这表明 OpenAI 内部在公司未来方向和战略决策上存在重大分歧。这一连串的反复与曲折，反映出 OpenAI 内部的权力斗争以及公司治理方面的问题……"
 
 The above demonstrates the complete process of a typical RAG system, giving us an overall understanding of which core links the system contains and how information flows at each stage. However, how is vector matching performed during retrieval? How should prompts be organized to better enable the model to utilize retrieved content? These technical details that determine RAG's actual effectiveness are currently still "black boxes." Next, we will deeply explore RAG's internal mechanisms, gradually dissecting exactly how RAG works from key links such as vectorization principles, similarity calculation, to prompt engineering.
 
@@ -200,15 +183,15 @@ At this point, the returned results filtered by similarity values are called rec
 In the large model response phase based on retrieval results, the system will construct the following complete dialogue input, putting the recall results into reference information and sending them to the LLM together with system prompts:
 
 ```Plain
-【System Prompt】
+[System Prompt]
 You are a professional Q&A assistant. Please answer questions strictly based on the "Reference Information" provided by the user.
 If the reference information contains the answer to the question, please answer directly based on that information.
 If the reference information does not contain the answer to the question, please clearly inform the user "Unable to answer this question based on available materials," and do not fabricate information on your own.
 Please cite the information points relied upon in your answer.
-【Reference Information (Retrieved Context)】
+[Reference Information (Retrieved Context)]
 Apple Inc. was founded on April 1, 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne, headquartered in Cupertino, California.
 Apple Inc. launched the first iPhone in 2007, completely changing the smartphone industry.
-【User Query】
+[User Query]
 When was Apple Inc. founded?
 ```
 
@@ -232,15 +215,15 @@ The system returns Top-2 document segments as evidence based on similarity score
 In the large model response phase based on retrieval results, the system will construct the following complete dialogue input, putting the recall results into reference information and sending them to the LLM together with system prompts:
 
 ```Plain
-【System Prompt】
+[System Prompt]
  You are a professional Q&A assistant. Please answer questions strictly based on the "Reference Information" provided by the user.
  If the reference information contains the answer to the question, please answer directly based on that information.
  If the reference information does not contain the answer to the question, please clearly inform the user "Unable to answer this question based on available materials," and do not fabricate information on your own.
  Please cite the information points relied upon in your answer.
-【Reference Information (Retrieved Context)】
+[Reference Information (Retrieved Context)]
  Apple is a fruit rich in vitamin C and dietary fiber, helpful for digestion and immune system health.
  Apple Inc. launched the first iPhone in 2007, completely changing the smartphone industry.
-【User Query】
+[User Query]
  What are the benefits of eating apples?
 ```
 
@@ -266,15 +249,15 @@ Top-K will still return the top K ranked results by similarity, but in this scen
 In the large model response phase based on retrieval results, the system will construct the following complete input:
 
 ```Plain
-【System Prompt】
+[System Prompt]
  You are a professional Q&A assistant. Please answer questions strictly based on the "Reference Information" provided by the user.
  If the reference information contains the answer to the question, please answer directly based on that information.
  If the reference information does not contain the answer to the question, please clearly inform the user "Unable to answer this question based on available materials," and do not fabricate information on your own.
  Please cite the information points relied upon in your answer.
-【Reference Information (Retrieved Context)】
+ [Reference Information (Retrieved Context)]
  Apple is a fruit rich in vitamin C and dietary fiber, helpful for digestion and immune system health.
  Apple Inc. launched the first iPhone in 2007, completely changing the smartphone industry.
-【User Query】
+ [User Query]
  What's the weather like today?
 ```
 
@@ -317,32 +300,32 @@ Before retrieval, the focus is on handling "what to store" and "how to ask" well
   >
   > The core is to convert users' vague, colloquial, or non-standard original queries into standardized expressions more easily understood by retrieval systems, supplementing key information and correcting ambiguity.
   >
-  > * User's original question is "咋查明天北京的天气啊" (How to check tomorrow's Beijing weather), will remove colloquial words like "咋" (how) and "啊" (ah), supplement key qualifiers like "real-time" and "all-day," rewritten as "查询北京市明日全天实时天气" (Query Beijing city tomorrow all-day real-time weather);
-  > * User's original question is "推荐好看的电影" (Recommend good movies), if combined with user behavior history showing they often watch suspense films, will supplement information like "2024 high-rated" and "suspense genre," rewritten as "推荐 2024 年高分悬疑题材电影" (Recommend 2024 high-rated suspense genre movies).
+  > * User's original question is "How to check tomorrow's Beijing weather", will remove colloquial words, supplement key qualifiers like "real-time" and "all-day," rewritten as "Query Beijing city tomorrow all-day real-time weather";
+  > * User's original question is "Recommend good movies", if combined with user behavior history showing they often watch suspense films, will supplement information like "2024 high-rated" and "suspense genre," rewritten as "Recommend 2024 high-rated suspense genre movies".
   >
   > 2. Multi-Query
   >
   > Generate multiple queries "semantically related but from different angles" based on the original question, avoiding single queries missing potential results, covering users' unstated potential needs.
   >
-  > * User's original question is "如何给刚满月的宝宝拍嗝" (How to burp a one-month-old baby), will generate queries focusing on "posture": "新生儿拍嗝的正确姿势" (Correct posture for burping newborns);
-  >   * Generate queries focusing on "preventing spit-up": "满月宝宝拍嗝避免吐奶的方法" (Methods for burping one-month-old babies to avoid spit-up);
-  >   * Generate queries focusing on "age-appropriate": "婴儿拍嗝的步骤（0-1 个月）" (Steps for burping infants (0-1 months));
-  >   * Generate queries focusing on "novice scenario": "新手爸妈给满月宝宝拍嗝技巧" (Tips for novice parents burping one-month-old babies).
+  > * User's original question is "How to burp a one-month-old baby", will generate queries focusing on "posture": "Correct posture for burping newborns";
+  >   * Generate queries focusing on "preventing spit-up": "Methods for burping one-month-old babies to avoid spit-up";
+  >   * Generate queries focusing on "age-appropriate": "Steps for burping infants (0-1 months)";
+  >   * Generate queries focusing on "novice scenario": "Tips for novice parents burping one-month-old babies".
   >
   > 3. Sub-Query
   >
   > For composite questions containing multiple demands, split into independent, simple sub-queries, allowing the retrieval system to precisely match data for single demands, avoiding mixed and missing information.
   >
-  > * User's original composite question is "北京到上海的高铁，明天有哪些班次？票价多少？需要坐多久？" (High-speed rail from Beijing to Shanghai, what are tomorrow's schedules? How much are tickets? How long does it take?), will split into sub-queries focusing on "schedules": "北京市至上海市 明日高铁班次表" (Beijing city to Shanghai city tomorrow high-speed rail schedule table);
-  >   * Split into sub-queries focusing on "ticket prices": "北京到上海高铁 二等座 / 一等座票价" (Beijing to Shanghai high-speed rail second-class / first-class ticket prices);
-  >   * Split into sub-queries focusing on "duration": "北京到上海高铁 行驶时长（最快 / 平均）" (Beijing to Shanghai high-speed rail travel time (fastest / average)).
+  > * User's original composite question is "High-speed rail from Beijing to Shanghai, what are tomorrow's schedules? How much are tickets? How long does it take?", will split into sub-queries focusing on "schedules": "Beijing city to Shanghai city tomorrow high-speed rail schedule table";
+  >   * Split into sub-queries focusing on "ticket prices": "Beijing to Shanghai high-speed rail second-class / first-class ticket prices";
+  >   * Split into sub-queries focusing on "duration": "Beijing to Shanghai high-speed rail travel time (fastest / average)".
   >
   > 4. Step-back Prompting
   >
   > First generate a "more macro higher-level question than the original question," then deduce retrieval direction based on higher-level logic, solving understanding bias caused by the original question focusing on details.
   >
-  > * User's original question is "为什么 2024 年某国产新能源汽车品牌的销量突然下降？" (Why did a domestic new energy vehicle brand's sales suddenly drop in 2024?), first step generates a macro higher-level question: "影响新能源汽车品牌短期销量波动的核心因素有哪些？" (What are the core factors affecting short-term sales fluctuations of new energy vehicle brands?) (such as product iteration, competitor moves, policy changes, market demand, etc.);
-  > * Second step, based on higher-level question logic, generates specific retrieval directions: "2024 年某国产新能源品牌 产品更新情况" (2024 domestic new energy brand product update situation), "2024 年新能源汽车市场 竞品定价策略" (2024 new energy vehicle market competitor pricing strategy), "2024 年新能源汽车补贴政策调整" (2024 new energy vehicle subsidy policy adjustments).
+  > * User's original question is "Why did a domestic new energy vehicle brand's sales suddenly drop in 2024?", first step generates a macro higher-level question: "What are the core factors affecting short-term sales fluctuations of new energy vehicle brands?" (such as product iteration, competitor moves, policy changes, market demand, etc.);
+  > * Second step, based on higher-level question logic, generates specific retrieval directions: "2024 domestic new energy brand product update situation", "2024 new energy vehicle market competitor pricing strategy", "2024 new energy vehicle subsidy policy adjustments".
   >
 
 After retrieval, the focus is on governing well the "retrieved content":
@@ -489,7 +472,7 @@ At the implementation level, LLM usage in RAG is mainly divided into two types:
 2. Large models as cloud API services. Suitable for scenarios pursuing rapid launch, elastic scaling, and continuous model iteration. Mainstream providers such as OpenAI (GPT-4 series), Anthropic (Claude series), Google (Gemini series), and domestic Alibaba (Tongyi Qianwen), Zhipu AI (GLM series), etc. all provide stable API services. These models generally have powerful language understanding and generation capabilities, capable of high-quality completion of RAG scenario answer synthesis tasks.
    When choosing cloud models, need to focus on several key points: whether answer quality is accurate and fluent, whether pricing is reasonable, whether response speed is fast enough, whether context window is large enough (can hold retrieved multiple documents). In actual use, can first take several candidate models for comparative testing, seeing which answers more accurately and completely. If cost-sensitive, can use "large and small model pairing": use cheap small models for simple questions, only call expensive large models for complex questions, saving money while ensuring effectiveness. Additionally, large models update quickly, suggest regularly testing new models, timely replacing with better-performing versions.
 
-For comprehensive capability evaluation of large language models in dialogue and Q&A scenarios, [LMSYS Chatbot Arena (LMArena)](https://lmarena.ai/) provides an industry-recognized gold evaluation benchmark. The platform uses an innovative "blind test battle" mechanism - human evaluators, without knowing model identities, compare the quality of responses from two anonymous models to the same prompt, ranking models through大量的 such pairwise comparisons.
+For comprehensive capability evaluation of large language models in dialogue and Q&A scenarios, [LMSYS Chatbot Arena (LMArena)](https://lmarena.ai/) provides an industry-recognized gold evaluation benchmark. The platform uses an innovative "blind test battle" mechanism - human evaluators, without knowing model identities, compare the quality of responses from two anonymous models to the same prompt, ranking models through a large number of such pairwise comparisons.
 
 The following is an example of arena rankings (as of December 15, 2025):
 
@@ -635,7 +618,7 @@ A pragmatic suggestion is **start with a streamlined combination, gradually impr
 * **Generation evaluation**: According to task characteristics, choose one or two from EM, ROUGE-L, BertScore as baseline
 * **Comprehensive evaluation**: Introduce LLM judge, focusing on three dimensions of relevance, completeness, and faithfulness
 
-On this basis, adopt the cycle iteration of "evaluation → discover problems → adjust strategies → re-evaluate." For example, finding good recall rate but very low MRR, focus on optimizing reranking; finding high hallucination rate, strengthen faithfulness constraints to retrieved documents; finding poor answer quality for certain question types, specifically supplement细分指标.
+On this basis, adopt the cycle iteration of "evaluation → discover problems → adjust strategies → re-evaluate." For example, finding good recall rate but very low MRR, focus on optimizing reranking; finding high hallucination rate, strengthen faithfulness constraints to retrieved documents; finding poor answer quality for certain question types, specifically supplement detailed indicators.
 
 This progressive building approach allows teams to quickly start, establish basic cognition of system effects, and gradually improve the evaluation system as understanding deepens, ultimately forming an evaluation solution suitable for their business scenario.
 
@@ -653,7 +636,7 @@ According to evaluation objectives and usage scenarios, we can divide RAG evalua
 
 * **RAGAS** (2023.09) is one of the earliest comprehensive RAG evaluation frameworks, adopting LLM-as-a-Judge mode, simultaneously evaluating retrieval and generation links
 * **ARES** (2023.11) introduces classifier-assisted evaluation methods, combining LLM judgment and traditional classifiers to evaluate Context relevance and Answer relevance
-* **RGB** (2023.12) focuses on generation phase evaluation, proposing细分 dimensions such as Info Integration, NoiseRobust, NegRejection, Counterfact
+* **RGB** (2023.12) focuses on generation phase evaluation, proposing detailed dimensions such as Info Integration, NoiseRobust, NegRejection, Counterfact
 * **MultiHop-RAG** (2024.01) targets multi-hop reasoning scenarios, focusing on evaluating retrieval relevance (Retrieval C) and answer correctness (Response C), using metrics such as MAP, MRR, Hit@K
 * **CRUD-RAG** (2024.02) simulates real knowledge management scenarios, evaluating system performance under four operations of Create, Read, Update, Delete, introducing RAGQuerEval scoring system
 
@@ -673,7 +656,7 @@ Besides, a batch of tools are also commonly recognized and recommended in the co
 
 The importance of evaluation benchmarks in practice is often underestimated. Many teams when building RAG systems, often rush to start evaluation based only on a small amount of human-written test questions, leading to significant gaps between actual online effects and test phase performance. The root cause of this problem is the lack of representative and systematic evaluation data, difficult to truly reflect complex and changing business scenarios.
 
-An evaluation benchmark that can effectively support system iteration usually has three core characteristics. First is representativeness, test data need to comprehensively cover various scenarios in real business, including high-frequency common questions, complex boundary cases, and abnormal inputs, etc.; second is standardization, format, difficulty coefficient, and scoring standards of questions and answers need unified norms, ensuring evaluation results have comparability and repeatability; third is evolvability, benchmarks should be able to continuously update with system capability improvement and business demand changes, avoiding evaluation distortion caused by固化 "test-taking" data.
+An evaluation benchmark that can effectively support system iteration usually has three core characteristics. First is representativeness, test data need to comprehensively cover various scenarios in real business, including high-frequency common questions, complex boundary cases, and abnormal inputs, etc.; second is standardization, format, difficulty coefficient, and scoring standards of questions and answers need unified norms, ensuring evaluation results have comparability and repeatability; third is evolvability, benchmarks should be able to continuously update with system capability improvement and business demand changes, avoiding evaluation distortion caused by fixed "test-taking" data.
 
 For most enterprises, due to business scenario uniqueness, ultimately often need to build their own evaluation datasets.
 
@@ -779,7 +762,7 @@ Background: Task 1 requires retrieval summary based on 5 web pages, for example 
 
 Peking University db3 team designed refined web data processing flow for task 1. Uses BeautifulSoup to extract web page text, ParentDocumentRetriever manages parent-child chunk relationships (child chunks 200 tokens for retrieval, parent chunks 500-2000 tokens for generation), ensuring retrieval accuracy and generation completeness. Embedding model chooses bge-base-en-v1.5, vector library uses Chroma, reranking adopts bge-reranker-v2-m3. The team also supplements public data in fields such as movies and finance (such as IMDB movie data, listed company reports), converting to standard format before storing in database. At model level uses LoRA to fine-tune Llama-3-8B-instruct, training data includes invalid question labels (such as "how's the weather today" type questions beyond knowledge base scope), correct answers, etc.
 
-Tasks 2-3's key innovation lies in prioritizing knowledge graphs. The team designed standardized API calling mechanisms, including interfaces such as get_person (query character information), get_movie (query movie information), etc., supporting conditional filtering (such as cmp operator filtering movies with box office > 500 million) and sorting (by box office descending). API call generation uses GPT-4 for preliminary labeling then人工优化 for fine-tuning. During system execution, first calls knowledge graph APIs, only falls back to web retrieval when knowledge graph results are invalid (such as queried movie not in database), this design greatly improves query efficiency and answer accuracy.
+Tasks 2-3's key innovation lies in prioritizing knowledge graphs. The team designed standardized API calling mechanisms, including interfaces such as get_person (query character information), get_movie (query movie information), etc., supporting conditional filtering (such as cmp operator filtering movies with box office > 500 million) and sorting (by box office descending). API call generation uses GPT-4 for preliminary labeling then manual optimization for fine-tuning. During system execution, first calls knowledge graph APIs, only falls back to web retrieval when knowledge graph results are invalid (such as queried movie not in database), this design greatly improves query efficiency and answer accuracy.
 
 Through knowledge graph priority strategy and structured output format, the system significantly reduces LLM hallucination phenomena. When knowledge graphs can provide definitive answers (such as "Nolan's birth year"), directly outputs without going through generation step; when needing to retrieve from web (such as "Nolan's latest interview content"), ensures answers are verifiable through strict document citation and step-by-step reasoning.
 
@@ -801,13 +784,13 @@ Related research: [https://arxiv.org/pdf/2410.05779](https://arxiv.org/pdf/2410.
 
 ![](images/image12.png)
 
-Traditional RAG works by finding text passages similar to the question, like picking out the most relevant passages from a pile of materials. For directly finding specific information, this method is very effective. But if a question needs to联系 multiple documents and combine different clues to answer, its performance will suffer.
+Traditional RAG works by finding text passages similar to the question, like picking out the most relevant passages from a pile of materials. For directly finding specific information, this method is very effective. But if a question needs to link multiple documents and combine different clues to answer, its performance will suffer.
 
 For example, a doctor might want to ask: "Based on these cases and the latest treatment guidelines, how to evaluate the benefits and risks of a certain drug for elderly patients?" Or a project team might care: "Considering past two years of requirement documents, review records, and online problem reports, which part of our system architecture most often has problems?" The key to such questions is not finding a certain sentence, but finding the people, things, objects mentioned in various scattered materials and the connections between them, sorting out clues, forming a complete panoramic view.
 
 Graph RAG's approach is to proactively draw this panoramic view first. The system uses large models to identify key elements from text (such as characters, institutions, functional modules, events, data, etc.) and their relationships (such as who caused what, what depends on what, how to change, what conflicts, etc.), thereby building a knowledge network that continuously enriches as materials increase. Then, through automatic grouping, elements and relationships with close connections are classified into different themes, and for each theme, a summary description is generated in advance. This way, when users ask questions, the system no longer merely finds semantically most similar passages, but first finds elements and local structures most relevant to the question in the knowledge network, then extends along connection lines to relevant theme groups, finally giving these analysis paths, node explanations, and corresponding original text segments together to the large model for reasoning and organizing answers.
 
-Under this framework, Graph RAG and traditional RAG form good division and collaboration: traditional RAG is still good at answering direct, one-step detail questions; while Graph RAG is more like human thinking when doing research or writing reports - first sort out overall structure and themes (build networks and grouping), then fill in specific evidence (cite original text), finally give logical, conditional conclusions. Existing system comparisons also show that in tasks requiring联系 multiple information points for reasoning, Graph RAG can usually cover more key content, provide more comprehensive perspectives; and according to specific question characteristics, flexibly combining both methods, overall effect is often better than using only one.
+Under this framework, Graph RAG and traditional RAG form good division and collaboration: traditional RAG is still good at answering direct, one-step detail questions; while Graph RAG is more like human thinking when doing research or writing reports - first sort out overall structure and themes (build networks and grouping), then fill in specific evidence (cite original text), finally give logical, conditional conclusions. Existing system comparisons also show that in tasks requiring linking multiple information points for reasoning, Graph RAG can usually cover more key content, provide more comprehensive perspectives; and according to specific question characteristics, flexibly combining both methods, overall effect is often better than using only one.
 
 ## 7.2 Multimodal RAG
 
@@ -912,7 +895,7 @@ https://arxiv.org/pdf/2502.11371
 
 https://developers.llamaindex.ai/python/framework/understanding/rag/
 
-[14] All-in-RAG | 大模型应用开发实战：RAG 技术全栈指南.
+[14] All-in-RAG | LLM Application Development in Practice: RAG Technology Full Stack Guide.
 
 https://datawhalechina.github.io/all-in-rag/#/en/
 
@@ -928,7 +911,7 @@ https://github.com/aishwaryanr/awesome-generative-ai-guide/blob/main/research_up
 
 https://www.llamaindex.ai/blog/rag-is-dead-long-live-agentic-retrieval
 
-[18] LLM/RAG Zoomcamp 課外補充 5：RAG Evolution 常見評估方法和市場偏好.
+[18] LLM/RAG Zoomcamp Extra Supplement 5: RAG Evolution Common Evaluation Methods and Market Preferences.
 
 https://vip.studycamp.tw/t/llmrag-zoomcamp-%E8%AA%B2%E5%A4%96%E8%A3%9C%E5%85%A85%EF%BC%9Arag-evolution-%E5%B8%B8%E8%A6%8B%E8%A9%95%E4%BC%A6%E6%96%B9%E6%B3%95%E5%92%8C%E5%B8%82%E5%A0%B4%E5%81%8F%E5%A5%BD/8185
 

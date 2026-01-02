@@ -106,7 +106,7 @@ You can **install Trae first**. Open your browser and visit https://www.trae.cn,
 
 ![](images/image6.png)
 
-**Then install HBuilderX**. Visit https://www.dcloud.io/hbuilderx.html and select the distribution package for your corresponding operating system to download. HBuilderX's package is very small and starts up very fast. After installation, you can first familiarize yourself with its interface—no need to深入研究功能; in later chapters, we'll use it to create a uni-app mini program template as the starting point for the entire project.
+**Then install HBuilderX**. Visit https://www.dcloud.io/hbuilderx.html and select the distribution package for your corresponding operating system to download. HBuilderX's package is very small and starts up very fast. After installation, you can first familiarize yourself with its interface—no need to deeply research its features; in later chapters, we'll use it to create a uni-app mini program template as the starting point for the entire project.
 
 ![](images/image7.png)
 
