@@ -1,168 +1,168 @@
-# 扩展知识 4 - 什么是 AI IDE 和 Trae
+# Extended Knowledge 4 - What are AI IDEs and Trae
 
-在之前的学习阶段，我们使用 z.ai 搭建了最简单的 Web 程序和网页小游戏。但如果我们想要构建更复杂的应用——比如功能更完善的网站、桌面程序，甚至是手机应用——就必须在自己的电脑上使用专业的编程软件来编写代码。
+In previous learning stages, we used z.ai to build the simplest web programs and web games. But if we want to build more complex applications - such as more feature-complete websites, desktop programs, or even mobile applications - we must use professional programming software on our own computers to write code.
 
-最早的时候，只需要在一个简单的文本文件里写好程序，再用专门的语言处理器去读取并打包执行就够了。但随着代码量越来越大、项目结构越来越复杂，人工管理大量文件、手动编辑庞大的项目变得越来越困难。开发者因此迫切需要一种工具，能够高效管理和切换大量代码文件，支持多种编程语言的语法高亮，并可以快速定位和调试问题。于是，集成开发环境（IDE，Integrated Development Environment）就应运而生了。
+In the earliest days, you only needed to write a program in a simple text file, then use a specialized language processor to read, package, and execute it. But as code volume grew larger and project structures became more complex, manually managing large numbers of files and editing huge projects became increasingly difficult. Developers urgently needed a tool that could efficiently manage and switch between large numbers of code files, support syntax highlighting for multiple programming languages, and quickly locate and debug issues. Thus, the Integrated Development Environment (IDE) was born.
 
-你可以把 IDE 理解成一种专门用来“编辑、管理、运行和调试”各种应用源代码的程序。在真正打包发布之前，不同语言写出来的程序本质上只是特定格式的代码文件而已，你可以用普通文本编辑器打开它们，也可以用 IDE 打开。早期的计算机几乎完全通过终端来操作（只用键盘就能完成所有操作，几乎不需要鼠标），所以早期的 IDE 外观也非常“原始”——除非你额外安装插件来实现简单的交互式界面。
+You can understand an IDE as a program specifically designed to "edit, manage, run, and debug" various application source codes. Before actual packaging and release, programs written in different languages are essentially just code files in specific formats - you can open them with a regular text editor or with an IDE. Early computers were operated almost entirely through terminals (all operations could be completed with just a keyboard, almost no mouse needed), so early IDEs also had very "primitive" appearances - unless you additionally installed plugins to implement simple interactive interfaces.
 
 ![](images/image1.png)![](images/image2.png)
 
-终端界面（Terminal）
+Terminal Interface
 
-图片来源：https://en.wikipedia.org/wiki/File:Emacs-screenshot.png
+Image source: https://en.wikipedia.org/wiki/File:Emacs-screenshot.png
 
-一个非常知名、功能成熟的“内置 IDE”叫做 `Vim`。在很多服务器上，你都可以直接用它来编辑文件（服务器通常没有显示屏，只能通过键盘远程操作）。
+A very well-known and mature "built-in IDE" is called `Vim`. On many servers, you can use it directly to edit files (servers usually don't have displays and can only be operated remotely through keyboards).
 
 ![](images/image3.png)
 
-现代 IDE 通常具有更加美观直观的图形界面，并提供更强大的编辑、运行和调试能力。一个典型的 IDE 通常包含以下核心组件：
+Modern IDEs usually have more beautiful and intuitive graphical interfaces, providing more powerful editing, running, and debugging capabilities. A typical IDE usually contains the following core components:
 
-* **源代码编辑器（Source Code Editor）**：专门用于编写和编辑代码的文本编辑器，一般具备语法高亮、代码自动补全、实时错误提示等功能。
-* **构建与运行工具（编译器 / 解释器）**：IDE 内置编译器或解释器，可以将开发者写好的源代码转换成计算机可以执行的机器代码。
-* **调试器（Debugger）**：用于测试和排查代码错误的工具。它支持逐行执行代码、查看变量状态、设置断点等，帮助开发者定位并修复程序中的问题。
+* **Source Code Editor**: A text editor specifically designed for writing and editing code, typically featuring syntax highlighting, automatic code completion, real-time error提示, and other functions.
+* **Build and Run Tools (Compiler/Interpreter)**: The IDE has built-in compilers or interpreters that can convert source code written by developers into machine code that computers can execute.
+* **Debugger**: A tool for testing and troubleshooting code errors. It supports executing code line by line, viewing variable states, setting breakpoints, etc., helping developers locate and fix problems in their programs.
 
-除此之外，现代 IDE 往往还内置版本控制工具（如 Git）和项目管理工具等实用功能。当下最流行的 IDE 之一是微软出品的 **[Visual Studio Code (VS Code)](https://code.visualstudio.com/)**。它轻量、可扩展性极强，因此被广泛使用。当然，也有很多开发者推荐 JetBrains 家的专业 IDE，比如用于 Python 的 PyCharm、用于 C/C++ 的 CLion 等，它们对特定语言提供了更深入、更完整的支持。但从入门友好度和通用性角度出发，我们更推荐初学者优先选择 VS Code 作为主要开发工具。
+In addition, modern IDEs often include practical features like version control tools (such as Git) and project management tools. One of the most popular IDEs today is Microsoft's **[Visual Studio Code (VS Code)](https://code.visualstudio.com/)**. It's lightweight and extremely extensible, so it's widely used. Of course, many developers also recommend JetBrains' professional IDEs, such as PyCharm for Python or CLion for C/C++, which provide deeper and more complete support for specific languages. But from the perspective of beginner-friendliness and versatility, we recommend beginners prioritize VS Code as their main development tool.
 
 ![](images/image4.png)
 
-# 现代 IDE：VS Code
+# Modern IDE: VS Code
 
-Visual Studio Code（简称 VS Code）是由微软开发的一款免费、开源且功能强大的现代代码编辑器。自 2015 年发布以来，凭借优异的性能和灵活性，它迅速成为全球最受欢迎的开发工具之一。
+Visual Studio Code (VS Code for short) is a free, open-source, and powerful modern code editor developed by Microsoft. Since its release in 2015, it has rapidly become one of the most popular development tools worldwide, thanks to its excellent performance and flexibility.
 
-VS Code 的核心理念之一是“一切皆插件”。不同编程语言可以用来编写不同类型的程序，而每种语言都有自己独特的语法高亮规则和导航能力（比如“跳转到定义”“查找引用”等）。要让一个 IDE 原生支持所有语言几乎是不可能的——从逻辑上讲，你会需要为每一种语言单独准备一个 IDE 才行。
+One of VS Code's core philosophies is "everything is a plugin." Different programming languages can be used to write different types of programs, and each language has its own unique syntax highlighting rules and navigation capabilities (like "jump to definition," "find references," etc.). Making an IDE natively support all languages is nearly impossible - logically, you would need to prepare a separate IDE for each language.
 
-VS Code 巧妙地通过“插件机制”解决了这一问题。比如，如果你要写 Python，就安装 Python 插件，它会提供 Python 专属的语法高亮、自动补全和代码导航功能；如果你要写 C/C++，则可以安装对应的 C/C++ 插件来获得相应支持。在不安装任何插件的情况下，VS Code 本质上只是一个“高级的文本文件管理器”；当你为某种语言安装了对应插件之后，它就会“变身”成该语言的理想开发工具。
+VS Code cleverly solves this problem through a "plugin mechanism." For example, if you want to write Python, install the Python plugin, which provides Python-specific syntax highlighting, auto-completion, and code navigation features; if you want to write C/C++, you can install the corresponding C/C++ plugin to get support. Without installing any plugins, VS Code is essentially just an "advanced text file manager"; when you install the corresponding plugin for a language, it "transforms" into the ideal development tool for that language.
 
 ![](images/image5.png)
 
-除了编写代码以外，你甚至可以把 VS Code 当作编辑 Markdown 文档的工具来使用。
+Besides writing code, you can even use VS Code as a tool for editing Markdown documents.
 
 ![](images/image6.png)
 
-总之，你可以在 VS Code 的扩展市场中浏览和下载各类扩展，为不同类型的文件提供更好用的编辑体验，也可以根据需要搜索不同语言和调试工具的插件，尝试它们如何提升你的工作效率。
+In short, you can browse and download various extensions in VS Code's extension marketplace to provide better editing experiences for different types of files. You can also search for plugins for different languages and debugging tools as needed to try how they can improve your work efficiency.
 
-# 现代 AI IDE
+# Modern AI IDE
 
-上面介绍的都属于“传统意义上的现代 IDE”。但随着人工智能时代的到来，越来越多的代码开始由大语言模型来自动生成，这自然催生出一种新的开发工具形态——AI IDE，也就是可以利用大语言模型自动写代码的 IDE。
+The tools introduced above all belong to "traditional modern IDEs." But with the arrival of the AI era, more and more code is being automatically generated by large language models, which naturally gave birth to a new form of development tool - the AI IDE, which is an IDE that can use large language models to automatically write code.
 
-在最新版 VS Code 中，已经内置了一个大语言模型助手。你可以直接针对整个代码仓库、某个文件，甚至某个函数与模型对话。
+In the latest version of VS Code, a large language model assistant is already built in. You can directly converse with the model for an entire code repository, a specific file, or even a specific function.
 
-你也可以像之前在 Web 端使用自动写代码工具一样，将需求以提示词的形式发给内置的编码 Agent，让它自动帮你实现所需功能、创建文件、修改代码、配置环境等。
+You can also, just like when using auto-coding tools on the web before, send requirements in the form of prompts to the built-in coding Agent, letting it automatically help you implement required features, create files, modify code, configure environments, etc.
 
-典型的 AI IDE 一般具备以下核心能力：
+Typical AI IDEs generally have the following core capabilities:
 
-* 智能代码生成与补全：在传统 IDE 中，我们通常是输入几个字符来补全变量名或函数名；在现代 AI IDE 中，你可以写几行伪代码或者简单说明需求，让 IDE 自动补全完整的逻辑，甚至根据指令直接生成一大段甚至整块代码。
-* 代码理解与问答：IDE 能够理解并回答关于某段代码、某个文件，甚至整个工程目录结构的问题。
-* 代码重构与优化：IDE 可以根据你的意图，重写或优化指定代码片段的实现逻辑。
-* 自动生成测试：IDE 可以自动生成针对不同函数和模块的测试代码，方便你进行有针对性的测试。
-* Agent 式任务执行：智能 Agent 可以自动生成、打包、安装、运行和修改代码，在很多任务上可以部分替代初级软件工程师的工作。
+* Intelligent code generation and completion: In traditional IDEs, we usually type a few characters to complete variable names or function names; in modern AI IDEs, you can write a few lines of pseudocode or simply describe requirements, letting the IDE automatically complete the entire logic, or even directly generate large segments or entire blocks of code based on instructions.
+* Code understanding and Q&A: The IDE can understand and answer questions about specific code segments, specific files, or even the entire project directory structure.
+* Code refactoring and optimization: The IDE can rewrite or optimize the implementation logic of specified code segments based on your intentions.
+* Automatic test generation: The IDE can automatically generate test code for different functions and modules, making it easier for you to conduct targeted testing.
+* Agent-style task execution: Intelligent Agents can automatically generate, package, install, run, and modify code, partially replacing the work of junior software engineers in many tasks.
 
-在最新版 VS Code 中，你可以点击右上角的侧边栏入口，打开 AI 功能区域，体验这些能力。
+In the latest version of VS Code, you can click the sidebar entry in the upper right corner to open the AI functionality area and experience these capabilities.
 
 ![](images/image7.png)
 
-不过，VS Code 并不是 AI 能力最强的 IDE。对于需要大量 AI 辅助编码的场景，我们往往希望使用“更聪明、效率更高”的工具——好的 AI IDE 能显著节省写代码和改 Bug 的时间。下面我们会介绍几款目前比较流行的 AI IDE，重点讲解 Trae IDE。你可以根据个人喜好选择任意一款 AI IDE 使用。
+However, VS Code is not the IDE with the strongest AI capabilities. For scenarios requiring extensive AI-assisted coding, we often want to use "smarter, more efficient" tools - good AI IDEs can significantly save time on writing code and fixing bugs. Below we'll introduce several currently popular AI IDEs, focusing on Trae IDE. You can choose any AI IDE based on personal preference.
 
-由于 VS Code 是开源的（任何人都可以下载源码并自行编译），目前市面上绝大多数 AI IDE 都是在 VS Code 基础上二次开发而来。所以你不必担心要“学习很多种 IDE”——一旦你熟悉了 VS Code 的基本用法，迁移到这些 AI IDE 基本不需要重新学习。
+Since VS Code is open source (anyone can download the source code and compile it themselves), most AI IDEs on the market today are developed based on VS Code. So you don't need to worry about "learning many different IDEs" - once you're familiar with VS Code's basic usage, migrating to these AI IDEs requires almost no relearning.
 
-如果要简单概括这些 AI IDE 之间的差异，主要集中在四个方面：价格；可使用的模型种类（部分高级模型在某些地区可能受限）；Agent 的能力（在协助写代码时的智能程度和执行能力）；以及运行速度与性能。
+To briefly summarize the differences between these AI IDEs, they mainly focus on four aspects: price; available model types (some advanced models may be restricted in certain regions); Agent capabilities (intelligence level and execution ability when assisting with coding); and running speed and performance.
 
 ## Trae
 
 ![](images/image8.png)
 
-Trae 是字节跳动推出的一款 AI 编程助手，支持 100 多种编程语言，并能集成到主流 IDE 中。它的功能包括：用自然语言生成代码、自动调试、把设计稿转换为 React/Vue 组件等。在 2025 年 8 月的更新之后，Trae 新增了智能依赖导入、重命名建议、任务清单管理等功能；SOLO 模式也开始支持后端代码生成和技术架构文档编辑。
+Trae is an AI programming assistant launched by ByteDance, supporting over 100 programming languages and capable of integrating with mainstream IDEs. Its features include: generating code with natural language, automatic debugging, converting design drafts into React/Vue components, etc. After the August 2025 update, Trae added smart dependency imports, rename suggestions, task list management, and other features; SOLO mode also began supporting backend code generation and technical architecture document editing.
 
 ## Cursor
 
-Cursor 是 Anysphere 开发的一款 AI 代码编辑器，基于 VS Code 定制，重点优化了大规模代码仓库和多文件协同的场景。它支持 GPT-4o、Claude 3.7 等模型；2025 年推出的 Claude Max 模式可以处理数百万行代码级别的项目。专业版取消了请求次数限制，非常适合复杂的企业级项目。
+Cursor is an AI code editor developed by Anysphere, customized based on VS Code, with a focus on optimizing large-scale code repositories and multi-file collaboration scenarios. It supports models like GPT-4o, Claude 3.7, etc.; the Claude Max mode launched in 2025 can handle projects with millions of lines of code. The professional version removes request count limits, making it very suitable for complex enterprise-level projects.
 
-目前，Cursor 可以说是“带前端界面的 AI IDE”中综合体验最好的一款之一，用户数量庞大，功能迭代频率也很高。它最大的缺点是价格较高——专业版大约需要每月 20 美元。
+Currently, Cursor can be said to be one of the AI IDEs with the best overall experience among "those with frontend interfaces," with a large user base and high feature iteration frequency. Its biggest disadvantage is the higher price - the professional version costs about $20 per month.
 
 ![](images/image9.png)
 
 ## Qoder
 
-Qoder 是阿里巴巴推出的一款强调“透明协作”和“增强上下文工程能力”的 AI IDE。它通过 Action Flow 支持把任务拆解成多个步骤，并实时跟踪 AI 的执行过程；还支持多模型动态路由和任务状态机管理，非常适合在中大型项目中做架构治理和对遗留系统进行“反向工程”分析。
+Qoder is an AI IDE launched by Alibaba that emphasizes "transparent collaboration" and "enhanced context engineering capabilities." It supports breaking down tasks into multiple steps through Action Flow and tracks AI's execution process in real time; it also supports multi-model dynamic routing and task state machine management, making it very suitable for architecture governance in medium-to-large projects and "reverse engineering" analysis of legacy systems.
 
 ![](images/image10.png)
 
 ## CodeBuddy
 
-CodeBuddy 是腾讯云推出的一款 AI 编程工具，强调对中文指令的支持以及企业级合规能力。它提供代码补全、批量代码审查和多模型切换等功能；其中的 Craft 智能体可以实现多文件代码生成和 API 集成。企业版支持私有化部署，并通过了三级等保认证，适合金融、医疗等对数据安全要求较高的行业。
+CodeBuddy is an AI programming tool launched by Tencent Cloud that emphasizes support for Chinese instructions and enterprise-level compliance capabilities. It provides features like code completion, batch code review, and multi-model switching; its Craft agent can achieve multi-file code generation and API integration. The enterprise version supports private deployment and has passed Level 3 certification, making it suitable for industries with high data security requirements like finance and healthcare.
 
 ![](images/image11.png)
 
-## windsurf（已不推荐）
+## Windsurf (No Longer Recommended)
 
-Windsurf 最初因其基于 Agent 的 AI 编程能力而受到关注。但由于 2024 年团队调整以及模型权限问题，它的稳定性大幅下降，目前已经不再推荐使用。尽管在前一年它还可以与 Cursor 分庭抗礼，但现在基本可以视为“被淘汰”的工具。
+Windsurf initially received attention for its Agent-based AI programming capabilities. But due to team adjustments in 2024 and model permission issues, its stability declined significantly, and it's currently no longer recommended. Although in the previous year it could still compete with Cursor, it can now basically be considered a "phased out" tool.
 
 ![](images/image12.png)
 
 ## VS Code + Cline
 
-Cline 是 VS Code（Visual Studio Code）的一款 AI 编程 Agent 插件，可以通过配置不同的 API 端点来灵活切换所使用的大模型。Cline 支持多模态输入、MCP 工具扩展以及成本监控，所有操作都需要用户确认后才会执行。它非常适合用于快速验证想法，或与现有开发流程集成。基础功能是免费的，企业版则支持在私有环境中部署模型。
+Cline is an AI programming Agent plugin for VS Code (Visual Studio Code) that can flexibly switch between different large models by configuring different API endpoints. Cline supports multimodal input, MCP tool extensions, and cost monitoring, with all operations requiring user confirmation before execution. It's very suitable for quickly validating ideas or integrating with existing development workflows. Basic features are free, while the enterprise version supports deploying models in private environments.
 
 ![](images/image13.png)
 
 ![](images/image14.png)
 
-# 什么是 Trae
+# What is Trae
 
-Trae 的全称可以理解为 “The Real AI Engineer”，是一款由字节跳动开发的自适应 AI 集成开发环境（IDE）。它是在流行的 VS Code 基础之上构建的，这意味着，如果你之前已经习惯了 VS Code，那么在使用 Trae 时，无论是界面布局还是基础操作都会感到非常熟悉、舒适。
+Trae's full name can be understood as "The Real AI Engineer," an adaptive AI Integrated Development Environment (IDE) developed by ByteDance. It's built on top of the popular VS Code, which means that if you're already accustomed to VS Code, using Trae will feel very familiar and comfortable in terms of both interface layout and basic operations.
 
-Trae 的核心目标是成为开发者的“智能编程伙伴”。通过深度集成 AI 能力，它可以自动处理大量重复性工作，为你提供更直观、更高效的开发体验。它并不仅仅是一个“代码补全工具”，而是希望贯穿整个开发工作流，从创建项目、编写代码、调试、测试到部署都提供帮助。
+Trae's core goal is to be the developer's "intelligent programming partner." Through deep integration of AI capabilities, it can automatically handle a large amount of repetitive work, providing you with a more intuitive and efficient development experience. It's not just a "code completion tool," but hopes to provide help throughout the entire development workflow, from creating projects, writing code, debugging, testing to deployment.
 
-## 安装 Trae
+## Installing Trae
 
-Trae 分为国际版和中国版。国际版需要能够访问海外网络，但可以使用 GPT-5、Claude 4 等最新的海外模型；中国版则主要支持国内最新的大模型，例如 GLM、Qwen、Kimi 等。
+Trae is divided into an international version and a Chinese version. The international version requires access to overseas networks but can use the latest overseas models like GPT-5, Claude 4, etc.; the Chinese version mainly supports the latest domestic large models, such as GLM, Qwen, Kimi, etc.
 
-国际版下载地址：
+International version download address:
 
 https://www.trae.ai/
 
 ![](images/image15.png)
 
-中国版下载地址：
+Chinese version download address:
 
 https://www.trae.cn/
 
 ![](images/image16.png)
 
-## Trae 界面简介
+## Trae Interface Introduction
 
-简单来说，Trae 和 VS Code 看起来几乎一模一样。
+Simply put, Trae and VS Code look almost identical.
 
 ![](images/image17.png)
 
-右侧的侧边栏就是 Copilot 交互窗口，也可以理解为 Agent 窗口。如果你暂时看不到它，可以点击 Trae 右上角的侧边栏图标将其打开。
+The sidebar on the right is the Copilot interaction window, which can also be understood as the Agent window. If you don't see it temporarily, you can click the sidebar icon in Trae's upper right corner to open it.
 
 ![](images/image18.png)
 
-打开侧边栏之后，你会看到一个 `Builder` 选项，这就是 Agent 模式。简单理解，它相当于 z.ai 的“本地版”，可以帮你操作本机环境，安装运行环境、打开网页等。
+After opening the sidebar, you'll see a `Builder` option - this is Agent mode. Simply put, it's equivalent to a "local version" of z.ai that can help you operate your local environment, install runtime environments, open webpages, etc.
 
 ![](images/image19.png)
 
-点击 “Builder” 后，你会看到 “Chat” 模式和 “Builder with MCP” 模式：
+After clicking "Builder," you'll see "Chat" mode and "Builder with MCP" mode:
 
-* **Chat 模式**：主要用于和当前文件夹里的代码对话，或者当作普通聊天模型来使用。（你可以通过左上角的 “File” 菜单打开一个文件夹，在这个文件夹中进行编辑操作。在这种情况下，Builder 创建或修改的文件都只会发生在这个文件夹内部。）
-* **Builder with MCP 模式**：为 Agent 提供了更多可用工具（例如把语言模型和其他软件联通起来、查询天气等）。你可以简单理解为：MCP 能让语言模型更方便地调用各种外部工具。
+* **Chat Mode**: Mainly used for conversing with code in the current folder, or used as a regular chat model. (You can open a folder through the "File" menu in the upper left corner and perform editing operations within that folder. In this case, files created or modified by Builder will only occur within this folder.)
+* **Builder with MCP Mode**: Provides more available tools for the Agent (such as connecting language models with other software, querying weather, etc.). You can simply understand it as: MCP allows language models to more conveniently call various external tools.
 
 ![](images/image20.png)
 
-在下面的区域，你还会看到模型选择选项，点击即可修改当前使用的大模型。在中国版中，你可以选择使用 Kimi k2 或 GLM 等国内模型；如果你使用的是国际版 Trae，还可以选择 ChatGPT 或 Claude 等海外模型。不过，由于国内大模型发展非常快，Kimi、Qwen、GLM 等在很多任务上的实际体验已经接近 Claude 3.5 或 3.7，对日常开发来说已经完全够用。
+In the area below, you'll also see model selection options - click to modify the large model currently in use. In the Chinese version, you can choose to use domestic models like Kimi k2 or GLM; if you're using the international version of Trae, you can also choose overseas models like ChatGPT or Claude. However, since domestic large models are developing very quickly, Kimi, Qwen, GLM, etc. already have practical experience close to Claude 3.5 or 3.7 in many tasks, which is completely sufficient for daily development.
 
 ![](images/image21.png)
 
-以上就是对 Trae 的一个简单介绍。接下来，我们可以回顾一下之前在 z.ai 中做过的操作，并尝试在 Trae 中做同样的事情。
+The above is just a simple introduction to Trae. Next, we can review the operations we did in z.ai before and try to do the same things in Trae.
 
-## 使用 Trae 安装 Python 和前端环境
+## Using Trae to Install Python and Frontend Environments
 
-大多数情况下，我们的 Windows 笔记本电脑默认不会预装前端开发所需的 Node.js 环境，或用于后端 / 通用开发的 Python 环境。我们可以尝试直接在 Trae 的 Agent 模式中跟它对话，让它帮我们安装 Python 环境或 Node.js 环境。
+In most cases, our Windows laptops don't come pre-installed with the Node.js environment needed for frontend development, or the Python environment needed for backend/general development. We can try conversing directly with Trae's Agent mode to let it help us install the Python environment or Node.js environment.
 
 ![](images/image22.png)
 
-## 📚 作业：用 Trae 写你的第一个程序
+## 📚 Assignment: Write Your First Program with Trae
 
-接下来，请尝试用 Trae 来完成你的第一个程序！你还记得之前的 AI 贪吃蛇游戏吗？把当时在 z.ai 中使用的那条提示词原封不动地输入到 Trae 的 Agent 模式中，看看会发生什么吧！
+Next, please try to complete your first program using Trae! Do you remember the previous AI Snake game? Take that prompt you used in z.ai, enter it verbatim into Trae's Agent mode, and see what happens!
